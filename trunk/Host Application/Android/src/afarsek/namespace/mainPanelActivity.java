@@ -2,6 +2,7 @@ package afarsek.namespace;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ public class mainPanelActivity extends Activity
 	private TextView mTitle;
 	private String mConnectedDeviceName = null; // Name of the connected device
 	private hardwareFacade hwFacade = null;
+	private BluetoothAdapter mBluetoothAdapter;
 
 	// Constants
 	public static final String EXTRA_DEVICE_ADDRESS = "device_address";
@@ -51,6 +53,16 @@ public class mainPanelActivity extends Activity
 		{
 			mConnectedDeviceName = extras.getString(EXTRA_DEVICE_ADDRESS);
 		}
+		
+		// Get local Bluetooth adapter
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        // If the adapter is null, then Bluetooth is not supported
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
 	}
 
 	@Override
@@ -59,6 +71,12 @@ public class mainPanelActivity extends Activity
 		super.onStart();
 		if (hwFacade == null)
 			hwFacade = new hardwareFacade(this, mHandler);
+		
+		// Get the BT device from name
+		BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(mConnectedDeviceName);
+        
+		// Attempt to connect to the device
+		hwFacade.connect(device);
 	}
 
 	@Override
