@@ -1,0 +1,1273 @@
+   1               		.file	"HID.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.DCOMP_HID_Host_NextHIDInterface,"ax",@progbits
+  18               	DCOMP_HID_Host_NextHIDInterface:
+  19               	.LFB126:
+  20               	.LSM0:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	/* stack size = 0 */
+  25               	.L__stack_usage = 0
+  26 0000 FC01      		movw r30,r24
+  27               	.LVL1:
+  28               	.LSM1:
+  29 0002 8181      		ldd r24,Z+1
+  30               	.LVL2:
+  31 0004 8430      		cpi r24,lo8(4)
+  32 0006 01F4      		brne .L3
+  33               	.LVL3:
+  34               	.LBB47:
+  35               	.LSM2:
+  36 0008 8581      		ldd r24,Z+5
+  37 000a 8330      		cpi r24,lo8(3)
+  38 000c 01F0      		breq .L4
+  39               	.LVL4:
+  40               	.L3:
+  41               	.LBE47:
+  42               	.LSM3:
+  43 000e 82E0      		ldi r24,lo8(2)
+  44 0010 0895      		ret
+  45               	.LVL5:
+  46               	.L4:
+  47               	.LBB48:
+  48               	.LSM4:
+  49 0012 80E0      		ldi r24,lo8(0)
+  50               	.LBE48:
+  51               	.LSM5:
+  52 0014 0895      		ret
+  53               	.LFE126:
+  55               		.section	.text.DCOMP_HID_Host_NextHIDDescriptor,"ax",@progbits
+  57               	DCOMP_HID_Host_NextHIDDescriptor:
+  58               	.LFB127:
+  59               	.LSM6:
+  60               	.LVL6:
+  61               	/* prologue: function */
+  62               	/* frame size = 0 */
+  63               	/* stack size = 0 */
+  64               	.L__stack_usage = 0
+  65               	.LSM7:
+  66 0000 FC01      		movw r30,r24
+  67 0002 8181      		ldd r24,Z+1
+  68               	.LVL7:
+  69 0004 8132      		cpi r24,lo8(33)
+  70 0006 01F0      		breq .L7
+  71               	.LSM8:
+  72 0008 8430      		cpi r24,lo8(4)
+  73 000a 01F4      		brne .L8
+  74               	.LSM9:
+  75 000c 81E0      		ldi r24,lo8(1)
+  76 000e 0895      		ret
+  77               	.L7:
+  78               	.LSM10:
+  79 0010 80E0      		ldi r24,lo8(0)
+  80 0012 0895      		ret
+  81               	.L8:
+  82               	.LSM11:
+  83 0014 82E0      		ldi r24,lo8(2)
+  84               	.LSM12:
+  85 0016 0895      		ret
+  86               	.LFE127:
+  88               		.section	.text.DCOMP_HID_Host_NextHIDInterfaceEndpoint,"ax",@progbits
+  90               	DCOMP_HID_Host_NextHIDInterfaceEndpoint:
+  91               	.LFB128:
+  92               	.LSM13:
+  93               	.LVL8:
+  94               	/* prologue: function */
+  95               	/* frame size = 0 */
+  96               	/* stack size = 0 */
+  97               	.L__stack_usage = 0
+  98 0000 FC01      		movw r30,r24
+  99               	.LVL9:
+ 100               	.LSM14:
+ 101 0002 8181      		ldd r24,Z+1
+ 102               	.LVL10:
+ 103 0004 8530      		cpi r24,lo8(5)
+ 104 0006 01F4      		brne .L10
+ 105               	.LVL11:
+ 106               	.LBB49:
+ 107               	.LSM15:
+ 108 0008 8281      		ldd r24,Z+2
+ 109 000a 0E94 0000 		call Pipe_IsEndpointBound
+ 110               	.LVL12:
+ 111 000e 8823      		tst r24
+ 112 0010 01F4      		brne .L14
+ 113 0012 00C0      		rjmp .L12
+ 114               	.LVL13:
+ 115               	.L10:
+ 116               	.LBE49:
+ 117               	.LSM16:
+ 118 0014 8430      		cpi r24,lo8(4)
+ 119 0016 01F0      		breq .L13
+ 120               	.LVL14:
+ 121               	.L14:
+ 122               	.LSM17:
+ 123 0018 82E0      		ldi r24,lo8(2)
+ 124 001a 0895      		ret
+ 125               	.L12:
+ 126               	.LBB50:
+ 127               	.LSM18:
+ 128 001c 80E0      		ldi r24,lo8(0)
+ 129 001e 0895      		ret
+ 130               	.LVL15:
+ 131               	.L13:
+ 132               	.LBE50:
+ 133               	.LSM19:
+ 134 0020 81E0      		ldi r24,lo8(1)
+ 135               	.LSM20:
+ 136 0022 0895      		ret
+ 137               	.LFE128:
+ 139               		.section	.text.HID_Host_ConfigurePipes,"ax",@progbits
+ 140               	.global	HID_Host_ConfigurePipes
+ 142               	HID_Host_ConfigurePipes:
+ 143               	.LFB125:
+ 144               	.LSM21:
+ 145               	.LVL16:
+ 146 0000 3F92      		push r3
+ 147 0002 4F92      		push r4
+ 148 0004 5F92      		push r5
+ 149 0006 6F92      		push r6
+ 150 0008 7F92      		push r7
+ 151 000a 8F92      		push r8
+ 152 000c 9F92      		push r9
+ 153 000e AF92      		push r10
+ 154 0010 BF92      		push r11
+ 155 0012 CF92      		push r12
+ 156 0014 DF92      		push r13
+ 157 0016 EF92      		push r14
+ 158 0018 FF92      		push r15
+ 159 001a 0F93      		push r16
+ 160 001c 1F93      		push r17
+ 161 001e DF93      		push r29
+ 162 0020 CF93      		push r28
+ 163 0022 00D0      		rcall .
+ 164 0024 00D0      		rcall .
+ 165 0026 0F92      		push __tmp_reg__
+ 166 0028 CDB7      		in r28,__SP_L__
+ 167 002a DEB7      		in r29,__SP_H__
+ 168               	/* prologue: function */
+ 169               	/* frame size = 5 */
+ 170               	/* stack size = 22 */
+ 171               	.L__stack_usage = 22
+ 172 002c 6C01      		movw r12,r24
+ 173 002e 7A83      		std Y+2,r23
+ 174 0030 6983      		std Y+1,r22
+ 175 0032 5C83      		std Y+4,r21
+ 176 0034 4B83      		std Y+3,r20
+ 177               	.LVL17:
+ 178               	.LSM22:
+ 179 0036 0796      		adiw r24,7
+ 180               	.LVL18:
+ 181 0038 FC01      		movw r30,r24
+ 182 003a 8CE0      		ldi r24,lo8(12)
+ 183 003c DF01      		movw r26,r30
+ 184 003e 1D92      		st X+,__zero_reg__
+ 185 0040 8A95      	        dec r24
+ 186 0042 01F4      		brne .-6
+ 187               	.LSM23:
+ 188 0044 EB81      		ldd r30,Y+3
+ 189 0046 FC81      		ldd r31,Y+4
+ 190 0048 8181      		ldd r24,Z+1
+ 191 004a 8230      		cpi r24,lo8(2)
+ 192 004c 01F0      		breq .+2
+ 193 004e 00C0      		rjmp .L31
+ 194 0050 4424      		clr r4
+ 195 0052 5524      		clr r5
+ 196 0054 6624      		clr r6
+ 197 0056 7724      		clr r7
+ 198 0058 AA24      		clr r10
+ 199 005a BB24      		clr r11
+ 200 005c 8824      		clr r8
+ 201 005e 9924      		clr r9
+ 202               	.LBB51:
+ 203               	.LSM24:
+ 204 0060 83E0      		ldi r24,lo8(3)
+ 205 0062 E82E      		mov r14,r24
+ 206 0064 F12C      		mov r15,__zero_reg__
+ 207 0066 EC0E      		add r14,r28
+ 208 0068 FD1E      		adc r15,r29
+ 209 006a 8E01      		movw r16,r28
+ 210 006c 0F5F      		subi r16,lo8(-(1))
+ 211 006e 1F4F      		sbci r17,hi8(-(1))
+ 212               	.LVL19:
+ 213               	.L42:
+ 214               	.LSM25:
+ 215 0070 6114      		cp r6,__zero_reg__
+ 216 0072 7104      		cpc r7,__zero_reg__
+ 217 0074 01F0      		breq .L18
+ 218               	.LSM26:
+ 219 0076 C801      		movw r24,r16
+ 220 0078 B701      		movw r22,r14
+ 221               	.LVL20:
+ 222 007a 40E0      		ldi r20,lo8(gs(DCOMP_HID_Host_NextHIDInterfaceEndpoint))
+ 223 007c 50E0      		ldi r21,hi8(gs(DCOMP_HID_Host_NextHIDInterfaceEndpoint))
+ 224               	.LVL21:
+ 225 007e 0E94 0000 		call USB_GetNextDescriptorComp
+ 226               	.LSM27:
+ 227 0082 8823      		tst r24
+ 228 0084 01F0      		breq .L19
+ 229               	.L18:
+ 230               	.LSM28:
+ 231 0086 8114      		cp r8,__zero_reg__
+ 232 0088 9104      		cpc r9,__zero_reg__
+ 233 008a 01F4      		brne .L20
+ 234               	.LSM29:
+ 235 008c A114      		cp r10,__zero_reg__
+ 236 008e B104      		cpc r11,__zero_reg__
+ 237 0090 01F4      		brne .L20
+ 238               	.L38:
+ 239               	.LSM30:
+ 240 0092 C801      		movw r24,r16
+ 241 0094 B701      		movw r22,r14
+ 242 0096 40E0      		ldi r20,lo8(gs(DCOMP_HID_Host_NextHIDInterface))
+ 243 0098 50E0      		ldi r21,hi8(gs(DCOMP_HID_Host_NextHIDInterface))
+ 244 009a 0E94 0000 		call USB_GetNextDescriptorComp
+ 245 009e 8823      		tst r24
+ 246 00a0 01F0      		breq .+2
+ 247 00a2 00C0      		rjmp .L33
+ 248               	.LSM31:
+ 249 00a4 6B80      		ldd r6,Y+3
+ 250 00a6 7C80      		ldd r7,Y+4
+ 251               	.LVL22:
+ 252               	.LSM32:
+ 253 00a8 F601      		movw r30,r12
+ 254 00aa 8481      		ldd r24,Z+4
+ 255               	.LSM33:
+ 256 00ac 8823      		tst r24
+ 257 00ae 01F0      		breq .L21
+ 258               	.LSM34:
+ 259 00b0 D301      		movw r26,r6
+ 260 00b2 1796      		adiw r26,7
+ 261 00b4 9C91      		ld r25,X
+ 262 00b6 1797      		sbiw r26,7
+ 263 00b8 9817      		cp r25,r24
+ 264 00ba 01F4      		brne .L38
+ 265               	.L21:
+ 266               	.LSM35:
+ 267 00bc C801      		movw r24,r16
+ 268 00be B701      		movw r22,r14
+ 269 00c0 40E0      		ldi r20,lo8(gs(DCOMP_HID_Host_NextHIDDescriptor))
+ 270 00c2 50E0      		ldi r21,hi8(gs(DCOMP_HID_Host_NextHIDDescriptor))
+ 271 00c4 0E94 0000 		call USB_GetNextDescriptorComp
+ 272               	.LVL23:
+ 273 00c8 8823      		tst r24
+ 274 00ca 01F0      		breq .+2
+ 275 00cc 00C0      		rjmp .L33
+ 276               	.LSM36:
+ 277 00ce 4B80      		ldd r4,Y+3
+ 278 00d0 5C80      		ldd r5,Y+4
+ 279               	.LVL24:
+ 280 00d2 00C0      		rjmp .L42
+ 281               	.LVL25:
+ 282               	.L19:
+ 283               	.LSM37:
+ 284 00d4 EB81      		ldd r30,Y+3
+ 285 00d6 FC81      		ldd r31,Y+4
+ 286               	.LVL26:
+ 287               	.LSM38:
+ 288 00d8 8281      		ldd r24,Z+2
+ 289 00da 87FF      		sbrs r24,7
+ 290 00dc 00C0      		rjmp .L34
+ 291               	.LSM39:
+ 292 00de 4F01      		movw r8,r30
+ 293 00e0 00C0      		rjmp .L24
+ 294               	.L34:
+ 295               	.LSM40:
+ 296 00e2 5F01      		movw r10,r30
+ 297               	.L24:
+ 298               	.LVL27:
+ 299               	.LBE51:
+ 300               	.LSM41:
+ 301 00e4 8114      		cp r8,__zero_reg__
+ 302 00e6 9104      		cpc r9,__zero_reg__
+ 303 00e8 01F0      		breq .L42
+ 304               	.LSM42:
+ 305 00ea A114      		cp r10,__zero_reg__
+ 306 00ec B104      		cpc r11,__zero_reg__
+ 307 00ee 01F4      		brne .+2
+ 308 00f0 00C0      		rjmp .L42
+ 309               	.LVL28:
+ 310               	.L20:
+ 311               	.LBB52:
+ 312               	.LSM43:
+ 313 00f2 91E0      		ldi r25,lo8(1)
+ 314               	.LBE52:
+ 315               	.LBB53:
+ 316               	.LBB54:
+ 317               	.LSM44:
+ 318 00f4 3324      		clr r3
+ 319 00f6 3394      		inc r3
+ 320               	.LVL29:
+ 321               	.L29:
+ 322               	.LSM45:
+ 323 00f8 F601      		movw r30,r12
+ 324 00fa 8081      		ld r24,Z
+ 325 00fc 9817      		cp r25,r24
+ 326 00fe 01F4      		brne .L25
+ 327               	.LSM46:
+ 328 0100 D401      		movw r26,r8
+ 329 0102 1496      		adiw r26,4
+ 330 0104 0D91      		ld r16,X+
+ 331 0106 1C91      		ld r17,X
+ 332 0108 1597      		sbiw r26,4+1
+ 333               	.LVL30:
+ 334               	.LSM47:
+ 335 010a 1296      		adiw r26,2
+ 336 010c 2C91      		ld r18,X
+ 337 010e 1297      		sbiw r26,2
+ 338               	.LVL31:
+ 339               	.LSM48:
+ 340 0110 8181      		ldd r24,Z+1
+ 341               	.LVL32:
+ 342               	.LSM49:
+ 343 0112 1696      		adiw r26,6
+ 344 0114 FC90      		ld r15,X
+ 345 0116 1697      		sbiw r26,6
+ 346               	.LVL33:
+ 347               	.LSM50:
+ 348 0118 1287      		std Z+10,r17
+ 349 011a 0187      		std Z+9,r16
+ 350               	.LSM51:
+ 351 011c 40E1      		ldi r20,lo8(16)
+ 352 011e 00C0      		rjmp .L26
+ 353               	.LVL34:
+ 354               	.L25:
+ 355               	.LSM52:
+ 356 0120 F601      		movw r30,r12
+ 357 0122 8281      		ldd r24,Z+2
+ 358 0124 9817      		cp r25,r24
+ 359 0126 01F4      		brne .L27
+ 360               	.LSM53:
+ 361 0128 A114      		cp r10,__zero_reg__
+ 362 012a B104      		cpc r11,__zero_reg__
+ 363 012c 01F0      		breq .L27
+ 364               	.LSM54:
+ 365 012e D501      		movw r26,r10
+ 366 0130 1496      		adiw r26,4
+ 367 0132 0D91      		ld r16,X+
+ 368 0134 1C91      		ld r17,X
+ 369 0136 1597      		sbiw r26,4+1
+ 370               	.LVL35:
+ 371               	.LSM55:
+ 372 0138 1296      		adiw r26,2
+ 373 013a 2C91      		ld r18,X
+ 374 013c 1297      		sbiw r26,2
+ 375               	.LVL36:
+ 376               	.LSM56:
+ 377 013e 8381      		ldd r24,Z+3
+ 378               	.LVL37:
+ 379               	.LSM57:
+ 380 0140 1696      		adiw r26,6
+ 381 0142 FC90      		ld r15,X
+ 382 0144 1697      		sbiw r26,6
+ 383               	.LVL38:
+ 384               	.LSM58:
+ 385 0146 1487      		std Z+12,r17
+ 386 0148 0387      		std Z+11,r16
+ 387               	.LSM59:
+ 388 014a 3686      		std Z+14,r3
+ 389               	.LSM60:
+ 390 014c 40E2      		ldi r20,lo8(32)
+ 391               	.LVL39:
+ 392               	.L26:
+ 393               	.LSM61:
+ 394 014e 8823      		tst r24
+ 395 0150 01F0      		breq .L35
+ 396 0152 34E0      		ldi r19,lo8(4)
+ 397 0154 00C0      		rjmp .L28
+ 398               	.L35:
+ 399 0156 30E0      		ldi r19,lo8(0)
+ 400               	.L28:
+ 401               	.LSM62:
+ 402 0158 892F      		mov r24,r25
+ 403               	.LVL40:
+ 404 015a 63E0      		ldi r22,lo8(3)
+ 405 015c E32E      		mov r14,r19
+ 406 015e 9D83      		std Y+5,r25
+ 407 0160 0E94 0000 		call Pipe_ConfigurePipe
+ 408               	.LVL41:
+ 409 0164 9D81      		ldd r25,Y+5
+ 410 0166 8823      		tst r24
+ 411 0168 01F0      		breq .L36
+ 412               	.LSM63:
+ 413 016a FF20      		tst r15
+ 414 016c 01F0      		breq .L27
+ 415               	.LVL42:
+ 416               	.LBB55:
+ 417               	.LBB56:
+ 418               	.LSM64:
+ 419 016e F092 AD00 		sts 173,r15
+ 420               	.LVL43:
+ 421               	.L27:
+ 422               	.LBE56:
+ 423               	.LBE55:
+ 424               	.LBE54:
+ 425               	.LSM65:
+ 426 0172 9F5F      		subi r25,lo8(-(1))
+ 427               	.LVL44:
+ 428 0174 9730      		cpi r25,lo8(7)
+ 429 0176 01F0      		breq .+2
+ 430 0178 00C0      		rjmp .L29
+ 431               	.LBE53:
+ 432               	.LSM66:
+ 433 017a F301      		movw r30,r6
+ 434 017c 8281      		ldd r24,Z+2
+ 435 017e D601      		movw r26,r12
+ 436 0180 1896      		adiw r26,8
+ 437 0182 8C93      		st X,r24
+ 438 0184 1897      		sbiw r26,8
+ 439               	.LSM67:
+ 440 0186 F201      		movw r30,r4
+ 441 0188 8781      		ldd r24,Z+7
+ 442 018a 9085      		ldd r25,Z+8
+ 443 018c 5196      		adiw r26,16+1
+ 444 018e 9C93      		st X,r25
+ 445 0190 8E93      		st -X,r24
+ 446 0192 5097      		sbiw r26,16
+ 447               	.LSM68:
+ 448 0194 81E0      		ldi r24,lo8(1)
+ 449 0196 D301      		movw r26,r6
+ 450 0198 1696      		adiw r26,6
+ 451 019a 9C91      		ld r25,X
+ 452 019c 1697      		sbiw r26,6
+ 453               	.LVL45:
+ 454 019e 9923      		tst r25
+ 455 01a0 01F4      		brne .L30
+ 456 01a2 80E0      		ldi r24,lo8(0)
+ 457               	.L30:
+ 458 01a4 F601      		movw r30,r12
+ 459 01a6 8587      		std Z+13,r24
+ 460               	.LSM69:
+ 461 01a8 88E0      		ldi r24,lo8(8)
+ 462 01aa 828B      		std Z+18,r24
+ 463               	.LSM70:
+ 464 01ac 81E0      		ldi r24,lo8(1)
+ 465 01ae 8783      		std Z+7,r24
+ 466               	.LSM71:
+ 467 01b0 80E0      		ldi r24,lo8(0)
+ 468 01b2 00C0      		rjmp .L16
+ 469               	.LVL46:
+ 470               	.L31:
+ 471               	.LSM72:
+ 472 01b4 81E0      		ldi r24,lo8(1)
+ 473 01b6 00C0      		rjmp .L16
+ 474               	.LVL47:
+ 475               	.L33:
+ 476               	.LBB58:
+ 477               	.LSM73:
+ 478 01b8 82E0      		ldi r24,lo8(2)
+ 479 01ba 00C0      		rjmp .L16
+ 480               	.LVL48:
+ 481               	.L36:
+ 482               	.LBE58:
+ 483               	.LBB59:
+ 484               	.LBB57:
+ 485               	.LSM74:
+ 486 01bc 83E0      		ldi r24,lo8(3)
+ 487               	.LVL49:
+ 488               	.L16:
+ 489               	/* epilogue start */
+ 490               	.LBE57:
+ 491               	.LBE59:
+ 492               	.LSM75:
+ 493 01be 0F90      		pop __tmp_reg__
+ 494 01c0 0F90      		pop __tmp_reg__
+ 495 01c2 0F90      		pop __tmp_reg__
+ 496 01c4 0F90      		pop __tmp_reg__
+ 497 01c6 0F90      		pop __tmp_reg__
+ 498 01c8 CF91      		pop r28
+ 499 01ca DF91      		pop r29
+ 500 01cc 1F91      		pop r17
+ 501 01ce 0F91      		pop r16
+ 502 01d0 FF90      		pop r15
+ 503 01d2 EF90      		pop r14
+ 504 01d4 DF90      		pop r13
+ 505 01d6 CF90      		pop r12
+ 506               	.LVL50:
+ 507 01d8 BF90      		pop r11
+ 508 01da AF90      		pop r10
+ 509 01dc 9F90      		pop r9
+ 510 01de 8F90      		pop r8
+ 511 01e0 7F90      		pop r7
+ 512 01e2 6F90      		pop r6
+ 513 01e4 5F90      		pop r5
+ 514 01e6 4F90      		pop r4
+ 515 01e8 3F90      		pop r3
+ 516 01ea 0895      		ret
+ 517               	.LFE125:
+ 519               		.section	.text.HID_Host_ReceiveReportByID,"ax",@progbits
+ 520               	.global	HID_Host_ReceiveReportByID
+ 522               	HID_Host_ReceiveReportByID:
+ 523               	.LFB129:
+ 524               	.LSM76:
+ 525               	.LVL51:
+ 526 0000 0F93      		push r16
+ 527 0002 1F93      		push r17
+ 528 0004 CF93      		push r28
+ 529 0006 DF93      		push r29
+ 530               	/* prologue: function */
+ 531               	/* frame size = 0 */
+ 532               	/* stack size = 4 */
+ 533               	.L__stack_usage = 4
+ 534 0008 FC01      		movw r30,r24
+ 535 000a 162F      		mov r17,r22
+ 536 000c EA01      		movw r28,r20
+ 537               	.LSM77:
+ 538 000e 0085      		ldd r16,Z+8
+ 539               	.LSM78:
+ 540 0010 8581      		ldd r24,Z+5
+ 541 0012 9681      		ldd r25,Z+6
+ 542               	.LVL52:
+ 543 0014 40E0      		ldi r20,lo8(0)
+ 544               	.LVL53:
+ 545 0016 0E94 0000 		call USB_GetHIDReportSize
+ 546               	.LVL54:
+ 547               	.LSM79:
+ 548 001a 21E2      		ldi r18,lo8(33)
+ 549 001c 2093 0000 		sts USB_ControlRequest,r18
+ 550 0020 29E0      		ldi r18,lo8(9)
+ 551 0022 2093 0000 		sts USB_ControlRequest+1,r18
+ 552               	.LSM80:
+ 553 0026 612F      		mov r22,r17
+ 554 0028 70E0      		ldi r23,lo8(0)
+ 555 002a 7160      		ori r23,hi8(256)
+ 556               	.LSM81:
+ 557 002c 7093 0000 		sts USB_ControlRequest+2+1,r23
+ 558 0030 6093 0000 		sts USB_ControlRequest+2,r22
+ 559 0034 0093 0000 		sts USB_ControlRequest+4,r16
+ 560 0038 1092 0000 		sts USB_ControlRequest+5,__zero_reg__
+ 561 003c 9093 0000 		sts USB_ControlRequest+6+1,r25
+ 562 0040 8093 0000 		sts USB_ControlRequest+6,r24
+ 563               	.LVL55:
+ 564               	.LBB60:
+ 565               	.LBB61:
+ 566               	.LSM82:
+ 567 0044 1092 A700 		sts 167,__zero_reg__
+ 568               	.LBE61:
+ 569               	.LBE60:
+ 570               	.LSM83:
+ 571 0048 CE01      		movw r24,r28
+ 572 004a 0E94 0000 		call USB_Host_SendControlRequest
+ 573               	/* epilogue start */
+ 574               	.LSM84:
+ 575 004e DF91      		pop r29
+ 576 0050 CF91      		pop r28
+ 577               	.LVL56:
+ 578 0052 1F91      		pop r17
+ 579               	.LVL57:
+ 580 0054 0F91      		pop r16
+ 581 0056 0895      		ret
+ 582               	.LFE129:
+ 584               		.section	.text.HID_Host_ReceiveReport,"ax",@progbits
+ 585               	.global	HID_Host_ReceiveReport
+ 587               	HID_Host_ReceiveReport:
+ 588               	.LFB130:
+ 589               	.LSM85:
+ 590               	.LVL58:
+ 591 0000 EF92      		push r14
+ 592 0002 FF92      		push r15
+ 593 0004 CF93      		push r28
+ 594 0006 DF93      		push r29
+ 595               	/* prologue: function */
+ 596               	/* frame size = 0 */
+ 597               	/* stack size = 4 */
+ 598               	.L__stack_usage = 4
+ 599 0008 FC01      		movw r30,r24
+ 600               	.LSM86:
+ 601 000a 8091 0000 		lds r24,USB_HostState
+ 602               	.LVL59:
+ 603 000e 8B30      		cpi r24,lo8(11)
+ 604 0010 01F4      		brne .L50
+ 605               	.LSM87:
+ 606 0012 8781      		ldd r24,Z+7
+ 607 0014 8823      		tst r24
+ 608 0016 01F0      		breq .L50
+ 609               	.LSM88:
+ 610 0018 8081      		ld r24,Z
+ 611               	.LVL60:
+ 612               	.LBB62:
+ 613               	.LBB63:
+ 614               	.LSM89:
+ 615 001a 8093 A700 		sts 167,r24
+ 616               	.LBE63:
+ 617               	.LBE62:
+ 618               	.LBB64:
+ 619               	.LBB65:
+ 620               	.LSM90:
+ 621 001e 8091 A900 		lds r24,169
+ 622 0022 8F7B      		andi r24,lo8(-65)
+ 623 0024 8093 A900 		sts 169,r24
+ 624               	.LBE65:
+ 625               	.LBE64:
+ 626               	.LSM91:
+ 627 0028 E62E      		mov r14,r22
+ 628 002a E701      		movw r28,r14
+ 629 002c 7E01      		movw r14,r28
+ 630 002e F72E      		mov r15,r23
+ 631 0030 E701      		movw r28,r14
+ 632               	.LVL61:
+ 633               	.LSM92:
+ 634 0032 8785      		ldd r24,Z+15
+ 635 0034 8823      		tst r24
+ 636 0036 01F4      		brne .L46
+ 637               	.LVL62:
+ 638               	.LBB66:
+ 639               	.LSM93:
+ 640 0038 A581      		ldd r26,Z+5
+ 641 003a B681      		ldd r27,Z+6
+ 642 003c A852      		subi r26,lo8(-(984))
+ 643 003e BC4F      		sbci r27,hi8(-(984))
+ 644 0040 8C91      		ld r24,X
+ 645 0042 8823      		tst r24
+ 646 0044 01F0      		breq .L51
+ 647               	.LBB67:
+ 648               	.LBB68:
+ 649               	.LSM94:
+ 650 0046 6091 AF00 		lds r22,175
+ 651               	.LVL63:
+ 652               	.LBE68:
+ 653               	.LBE67:
+ 654               	.LSM95:
+ 655 004a 6993      		st Y+,r22
+ 656               	.LVL64:
+ 657 004c 00C0      		rjmp .L47
+ 658               	.LVL65:
+ 659               	.L51:
+ 660               	.LSM96:
+ 661 004e 60E0      		ldi r22,lo8(0)
+ 662               	.LVL66:
+ 663               	.L47:
+ 664               	.LSM97:
+ 665 0050 8581      		ldd r24,Z+5
+ 666 0052 9681      		ldd r25,Z+6
+ 667 0054 40E0      		ldi r20,lo8(0)
+ 668 0056 0E94 0000 		call USB_GetHIDReportSize
+ 669               	.LVL67:
+ 670 005a BC01      		movw r22,r24
+ 671               	.LVL68:
+ 672 005c 00C0      		rjmp .L48
+ 673               	.LVL69:
+ 674               	.L46:
+ 675               	.LBE66:
+ 676               	.LBB69:
+ 677               	.LBB70:
+ 678               	.LSM98:
+ 679 005e 6091 F600 		lds r22,246
+ 680 0062 7091 F700 		lds r23,246+1
+ 681               	.LVL70:
+ 682               	.L48:
+ 683               	.LBE70:
+ 684               	.LBE69:
+ 685               	.LSM99:
+ 686 0066 CE01      		movw r24,r28
+ 687 0068 40E0      		ldi r20,lo8(0)
+ 688 006a 50E0      		ldi r21,hi8(0)
+ 689 006c 0E94 0000 		call Pipe_Read_Stream_LE
+ 690               	.LVL71:
+ 691 0070 8823      		tst r24
+ 692 0072 01F4      		brne .L45
+ 693               	.LBB71:
+ 694               	.LBB72:
+ 695               	.LSM100:
+ 696 0074 9091 A600 		lds r25,166
+ 697 0078 9E77      		andi r25,lo8(126)
+ 698 007a 9093 A600 		sts 166,r25
+ 699               	.LBE72:
+ 700               	.LBE71:
+ 701               	.LBB73:
+ 702               	.LBB74:
+ 703               	.LSM101:
+ 704 007e 9091 A900 		lds r25,169
+ 705 0082 9064      		ori r25,lo8(64)
+ 706 0084 9093 A900 		sts 169,r25
+ 707               	.LBE74:
+ 708               	.LBE73:
+ 709               	.LSM102:
+ 710 0088 00C0      		rjmp .L45
+ 711               	.LVL72:
+ 712               	.L50:
+ 713               	.LSM103:
+ 714 008a 82E0      		ldi r24,lo8(2)
+ 715               	.LVL73:
+ 716               	.L45:
+ 717               	/* epilogue start */
+ 718               	.LSM104:
+ 719 008c DF91      		pop r29
+ 720 008e CF91      		pop r28
+ 721 0090 FF90      		pop r15
+ 722 0092 EF90      		pop r14
+ 723 0094 0895      		ret
+ 724               	.LFE130:
+ 726               		.section	.text.HID_Host_SendReportByID,"ax",@progbits
+ 727               	.global	HID_Host_SendReportByID
+ 729               	HID_Host_SendReportByID:
+ 730               	.LFB131:
+ 731               	.LSM105:
+ 732               	.LVL74:
+ 733 0000 EF92      		push r14
+ 734 0002 FF92      		push r15
+ 735 0004 0F93      		push r16
+ 736 0006 1F93      		push r17
+ 737 0008 DF93      		push r29
+ 738 000a CF93      		push r28
+ 739 000c 0F92      		push __tmp_reg__
+ 740 000e CDB7      		in r28,__SP_L__
+ 741 0010 DEB7      		in r29,__SP_H__
+ 742               	/* prologue: function */
+ 743               	/* frame size = 1 */
+ 744               	/* stack size = 7 */
+ 745               	.L__stack_usage = 7
+ 746 0012 FC01      		movw r30,r24
+ 747 0014 6983      		std Y+1,r22
+ 748 0016 7901      		movw r14,r18
+ 749               	.LSM106:
+ 750 0018 8091 0000 		lds r24,USB_HostState
+ 751               	.LVL75:
+ 752 001c 8B30      		cpi r24,lo8(11)
+ 753 001e 01F0      		breq .+2
+ 754 0020 00C0      		rjmp .L57
+ 755               	.LVL76:
+ 756               	.LSM107:
+ 757 0022 8781      		ldd r24,Z+7
+ 758 0024 8823      		tst r24
+ 759 0026 01F4      		brne .+2
+ 760 0028 00C0      		rjmp .L57
+ 761               	.LSM108:
+ 762 002a 8685      		ldd r24,Z+14
+ 763 002c 8823      		tst r24
+ 764 002e 01F0      		breq .L54
+ 765               	.LSM109:
+ 766 0030 4130      		cpi r20,lo8(1)
+ 767 0032 01F4      		brne .L54
+ 768               	.LBB75:
+ 769               	.LSM110:
+ 770 0034 8281      		ldd r24,Z+2
+ 771               	.LVL77:
+ 772               	.LBB76:
+ 773               	.LBB77:
+ 774               	.LSM111:
+ 775 0036 8093 A700 		sts 167,r24
+ 776               	.LBE77:
+ 777               	.LBE76:
+ 778               	.LBB78:
+ 779               	.LBB79:
+ 780               	.LSM112:
+ 781 003a 8091 A900 		lds r24,169
+ 782 003e 8F7B      		andi r24,lo8(-65)
+ 783 0040 8093 A900 		sts 169,r24
+ 784               	.LBE79:
+ 785               	.LBE78:
+ 786               	.LSM113:
+ 787 0044 8981      		ldd r24,Y+1
+ 788 0046 8823      		tst r24
+ 789 0048 01F0      		breq .L55
+ 790               	.LSM114:
+ 791 004a CE01      		movw r24,r28
+ 792 004c 0196      		adiw r24,1
+ 793 004e 61E0      		ldi r22,lo8(1)
+ 794 0050 70E0      		ldi r23,hi8(1)
+ 795               	.LVL78:
+ 796 0052 40E0      		ldi r20,lo8(0)
+ 797 0054 50E0      		ldi r21,hi8(0)
+ 798               	.LVL79:
+ 799 0056 0E94 0000 		call Pipe_Write_Stream_LE
+ 800               	.LVL80:
+ 801               	.L55:
+ 802               	.LSM115:
+ 803 005a C701      		movw r24,r14
+ 804 005c B801      		movw r22,r16
+ 805 005e 40E0      		ldi r20,lo8(0)
+ 806 0060 50E0      		ldi r21,hi8(0)
+ 807 0062 0E94 0000 		call Pipe_Write_Stream_LE
+ 808               	.LVL81:
+ 809 0066 8823      		tst r24
+ 810 0068 01F4      		brne .L53
+ 811               	.LBB80:
+ 812               	.LBB81:
+ 813               	.LSM116:
+ 814 006a 9091 A600 		lds r25,166
+ 815 006e 9B77      		andi r25,lo8(123)
+ 816 0070 9093 A600 		sts 166,r25
+ 817               	.LBE81:
+ 818               	.LBE80:
+ 819               	.LBB82:
+ 820               	.LBB83:
+ 821               	.LSM117:
+ 822 0074 9091 A900 		lds r25,169
+ 823 0078 9064      		ori r25,lo8(64)
+ 824 007a 9093 A900 		sts 169,r25
+ 825               	.LBE83:
+ 826               	.LBE82:
+ 827               	.LSM118:
+ 828 007e 00C0      		rjmp .L53
+ 829               	.LVL82:
+ 830               	.L54:
+ 831               	.LBE75:
+ 832               	.LSM119:
+ 833 0080 50E0      		ldi r21,lo8(0)
+ 834 0082 4F5F      		subi r20,lo8(-(1))
+ 835 0084 5F4F      		sbci r21,hi8(-(1))
+ 836               	.LVL83:
+ 837 0086 542F      		mov r21,r20
+ 838 0088 4427      		clr r20
+ 839 008a 8981      		ldd r24,Y+1
+ 840 008c 90E0      		ldi r25,lo8(0)
+ 841 008e 482B      		or r20,r24
+ 842 0090 592B      		or r21,r25
+ 843               	.LSM120:
+ 844 0092 8085      		ldd r24,Z+8
+ 845 0094 91E2      		ldi r25,lo8(33)
+ 846 0096 9093 0000 		sts USB_ControlRequest,r25
+ 847 009a 99E0      		ldi r25,lo8(9)
+ 848 009c 9093 0000 		sts USB_ControlRequest+1,r25
+ 849 00a0 5093 0000 		sts USB_ControlRequest+2+1,r21
+ 850 00a4 4093 0000 		sts USB_ControlRequest+2,r20
+ 851 00a8 8093 0000 		sts USB_ControlRequest+4,r24
+ 852 00ac 1092 0000 		sts USB_ControlRequest+5,__zero_reg__
+ 853 00b0 1093 0000 		sts USB_ControlRequest+6+1,r17
+ 854 00b4 0093 0000 		sts USB_ControlRequest+6,r16
+ 855               	.LVL84:
+ 856               	.LBB84:
+ 857               	.LBB85:
+ 858               	.LSM121:
+ 859 00b8 1092 A700 		sts 167,__zero_reg__
+ 860               	.LBE85:
+ 861               	.LBE84:
+ 862               	.LSM122:
+ 863 00bc C701      		movw r24,r14
+ 864 00be 0E94 0000 		call USB_Host_SendControlRequest
+ 865               	.LVL85:
+ 866 00c2 00C0      		rjmp .L53
+ 867               	.LVL86:
+ 868               	.L57:
+ 869               	.LSM123:
+ 870 00c4 80E0      		ldi r24,lo8(0)
+ 871               	.LVL87:
+ 872               	.L53:
+ 873               	/* epilogue start */
+ 874               	.LSM124:
+ 875 00c6 0F90      		pop __tmp_reg__
+ 876 00c8 CF91      		pop r28
+ 877 00ca DF91      		pop r29
+ 878 00cc 1F91      		pop r17
+ 879 00ce 0F91      		pop r16
+ 880               	.LVL88:
+ 881 00d0 FF90      		pop r15
+ 882 00d2 EF90      		pop r14
+ 883               	.LVL89:
+ 884 00d4 0895      		ret
+ 885               	.LFE131:
+ 887               		.section	.text.HID_Host_IsReportReceived,"ax",@progbits
+ 888               	.global	HID_Host_IsReportReceived
+ 890               	HID_Host_IsReportReceived:
+ 891               	.LFB132:
+ 892               	.LSM125:
+ 893               	.LVL90:
+ 894               	/* prologue: function */
+ 895               	/* frame size = 0 */
+ 896               	/* stack size = 0 */
+ 897               	.L__stack_usage = 0
+ 898 0000 FC01      		movw r30,r24
+ 899               	.LSM126:
+ 900 0002 8091 0000 		lds r24,USB_HostState
+ 901               	.LVL91:
+ 902 0006 8B30      		cpi r24,lo8(11)
+ 903 0008 01F4      		brne .L60
+ 904               	.LSM127:
+ 905 000a 8781      		ldd r24,Z+7
+ 906 000c 8823      		tst r24
+ 907 000e 01F0      		breq .L61
+ 908               	.LSM128:
+ 909 0010 8081      		ld r24,Z
+ 910               	.LVL92:
+ 911               	.LBB86:
+ 912               	.LBB87:
+ 913               	.LSM129:
+ 914 0012 8093 A700 		sts 167,r24
+ 915               	.LBE87:
+ 916               	.LBE86:
+ 917               	.LBB88:
+ 918               	.LBB89:
+ 919               	.LSM130:
+ 920 0016 8091 A900 		lds r24,169
+ 921 001a 8F7B      		andi r24,lo8(-65)
+ 922 001c 8093 A900 		sts 169,r24
+ 923               	.LBE89:
+ 924               	.LBE88:
+ 925               	.LBB90:
+ 926               	.LBB91:
+ 927               	.LSM131:
+ 928 0020 8091 A600 		lds r24,166
+ 929 0024 8170      		andi r24,lo8(1)
+ 930               	.LBE91:
+ 931               	.LBE90:
+ 932               	.LBB92:
+ 933               	.LBB93:
+ 934               	.LSM132:
+ 935 0026 9091 A900 		lds r25,169
+ 936 002a 9064      		ori r25,lo8(64)
+ 937 002c 9093 A900 		sts 169,r25
+ 938               	.LBE93:
+ 939               	.LBE92:
+ 940               	.LSM133:
+ 941 0030 0895      		ret
+ 942               	.LVL93:
+ 943               	.L60:
+ 944               	.LSM134:
+ 945 0032 80E0      		ldi r24,lo8(0)
+ 946 0034 0895      		ret
+ 947               	.L61:
+ 948 0036 80E0      		ldi r24,lo8(0)
+ 949               	.LSM135:
+ 950 0038 0895      		ret
+ 951               	.LFE132:
+ 953               		.section	.text.HID_Host_SetBootProtocol,"ax",@progbits
+ 954               	.global	HID_Host_SetBootProtocol
+ 956               	HID_Host_SetBootProtocol:
+ 957               	.LFB133:
+ 958               	.LSM136:
+ 959               	.LVL94:
+ 960 0000 CF93      		push r28
+ 961 0002 DF93      		push r29
+ 962               	/* prologue: function */
+ 963               	/* frame size = 0 */
+ 964               	/* stack size = 2 */
+ 965               	.L__stack_usage = 2
+ 966 0004 EC01      		movw r28,r24
+ 967               	.LSM137:
+ 968 0006 8D85      		ldd r24,Y+13
+ 969               	.LVL95:
+ 970 0008 8823      		tst r24
+ 971 000a 01F0      		breq .L64
+ 972               	.LSM138:
+ 973 000c 8885      		ldd r24,Y+8
+ 974 000e 91E2      		ldi r25,lo8(33)
+ 975 0010 9093 0000 		sts USB_ControlRequest,r25
+ 976 0014 9BE0      		ldi r25,lo8(11)
+ 977 0016 9093 0000 		sts USB_ControlRequest+1,r25
+ 978 001a 1092 0000 		sts USB_ControlRequest+2+1,__zero_reg__
+ 979 001e 1092 0000 		sts USB_ControlRequest+2,__zero_reg__
+ 980 0022 8093 0000 		sts USB_ControlRequest+4,r24
+ 981 0026 1092 0000 		sts USB_ControlRequest+5,__zero_reg__
+ 982 002a 1092 0000 		sts USB_ControlRequest+6+1,__zero_reg__
+ 983 002e 1092 0000 		sts USB_ControlRequest+6,__zero_reg__
+ 984               	.LVL96:
+ 985               	.LBB94:
+ 986               	.LBB95:
+ 987               	.LSM139:
+ 988 0032 1092 A700 		sts 167,__zero_reg__
+ 989               	.LBE95:
+ 990               	.LBE94:
+ 991               	.LSM140:
+ 992 0036 80E0      		ldi r24,lo8(0)
+ 993 0038 90E0      		ldi r25,hi8(0)
+ 994 003a 0E94 0000 		call USB_Host_SendControlRequest
+ 995               	.LVL97:
+ 996 003e 8823      		tst r24
+ 997 0040 01F4      		brne .L63
+ 998               	.LSM141:
+ 999 0042 98E0      		ldi r25,lo8(8)
+ 1000 0044 9A8B      		std Y+18,r25
+ 1001               	.LSM142:
+ 1002 0046 91E0      		ldi r25,lo8(1)
+ 1003 0048 9F87      		std Y+15,r25
+ 1004               	.LSM143:
+ 1005 004a 00C0      		rjmp .L63
+ 1006               	.LVL98:
+ 1007               	.L64:
+ 1008               	.LSM144:
+ 1009 004c 80E8      		ldi r24,lo8(-128)
+ 1010               	.L63:
+ 1011               	/* epilogue start */
+ 1012               	.LSM145:
+ 1013 004e DF91      		pop r29
+ 1014 0050 CF91      		pop r28
+ 1015               	.LVL99:
+ 1016 0052 0895      		ret
+ 1017               	.LFE133:
+ 1019               		.section	.text.HID_Host_SetIdlePeriod,"ax",@progbits
+ 1020               	.global	HID_Host_SetIdlePeriod
+ 1022               	HID_Host_SetIdlePeriod:
+ 1023               	.LFB134:
+ 1024               	.LSM146:
+ 1025               	.LVL100:
+ 1026               	/* prologue: function */
+ 1027               	/* frame size = 0 */
+ 1028               	/* stack size = 0 */
+ 1029               	.L__stack_usage = 0
+ 1030               	.LSM147:
+ 1031 0000 FC01      		movw r30,r24
+ 1032 0002 8085      		ldd r24,Z+8
+ 1033               	.LVL101:
+ 1034 0004 91E2      		ldi r25,lo8(33)
+ 1035 0006 9093 0000 		sts USB_ControlRequest,r25
+ 1036 000a 9AE0      		ldi r25,lo8(10)
+ 1037 000c 9093 0000 		sts USB_ControlRequest+1,r25
+ 1038               	.LSM148:
+ 1039 0010 26E0      		ldi r18,6
+ 1040 0012 660F      	1:	lsl r22
+ 1041 0014 771F      		rol r23
+ 1042 0016 2A95      		dec r18
+ 1043 0018 01F4      		brne 1b
+ 1044               	.LVL102:
+ 1045 001a 6070      		andi r22,lo8(-256)
+ 1046               	.LSM149:
+ 1047 001c 7093 0000 		sts USB_ControlRequest+2+1,r23
+ 1048 0020 6093 0000 		sts USB_ControlRequest+2,r22
+ 1049 0024 8093 0000 		sts USB_ControlRequest+4,r24
+ 1050 0028 1092 0000 		sts USB_ControlRequest+5,__zero_reg__
+ 1051 002c 1092 0000 		sts USB_ControlRequest+6+1,__zero_reg__
+ 1052 0030 1092 0000 		sts USB_ControlRequest+6,__zero_reg__
+ 1053               	.LVL103:
+ 1054               	.LBB96:
+ 1055               	.LBB97:
+ 1056               	.LSM150:
+ 1057 0034 1092 A700 		sts 167,__zero_reg__
+ 1058               	.LBE97:
+ 1059               	.LBE96:
+ 1060               	.LSM151:
+ 1061 0038 80E0      		ldi r24,lo8(0)
+ 1062 003a 90E0      		ldi r25,hi8(0)
+ 1063 003c 0E94 0000 		call USB_Host_SendControlRequest
+ 1064               	.LVL104:
+ 1065               	/* epilogue start */
+ 1066               	.LSM152:
+ 1067 0040 0895      		ret
+ 1068               	.LFE134:
+ 1070               		.section	.text.HID_Host_SetReportProtocol,"ax",@progbits
+ 1071               	.global	HID_Host_SetReportProtocol
+ 1073               	HID_Host_SetReportProtocol:
+ 1074               	.LFB135:
+ 1075               	.LSM153:
+ 1076               	.LVL105:
+ 1077 0000 AF92      		push r10
+ 1078 0002 BF92      		push r11
+ 1079 0004 CF92      		push r12
+ 1080 0006 DF92      		push r13
+ 1081 0008 EF92      		push r14
+ 1082 000a FF92      		push r15
+ 1083 000c 0F93      		push r16
+ 1084 000e 1F93      		push r17
+ 1085 0010 DF93      		push r29
+ 1086 0012 CF93      		push r28
+ 1087 0014 CDB7      		in r28,__SP_L__
+ 1088 0016 DEB7      		in r29,__SP_H__
+ 1089               	/* prologue: function */
+ 1090               	/* frame size = 0 */
+ 1091               	/* stack size = 10 */
+ 1092               	.L__stack_usage = 10
+ 1093 0018 8C01      		movw r16,r24
+ 1094               	.LSM154:
+ 1095 001a CDB6      		in r12,__SP_L__
+ 1096 001c DEB6      		in r13,__SP_H__
+ 1097               	.LVL106:
+ 1098               	.LSM155:
+ 1099 001e DC01      		movw r26,r24
+ 1100 0020 5096      		adiw r26,16
+ 1101 0022 4D91      		ld r20,X+
+ 1102 0024 5C91      		ld r21,X
+ 1103 0026 5197      		sbiw r26,16+1
+ 1104 0028 EDB7      		in r30,__SP_L__
+ 1105 002a FEB7      		in r31,__SP_H__
+ 1106 002c E41B      		sub r30,r20
+ 1107 002e F50B      		sbc r31,r21
+ 1108 0030 0FB6      		in __tmp_reg__,__SREG__
+ 1109 0032 F894      		cli
+ 1110 0034 FEBF      		out __SP_H__,r31
+ 1111 0036 0FBE      		out __SREG__,__tmp_reg__
+ 1112 0038 EDBF      		out __SP_L__,r30
+ 1113 003a 2DB7      		in r18,__SP_L__
+ 1114 003c 3EB7      		in r19,__SP_H__
+ 1115 003e 2F5F      		subi r18,lo8(-(1))
+ 1116 0040 3F4F      		sbci r19,hi8(-(1))
+ 1117 0042 5901      		movw r10,r18
+ 1118               	.LVL107:
+ 1119               	.LSM156:
+ 1120 0044 1896      		adiw r26,8
+ 1121 0046 6C91      		ld r22,X
+ 1122 0048 81E8      		ldi r24,lo8(-127)
+ 1123               	.LVL108:
+ 1124 004a 8093 0000 		sts USB_ControlRequest,r24
+ 1125 004e 86E0      		ldi r24,lo8(6)
+ 1126 0050 8093 0000 		sts USB_ControlRequest+1,r24
+ 1127 0054 80E0      		ldi r24,lo8(8704)
+ 1128 0056 92E2      		ldi r25,hi8(8704)
+ 1129 0058 9093 0000 		sts USB_ControlRequest+2+1,r25
+ 1130 005c 8093 0000 		sts USB_ControlRequest+2,r24
+ 1131 0060 70E0      		ldi r23,lo8(USB_ControlRequest+4)
+ 1132 0062 E72E      		mov r14,r23
+ 1133 0064 70E0      		ldi r23,hi8(USB_ControlRequest+4)
+ 1134 0066 F72E      		mov r15,r23
+ 1135 0068 6093 0000 		sts USB_ControlRequest+4,r22
+ 1136 006c D701      		movw r26,r14
+ 1137 006e 1196      		adiw r26,1
+ 1138 0070 1C92      		st X,__zero_reg__
+ 1139 0072 5093 0000 		sts USB_ControlRequest+6+1,r21
+ 1140 0076 4093 0000 		sts USB_ControlRequest+6,r20
+ 1141               	.LVL109:
+ 1142               	.LBB98:
+ 1143               	.LBB99:
+ 1144               	.LSM157:
+ 1145 007a 1092 A700 		sts 167,__zero_reg__
+ 1146               	.LBE99:
+ 1147               	.LBE98:
+ 1148               	.LSM158:
+ 1149 007e C901      		movw r24,r18
+ 1150 0080 0E94 0000 		call USB_Host_SendControlRequest
+ 1151               	.LVL110:
+ 1152 0084 8823      		tst r24
+ 1153 0086 01F0      		breq .+2
+ 1154 0088 00C0      		rjmp .L67
+ 1155               	.LSM159:
+ 1156 008a F801      		movw r30,r16
+ 1157 008c 8785      		ldd r24,Z+15
+ 1158               	.LVL111:
+ 1159 008e 8823      		tst r24
+ 1160 0090 01F0      		breq .L68
+ 1161               	.LSM160:
+ 1162 0092 2085      		ldd r18,Z+8
+ 1163 0094 81E2      		ldi r24,lo8(33)
+ 1164 0096 8093 0000 		sts USB_ControlRequest,r24
+ 1165 009a 8BE0      		ldi r24,lo8(11)
+ 1166 009c 8093 0000 		sts USB_ControlRequest+1,r24
+ 1167 00a0 81E0      		ldi r24,lo8(1)
+ 1168 00a2 90E0      		ldi r25,hi8(1)
+ 1169 00a4 9093 0000 		sts USB_ControlRequest+2+1,r25
+ 1170 00a8 8093 0000 		sts USB_ControlRequest+2,r24
+ 1171 00ac 2093 0000 		sts USB_ControlRequest+4,r18
+ 1172 00b0 D701      		movw r26,r14
+ 1173 00b2 1196      		adiw r26,1
+ 1174 00b4 1C92      		st X,__zero_reg__
+ 1175 00b6 1092 0000 		sts USB_ControlRequest+6+1,__zero_reg__
+ 1176 00ba 1092 0000 		sts USB_ControlRequest+6,__zero_reg__
+ 1177               	.LSM161:
+ 1178 00be 80E0      		ldi r24,lo8(0)
+ 1179 00c0 90E0      		ldi r25,hi8(0)
+ 1180 00c2 0E94 0000 		call USB_Host_SendControlRequest
+ 1181               	.LVL112:
+ 1182 00c6 8823      		tst r24
+ 1183 00c8 01F4      		brne .L67
+ 1184               	.LSM162:
+ 1185 00ca F801      		movw r30,r16
+ 1186 00cc 1786      		std Z+15,__zero_reg__
+ 1187               	.LVL113:
+ 1188               	.L68:
+ 1189               	.LSM163:
+ 1190 00ce D801      		movw r26,r16
+ 1191 00d0 1596      		adiw r26,5
+ 1192 00d2 4D91      		ld r20,X+
+ 1193 00d4 5C91      		ld r21,X
+ 1194 00d6 1697      		sbiw r26,5+1
+ 1195 00d8 4115      		cp r20,__zero_reg__
+ 1196 00da 5105      		cpc r21,__zero_reg__
+ 1197 00dc 01F0      		breq .L71
+ 1198               	.LSM164:
+ 1199 00de 5096      		adiw r26,16
+ 1200 00e0 6D91      		ld r22,X+
+ 1201 00e2 7C91      		ld r23,X
+ 1202 00e4 5197      		sbiw r26,16+1
+ 1203 00e6 C501      		movw r24,r10
+ 1204 00e8 0E94 0000 		call USB_ProcessHIDReport
+ 1205               	.LVL114:
+ 1206 00ec 8823      		tst r24
+ 1207 00ee 01F0      		breq .L69
+ 1208               	.LSM165:
+ 1209 00f0 8068      		ori r24,lo8(-128)
+ 1210               	.LVL115:
+ 1211 00f2 00C0      		rjmp .L67
+ 1212               	.LVL116:
+ 1213               	.L69:
+ 1214               	.LSM166:
+ 1215 00f4 D801      		movw r26,r16
+ 1216 00f6 1596      		adiw r26,5
+ 1217 00f8 ED91      		ld r30,X+
+ 1218 00fa FC91      		ld r31,X
+ 1219 00fc 1697      		sbiw r26,5+1
+ 1220 00fe EA52      		subi r30,lo8(-(982))
+ 1221 0100 FC4F      		sbci r31,hi8(-(982))
+ 1222 0102 2081      		ld r18,Z
+ 1223 0104 3181      		ldd r19,Z+1
+ 1224               	.LVL117:
+ 1225               	.LSM167:
+ 1226 0106 A901      		movw r20,r18
+ 1227 0108 4770      		andi r20,lo8(7)
+ 1228 010a 5070      		andi r21,hi8(7)
+ 1229 010c 91E0      		ldi r25,lo8(1)
+ 1230 010e 4115      		cp r20,__zero_reg__
+ 1231 0110 5105      		cpc r21,__zero_reg__
+ 1232 0112 01F4      		brne .L70
+ 1233 0114 90E0      		ldi r25,lo8(0)
+ 1234               	.L70:
+ 1235 0116 43E0      		ldi r20,3
+ 1236 0118 3695      	1:	lsr r19
+ 1237 011a 2795      		ror r18
+ 1238 011c 4A95      		dec r20
+ 1239 011e 01F4      		brne 1b
+ 1240 0120 290F      		add r18,r25
+ 1241 0122 F801      		movw r30,r16
+ 1242               	.LVL118:
+ 1243 0124 228B      		std Z+18,r18
+ 1244 0126 00C0      		rjmp .L67
+ 1245               	.LVL119:
+ 1246               	.L71:
+ 1247               	.LSM168:
+ 1248 0128 80E8      		ldi r24,lo8(-128)
+ 1249               	.L67:
+ 1250               	.LSM169:
+ 1251 012a 0FB6      		in __tmp_reg__,__SREG__
+ 1252 012c F894      		cli
+ 1253 012e DEBE      		out __SP_H__,r13
+ 1254 0130 0FBE      		out __SREG__,__tmp_reg__
+ 1255 0132 CDBE      		out __SP_L__,r12
+ 1256               	/* epilogue start */
+ 1257 0134 CF91      		pop r28
+ 1258 0136 DF91      		pop r29
+ 1259 0138 1F91      		pop r17
+ 1260 013a 0F91      		pop r16
+ 1261               	.LVL120:
+ 1262 013c FF90      		pop r15
+ 1263 013e EF90      		pop r14
+ 1264 0140 DF90      		pop r13
+ 1265 0142 CF90      		pop r12
+ 1266 0144 BF90      		pop r11
+ 1267 0146 AF90      		pop r10
+ 1268 0148 0895      		ret
+ 1269               	.LFE135:
+ 1375               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 HID.c
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:2      *ABS*:0000003f __SREG__
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:3      *ABS*:0000003e __SP_H__
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:4      *ABS*:0000003d __SP_L__
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:5      *ABS*:00000034 __CCP__
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:18     .text.DCOMP_HID_Host_NextHIDInterface:00000000 DCOMP_HID_Host_NextHIDInterface
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:57     .text.DCOMP_HID_Host_NextHIDDescriptor:00000000 DCOMP_HID_Host_NextHIDDescriptor
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:90     .text.DCOMP_HID_Host_NextHIDInterfaceEndpoint:00000000 DCOMP_HID_Host_NextHIDInterfaceEndpoint
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:142    .text.HID_Host_ConfigurePipes:00000000 HID_Host_ConfigurePipes
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:522    .text.HID_Host_ReceiveReportByID:00000000 HID_Host_ReceiveReportByID
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:587    .text.HID_Host_ReceiveReport:00000000 HID_Host_ReceiveReport
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:729    .text.HID_Host_SendReportByID:00000000 HID_Host_SendReportByID
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:890    .text.HID_Host_IsReportReceived:00000000 HID_Host_IsReportReceived
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:956    .text.HID_Host_SetBootProtocol:00000000 HID_Host_SetBootProtocol
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:1022   .text.HID_Host_SetIdlePeriod:00000000 HID_Host_SetIdlePeriod
+C:\Users\david\AppData\Local\Temp\ccqpeqLd.s:1073   .text.HID_Host_SetReportProtocol:00000000 HID_Host_SetReportProtocol
+
+UNDEFINED SYMBOLS
+Pipe_IsEndpointBound
+USB_GetNextDescriptorComp
+Pipe_ConfigurePipe
+USB_GetHIDReportSize
+USB_ControlRequest
+USB_Host_SendControlRequest
+USB_HostState
+Pipe_Read_Stream_LE
+Pipe_Write_Stream_LE
+USB_ProcessHIDReport

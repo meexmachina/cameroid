@@ -1,0 +1,370 @@
+   1               		.file	"ConfigDescriptor.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.DComp_NextStillImageInterface,"ax",@progbits
+  17               	.global	DComp_NextStillImageInterface
+  19               	DComp_NextStillImageInterface:
+  20               	.LFB141:
+  21               	.LSM0:
+  22               	.LVL0:
+  23               	/* prologue: function */
+  24               	/* frame size = 0 */
+  25               	/* stack size = 0 */
+  26               	.L__stack_usage = 0
+  27 0000 FC01      		movw r30,r24
+  28               	.LVL1:
+  29               	.LSM1:
+  30 0002 8181      		ldd r24,Z+1
+  31               	.LVL2:
+  32 0004 8430      		cpi r24,lo8(4)
+  33 0006 01F4      		brne .L5
+  34               	.LVL3:
+  35               	.LBB5:
+  36               	.LSM2:
+  37 0008 8581      		ldd r24,Z+5
+  38 000a 8630      		cpi r24,lo8(6)
+  39 000c 01F4      		brne .L5
+  40               	.LSM3:
+  41 000e 8681      		ldd r24,Z+6
+  42 0010 8130      		cpi r24,lo8(1)
+  43 0012 01F4      		brne .L5
+  44               	.LSM4:
+  45 0014 8781      		ldd r24,Z+7
+  46 0016 8130      		cpi r24,lo8(1)
+  47 0018 01F0      		breq .L6
+  48               	.LVL4:
+  49               	.L5:
+  50               	.LSM5:
+  51 001a 82E0      		ldi r24,lo8(2)
+  52 001c 0895      		ret
+  53               	.LVL5:
+  54               	.L6:
+  55               	.LSM6:
+  56 001e 80E0      		ldi r24,lo8(0)
+  57               	.LBE5:
+  58               	.LSM7:
+  59 0020 0895      		ret
+  60               	.LFE141:
+  62               		.section	.text.DComp_NextStillImageInterfaceDataEndpoint,"ax",@progbits
+  63               	.global	DComp_NextStillImageInterfaceDataEndpoint
+  65               	DComp_NextStillImageInterfaceDataEndpoint:
+  66               	.LFB142:
+  67               	.LSM8:
+  68               	.LVL6:
+  69               	/* prologue: function */
+  70               	/* frame size = 0 */
+  71               	/* stack size = 0 */
+  72               	.L__stack_usage = 0
+  73 0000 FC01      		movw r30,r24
+  74               	.LVL7:
+  75               	.LSM9:
+  76 0002 8181      		ldd r24,Z+1
+  77               	.LVL8:
+  78 0004 8530      		cpi r24,lo8(5)
+  79 0006 01F4      		brne .L8
+  80               	.LVL9:
+  81               	.LBB6:
+  82               	.LSM10:
+  83 0008 8381      		ldd r24,Z+3
+  84 000a 90E0      		ldi r25,lo8(0)
+  85 000c 8370      		andi r24,lo8(3)
+  86 000e 9070      		andi r25,hi8(3)
+  87 0010 0297      		sbiw r24,2
+  88 0012 8230      		cpi r24,2
+  89 0014 9105      		cpc r25,__zero_reg__
+  90 0016 00F4      		brsh .L12
+  91 0018 00C0      		rjmp .L10
+  92               	.LVL10:
+  93               	.L8:
+  94               	.LBE6:
+  95               	.LSM11:
+  96 001a 8430      		cpi r24,lo8(4)
+  97 001c 01F0      		breq .L11
+  98               	.L12:
+  99               	.LSM12:
+ 100 001e 82E0      		ldi r24,lo8(2)
+ 101 0020 0895      		ret
+ 102               	.LVL11:
+ 103               	.L10:
+ 104               	.LBB7:
+ 105               	.LSM13:
+ 106 0022 80E0      		ldi r24,lo8(0)
+ 107 0024 0895      		ret
+ 108               	.LVL12:
+ 109               	.L11:
+ 110               	.LBE7:
+ 111               	.LSM14:
+ 112 0026 81E0      		ldi r24,lo8(1)
+ 113               	.LSM15:
+ 114 0028 0895      		ret
+ 115               	.LFE142:
+ 117               		.section	.text.ProcessConfigurationDescriptor,"ax",@progbits
+ 118               	.global	ProcessConfigurationDescriptor
+ 120               	ProcessConfigurationDescriptor:
+ 121               	.LFB140:
+ 122               	.LSM16:
+ 123 0000 6F92      		push r6
+ 124 0002 7F92      		push r7
+ 125 0004 8F92      		push r8
+ 126 0006 9F92      		push r9
+ 127 0008 AF92      		push r10
+ 128 000a BF92      		push r11
+ 129 000c CF92      		push r12
+ 130 000e DF92      		push r13
+ 131 0010 EF92      		push r14
+ 132 0012 FF92      		push r15
+ 133 0014 0F93      		push r16
+ 134 0016 1F93      		push r17
+ 135 0018 DF93      		push r29
+ 136 001a CF93      		push r28
+ 137 001c CDB7      		in r28,__SP_L__
+ 138 001e DEB7      		in r29,__SP_H__
+ 139 0020 C450      		subi r28,lo8(-(-516))
+ 140 0022 D240      		sbci r29,hi8(-(-516))
+ 141 0024 0FB6      		in __tmp_reg__,__SREG__
+ 142 0026 F894      		cli
+ 143 0028 DEBF      		out __SP_H__,r29
+ 144 002a 0FBE      		out __SREG__,__tmp_reg__
+ 145 002c CDBF      		out __SP_L__,r28
+ 146               	/* prologue: function */
+ 147               	/* frame size = 516 */
+ 148               	/* stack size = 530 */
+ 149               	.L__stack_usage = 530
+ 150               	.LSM17:
+ 151 002e AE01      		movw r20,r28
+ 152 0030 4B5F      		subi r20,lo8(-(5))
+ 153 0032 5F4F      		sbci r21,hi8(-(5))
+ 154 0034 5A83      		std Y+2,r21
+ 155 0036 4983      		std Y+1,r20
+ 156               	.LVL13:
+ 157               	.LSM18:
+ 158 0038 83E0      		ldi r24,lo8(3)
+ 159 003a E82E      		mov r14,r24
+ 160 003c F12C      		mov r15,__zero_reg__
+ 161 003e EC0E      		add r14,r28
+ 162 0040 FD1E      		adc r15,r29
+ 163 0042 81E0      		ldi r24,lo8(1)
+ 164 0044 B701      		movw r22,r14
+ 165 0046 20E0      		ldi r18,lo8(512)
+ 166 0048 32E0      		ldi r19,hi8(512)
+ 167 004a 0E94 0000 		call USB_Host_GetDeviceConfigDescriptor
+ 168 004e 8530      		cpi r24,lo8(5)
+ 169 0050 01F4      		brne .+2
+ 170 0052 00C0      		rjmp .L23
+ 171 0054 8630      		cpi r24,lo8(6)
+ 172 0056 01F0      		breq .L17
+ 173 0058 8823      		tst r24
+ 174 005a 01F4      		brne .L30
+ 175 005c AA24      		clr r10
+ 176 005e BB24      		clr r11
+ 177 0060 CC24      		clr r12
+ 178 0062 DD24      		clr r13
+ 179 0064 00E0      		ldi r16,lo8(0)
+ 180 0066 10E0      		ldi r17,hi8(0)
+ 181 0068 6624      		clr r6
+ 182 006a 7724      		clr r7
+ 183               	.LBB8:
+ 184               	.LSM19:
+ 185 006c 9E2C      		mov r9,r14
+ 186 006e 8F2C      		mov r8,r15
+ 187 0070 7E01      		movw r14,r28
+ 188 0072 0894      		sec
+ 189 0074 E11C      		adc r14,__zero_reg__
+ 190 0076 F11C      		adc r15,__zero_reg__
+ 191 0078 00C0      		rjmp .L29
+ 192               	.L17:
+ 193               	.LBE8:
+ 194               	.LSM20:
+ 195 007a 83E0      		ldi r24,lo8(3)
+ 196 007c 00C0      		rjmp .L16
+ 197               	.L30:
+ 198               	.LSM21:
+ 199 007e 81E0      		ldi r24,lo8(1)
+ 200 0080 00C0      		rjmp .L16
+ 201               	.LVL14:
+ 202               	.L29:
+ 203               	.LBB9:
+ 204               	.LSM22:
+ 205 0082 6114      		cp r6,__zero_reg__
+ 206 0084 7104      		cpc r7,__zero_reg__
+ 207 0086 01F0      		breq .L19
+ 208               	.LSM23:
+ 209 0088 892D      		mov r24,r9
+ 210 008a 982D      		mov r25,r8
+ 211 008c B701      		movw r22,r14
+ 212 008e 40E0      		ldi r20,lo8(gs(DComp_NextStillImageInterfaceDataEndpoint))
+ 213 0090 50E0      		ldi r21,hi8(gs(DComp_NextStillImageInterfaceDataEndpoint))
+ 214 0092 0E94 0000 		call USB_GetNextDescriptorComp
+ 215               	.LSM24:
+ 216 0096 8823      		tst r24
+ 217 0098 01F0      		breq .L20
+ 218               	.L19:
+ 219               	.LSM25:
+ 220 009a 892D      		mov r24,r9
+ 221 009c 982D      		mov r25,r8
+ 222 009e B701      		movw r22,r14
+ 223 00a0 40E0      		ldi r20,lo8(gs(DComp_NextStillImageInterface))
+ 224 00a2 50E0      		ldi r21,hi8(gs(DComp_NextStillImageInterface))
+ 225 00a4 0E94 0000 		call USB_GetNextDescriptorComp
+ 226 00a8 8823      		tst r24
+ 227 00aa 01F0      		breq .+2
+ 228 00ac 00C0      		rjmp .L24
+ 229               	.LSM26:
+ 230 00ae 6980      		ldd r6,Y+1
+ 231 00b0 7A80      		ldd r7,Y+2
+ 232               	.LVL15:
+ 233               	.LSM27:
+ 234 00b2 AA24      		clr r10
+ 235 00b4 BB24      		clr r11
+ 236               	.LSM28:
+ 237 00b6 CC24      		clr r12
+ 238 00b8 DD24      		clr r13
+ 239               	.LSM29:
+ 240 00ba 00E0      		ldi r16,lo8(0)
+ 241 00bc 10E0      		ldi r17,hi8(0)
+ 242 00be 00C0      		rjmp .L29
+ 243               	.LVL16:
+ 244               	.L20:
+ 245               	.LSM30:
+ 246 00c0 E981      		ldd r30,Y+1
+ 247 00c2 FA81      		ldd r31,Y+2
+ 248               	.LVL17:
+ 249               	.LSM31:
+ 250 00c4 8281      		ldd r24,Z+2
+ 251 00c6 87FF      		sbrs r24,7
+ 252 00c8 00C0      		rjmp .L25
+ 253               	.LSM32:
+ 254 00ca 8381      		ldd r24,Z+3
+ 255 00cc 8370      		andi r24,lo8(3)
+ 256 00ce 8330      		cpi r24,lo8(3)
+ 257 00d0 01F4      		brne .L26
+ 258               	.LSM33:
+ 259 00d2 5F01      		movw r10,r30
+ 260 00d4 00C0      		rjmp .L22
+ 261               	.L25:
+ 262               	.LSM34:
+ 263 00d6 6F01      		movw r12,r30
+ 264 00d8 00C0      		rjmp .L22
+ 265               	.L26:
+ 266               	.LSM35:
+ 267 00da 8F01      		movw r16,r30
+ 268               	.L22:
+ 269               	.LVL18:
+ 270               	.LBE9:
+ 271               	.LSM36:
+ 272 00dc 0115      		cp r16,__zero_reg__
+ 273 00de 1105      		cpc r17,__zero_reg__
+ 274 00e0 01F0      		breq .L29
+ 275               	.LSM37:
+ 276 00e2 C114      		cp r12,__zero_reg__
+ 277 00e4 D104      		cpc r13,__zero_reg__
+ 278 00e6 01F0      		breq .L29
+ 279               	.LSM38:
+ 280 00e8 D801      		movw r26,r16
+ 281 00ea 1496      		adiw r26,4
+ 282 00ec ED91      		ld r30,X+
+ 283 00ee FC91      		ld r31,X
+ 284 00f0 1597      		sbiw r26,4+1
+ 285 00f2 81E0      		ldi r24,lo8(1)
+ 286 00f4 62E0      		ldi r22,lo8(2)
+ 287 00f6 40E1      		ldi r20,lo8(16)
+ 288 00f8 1296      		adiw r26,2
+ 289 00fa 2C91      		ld r18,X
+ 290 00fc 8F01      		movw r16,r30
+ 291               	.LVL19:
+ 292 00fe EE24      		clr r14
+ 293 0100 0E94 0000 		call Pipe_ConfigurePipe
+ 294               	.LVL20:
+ 295               	.LSM39:
+ 296 0104 F601      		movw r30,r12
+ 297 0106 0481      		ldd r16,Z+4
+ 298 0108 1581      		ldd r17,Z+5
+ 299 010a 82E0      		ldi r24,lo8(2)
+ 300 010c 62E0      		ldi r22,lo8(2)
+ 301 010e 40E2      		ldi r20,lo8(32)
+ 302 0110 2281      		ldd r18,Z+2
+ 303 0112 0E94 0000 		call Pipe_ConfigurePipe
+ 304               	.LSM40:
+ 305 0116 D501      		movw r26,r10
+ 306 0118 1496      		adiw r26,4
+ 307 011a 0D91      		ld r16,X+
+ 308 011c 1C91      		ld r17,X
+ 309 011e 1597      		sbiw r26,4+1
+ 310 0120 83E0      		ldi r24,lo8(3)
+ 311 0122 63E0      		ldi r22,lo8(3)
+ 312 0124 40E1      		ldi r20,lo8(16)
+ 313 0126 1296      		adiw r26,2
+ 314 0128 2C91      		ld r18,X
+ 315 012a 0E94 0000 		call Pipe_ConfigurePipe
+ 316               	.LSM41:
+ 317 012e F501      		movw r30,r10
+ 318 0130 8681      		ldd r24,Z+6
+ 319               	.LVL21:
+ 320               	.LBB10:
+ 321               	.LBB11:
+ 322               	.LSM42:
+ 323 0132 8093 AD00 		sts 173,r24
+ 324               	.LBE11:
+ 325               	.LBE10:
+ 326               	.LSM43:
+ 327 0136 80E0      		ldi r24,lo8(0)
+ 328 0138 00C0      		rjmp .L16
+ 329               	.LVL22:
+ 330               	.L23:
+ 331               	.LSM44:
+ 332 013a 82E0      		ldi r24,lo8(2)
+ 333 013c 00C0      		rjmp .L16
+ 334               	.LVL23:
+ 335               	.L24:
+ 336               	.LBB12:
+ 337               	.LSM45:
+ 338 013e 84E0      		ldi r24,lo8(4)
+ 339               	.L16:
+ 340               	/* epilogue start */
+ 341               	.LBE12:
+ 342               	.LSM46:
+ 343 0140 CC5F      		subi r28,lo8(-(516))
+ 344 0142 DD4F      		sbci r29,hi8(-(516))
+ 345 0144 0FB6      		in __tmp_reg__,__SREG__
+ 346 0146 F894      		cli
+ 347 0148 DEBF      		out __SP_H__,r29
+ 348 014a 0FBE      		out __SREG__,__tmp_reg__
+ 349 014c CDBF      		out __SP_L__,r28
+ 350 014e CF91      		pop r28
+ 351 0150 DF91      		pop r29
+ 352 0152 1F91      		pop r17
+ 353 0154 0F91      		pop r16
+ 354 0156 FF90      		pop r15
+ 355 0158 EF90      		pop r14
+ 356 015a DF90      		pop r13
+ 357 015c CF90      		pop r12
+ 358 015e BF90      		pop r11
+ 359 0160 AF90      		pop r10
+ 360 0162 9F90      		pop r9
+ 361 0164 8F90      		pop r8
+ 362 0166 7F90      		pop r7
+ 363 0168 6F90      		pop r6
+ 364 016a 0895      		ret
+ 365               	.LFE140:
+ 407               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 ConfigDescriptor.c
+C:\Users\david\AppData\Local\Temp\cceJ9LTh.s:2      *ABS*:0000003f __SREG__
+C:\Users\david\AppData\Local\Temp\cceJ9LTh.s:3      *ABS*:0000003e __SP_H__
+C:\Users\david\AppData\Local\Temp\cceJ9LTh.s:4      *ABS*:0000003d __SP_L__
+C:\Users\david\AppData\Local\Temp\cceJ9LTh.s:5      *ABS*:00000034 __CCP__
+C:\Users\david\AppData\Local\Temp\cceJ9LTh.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\david\AppData\Local\Temp\cceJ9LTh.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\david\AppData\Local\Temp\cceJ9LTh.s:19     .text.DComp_NextStillImageInterface:00000000 DComp_NextStillImageInterface
+C:\Users\david\AppData\Local\Temp\cceJ9LTh.s:65     .text.DComp_NextStillImageInterfaceDataEndpoint:00000000 DComp_NextStillImageInterfaceDataEndpoint
+C:\Users\david\AppData\Local\Temp\cceJ9LTh.s:120    .text.ProcessConfigurationDescriptor:00000000 ProcessConfigurationDescriptor
+
+UNDEFINED SYMBOLS
+USB_Host_GetDeviceConfigDescriptor
+USB_GetNextDescriptorComp
+Pipe_ConfigurePipe

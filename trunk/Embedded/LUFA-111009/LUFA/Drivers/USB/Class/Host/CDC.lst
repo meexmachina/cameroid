@@ -1,0 +1,1602 @@
+   1               		.file	"CDC.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.DCOMP_CDC_Host_NextCDCControlInterface,"ax",@progbits
+  18               	DCOMP_CDC_Host_NextCDCControlInterface:
+  19               	.LFB126:
+  20               	.LSM0:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	/* stack size = 0 */
+  25               	.L__stack_usage = 0
+  26 0000 FC01      		movw r30,r24
+  27               	.LVL1:
+  28               	.LSM1:
+  29 0002 8181      		ldd r24,Z+1
+  30               	.LVL2:
+  31 0004 8430      		cpi r24,lo8(4)
+  32 0006 01F4      		brne .L5
+  33               	.LVL3:
+  34               	.LBB98:
+  35               	.LSM2:
+  36 0008 8581      		ldd r24,Z+5
+  37 000a 8230      		cpi r24,lo8(2)
+  38 000c 01F4      		brne .L5
+  39               	.LSM3:
+  40 000e 8681      		ldd r24,Z+6
+  41 0010 8230      		cpi r24,lo8(2)
+  42 0012 01F4      		brne .L5
+  43               	.LSM4:
+  44 0014 8781      		ldd r24,Z+7
+  45 0016 8130      		cpi r24,lo8(1)
+  46 0018 01F0      		breq .L6
+  47               	.LVL4:
+  48               	.L5:
+  49               	.LSM5:
+  50 001a 82E0      		ldi r24,lo8(2)
+  51 001c 0895      		ret
+  52               	.LVL5:
+  53               	.L6:
+  54               	.LSM6:
+  55 001e 80E0      		ldi r24,lo8(0)
+  56               	.LBE98:
+  57               	.LSM7:
+  58 0020 0895      		ret
+  59               	.LFE126:
+  61               		.section	.text.DCOMP_CDC_Host_NextCDCDataInterface,"ax",@progbits
+  63               	DCOMP_CDC_Host_NextCDCDataInterface:
+  64               	.LFB127:
+  65               	.LSM8:
+  66               	.LVL6:
+  67               	/* prologue: function */
+  68               	/* frame size = 0 */
+  69               	/* stack size = 0 */
+  70               	.L__stack_usage = 0
+  71 0000 FC01      		movw r30,r24
+  72               	.LVL7:
+  73               	.LSM9:
+  74 0002 8181      		ldd r24,Z+1
+  75               	.LVL8:
+  76 0004 8430      		cpi r24,lo8(4)
+  77 0006 01F4      		brne .L11
+  78               	.LVL9:
+  79               	.LBB99:
+  80               	.LSM10:
+  81 0008 8581      		ldd r24,Z+5
+  82 000a 8A30      		cpi r24,lo8(10)
+  83 000c 01F4      		brne .L11
+  84               	.LSM11:
+  85 000e 8681      		ldd r24,Z+6
+  86 0010 8823      		tst r24
+  87 0012 01F4      		brne .L11
+  88               	.LSM12:
+  89 0014 8781      		ldd r24,Z+7
+  90 0016 8823      		tst r24
+  91 0018 01F0      		breq .L12
+  92               	.LVL10:
+  93               	.L11:
+  94               	.LSM13:
+  95 001a 82E0      		ldi r24,lo8(2)
+  96 001c 0895      		ret
+  97               	.LVL11:
+  98               	.L12:
+  99               	.LSM14:
+ 100 001e 80E0      		ldi r24,lo8(0)
+ 101               	.LBE99:
+ 102               	.LSM15:
+ 103 0020 0895      		ret
+ 104               	.LFE127:
+ 106               		.section	.text.DCOMP_CDC_Host_NextCDCInterfaceEndpoint,"ax",@progbits
+ 108               	DCOMP_CDC_Host_NextCDCInterfaceEndpoint:
+ 109               	.LFB128:
+ 110               	.LSM16:
+ 111               	.LVL12:
+ 112               	/* prologue: function */
+ 113               	/* frame size = 0 */
+ 114               	/* stack size = 0 */
+ 115               	.L__stack_usage = 0
+ 116 0000 FC01      		movw r30,r24
+ 117               	.LVL13:
+ 118               	.LSM17:
+ 119 0002 8181      		ldd r24,Z+1
+ 120               	.LVL14:
+ 121 0004 8530      		cpi r24,lo8(5)
+ 122 0006 01F4      		brne .L14
+ 123               	.LVL15:
+ 124               	.LBB100:
+ 125               	.LSM18:
+ 126 0008 8381      		ldd r24,Z+3
+ 127 000a 8370      		andi r24,lo8(3)
+ 128               	.LSM19:
+ 129 000c 8250      		subi r24,lo8(-(-2))
+ 130 000e 8230      		cpi r24,lo8(2)
+ 131 0010 00F4      		brsh .L16
+ 132               	.LSM20:
+ 133 0012 8281      		ldd r24,Z+2
+ 134 0014 0E94 0000 		call Pipe_IsEndpointBound
+ 135               	.LVL16:
+ 136               	.LSM21:
+ 137 0018 8823      		tst r24
+ 138 001a 01F4      		brne .L16
+ 139 001c 00C0      		rjmp .L17
+ 140               	.LVL17:
+ 141               	.L14:
+ 142               	.LBE100:
+ 143               	.LSM22:
+ 144 001e 8430      		cpi r24,lo8(4)
+ 145 0020 01F0      		breq .L18
+ 146               	.LVL18:
+ 147               	.L16:
+ 148               	.LBB101:
+ 149               	.LSM23:
+ 150 0022 82E0      		ldi r24,lo8(2)
+ 151 0024 0895      		ret
+ 152               	.L17:
+ 153               	.LSM24:
+ 154 0026 80E0      		ldi r24,lo8(0)
+ 155 0028 0895      		ret
+ 156               	.LVL19:
+ 157               	.L18:
+ 158               	.LBE101:
+ 159               	.LSM25:
+ 160 002a 81E0      		ldi r24,lo8(1)
+ 161               	.LSM26:
+ 162 002c 0895      		ret
+ 163               	.LFE128:
+ 165               		.section	.text.CDC_Host_ConfigurePipes,"ax",@progbits
+ 166               	.global	CDC_Host_ConfigurePipes
+ 168               	CDC_Host_ConfigurePipes:
+ 169               	.LFB125:
+ 170               	.LSM27:
+ 171               	.LVL20:
+ 172 0000 4F92      		push r4
+ 173 0002 5F92      		push r5
+ 174 0004 6F92      		push r6
+ 175 0006 7F92      		push r7
+ 176 0008 8F92      		push r8
+ 177 000a 9F92      		push r9
+ 178 000c AF92      		push r10
+ 179 000e BF92      		push r11
+ 180 0010 CF92      		push r12
+ 181 0012 DF92      		push r13
+ 182 0014 EF92      		push r14
+ 183 0016 FF92      		push r15
+ 184 0018 0F93      		push r16
+ 185 001a 1F93      		push r17
+ 186 001c DF93      		push r29
+ 187 001e CF93      		push r28
+ 188 0020 00D0      		rcall .
+ 189 0022 00D0      		rcall .
+ 190 0024 00D0      		rcall .
+ 191 0026 CDB7      		in r28,__SP_L__
+ 192 0028 DEB7      		in r29,__SP_H__
+ 193               	/* prologue: function */
+ 194               	/* frame size = 6 */
+ 195               	/* stack size = 22 */
+ 196               	.L__stack_usage = 22
+ 197 002a 6C01      		movw r12,r24
+ 198 002c 7A83      		std Y+2,r23
+ 199 002e 6983      		std Y+1,r22
+ 200 0030 5C83      		std Y+4,r21
+ 201 0032 4B83      		std Y+3,r20
+ 202               	.LVL21:
+ 203               	.LSM28:
+ 204 0034 0696      		adiw r24,6
+ 205               	.LVL22:
+ 206 0036 FC01      		movw r30,r24
+ 207 0038 81E1      		ldi r24,lo8(17)
+ 208 003a DF01      		movw r26,r30
+ 209 003c 1D92      		st X+,__zero_reg__
+ 210 003e 8A95      	        dec r24
+ 211 0040 01F4      		brne .-6
+ 212               	.LSM29:
+ 213 0042 EB81      		ldd r30,Y+3
+ 214 0044 FC81      		ldd r31,Y+4
+ 215 0046 8181      		ldd r24,Z+1
+ 216 0048 8230      		cpi r24,lo8(2)
+ 217 004a 01F0      		breq .+2
+ 218 004c 00C0      		rjmp .L33
+ 219 004e 4424      		clr r4
+ 220 0050 5524      		clr r5
+ 221 0052 AA24      		clr r10
+ 222 0054 BB24      		clr r11
+ 223 0056 8824      		clr r8
+ 224 0058 9924      		clr r9
+ 225 005a 6624      		clr r6
+ 226 005c 7724      		clr r7
+ 227               	.LBB102:
+ 228               	.LSM30:
+ 229 005e 83E0      		ldi r24,lo8(3)
+ 230 0060 E82E      		mov r14,r24
+ 231 0062 F12C      		mov r15,__zero_reg__
+ 232 0064 EC0E      		add r14,r28
+ 233 0066 FD1E      		adc r15,r29
+ 234 0068 8E01      		movw r16,r28
+ 235 006a 0F5F      		subi r16,lo8(-(1))
+ 236 006c 1F4F      		sbci r17,hi8(-(1))
+ 237               	.LVL23:
+ 238               	.L43:
+ 239               	.LSM31:
+ 240 006e 4114      		cp r4,__zero_reg__
+ 241 0070 5104      		cpc r5,__zero_reg__
+ 242 0072 01F0      		breq .L22
+ 243               	.LSM32:
+ 244 0074 C801      		movw r24,r16
+ 245 0076 B701      		movw r22,r14
+ 246               	.LVL24:
+ 247 0078 40E0      		ldi r20,lo8(gs(DCOMP_CDC_Host_NextCDCInterfaceEndpoint))
+ 248 007a 50E0      		ldi r21,hi8(gs(DCOMP_CDC_Host_NextCDCInterfaceEndpoint))
+ 249               	.LVL25:
+ 250 007c 0E94 0000 		call USB_GetNextDescriptorComp
+ 251               	.LSM33:
+ 252 0080 8823      		tst r24
+ 253 0082 01F0      		breq .L23
+ 254               	.L22:
+ 255               	.LSM34:
+ 256 0084 A114      		cp r10,__zero_reg__
+ 257 0086 B104      		cpc r11,__zero_reg__
+ 258 0088 01F0      		breq .L24
+ 259               	.LSM35:
+ 260 008a C801      		movw r24,r16
+ 261 008c B701      		movw r22,r14
+ 262 008e 40E0      		ldi r20,lo8(gs(DCOMP_CDC_Host_NextCDCDataInterface))
+ 263 0090 50E0      		ldi r21,hi8(gs(DCOMP_CDC_Host_NextCDCDataInterface))
+ 264 0092 0E94 0000 		call USB_GetNextDescriptorComp
+ 265 0096 8823      		tst r24
+ 266 0098 01F0      		breq .+2
+ 267 009a 00C0      		rjmp .L35
+ 268               	.LSM36:
+ 269 009c 8824      		clr r8
+ 270 009e 9924      		clr r9
+ 271               	.LSM37:
+ 272 00a0 6624      		clr r6
+ 273 00a2 7724      		clr r7
+ 274 00a4 00C0      		rjmp .L43
+ 275               	.L24:
+ 276               	.LSM38:
+ 277 00a6 C801      		movw r24,r16
+ 278 00a8 B701      		movw r22,r14
+ 279 00aa 40E0      		ldi r20,lo8(gs(DCOMP_CDC_Host_NextCDCControlInterface))
+ 280 00ac 50E0      		ldi r21,hi8(gs(DCOMP_CDC_Host_NextCDCControlInterface))
+ 281 00ae 0E94 0000 		call USB_GetNextDescriptorComp
+ 282 00b2 8823      		tst r24
+ 283 00b4 01F0      		breq .+2
+ 284 00b6 00C0      		rjmp .L35
+ 285               	.LSM39:
+ 286 00b8 4B80      		ldd r4,Y+3
+ 287 00ba 5C80      		ldd r5,Y+4
+ 288               	.LVL26:
+ 289 00bc 00C0      		rjmp .L26
+ 290               	.LVL27:
+ 291               	.L23:
+ 292               	.LSM40:
+ 293 00be EB81      		ldd r30,Y+3
+ 294 00c0 FC81      		ldd r31,Y+4
+ 295               	.LVL28:
+ 296               	.LSM41:
+ 297 00c2 8281      		ldd r24,Z+2
+ 298 00c4 87FF      		sbrs r24,7
+ 299 00c6 00C0      		rjmp .L36
+ 300               	.LSM42:
+ 301 00c8 8381      		ldd r24,Z+3
+ 302 00ca 8370      		andi r24,lo8(3)
+ 303 00cc 8330      		cpi r24,lo8(3)
+ 304 00ce 01F4      		brne .L37
+ 305               	.LSM43:
+ 306 00d0 5F01      		movw r10,r30
+ 307 00d2 00C0      		rjmp .L26
+ 308               	.L36:
+ 309               	.LSM44:
+ 310 00d4 4F01      		movw r8,r30
+ 311 00d6 00C0      		rjmp .L26
+ 312               	.L37:
+ 313               	.LSM45:
+ 314 00d8 3F01      		movw r6,r30
+ 315               	.LVL29:
+ 316               	.L26:
+ 317               	.LBE102:
+ 318               	.LSM46:
+ 319 00da 6114      		cp r6,__zero_reg__
+ 320 00dc 7104      		cpc r7,__zero_reg__
+ 321 00de 01F0      		breq .L43
+ 322               	.LSM47:
+ 323 00e0 8114      		cp r8,__zero_reg__
+ 324 00e2 9104      		cpc r9,__zero_reg__
+ 325 00e4 01F0      		breq .L43
+ 326               	.LSM48:
+ 327 00e6 A114      		cp r10,__zero_reg__
+ 328 00e8 B104      		cpc r11,__zero_reg__
+ 329 00ea 01F0      		breq .L43
+ 330               	.LVL30:
+ 331               	.LSM49:
+ 332 00ec 91E0      		ldi r25,lo8(1)
+ 333               	.LVL31:
+ 334               	.L32:
+ 335               	.LBB103:
+ 336               	.LBB104:
+ 337               	.LSM50:
+ 338 00ee F601      		movw r30,r12
+ 339 00f0 8081      		ld r24,Z
+ 340 00f2 9817      		cp r25,r24
+ 341 00f4 01F4      		brne .L27
+ 342               	.LSM51:
+ 343 00f6 D301      		movw r26,r6
+ 344 00f8 1496      		adiw r26,4
+ 345 00fa 0D91      		ld r16,X+
+ 346 00fc 1C91      		ld r17,X
+ 347 00fe 1597      		sbiw r26,4+1
+ 348               	.LVL32:
+ 349               	.LSM52:
+ 350 0100 1296      		adiw r26,2
+ 351 0102 2C91      		ld r18,X
+ 352 0104 1297      		sbiw r26,2
+ 353               	.LVL33:
+ 354               	.LSM53:
+ 355 0106 8181      		ldd r24,Z+1
+ 356               	.LVL34:
+ 357               	.LSM54:
+ 358 0108 1187      		std Z+9,r17
+ 359 010a 0087      		std Z+8,r16
+ 360               	.LSM55:
+ 361 010c 30E0      		ldi r19,lo8(0)
+ 362               	.LSM56:
+ 363 010e 40E1      		ldi r20,lo8(16)
+ 364 0110 00C0      		rjmp .L44
+ 365               	.LVL35:
+ 366               	.L27:
+ 367               	.LSM57:
+ 368 0112 F601      		movw r30,r12
+ 369 0114 8281      		ldd r24,Z+2
+ 370 0116 9817      		cp r25,r24
+ 371 0118 01F4      		brne .L29
+ 372               	.LSM58:
+ 373 011a D401      		movw r26,r8
+ 374 011c 1496      		adiw r26,4
+ 375 011e 0D91      		ld r16,X+
+ 376 0120 1C91      		ld r17,X
+ 377 0122 1597      		sbiw r26,4+1
+ 378               	.LVL36:
+ 379               	.LSM59:
+ 380 0124 1296      		adiw r26,2
+ 381 0126 2C91      		ld r18,X
+ 382 0128 1297      		sbiw r26,2
+ 383               	.LVL37:
+ 384               	.LSM60:
+ 385 012a 8381      		ldd r24,Z+3
+ 386               	.LVL38:
+ 387               	.LSM61:
+ 388 012c 1387      		std Z+11,r17
+ 389 012e 0287      		std Z+10,r16
+ 390               	.LSM62:
+ 391 0130 30E0      		ldi r19,lo8(0)
+ 392               	.LSM63:
+ 393 0132 40E2      		ldi r20,lo8(32)
+ 394               	.LVL39:
+ 395               	.L44:
+ 396               	.LSM64:
+ 397 0134 62E0      		ldi r22,lo8(2)
+ 398 0136 00C0      		rjmp .L28
+ 399               	.LVL40:
+ 400               	.L29:
+ 401               	.LSM65:
+ 402 0138 F601      		movw r30,r12
+ 403 013a 8481      		ldd r24,Z+4
+ 404 013c 9817      		cp r25,r24
+ 405 013e 01F4      		brne .L30
+ 406               	.LSM66:
+ 407 0140 D501      		movw r26,r10
+ 408 0142 1496      		adiw r26,4
+ 409 0144 0D91      		ld r16,X+
+ 410 0146 1C91      		ld r17,X
+ 411 0148 1597      		sbiw r26,4+1
+ 412               	.LVL41:
+ 413               	.LSM67:
+ 414 014a 1296      		adiw r26,2
+ 415 014c 2C91      		ld r18,X
+ 416 014e 1297      		sbiw r26,2
+ 417               	.LVL42:
+ 418               	.LSM68:
+ 419 0150 8581      		ldd r24,Z+5
+ 420               	.LVL43:
+ 421               	.LSM69:
+ 422 0152 1696      		adiw r26,6
+ 423 0154 3C91      		ld r19,X
+ 424 0156 1697      		sbiw r26,6
+ 425               	.LVL44:
+ 426               	.LSM70:
+ 427 0158 1587      		std Z+13,r17
+ 428 015a 0487      		std Z+12,r16
+ 429               	.LSM71:
+ 430 015c 40E1      		ldi r20,lo8(16)
+ 431               	.LSM72:
+ 432 015e 63E0      		ldi r22,lo8(3)
+ 433               	.LVL45:
+ 434               	.L28:
+ 435               	.LSM73:
+ 436 0160 8823      		tst r24
+ 437 0162 01F0      		breq .L38
+ 438 0164 54E0      		ldi r21,lo8(4)
+ 439 0166 00C0      		rjmp .L31
+ 440               	.L38:
+ 441 0168 50E0      		ldi r21,lo8(0)
+ 442               	.L31:
+ 443               	.LSM74:
+ 444 016a 892F      		mov r24,r25
+ 445               	.LVL46:
+ 446 016c E52E      		mov r14,r21
+ 447 016e 3D83      		std Y+5,r19
+ 448 0170 9E83      		std Y+6,r25
+ 449 0172 0E94 0000 		call Pipe_ConfigurePipe
+ 450               	.LVL47:
+ 451 0176 3D81      		ldd r19,Y+5
+ 452 0178 9E81      		ldd r25,Y+6
+ 453 017a 8823      		tst r24
+ 454 017c 01F0      		breq .L39
+ 455               	.LSM75:
+ 456 017e 3323      		tst r19
+ 457 0180 01F0      		breq .L30
+ 458               	.LVL48:
+ 459               	.LBB105:
+ 460               	.LBB106:
+ 461               	.LSM76:
+ 462 0182 3093 AD00 		sts 173,r19
+ 463               	.LVL49:
+ 464               	.L30:
+ 465               	.LBE106:
+ 466               	.LBE105:
+ 467               	.LBE104:
+ 468               	.LSM77:
+ 469 0186 9F5F      		subi r25,lo8(-(1))
+ 470               	.LVL50:
+ 471 0188 9730      		cpi r25,lo8(7)
+ 472 018a 01F0      		breq .+2
+ 473 018c 00C0      		rjmp .L32
+ 474               	.LBE103:
+ 475               	.LSM78:
+ 476 018e F201      		movw r30,r4
+ 477 0190 8281      		ldd r24,Z+2
+ 478 0192 D601      		movw r26,r12
+ 479 0194 1796      		adiw r26,7
+ 480 0196 8C93      		st X,r24
+ 481 0198 1797      		sbiw r26,7
+ 482               	.LSM79:
+ 483 019a 83E0      		ldi r24,lo8(3)
+ 484 019c 1E96      		adiw r26,14
+ 485 019e 8C93      		st X,r24
+ 486 01a0 1E97      		sbiw r26,14
+ 487               	.LSM80:
+ 488 01a2 1F96      		adiw r26,15
+ 489 01a4 8C93      		st X,r24
+ 490 01a6 1F97      		sbiw r26,15
+ 491               	.LSM81:
+ 492 01a8 81E0      		ldi r24,lo8(1)
+ 493 01aa 1696      		adiw r26,6
+ 494 01ac 8C93      		st X,r24
+ 495 01ae 1697      		sbiw r26,6
+ 496               	.LSM82:
+ 497 01b0 80E0      		ldi r24,lo8(0)
+ 498 01b2 00C0      		rjmp .L20
+ 499               	.LVL51:
+ 500               	.L33:
+ 501               	.LSM83:
+ 502 01b4 81E0      		ldi r24,lo8(1)
+ 503 01b6 00C0      		rjmp .L20
+ 504               	.LVL52:
+ 505               	.L35:
+ 506               	.LBB108:
+ 507               	.LSM84:
+ 508 01b8 82E0      		ldi r24,lo8(2)
+ 509 01ba 00C0      		rjmp .L20
+ 510               	.LVL53:
+ 511               	.L39:
+ 512               	.LBE108:
+ 513               	.LBB109:
+ 514               	.LBB107:
+ 515               	.LSM85:
+ 516 01bc 83E0      		ldi r24,lo8(3)
+ 517               	.LVL54:
+ 518               	.L20:
+ 519               	/* epilogue start */
+ 520               	.LBE107:
+ 521               	.LBE109:
+ 522               	.LSM86:
+ 523 01be 2696      		adiw r28,6
+ 524 01c0 0FB6      		in __tmp_reg__,__SREG__
+ 525 01c2 F894      		cli
+ 526 01c4 DEBF      		out __SP_H__,r29
+ 527 01c6 0FBE      		out __SREG__,__tmp_reg__
+ 528 01c8 CDBF      		out __SP_L__,r28
+ 529 01ca CF91      		pop r28
+ 530 01cc DF91      		pop r29
+ 531 01ce 1F91      		pop r17
+ 532 01d0 0F91      		pop r16
+ 533 01d2 FF90      		pop r15
+ 534 01d4 EF90      		pop r14
+ 535 01d6 DF90      		pop r13
+ 536 01d8 CF90      		pop r12
+ 537               	.LVL55:
+ 538 01da BF90      		pop r11
+ 539 01dc AF90      		pop r10
+ 540 01de 9F90      		pop r9
+ 541 01e0 8F90      		pop r8
+ 542 01e2 7F90      		pop r7
+ 543 01e4 6F90      		pop r6
+ 544 01e6 5F90      		pop r5
+ 545 01e8 4F90      		pop r4
+ 546 01ea 0895      		ret
+ 547               	.LFE125:
+ 549               		.section	.text.CDC_Host_SetLineEncoding,"ax",@progbits
+ 550               	.global	CDC_Host_SetLineEncoding
+ 552               	CDC_Host_SetLineEncoding:
+ 553               	.LFB130:
+ 554               	.LSM87:
+ 555               	.LVL56:
+ 556               	/* prologue: function */
+ 557               	/* frame size = 0 */
+ 558               	/* stack size = 0 */
+ 559               	.L__stack_usage = 0
+ 560               	.LSM88:
+ 561 0000 FC01      		movw r30,r24
+ 562 0002 2781      		ldd r18,Z+7
+ 563 0004 31E2      		ldi r19,lo8(33)
+ 564 0006 3093 0000 		sts USB_ControlRequest,r19
+ 565 000a 30E2      		ldi r19,lo8(32)
+ 566 000c 3093 0000 		sts USB_ControlRequest+1,r19
+ 567 0010 1092 0000 		sts USB_ControlRequest+2+1,__zero_reg__
+ 568 0014 1092 0000 		sts USB_ControlRequest+2,__zero_reg__
+ 569 0018 2093 0000 		sts USB_ControlRequest+4,r18
+ 570 001c 1092 0000 		sts USB_ControlRequest+5,__zero_reg__
+ 571 0020 27E0      		ldi r18,lo8(7)
+ 572 0022 30E0      		ldi r19,hi8(7)
+ 573 0024 3093 0000 		sts USB_ControlRequest+6+1,r19
+ 574 0028 2093 0000 		sts USB_ControlRequest+6,r18
+ 575               	.LVL57:
+ 576               	.LBB110:
+ 577               	.LBB111:
+ 578               	.LSM89:
+ 579 002c 1092 A700 		sts 167,__zero_reg__
+ 580               	.LBE111:
+ 581               	.LBE110:
+ 582               	.LSM90:
+ 583 0030 4096      		adiw r24,16
+ 584               	.LVL58:
+ 585 0032 0E94 0000 		call USB_Host_SendControlRequest
+ 586               	.LVL59:
+ 587               	/* epilogue start */
+ 588               	.LSM91:
+ 589 0036 0895      		ret
+ 590               	.LFE130:
+ 592               		.section	.text.CDC_Host_SendControlLineStateChange,"ax",@progbits
+ 593               	.global	CDC_Host_SendControlLineStateChange
+ 595               	CDC_Host_SendControlLineStateChange:
+ 596               	.LFB131:
+ 597               	.LSM92:
+ 598               	.LVL60:
+ 599               	/* prologue: function */
+ 600               	/* frame size = 0 */
+ 601               	/* stack size = 0 */
+ 602               	.L__stack_usage = 0
+ 603 0000 FC01      		movw r30,r24
+ 604               	.LSM93:
+ 605 0002 9685      		ldd r25,Z+14
+ 606 0004 8781      		ldd r24,Z+7
+ 607               	.LVL61:
+ 608 0006 E0E0      		ldi r30,lo8(USB_ControlRequest)
+ 609 0008 F0E0      		ldi r31,hi8(USB_ControlRequest)
+ 610               	.LVL62:
+ 611 000a 21E2      		ldi r18,lo8(33)
+ 612 000c 2093 0000 		sts USB_ControlRequest,r18
+ 613 0010 22E2      		ldi r18,lo8(34)
+ 614 0012 2093 0000 		sts USB_ControlRequest+1,r18
+ 615 0016 9093 0000 		sts USB_ControlRequest+2,r25
+ 616 001a 1382      		std Z+3,__zero_reg__
+ 617 001c 8093 0000 		sts USB_ControlRequest+4,r24
+ 618 0020 1582      		std Z+5,__zero_reg__
+ 619 0022 1092 0000 		sts USB_ControlRequest+6+1,__zero_reg__
+ 620 0026 1092 0000 		sts USB_ControlRequest+6,__zero_reg__
+ 621               	.LVL63:
+ 622               	.LBB112:
+ 623               	.LBB113:
+ 624               	.LSM94:
+ 625 002a 1092 A700 		sts 167,__zero_reg__
+ 626               	.LBE113:
+ 627               	.LBE112:
+ 628               	.LSM95:
+ 629 002e 80E0      		ldi r24,lo8(0)
+ 630 0030 90E0      		ldi r25,hi8(0)
+ 631 0032 0E94 0000 		call USB_Host_SendControlRequest
+ 632               	/* epilogue start */
+ 633               	.LSM96:
+ 634 0036 0895      		ret
+ 635               	.LFE131:
+ 637               		.section	.text.CDC_Host_SendBreak,"ax",@progbits
+ 638               	.global	CDC_Host_SendBreak
+ 640               	CDC_Host_SendBreak:
+ 641               	.LFB132:
+ 642               	.LSM97:
+ 643               	.LVL64:
+ 644               	/* prologue: function */
+ 645               	/* frame size = 0 */
+ 646               	/* stack size = 0 */
+ 647               	.L__stack_usage = 0
+ 648               	.LSM98:
+ 649 0000 FC01      		movw r30,r24
+ 650 0002 8781      		ldd r24,Z+7
+ 651               	.LVL65:
+ 652 0004 E0E0      		ldi r30,lo8(USB_ControlRequest)
+ 653 0006 F0E0      		ldi r31,hi8(USB_ControlRequest)
+ 654               	.LVL66:
+ 655 0008 91E2      		ldi r25,lo8(33)
+ 656 000a 9093 0000 		sts USB_ControlRequest,r25
+ 657 000e 93E2      		ldi r25,lo8(35)
+ 658 0010 9093 0000 		sts USB_ControlRequest+1,r25
+ 659 0014 6093 0000 		sts USB_ControlRequest+2,r22
+ 660 0018 1382      		std Z+3,__zero_reg__
+ 661 001a 8093 0000 		sts USB_ControlRequest+4,r24
+ 662 001e 1582      		std Z+5,__zero_reg__
+ 663 0020 1092 0000 		sts USB_ControlRequest+6+1,__zero_reg__
+ 664 0024 1092 0000 		sts USB_ControlRequest+6,__zero_reg__
+ 665               	.LVL67:
+ 666               	.LBB114:
+ 667               	.LBB115:
+ 668               	.LSM99:
+ 669 0028 1092 A700 		sts 167,__zero_reg__
+ 670               	.LBE115:
+ 671               	.LBE114:
+ 672               	.LSM100:
+ 673 002c 80E0      		ldi r24,lo8(0)
+ 674 002e 90E0      		ldi r25,hi8(0)
+ 675 0030 0E94 0000 		call USB_Host_SendControlRequest
+ 676               	.LVL68:
+ 677               	/* epilogue start */
+ 678               	.LSM101:
+ 679 0034 0895      		ret
+ 680               	.LFE132:
+ 682               		.section	.text.CDC_Host_SendData,"ax",@progbits
+ 683               	.global	CDC_Host_SendData
+ 685               	CDC_Host_SendData:
+ 686               	.LFB133:
+ 687               	.LSM102:
+ 688               	.LVL69:
+ 689               	/* prologue: function */
+ 690               	/* frame size = 0 */
+ 691               	/* stack size = 0 */
+ 692               	.L__stack_usage = 0
+ 693 0000 FC01      		movw r30,r24
+ 694 0002 CB01      		movw r24,r22
+ 695               	.LVL70:
+ 696               	.LSM103:
+ 697 0004 2091 0000 		lds r18,USB_HostState
+ 698 0008 2B30      		cpi r18,lo8(11)
+ 699 000a 01F4      		brne .L50
+ 700               	.LSM104:
+ 701 000c 2681      		ldd r18,Z+6
+ 702 000e 2223      		tst r18
+ 703 0010 01F0      		breq .L51
+ 704               	.LSM105:
+ 705 0012 2281      		ldd r18,Z+2
+ 706               	.LVL71:
+ 707               	.LBB116:
+ 708               	.LBB117:
+ 709               	.LSM106:
+ 710 0014 2093 A700 		sts 167,r18
+ 711               	.LBE117:
+ 712               	.LBE116:
+ 713               	.LBB118:
+ 714               	.LBB119:
+ 715               	.LSM107:
+ 716 0018 2091 A900 		lds r18,169
+ 717 001c 2F7B      		andi r18,lo8(-65)
+ 718 001e 2093 A900 		sts 169,r18
+ 719               	.LBE119:
+ 720               	.LBE118:
+ 721               	.LSM108:
+ 722 0022 BA01      		movw r22,r20
+ 723               	.LVL72:
+ 724 0024 40E0      		ldi r20,lo8(0)
+ 725 0026 50E0      		ldi r21,hi8(0)
+ 726               	.LVL73:
+ 727 0028 0E94 0000 		call Pipe_Write_Stream_LE
+ 728               	.LVL74:
+ 729               	.LBB120:
+ 730               	.LBB121:
+ 731               	.LSM109:
+ 732 002c 9091 A900 		lds r25,169
+ 733 0030 9064      		ori r25,lo8(64)
+ 734 0032 9093 A900 		sts 169,r25
+ 735               	.LBE121:
+ 736               	.LBE120:
+ 737               	.LSM110:
+ 738 0036 0895      		ret
+ 739               	.LVL75:
+ 740               	.L50:
+ 741               	.LSM111:
+ 742 0038 82E0      		ldi r24,lo8(2)
+ 743 003a 0895      		ret
+ 744               	.L51:
+ 745 003c 82E0      		ldi r24,lo8(2)
+ 746               	.LSM112:
+ 747 003e 0895      		ret
+ 748               	.LFE133:
+ 750               		.section	.text.CDC_Host_SendString,"ax",@progbits
+ 751               	.global	CDC_Host_SendString
+ 753               	CDC_Host_SendString:
+ 754               	.LFB134:
+ 755               	.LSM113:
+ 756               	.LVL76:
+ 757               	/* prologue: function */
+ 758               	/* frame size = 0 */
+ 759               	/* stack size = 0 */
+ 760               	.L__stack_usage = 0
+ 761 0000 FC01      		movw r30,r24
+ 762 0002 CB01      		movw r24,r22
+ 763               	.LVL77:
+ 764               	.LSM114:
+ 765 0004 2091 0000 		lds r18,USB_HostState
+ 766 0008 2B30      		cpi r18,lo8(11)
+ 767 000a 01F4      		brne .L54
+ 768               	.LSM115:
+ 769 000c 2681      		ldd r18,Z+6
+ 770 000e 2223      		tst r18
+ 771 0010 01F0      		breq .L55
+ 772               	.LSM116:
+ 773 0012 2281      		ldd r18,Z+2
+ 774               	.LVL78:
+ 775               	.LBB122:
+ 776               	.LBB123:
+ 777               	.LSM117:
+ 778 0014 2093 A700 		sts 167,r18
+ 779               	.LBE123:
+ 780               	.LBE122:
+ 781               	.LBB124:
+ 782               	.LBB125:
+ 783               	.LSM118:
+ 784 0018 2091 A900 		lds r18,169
+ 785 001c 2F7B      		andi r18,lo8(-65)
+ 786 001e 2093 A900 		sts 169,r18
+ 787               	.LBE125:
+ 788               	.LBE124:
+ 789               	.LSM119:
+ 790 0022 FB01      		movw r30,r22
+ 791               	.LVL79:
+ 792 0024 0190      		ld __tmp_reg__,Z+
+ 793 0026 0020      		tst __tmp_reg__
+ 794 0028 01F4      		brne .-6
+ 795 002a 3197      		sbiw r30,1
+ 796 002c E61B      		sub r30,r22
+ 797 002e F70B      		sbc r31,r23
+ 798 0030 BF01      		movw r22,r30
+ 799               	.LVL80:
+ 800 0032 40E0      		ldi r20,lo8(0)
+ 801 0034 50E0      		ldi r21,hi8(0)
+ 802 0036 0E94 0000 		call Pipe_Write_Stream_LE
+ 803               	.LVL81:
+ 804               	.LBB126:
+ 805               	.LBB127:
+ 806               	.LSM120:
+ 807 003a 9091 A900 		lds r25,169
+ 808 003e 9064      		ori r25,lo8(64)
+ 809 0040 9093 A900 		sts 169,r25
+ 810               	.LBE127:
+ 811               	.LBE126:
+ 812               	.LSM121:
+ 813 0044 0895      		ret
+ 814               	.LVL82:
+ 815               	.L54:
+ 816               	.LSM122:
+ 817 0046 82E0      		ldi r24,lo8(2)
+ 818 0048 0895      		ret
+ 819               	.L55:
+ 820 004a 82E0      		ldi r24,lo8(2)
+ 821               	.LSM123:
+ 822 004c 0895      		ret
+ 823               	.LFE134:
+ 825               		.section	.text.CDC_Host_SendByte,"ax",@progbits
+ 826               	.global	CDC_Host_SendByte
+ 828               	CDC_Host_SendByte:
+ 829               	.LFB135:
+ 830               	.LSM124:
+ 831               	.LVL83:
+ 832 0000 DF93      		push r29
+ 833 0002 CF93      		push r28
+ 834 0004 0F92      		push __tmp_reg__
+ 835 0006 CDB7      		in r28,__SP_L__
+ 836 0008 DEB7      		in r29,__SP_H__
+ 837               	/* prologue: function */
+ 838               	/* frame size = 1 */
+ 839               	/* stack size = 3 */
+ 840               	.L__stack_usage = 3
+ 841 000a FC01      		movw r30,r24
+ 842               	.LSM125:
+ 843 000c 8091 0000 		lds r24,USB_HostState
+ 844               	.LVL84:
+ 845 0010 8B30      		cpi r24,lo8(11)
+ 846 0012 01F4      		brne .L60
+ 847               	.LSM126:
+ 848 0014 8681      		ldd r24,Z+6
+ 849 0016 8823      		tst r24
+ 850 0018 01F0      		breq .L60
+ 851               	.LSM127:
+ 852 001a 8281      		ldd r24,Z+2
+ 853               	.LVL85:
+ 854               	.LBB128:
+ 855               	.LBB129:
+ 856               	.LSM128:
+ 857 001c 8093 A700 		sts 167,r24
+ 858               	.LBE129:
+ 859               	.LBE128:
+ 860               	.LBB130:
+ 861               	.LBB131:
+ 862               	.LSM129:
+ 863 0020 8091 A900 		lds r24,169
+ 864 0024 8F7B      		andi r24,lo8(-65)
+ 865 0026 8093 A900 		sts 169,r24
+ 866               	.LBE131:
+ 867               	.LBE130:
+ 868               	.LBB132:
+ 869               	.LBB133:
+ 870               	.LSM130:
+ 871 002a 8091 A600 		lds r24,166
+ 872               	.LBE133:
+ 873               	.LBE132:
+ 874               	.LSM131:
+ 875 002e 85FD      		sbrc r24,5
+ 876 0030 00C0      		rjmp .L58
+ 877               	.LBB134:
+ 878               	.LBB135:
+ 879               	.LSM132:
+ 880 0032 8091 A600 		lds r24,166
+ 881 0036 8B77      		andi r24,lo8(123)
+ 882 0038 8093 A600 		sts 166,r24
+ 883               	.LBE135:
+ 884               	.LBE134:
+ 885               	.LSM133:
+ 886 003c 6983      		std Y+1,r22
+ 887 003e 0E94 0000 		call Pipe_WaitUntilReady
+ 888               	.LVL86:
+ 889 0042 6981      		ldd r22,Y+1
+ 890 0044 8823      		tst r24
+ 891 0046 01F4      		brne .L57
+ 892               	.LVL87:
+ 893               	.L58:
+ 894               	.LBB136:
+ 895               	.LBB137:
+ 896               	.LSM134:
+ 897 0048 6093 AF00 		sts 175,r22
+ 898               	.LBE137:
+ 899               	.LBE136:
+ 900               	.LBB138:
+ 901               	.LBB139:
+ 902               	.LSM135:
+ 903 004c 8091 A900 		lds r24,169
+ 904 0050 8064      		ori r24,lo8(64)
+ 905 0052 8093 A900 		sts 169,r24
+ 906               	.LBE139:
+ 907               	.LBE138:
+ 908               	.LSM136:
+ 909 0056 80E0      		ldi r24,lo8(0)
+ 910 0058 00C0      		rjmp .L57
+ 911               	.LVL88:
+ 912               	.L60:
+ 913               	.LSM137:
+ 914 005a 82E0      		ldi r24,lo8(2)
+ 915               	.LVL89:
+ 916               	.L57:
+ 917               	/* epilogue start */
+ 918               	.LSM138:
+ 919 005c 0F90      		pop __tmp_reg__
+ 920 005e CF91      		pop r28
+ 921 0060 DF91      		pop r29
+ 922 0062 0895      		ret
+ 923               	.LFE135:
+ 925               		.section	.text.CDC_Host_putchar,"ax",@progbits
+ 927               	CDC_Host_putchar:
+ 928               	.LFB141:
+ 929               	.LSM139:
+ 930               	.LVL90:
+ 931               	/* prologue: function */
+ 932               	/* frame size = 0 */
+ 933               	/* stack size = 0 */
+ 934               	.L__stack_usage = 0
+ 935 0000 282F      		mov r18,r24
+ 936 0002 FB01      		movw r30,r22
+ 937               	.LSM140:
+ 938 0004 8485      		ldd r24,Z+12
+ 939 0006 9585      		ldd r25,Z+13
+ 940               	.LVL91:
+ 941 0008 622F      		mov r22,r18
+ 942               	.LVL92:
+ 943 000a 0E94 0000 		call CDC_Host_SendByte
+ 944               	.LVL93:
+ 945 000e 8823      		tst r24
+ 946 0010 01F0      		breq .L63
+ 947 0012 2FEF      		ldi r18,lo8(-1)
+ 948 0014 3FEF      		ldi r19,hi8(-1)
+ 949 0016 00C0      		rjmp .L62
+ 950               	.L63:
+ 951 0018 20E0      		ldi r18,lo8(0)
+ 952 001a 30E0      		ldi r19,hi8(0)
+ 953               	.L62:
+ 954               	.LSM141:
+ 955 001c C901      		movw r24,r18
+ 956               	/* epilogue start */
+ 957 001e 0895      		ret
+ 958               	.LFE141:
+ 960               		.section	.text.CDC_Host_BytesReceived,"ax",@progbits
+ 961               	.global	CDC_Host_BytesReceived
+ 963               	CDC_Host_BytesReceived:
+ 964               	.LFB136:
+ 965               	.LSM142:
+ 966               	.LVL94:
+ 967               	/* prologue: function */
+ 968               	/* frame size = 0 */
+ 969               	/* stack size = 0 */
+ 970               	.L__stack_usage = 0
+ 971 0000 FC01      		movw r30,r24
+ 972               	.LSM143:
+ 973 0002 8091 0000 		lds r24,USB_HostState
+ 974               	.LVL95:
+ 975 0006 8B30      		cpi r24,lo8(11)
+ 976 0008 01F4      		brne .L69
+ 977               	.LSM144:
+ 978 000a 8681      		ldd r24,Z+6
+ 979 000c 8823      		tst r24
+ 980 000e 01F0      		breq .L69
+ 981               	.LSM145:
+ 982 0010 8081      		ld r24,Z
+ 983               	.LVL96:
+ 984               	.LBB140:
+ 985               	.LBB141:
+ 986               	.LSM146:
+ 987 0012 8093 A700 		sts 167,r24
+ 988               	.LBE141:
+ 989               	.LBE140:
+ 990               	.LBB142:
+ 991               	.LBB143:
+ 992               	.LSM147:
+ 993 0016 8091 A900 		lds r24,169
+ 994 001a 8F7B      		andi r24,lo8(-65)
+ 995 001c 8093 A900 		sts 169,r24
+ 996               	.LBE143:
+ 997               	.LBE142:
+ 998               	.LBB144:
+ 999               	.LBB145:
+ 1000               	.LSM148:
+ 1001 0020 8091 A600 		lds r24,166
+ 1002               	.LBE145:
+ 1003               	.LBE144:
+ 1004               	.LSM149:
+ 1005 0024 80FF      		sbrs r24,0
+ 1006 0026 00C0      		rjmp .L66
+ 1007               	.LBB146:
+ 1008               	.LBB147:
+ 1009               	.LSM150:
+ 1010 0028 8091 F600 		lds r24,246
+ 1011 002c 9091 F700 		lds r25,246+1
+ 1012               	.LBE147:
+ 1013               	.LBE146:
+ 1014               	.LSM151:
+ 1015 0030 0097      		sbiw r24,0
+ 1016 0032 01F4      		brne .L67
+ 1017               	.LBB148:
+ 1018               	.LBB149:
+ 1019               	.LSM152:
+ 1020 0034 8091 A600 		lds r24,166
+ 1021 0038 8E77      		andi r24,lo8(126)
+ 1022 003a 8093 A600 		sts 166,r24
+ 1023 003e 00C0      		rjmp .L66
+ 1024               	.L67:
+ 1025               	.LBE149:
+ 1026               	.LBE148:
+ 1027               	.LBB150:
+ 1028               	.LBB151:
+ 1029               	.LSM153:
+ 1030 0040 8091 A900 		lds r24,169
+ 1031 0044 8064      		ori r24,lo8(64)
+ 1032 0046 8093 A900 		sts 169,r24
+ 1033               	.LBE151:
+ 1034               	.LBE150:
+ 1035               	.LBB152:
+ 1036               	.LBB153:
+ 1037               	.LSM154:
+ 1038 004a 2091 F600 		lds r18,246
+ 1039 004e 3091 F700 		lds r19,246+1
+ 1040               	.LBE153:
+ 1041               	.LBE152:
+ 1042               	.LSM155:
+ 1043 0052 00C0      		rjmp .L65
+ 1044               	.L66:
+ 1045               	.LBB154:
+ 1046               	.LBB155:
+ 1047               	.LSM156:
+ 1048 0054 8091 A900 		lds r24,169
+ 1049 0058 8064      		ori r24,lo8(64)
+ 1050 005a 8093 A900 		sts 169,r24
+ 1051               	.LVL97:
+ 1052               	.L69:
+ 1053               	.LBE155:
+ 1054               	.LBE154:
+ 1055               	.LSM157:
+ 1056 005e 20E0      		ldi r18,lo8(0)
+ 1057 0060 30E0      		ldi r19,hi8(0)
+ 1058               	.L65:
+ 1059               	.LSM158:
+ 1060 0062 C901      		movw r24,r18
+ 1061               	/* epilogue start */
+ 1062 0064 0895      		ret
+ 1063               	.LFE136:
+ 1065               		.section	.text.CDC_Host_ReceiveByte,"ax",@progbits
+ 1066               	.global	CDC_Host_ReceiveByte
+ 1068               	CDC_Host_ReceiveByte:
+ 1069               	.LFB137:
+ 1070               	.LSM159:
+ 1071               	.LVL98:
+ 1072               	/* prologue: function */
+ 1073               	/* frame size = 0 */
+ 1074               	/* stack size = 0 */
+ 1075               	.L__stack_usage = 0
+ 1076 0000 FC01      		movw r30,r24
+ 1077               	.LSM160:
+ 1078 0002 8091 0000 		lds r24,USB_HostState
+ 1079               	.LVL99:
+ 1080 0006 8B30      		cpi r24,lo8(11)
+ 1081 0008 01F4      		brne .L75
+ 1082               	.LSM161:
+ 1083 000a 8681      		ldd r24,Z+6
+ 1084 000c 8823      		tst r24
+ 1085 000e 01F0      		breq .L75
+ 1086               	.LVL100:
+ 1087               	.LSM162:
+ 1088 0010 8081      		ld r24,Z
+ 1089               	.LVL101:
+ 1090               	.LBB156:
+ 1091               	.LBB157:
+ 1092               	.LSM163:
+ 1093 0012 8093 A700 		sts 167,r24
+ 1094               	.LBE157:
+ 1095               	.LBE156:
+ 1096               	.LBB158:
+ 1097               	.LBB159:
+ 1098               	.LSM164:
+ 1099 0016 8091 A900 		lds r24,169
+ 1100 001a 8F7B      		andi r24,lo8(-65)
+ 1101 001c 8093 A900 		sts 169,r24
+ 1102               	.LBE159:
+ 1103               	.LBE158:
+ 1104               	.LBB160:
+ 1105               	.LBB161:
+ 1106               	.LSM165:
+ 1107 0020 8091 A600 		lds r24,166
+ 1108               	.LBE161:
+ 1109               	.LBE160:
+ 1110               	.LSM166:
+ 1111 0024 80FF      		sbrs r24,0
+ 1112 0026 00C0      		rjmp .L76
+ 1113               	.LBB162:
+ 1114               	.LBB163:
+ 1115               	.LSM167:
+ 1116 0028 8091 F600 		lds r24,246
+ 1117 002c 9091 F700 		lds r25,246+1
+ 1118               	.LBE163:
+ 1119               	.LBE162:
+ 1120               	.LSM168:
+ 1121 0030 0097      		sbiw r24,0
+ 1122 0032 01F0      		breq .L77
+ 1123               	.LBB164:
+ 1124               	.LBB165:
+ 1125               	.LSM169:
+ 1126 0034 2091 AF00 		lds r18,175
+ 1127               	.LBE165:
+ 1128               	.LBE164:
+ 1129               	.LSM170:
+ 1130 0038 30E0      		ldi r19,lo8(0)
+ 1131               	.LVL102:
+ 1132 003a 00C0      		rjmp .L73
+ 1133               	.LVL103:
+ 1134               	.L77:
+ 1135               	.LSM171:
+ 1136 003c 2FEF      		ldi r18,lo8(-1)
+ 1137 003e 3FEF      		ldi r19,hi8(-1)
+ 1138               	.LVL104:
+ 1139               	.L73:
+ 1140               	.LBB166:
+ 1141               	.LBB167:
+ 1142               	.LSM172:
+ 1143 0040 8091 F600 		lds r24,246
+ 1144 0044 9091 F700 		lds r25,246+1
+ 1145               	.LBE167:
+ 1146               	.LBE166:
+ 1147               	.LSM173:
+ 1148 0048 0097      		sbiw r24,0
+ 1149 004a 01F4      		brne .L72
+ 1150               	.LBB168:
+ 1151               	.LBB169:
+ 1152               	.LSM174:
+ 1153 004c 8091 A600 		lds r24,166
+ 1154 0050 8E77      		andi r24,lo8(126)
+ 1155 0052 8093 A600 		sts 166,r24
+ 1156 0056 00C0      		rjmp .L72
+ 1157               	.LVL105:
+ 1158               	.L76:
+ 1159               	.LBE169:
+ 1160               	.LBE168:
+ 1161               	.LSM175:
+ 1162 0058 2FEF      		ldi r18,lo8(-1)
+ 1163 005a 3FEF      		ldi r19,hi8(-1)
+ 1164               	.LVL106:
+ 1165               	.L72:
+ 1166               	.LBB170:
+ 1167               	.LBB171:
+ 1168               	.LSM176:
+ 1169 005c 8091 A900 		lds r24,169
+ 1170 0060 8064      		ori r24,lo8(64)
+ 1171 0062 8093 A900 		sts 169,r24
+ 1172               	.LBE171:
+ 1173               	.LBE170:
+ 1174               	.LSM177:
+ 1175 0066 00C0      		rjmp .L71
+ 1176               	.LVL107:
+ 1177               	.L75:
+ 1178               	.LSM178:
+ 1179 0068 2FEF      		ldi r18,lo8(-1)
+ 1180 006a 3FEF      		ldi r19,hi8(-1)
+ 1181               	.L71:
+ 1182               	.LSM179:
+ 1183 006c C901      		movw r24,r18
+ 1184               	/* epilogue start */
+ 1185 006e 0895      		ret
+ 1186               	.LFE137:
+ 1188               		.section	.text.CDC_Host_getchar,"ax",@progbits
+ 1190               	CDC_Host_getchar:
+ 1191               	.LFB142:
+ 1192               	.LSM180:
+ 1193               	.LVL108:
+ 1194               	/* prologue: function */
+ 1195               	/* frame size = 0 */
+ 1196               	/* stack size = 0 */
+ 1197               	.L__stack_usage = 0
+ 1198               	.LSM181:
+ 1199 0000 FC01      		movw r30,r24
+ 1200 0002 8485      		ldd r24,Z+12
+ 1201 0004 9585      		ldd r25,Z+13
+ 1202               	.LVL109:
+ 1203 0006 0E94 0000 		call CDC_Host_ReceiveByte
+ 1204               	.LVL110:
+ 1205 000a 9C01      		movw r18,r24
+ 1206               	.LVL111:
+ 1207               	.LSM182:
+ 1208 000c 97FF      		sbrs r25,7
+ 1209 000e 00C0      		rjmp .L79
+ 1210               	.LSM183:
+ 1211 0010 2EEF      		ldi r18,lo8(-2)
+ 1212 0012 3FEF      		ldi r19,hi8(-2)
+ 1213               	.L79:
+ 1214               	.LSM184:
+ 1215 0014 C901      		movw r24,r18
+ 1216               	.LVL112:
+ 1217               	/* epilogue start */
+ 1218 0016 0895      		ret
+ 1219               	.LFE142:
+ 1221               		.section	.text.CDC_Host_Flush,"ax",@progbits
+ 1222               	.global	CDC_Host_Flush
+ 1224               	CDC_Host_Flush:
+ 1225               	.LFB138:
+ 1226               	.LSM185:
+ 1227               	.LVL113:
+ 1228               	/* prologue: function */
+ 1229               	/* frame size = 0 */
+ 1230               	/* stack size = 0 */
+ 1231               	.L__stack_usage = 0
+ 1232 0000 FC01      		movw r30,r24
+ 1233               	.LSM186:
+ 1234 0002 8091 0000 		lds r24,USB_HostState
+ 1235               	.LVL114:
+ 1236 0006 8B30      		cpi r24,lo8(11)
+ 1237 0008 01F4      		brne .L84
+ 1238               	.LSM187:
+ 1239 000a 8681      		ldd r24,Z+6
+ 1240 000c 8823      		tst r24
+ 1241 000e 01F0      		breq .L84
+ 1242               	.LSM188:
+ 1243 0010 8281      		ldd r24,Z+2
+ 1244               	.LVL115:
+ 1245               	.LBB172:
+ 1246               	.LBB173:
+ 1247               	.LSM189:
+ 1248 0012 8093 A700 		sts 167,r24
+ 1249               	.LBE173:
+ 1250               	.LBE172:
+ 1251               	.LBB174:
+ 1252               	.LBB175:
+ 1253               	.LSM190:
+ 1254 0016 8091 A900 		lds r24,169
+ 1255 001a 8F7B      		andi r24,lo8(-65)
+ 1256 001c 8093 A900 		sts 169,r24
+ 1257               	.LBE175:
+ 1258               	.LBE174:
+ 1259               	.LBB176:
+ 1260               	.LBB177:
+ 1261               	.LSM191:
+ 1262 0020 8091 F600 		lds r24,246
+ 1263 0024 9091 F700 		lds r25,246+1
+ 1264               	.LBE177:
+ 1265               	.LBE176:
+ 1266               	.LSM192:
+ 1267 0028 0097      		sbiw r24,0
+ 1268 002a 01F0      		breq .L85
+ 1269               	.LBB178:
+ 1270               	.LBB179:
+ 1271               	.LSM193:
+ 1272 002c 9091 A600 		lds r25,166
+ 1273               	.LVL116:
+ 1274               	.LBE179:
+ 1275               	.LBE178:
+ 1276               	.LBB180:
+ 1277               	.LBB181:
+ 1278               	.LSM194:
+ 1279 0030 8091 A600 		lds r24,166
+ 1280 0034 8B77      		andi r24,lo8(123)
+ 1281 0036 8093 A600 		sts 166,r24
+ 1282               	.LBE181:
+ 1283               	.LBE180:
+ 1284               	.LSM195:
+ 1285 003a 95FD      		sbrc r25,5
+ 1286 003c 00C0      		rjmp .L82
+ 1287               	.LSM196:
+ 1288 003e 0E94 0000 		call Pipe_WaitUntilReady
+ 1289               	.LVL117:
+ 1290 0042 8823      		tst r24
+ 1291 0044 01F4      		brne .L81
+ 1292               	.LBB182:
+ 1293               	.LBB183:
+ 1294               	.LSM197:
+ 1295 0046 8091 A600 		lds r24,166
+ 1296               	.LVL118:
+ 1297 004a 8B77      		andi r24,lo8(123)
+ 1298 004c 8093 A600 		sts 166,r24
+ 1299               	.L82:
+ 1300               	.LBE183:
+ 1301               	.LBE182:
+ 1302               	.LBB184:
+ 1303               	.LBB185:
+ 1304               	.LSM198:
+ 1305 0050 8091 A900 		lds r24,169
+ 1306 0054 8064      		ori r24,lo8(64)
+ 1307 0056 8093 A900 		sts 169,r24
+ 1308               	.LBE185:
+ 1309               	.LBE184:
+ 1310               	.LSM199:
+ 1311 005a 80E0      		ldi r24,lo8(0)
+ 1312 005c 0895      		ret
+ 1313               	.LVL119:
+ 1314               	.L84:
+ 1315               	.LSM200:
+ 1316 005e 82E0      		ldi r24,lo8(2)
+ 1317 0060 0895      		ret
+ 1318               	.LVL120:
+ 1319               	.L85:
+ 1320               	.LSM201:
+ 1321 0062 80E0      		ldi r24,lo8(0)
+ 1322               	.LVL121:
+ 1323               	.L81:
+ 1324               	.LSM202:
+ 1325 0064 0895      		ret
+ 1326               	.LFE138:
+ 1328               		.section	.text.CDC_Host_USBTask,"ax",@progbits
+ 1329               	.global	CDC_Host_USBTask
+ 1331               	CDC_Host_USBTask:
+ 1332               	.LFB129:
+ 1333               	.LSM203:
+ 1334               	.LVL122:
+ 1335 0000 0F93      		push r16
+ 1336 0002 1F93      		push r17
+ 1337 0004 DF93      		push r29
+ 1338 0006 CF93      		push r28
+ 1339 0008 CDB7      		in r28,__SP_L__
+ 1340 000a DEB7      		in r29,__SP_H__
+ 1341 000c 2897      		sbiw r28,8
+ 1342 000e 0FB6      		in __tmp_reg__,__SREG__
+ 1343 0010 F894      		cli
+ 1344 0012 DEBF      		out __SP_H__,r29
+ 1345 0014 0FBE      		out __SREG__,__tmp_reg__
+ 1346 0016 CDBF      		out __SP_L__,r28
+ 1347               	/* prologue: function */
+ 1348               	/* frame size = 8 */
+ 1349               	/* stack size = 12 */
+ 1350               	.L__stack_usage = 12
+ 1351 0018 8C01      		movw r16,r24
+ 1352               	.LSM204:
+ 1353 001a 8091 0000 		lds r24,USB_HostState
+ 1354               	.LVL123:
+ 1355 001e 8B30      		cpi r24,lo8(11)
+ 1356 0020 01F4      		brne .L86
+ 1357               	.LSM205:
+ 1358 0022 F801      		movw r30,r16
+ 1359 0024 8681      		ldd r24,Z+6
+ 1360 0026 8823      		tst r24
+ 1361 0028 01F0      		breq .L86
+ 1362               	.LSM206:
+ 1363 002a 8481      		ldd r24,Z+4
+ 1364               	.LVL124:
+ 1365               	.LBB186:
+ 1366               	.LBB187:
+ 1367               	.LSM207:
+ 1368 002c 8093 A700 		sts 167,r24
+ 1369               	.LBE187:
+ 1370               	.LBE186:
+ 1371               	.LBB188:
+ 1372               	.LBB189:
+ 1373               	.LSM208:
+ 1374 0030 8091 A900 		lds r24,169
+ 1375 0034 8F7B      		andi r24,lo8(-65)
+ 1376 0036 8093 A900 		sts 169,r24
+ 1377               	.LBE189:
+ 1378               	.LBE188:
+ 1379               	.LBB190:
+ 1380               	.LBB191:
+ 1381               	.LSM209:
+ 1382 003a 8091 A600 		lds r24,166
+ 1383               	.LBE191:
+ 1384               	.LBE190:
+ 1385               	.LSM210:
+ 1386 003e 80FF      		sbrs r24,0
+ 1387 0040 00C0      		rjmp .L88
+ 1388               	.LBB192:
+ 1389               	.LSM211:
+ 1390 0042 CE01      		movw r24,r28
+ 1391 0044 0196      		adiw r24,1
+ 1392 0046 68E0      		ldi r22,lo8(8)
+ 1393 0048 70E0      		ldi r23,hi8(8)
+ 1394 004a 40E0      		ldi r20,lo8(0)
+ 1395 004c 50E0      		ldi r21,hi8(0)
+ 1396 004e 0E94 0000 		call Pipe_Read_Stream_LE
+ 1397               	.LVL125:
+ 1398               	.LSM212:
+ 1399 0052 8A81      		ldd r24,Y+2
+ 1400 0054 8032      		cpi r24,lo8(32)
+ 1401 0056 01F4      		brne .L89
+ 1402               	.LSM213:
+ 1403 0058 8981      		ldd r24,Y+1
+ 1404 005a 813A      		cpi r24,lo8(-95)
+ 1405 005c 01F4      		brne .L89
+ 1406               	.LSM214:
+ 1407 005e C801      		movw r24,r16
+ 1408 0060 0F96      		adiw r24,15
+ 1409 0062 61E0      		ldi r22,lo8(1)
+ 1410 0064 70E0      		ldi r23,hi8(1)
+ 1411 0066 40E0      		ldi r20,lo8(0)
+ 1412 0068 50E0      		ldi r21,hi8(0)
+ 1413 006a 0E94 0000 		call Pipe_Read_Stream_LE
+ 1414               	.LBB193:
+ 1415               	.LBB194:
+ 1416               	.LSM215:
+ 1417 006e 8091 A600 		lds r24,166
+ 1418 0072 8E77      		andi r24,lo8(126)
+ 1419 0074 8093 A600 		sts 166,r24
+ 1420               	.LBE194:
+ 1421               	.LBE193:
+ 1422               	.LSM216:
+ 1423 0078 C801      		movw r24,r16
+ 1424 007a 0E94 0000 		call EVENT_CDC_Host_ControLineStateChanged
+ 1425 007e 00C0      		rjmp .L88
+ 1426               	.L89:
+ 1427               	.LBB195:
+ 1428               	.LBB196:
+ 1429               	.LSM217:
+ 1430 0080 8091 A600 		lds r24,166
+ 1431 0084 8E77      		andi r24,lo8(126)
+ 1432 0086 8093 A600 		sts 166,r24
+ 1433               	.L88:
+ 1434               	.LBE196:
+ 1435               	.LBE195:
+ 1436               	.LBE192:
+ 1437               	.LBB197:
+ 1438               	.LBB198:
+ 1439               	.LSM218:
+ 1440 008a 8091 A900 		lds r24,169
+ 1441 008e 8064      		ori r24,lo8(64)
+ 1442 0090 8093 A900 		sts 169,r24
+ 1443               	.LBE198:
+ 1444               	.LBE197:
+ 1445               	.LSM219:
+ 1446 0094 C801      		movw r24,r16
+ 1447 0096 0E94 0000 		call CDC_Host_Flush
+ 1448               	.L86:
+ 1449               	/* epilogue start */
+ 1450               	.LSM220:
+ 1451 009a 2896      		adiw r28,8
+ 1452 009c 0FB6      		in __tmp_reg__,__SREG__
+ 1453 009e F894      		cli
+ 1454 00a0 DEBF      		out __SP_H__,r29
+ 1455 00a2 0FBE      		out __SREG__,__tmp_reg__
+ 1456 00a4 CDBF      		out __SP_L__,r28
+ 1457 00a6 CF91      		pop r28
+ 1458 00a8 DF91      		pop r29
+ 1459 00aa 1F91      		pop r17
+ 1460 00ac 0F91      		pop r16
+ 1461               	.LVL126:
+ 1462 00ae 0895      		ret
+ 1463               	.LFE129:
+ 1465               		.section	.text.CDC_Host_getchar_Blocking,"ax",@progbits
+ 1467               	CDC_Host_getchar_Blocking:
+ 1468               	.LFB143:
+ 1469               	.LSM221:
+ 1470               	.LVL127:
+ 1471 0000 CF93      		push r28
+ 1472 0002 DF93      		push r29
+ 1473               	/* prologue: function */
+ 1474               	/* frame size = 0 */
+ 1475               	/* stack size = 2 */
+ 1476               	.L__stack_usage = 2
+ 1477 0004 EC01      		movw r28,r24
+ 1478               	.LSM222:
+ 1479 0006 00C0      		rjmp .L91
+ 1480               	.LVL128:
+ 1481               	.L93:
+ 1482               	.LSM223:
+ 1483 0008 8091 0000 		lds r24,USB_HostState
+ 1484 000c 8130      		cpi r24,lo8(1)
+ 1485 000e 01F0      		breq .L94
+ 1486               	.LSM224:
+ 1487 0010 8C85      		ldd r24,Y+12
+ 1488 0012 9D85      		ldd r25,Y+13
+ 1489 0014 0E94 0000 		call CDC_Host_USBTask
+ 1490               	.LVL129:
+ 1491               	.LSM225:
+ 1492 0018 0E94 0000 		call USB_USBTask
+ 1493               	.L91:
+ 1494               	.LSM226:
+ 1495 001c 8C85      		ldd r24,Y+12
+ 1496 001e 9D85      		ldd r25,Y+13
+ 1497 0020 0E94 0000 		call CDC_Host_ReceiveByte
+ 1498 0024 9C01      		movw r18,r24
+ 1499               	.LVL130:
+ 1500 0026 97FD      		sbrc r25,7
+ 1501 0028 00C0      		rjmp .L93
+ 1502 002a 00C0      		rjmp .L92
+ 1503               	.LVL131:
+ 1504               	.L94:
+ 1505               	.LSM227:
+ 1506 002c 2EEF      		ldi r18,lo8(-2)
+ 1507 002e 3FEF      		ldi r19,hi8(-2)
+ 1508               	.LVL132:
+ 1509               	.L92:
+ 1510               	.LSM228:
+ 1511 0030 C901      		movw r24,r18
+ 1512               	/* epilogue start */
+ 1513 0032 DF91      		pop r29
+ 1514 0034 CF91      		pop r28
+ 1515               	.LVL133:
+ 1516 0036 0895      		ret
+ 1517               	.LFE143:
+ 1519               		.section	.text.CDC_Host_CreateStream,"ax",@progbits
+ 1520               	.global	CDC_Host_CreateStream
+ 1522               	CDC_Host_CreateStream:
+ 1523               	.LFB139:
+ 1524               	.LSM229:
+ 1525               	.LVL134:
+ 1526               	/* prologue: function */
+ 1527               	/* frame size = 0 */
+ 1528               	/* stack size = 0 */
+ 1529               	.L__stack_usage = 0
+ 1530 0000 FB01      		movw r30,r22
+ 1531               	.LSM230:
+ 1532 0002 2EE0      		ldi r18,lo8(14)
+ 1533 0004 DB01      		movw r26,r22
+ 1534 0006 1D92      		st X+,__zero_reg__
+ 1535 0008 2A95      	        dec r18
+ 1536 000a 01F4      		brne .-6
+ 1537 000c 23E0      		ldi r18,lo8(3)
+ 1538 000e 2383      		std Z+3,r18
+ 1539 0010 20E0      		ldi r18,lo8(gs(CDC_Host_putchar))
+ 1540 0012 30E0      		ldi r19,hi8(gs(CDC_Host_putchar))
+ 1541 0014 3187      		std Z+9,r19
+ 1542 0016 2087      		std Z+8,r18
+ 1543 0018 20E0      		ldi r18,lo8(gs(CDC_Host_getchar))
+ 1544 001a 30E0      		ldi r19,hi8(gs(CDC_Host_getchar))
+ 1545 001c 3387      		std Z+11,r19
+ 1546 001e 2287      		std Z+10,r18
+ 1547               	.LSM231:
+ 1548 0020 9587      		std Z+13,r25
+ 1549 0022 8487      		std Z+12,r24
+ 1550               	/* epilogue start */
+ 1551               	.LSM232:
+ 1552 0024 0895      		ret
+ 1553               	.LFE139:
+ 1555               		.section	.text.CDC_Host_CreateBlockingStream,"ax",@progbits
+ 1556               	.global	CDC_Host_CreateBlockingStream
+ 1558               	CDC_Host_CreateBlockingStream:
+ 1559               	.LFB140:
+ 1560               	.LSM233:
+ 1561               	.LVL135:
+ 1562               	/* prologue: function */
+ 1563               	/* frame size = 0 */
+ 1564               	/* stack size = 0 */
+ 1565               	.L__stack_usage = 0
+ 1566 0000 FB01      		movw r30,r22
+ 1567               	.LSM234:
+ 1568 0002 2EE0      		ldi r18,lo8(14)
+ 1569 0004 DB01      		movw r26,r22
+ 1570 0006 1D92      		st X+,__zero_reg__
+ 1571 0008 2A95      	        dec r18
+ 1572 000a 01F4      		brne .-6
+ 1573 000c 23E0      		ldi r18,lo8(3)
+ 1574 000e 2383      		std Z+3,r18
+ 1575 0010 20E0      		ldi r18,lo8(gs(CDC_Host_putchar))
+ 1576 0012 30E0      		ldi r19,hi8(gs(CDC_Host_putchar))
+ 1577 0014 3187      		std Z+9,r19
+ 1578 0016 2087      		std Z+8,r18
+ 1579 0018 20E0      		ldi r18,lo8(gs(CDC_Host_getchar_Blocking))
+ 1580 001a 30E0      		ldi r19,hi8(gs(CDC_Host_getchar_Blocking))
+ 1581 001c 3387      		std Z+11,r19
+ 1582 001e 2287      		std Z+10,r18
+ 1583               	.LSM235:
+ 1584 0020 9587      		std Z+13,r25
+ 1585 0022 8487      		std Z+12,r24
+ 1586               	/* epilogue start */
+ 1587               	.LSM236:
+ 1588 0024 0895      		ret
+ 1589               	.LFE140:
+ 1591               		.section	.text.CDC_Host_Event_Stub,"ax",@progbits
+ 1592               	.global	CDC_Host_Event_Stub
+ 1594               	CDC_Host_Event_Stub:
+ 1595               	.LFB144:
+ 1596               	.LSM237:
+ 1597               	/* prologue: function */
+ 1598               	/* frame size = 0 */
+ 1599               	/* stack size = 0 */
+ 1600               	.L__stack_usage = 0
+ 1601               	/* epilogue start */
+ 1602               	.LSM238:
+ 1603 0000 0895      		ret
+ 1604               	.LFE144:
+ 1606               		.weak	EVENT_CDC_Host_ControLineStateChanged
+ 1607               		.set	EVENT_CDC_Host_ControLineStateChanged,CDC_Host_Event_Stub
+ 1784               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 CDC.c
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:2      *ABS*:0000003f __SREG__
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:3      *ABS*:0000003e __SP_H__
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:4      *ABS*:0000003d __SP_L__
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:5      *ABS*:00000034 __CCP__
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:18     .text.DCOMP_CDC_Host_NextCDCControlInterface:00000000 DCOMP_CDC_Host_NextCDCControlInterface
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:63     .text.DCOMP_CDC_Host_NextCDCDataInterface:00000000 DCOMP_CDC_Host_NextCDCDataInterface
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:108    .text.DCOMP_CDC_Host_NextCDCInterfaceEndpoint:00000000 DCOMP_CDC_Host_NextCDCInterfaceEndpoint
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:168    .text.CDC_Host_ConfigurePipes:00000000 CDC_Host_ConfigurePipes
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:552    .text.CDC_Host_SetLineEncoding:00000000 CDC_Host_SetLineEncoding
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:595    .text.CDC_Host_SendControlLineStateChange:00000000 CDC_Host_SendControlLineStateChange
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:640    .text.CDC_Host_SendBreak:00000000 CDC_Host_SendBreak
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:685    .text.CDC_Host_SendData:00000000 CDC_Host_SendData
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:753    .text.CDC_Host_SendString:00000000 CDC_Host_SendString
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:828    .text.CDC_Host_SendByte:00000000 CDC_Host_SendByte
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:927    .text.CDC_Host_putchar:00000000 CDC_Host_putchar
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:963    .text.CDC_Host_BytesReceived:00000000 CDC_Host_BytesReceived
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:1068   .text.CDC_Host_ReceiveByte:00000000 CDC_Host_ReceiveByte
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:1190   .text.CDC_Host_getchar:00000000 CDC_Host_getchar
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:1224   .text.CDC_Host_Flush:00000000 CDC_Host_Flush
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:1331   .text.CDC_Host_USBTask:00000000 CDC_Host_USBTask
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:1594   .text.CDC_Host_Event_Stub:00000000 EVENT_CDC_Host_ControLineStateChanged
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:1467   .text.CDC_Host_getchar_Blocking:00000000 CDC_Host_getchar_Blocking
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:1522   .text.CDC_Host_CreateStream:00000000 CDC_Host_CreateStream
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:1558   .text.CDC_Host_CreateBlockingStream:00000000 CDC_Host_CreateBlockingStream
+C:\Users\david\AppData\Local\Temp\ccGdFv9n.s:1594   .text.CDC_Host_Event_Stub:00000000 CDC_Host_Event_Stub
+
+UNDEFINED SYMBOLS
+Pipe_IsEndpointBound
+USB_GetNextDescriptorComp
+Pipe_ConfigurePipe
+USB_ControlRequest
+USB_Host_SendControlRequest
+USB_HostState
+Pipe_Write_Stream_LE
+Pipe_WaitUntilReady
+Pipe_Read_Stream_LE
+USB_USBTask
