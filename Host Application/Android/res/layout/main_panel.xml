@@ -4,4 +4,16 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
+        <Spinner
+            android:id="@+id/aperture"
+            android:layout_width="fill_parent"
+            android:layout_height="99dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/capture_button"
+            android:layout_width="fill_parent"
+            android:layout_height="99dp"
+            android:text="Shoot!" />
+
     </LinearLayout>
