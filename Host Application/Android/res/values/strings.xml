@@ -13,5 +13,6 @@
     <string name="title_not_connected">Not connected</string>
     <string name="title_left_text">Connected to </string>
     <string name="title_right_text">Connecting...</string>
+    <string name="connect">Connect</string>
 
 </resources>
