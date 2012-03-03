@@ -1,0 +1,198 @@
+   1               		.file	"Stabily.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.Stabily_SetupHardware,"ax",@progbits
+  17               	.global	Stabily_SetupHardware
+  19               	Stabily_SetupHardware:
+  20               	.LFB141:
+  21               	.LSM0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	/* stack size = 0 */
+  25               	.L__stack_usage = 0
+  26               	.LSM1:
+  27 0000 84B7      		in r24,84-32
+  28 0002 877F      		andi r24,lo8(-9)
+  29 0004 84BF      		out 84-32,r24
+  30               	.LSM2:
+  31 0006 28E1      		ldi r18,lo8(24)
+  32               	/* #APP */
+  33               	 ;  49 "Stabily.c" 1
+  34 0008 0FB6      		in __tmp_reg__, __SREG__
+  35 000a F894      		cli
+  36 000c 2093 6000 		sts 96, r18
+  37 0010 1092 6000 		sts 96, __zero_reg__
+  38 0014 0FBE      		out __SREG__,__tmp_reg__
+  39               		
+  40               	 ;  0 "" 2
+  41               	.LVL0:
+  42               	/* #NOAPP */
+  43               	.LBB14:
+  44               	.LBB15:
+  45               	.LSM3:
+  46 0016 90E0      		ldi r25,lo8(0)
+  47 0018 80E8      		ldi r24,lo8(-128)
+  48               	/* #APP */
+  49               	 ;  1644 "c:\program files (x86)\atmel\avr tools\avr toolchain\bin\../lib/gcc/avr/4.5.1/../../../..
+  50 001a 0FB6      		in __tmp_reg__,__SREG__
+  51 001c F894      		cli
+  52 001e 8093 6100 		sts 97, r24
+  53 0022 9093 6100 		sts 97, r25
+  54 0026 0FBE      		out __SREG__, __tmp_reg__
+  55               	 ;  0 "" 2
+  56               	.LVL1:
+  57               	/* #NOAPP */
+  58               	.LBE15:
+  59               	.LBE14:
+  60               	.LBB16:
+  61               	.LBB17:
+  62               	.LSM4:
+  63 0028 87E6      		ldi r24,lo8(103)
+  64 002a 90E0      		ldi r25,hi8(103)
+  65 002c 9093 CD00 		sts 204+1,r25
+  66 0030 8093 CC00 		sts 204,r24
+  67               	.LSM5:
+  68 0034 86E0      		ldi r24,lo8(6)
+  69 0036 8093 CA00 		sts 202,r24
+  70               	.LSM6:
+  71 003a 1092 C800 		sts 200,__zero_reg__
+  72               	.LSM7:
+  73 003e 2093 C900 		sts 201,r18
+  74               	.LSM8:
+  75 0042 539A      		sbi 42-32,3
+  76               	.LSM9:
+  77 0044 5A9A      		sbi 43-32,2
+  78               	.LBE17:
+  79               	.LBE16:
+  80               	.LBB18:
+  81               	.LBB19:
+  82               	.LSM10:
+  83 0046 8AB1      		in r24,42-32
+  84 0048 806F      		ori r24,lo8(-16)
+  85 004a 8AB9      		out 42-32,r24
+  86               	.LSM11:
+  87 004c 8BB1      		in r24,43-32
+  88 004e 8F70      		andi r24,lo8(15)
+  89 0050 8BB9      		out 43-32,r24
+  90               	.LBE19:
+  91               	.LBE18:
+  92               	.LSM12:
+  93 0052 0E94 0000 		call USB_Init
+  94               	.LVL2:
+  95               	.LBB20:
+  96               	.LBB21:
+  97               	.LSM13:
+  98 0056 E0E0      		ldi r30,lo8(USARTSerialStream)
+  99 0058 F0E0      		ldi r31,hi8(USARTSerialStream)
+ 100 005a F093 0000 		sts __iob+1,r31
+ 101 005e E093 0000 		sts __iob,r30
+ 102               	.LSM14:
+ 103 0062 F093 0000 		sts __iob+2+1,r31
+ 104 0066 E093 0000 		sts __iob+2,r30
+ 105               	.LSM15:
+ 106 006a 8EE0      		ldi r24,lo8(14)
+ 107 006c DF01      		movw r26,r30
+ 108 006e 1D92      		st X+,__zero_reg__
+ 109 0070 8A95      	        dec r24
+ 110 0072 01F4      		brne .-6
+ 111 0074 83E0      		ldi r24,lo8(3)
+ 112 0076 8093 0000 		sts USARTSerialStream+3,r24
+ 113 007a 80E0      		ldi r24,lo8(gs(Serial_putchar))
+ 114 007c 90E0      		ldi r25,hi8(gs(Serial_putchar))
+ 115 007e 9093 0000 		sts USARTSerialStream+8+1,r25
+ 116 0082 8093 0000 		sts USARTSerialStream+8,r24
+ 117 0086 80E0      		ldi r24,lo8(gs(Serial_getchar))
+ 118 0088 90E0      		ldi r25,hi8(gs(Serial_getchar))
+ 119 008a 9093 0000 		sts USARTSerialStream+10+1,r25
+ 120 008e 8093 0000 		sts USARTSerialStream+10,r24
+ 121               	/* epilogue start */
+ 122               	.LBE21:
+ 123               	.LBE20:
+ 124               	.LSM16:
+ 125 0092 0895      		ret
+ 126               	.LFE141:
+ 128               		.section	.text.main,"ax",@progbits
+ 129               	.global	main
+ 131               	main:
+ 132               	.LFB140:
+ 133               	.LSM17:
+ 134               	/* prologue: function */
+ 135               	/* frame size = 0 */
+ 136               	/* stack size = 0 */
+ 137               	.L__stack_usage = 0
+ 138               	.LSM18:
+ 139 0000 0E94 0000 		call Stabily_SetupHardware
+ 140               	.LSM19:
+ 141 0004 80E0      		ldi r24,lo8(__c.4459)
+ 142 0006 90E0      		ldi r25,hi8(__c.4459)
+ 143 0008 0E94 0000 		call puts_P
+ 144               	.LSM20:
+ 145               	/* #APP */
+ 146               	 ;  31 "Stabily.c" 1
+ 147 000c 7894      		sei
+ 148               	 ;  0 "" 2
+ 149               	/* #NOAPP */
+ 150               	.L3:
+ 151               	.LBB22:
+ 152               	.LSM21:
+ 153 000e 0E94 0000 		call Stabily_ShellRX
+ 154               	.LSM22:
+ 155 0012 80E0      		ldi r24,lo8(DigitalCamera_SI_Interface)
+ 156 0014 90E0      		ldi r25,hi8(DigitalCamera_SI_Interface)
+ 157 0016 0E94 0000 		call CameraControl_DeviceEvents_PollEvents
+ 158               	.LVL3:
+ 159               	.LSM23:
+ 160 001a 0E94 0000 		call USB_USBTask
+ 161 001e 00C0      		rjmp .L3
+ 162               	.LBE22:
+ 163               	.LFE140:
+ 165               	.global	DigitalCamera_SI_Interface
+ 166               		.data
+ 169               	DigitalCamera_SI_Interface:
+ 170 0000 01        		.byte	1
+ 171 0001 00        		.byte	0
+ 172 0002 02        		.byte	2
+ 173 0003 00        		.byte	0
+ 174 0004 03        		.byte	3
+ 175 0005 00        		.byte	0
+ 176 0006 0000 0000 		.skip 13,0
+ 176      0000 0000 
+ 176      0000 0000 
+ 176      00
+ 177               		.section	.progmem.data,"a",@progbits
+ 180               	__c.4459:
+ 181 0000 1B5B 3336 		.string	"\033[36mStabily v1.0 running.\r\n\033[37m"
+ 181      6D53 7461 
+ 181      6269 6C79 
+ 181      2076 312E 
+ 181      3020 7275 
+ 214               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 Stabily.c
+C:\Users\david\AppData\Local\Temp\ccnF0skV.s:2      *ABS*:0000003f __SREG__
+C:\Users\david\AppData\Local\Temp\ccnF0skV.s:3      *ABS*:0000003e __SP_H__
+C:\Users\david\AppData\Local\Temp\ccnF0skV.s:4      *ABS*:0000003d __SP_L__
+C:\Users\david\AppData\Local\Temp\ccnF0skV.s:5      *ABS*:00000034 __CCP__
+C:\Users\david\AppData\Local\Temp\ccnF0skV.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\david\AppData\Local\Temp\ccnF0skV.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\david\AppData\Local\Temp\ccnF0skV.s:19     .text.Stabily_SetupHardware:00000000 Stabily_SetupHardware
+C:\Users\david\AppData\Local\Temp\ccnF0skV.s:131    .text.main:00000000 main
+C:\Users\david\AppData\Local\Temp\ccnF0skV.s:180    .progmem.data:00000000 __c.4459
+C:\Users\david\AppData\Local\Temp\ccnF0skV.s:169    .data:00000000 DigitalCamera_SI_Interface
+
+UNDEFINED SYMBOLS
+USB_Init
+USARTSerialStream
+__iob
+Serial_putchar
+Serial_getchar
+puts_P
+Stabily_ShellRX
+CameraControl_DeviceEvents_PollEvents
+USB_USBTask
+__do_copy_data
