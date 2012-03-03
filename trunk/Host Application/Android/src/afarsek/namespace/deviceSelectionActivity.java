@@ -97,6 +97,8 @@ public class deviceSelectionActivity extends Activity
 		{
 			m_DevicesArrayAdapter.add("No paired devices...");
 		}
+		
+		refreshDeviceList();
 	}
 
 	@Override
