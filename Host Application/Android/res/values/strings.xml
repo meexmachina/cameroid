@@ -8,5 +8,10 @@
     <string name="device_selection_activity_title">Detected devices</string>
     <string name="main_panel_activity_title">Control your device</string>
     <string name="main_panel_bt_not_available">Bluetooth hardware not found.</string>
+    <string name="title_connected_to">Connected to </string>
+    <string name="title_connecting">Connecting...</string>
+    <string name="title_not_connected">Not connected</string>
+    <string name="title_left_text">Connected to </string>
+    <string name="title_right_text">Connecting...</string>
 
 </resources>
