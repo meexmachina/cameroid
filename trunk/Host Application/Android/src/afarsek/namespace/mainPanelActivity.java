@@ -20,7 +20,7 @@ public class mainPanelActivity extends Activity
 	// Internal properties
 	private TextView mTitle;
 	private String mConnectedDeviceName = null; // Name of the connected device
-	private hardwareFacade hwFacade = null;
+	private cameraControl mCameraControl  = null;
 	private BluetoothAdapter mBluetoothAdapter;
 
 	// Constants
@@ -58,7 +58,7 @@ public class mainPanelActivity extends Activity
 		}
 
 		// Get local Bluetooth adapter
-		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		/*mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
 		// If the adapter is null, then Bluetooth is not supported
 		if (mBluetoothAdapter == null)
@@ -66,7 +66,7 @@ public class mainPanelActivity extends Activity
 			Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
 			finish();
 			return;
-		}
+		}*/
 
 		// Button definitions
 		Button captureButton = (Button) findViewById(R.id.capture_button);
@@ -74,7 +74,7 @@ public class mainPanelActivity extends Activity
 		{
 			public void onClick(View v)
 			{
-				capture();
+				mCameraControl.capture();
 			}
 		});
 
@@ -84,22 +84,20 @@ public class mainPanelActivity extends Activity
 	protected void onStart()
 	{
 		super.onStart();
-		if (hwFacade == null)
-			hwFacade = new hardwareFacade(this, mHandler);
-
-		// Get the BT device from name
-		BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(mConnectedDeviceName);
+		
+		if (mCameraControl == null)
+			mCameraControl = new cameraControl (mConnectedDeviceName, mHandler);
 
 		// Attempt to connect to the device
-		hwFacade.connect(device);
+		mCameraControl.connect();
 	}
 
 	@Override
 	protected void onStop() 
 	{
-		if (hwFacade != null)
-			hwFacade.stop();
-		hwFacade = null;
+		if (mCameraControl != null)
+			mCameraControl.disconnect();
+		mCameraControl = null;
 		
 		super.onStop();
 	};
@@ -109,8 +107,8 @@ public class mainPanelActivity extends Activity
 	{
 		super.onDestroy();
 
-		if (hwFacade != null)
-			hwFacade.stop();
+		if (mCameraControl != null)
+			mCameraControl.disconnect();
 	};
 
 	@Override
@@ -134,6 +132,7 @@ public class mainPanelActivity extends Activity
 				{
 				case hardwareFacade.STATE_CONNECTED:
 					mTitle.setText(R.string.title_connected_to);
+					mTitle.append(" ");
 					mTitle.append(mConnectedDeviceName);
 					break;
 				case hardwareFacade.STATE_CONNECTING:
@@ -159,9 +158,4 @@ public class mainPanelActivity extends Activity
 		}
 	};
 
-	private void capture()
-	{
-		// TODO Auto-generated method stub
-
-	}
 }
