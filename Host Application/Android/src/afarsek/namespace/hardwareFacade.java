@@ -24,7 +24,7 @@ public class hardwareFacade
 	private static final boolean D = true;
 
 	// Member fields
-	private final Context mContext;
+	// private final Context mContext;
 	private final BluetoothAdapter mAdapter;
 	private final Handler mHandler;
 	private ConnectThread mConnectThread;
@@ -54,13 +54,12 @@ public class hardwareFacade
 	 * @param handler
 	 *            A Handler to send messages back to the UI Activity
 	 */
-	public hardwareFacade(Context context, Handler handler)
+	public hardwareFacade(Handler handler)
 	{
 		mAdapter = BluetoothAdapter.getDefaultAdapter();
 		mState = STATE_NONE;
 		// mConnectionLostCount = 0;
 		mHandler = handler;
-		mContext = context;
 	}
 
 	/**
@@ -230,6 +229,28 @@ public class hardwareFacade
 		r.write(out);
 	}
 
+	/**
+	 * Write to the ConnectedThread in an unsynchronized manner
+	 * 
+	 * @param out
+	 *            The string to write
+	 * @see ConnectedThread#write(byte[])
+	 */
+	public void write(String out)
+	{
+		// Create temporary object
+		ConnectedThread r;
+		// Synchronize a copy of the ConnectedThread
+		synchronized (this)
+		{
+			if (mState != STATE_CONNECTED)
+				return;
+			r = mConnectedThread;
+		}
+		// Perform the write unsynchronized
+		r.write(out.getBytes());
+	}
+
 	public void write(int out)
 	{
 		// Create temporary object
@@ -293,12 +314,13 @@ public class hardwareFacade
 			try
 			{
 				// tmp = device.createRfcommSocketToServiceRecord(SPP_UUID);
-				//device.getClass().getMethod("cancelPairingUserInput", boolean.class).invoke(device);
-				//pairDevice(device);
-				//ParcelUuid[] uuids=mmDevice.getUuids();
-				
+				// device.getClass().getMethod("cancelPairingUserInput", boolean.class).invoke(device);
+				// pairDevice(device);
+				// ParcelUuid[] uuids=mmDevice.getUuids();
+
 				Method m;
-				m = mmDevice.getClass().getMethod("createInsecureRfcommSocket", new Class[]{ int.class });
+				m = mmDevice.getClass().getMethod("createInsecureRfcommSocket", new Class[]
+				{ int.class });
 				tmp = (BluetoothSocket) m.invoke(mmDevice, Integer.valueOf(1));
 			} catch (SecurityException e)
 			{
@@ -322,32 +344,6 @@ public class hardwareFacade
 				e.printStackTrace();
 			}
 			mmSocket = tmp;
-		}
-
-		public void pairDevice(BluetoothDevice device)
-		{
-			String ACTION_PAIRING_REQUEST = "android.bluetooth.device.action.PAIRING_REQUEST";
-			Intent intent = new Intent(ACTION_PAIRING_REQUEST);
-			String EXTRA_DEVICE = "android.bluetooth.device.extra.DEVICE";
-			intent.putExtra(EXTRA_DEVICE, device);
-			String EXTRA_PAIRING_VARIANT = "android.bluetooth.device.extra.PAIRING_VARIANT";
-			int PAIRING_VARIANT_PIN = 1234;
-			intent.putExtra(EXTRA_PAIRING_VARIANT, PAIRING_VARIANT_PIN);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			mContext.startActivity(intent);
-		}
-
-		public void unpairDevice(BluetoothDevice device)
-		{
-			String ACTION_PAIRING_CANCEL = "android.bluetooth.device.action.PAIRING_CANCEL";
-			Intent intent = new Intent(ACTION_PAIRING_CANCEL);
-			String EXTRA_DEVICE = "android.bluetooth.device.extra.DEVICE";
-			intent.putExtra(EXTRA_DEVICE, device);
-			String EXTRA_PAIRING_VARIANT = "android.bluetooth.device.extra.PAIRING_VARIANT";
-			int PAIRING_VARIANT_PIN = 1234;
-			intent.putExtra(EXTRA_PAIRING_VARIANT, PAIRING_VARIANT_PIN);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			mContext.startActivity(intent);
 		}
 
 		public void run()
@@ -395,7 +391,7 @@ public class hardwareFacade
 			try
 			{
 				mmSocket.close();
-				//unpairDevice(mmDevice);
+				// unpairDevice(mmDevice);
 			} catch (IOException e)
 			{
 				Log.e(TAG, "close() of connect socket failed", e);
@@ -408,7 +404,6 @@ public class hardwareFacade
 	 */
 	private class ConnectedThread extends Thread
 	{
-		@SuppressWarnings("unused")
 		private final BluetoothSocket mmSocket;
 		private final InputStream mmInStream;
 		private final OutputStream mmOutStream;
