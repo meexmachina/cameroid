@@ -1,8 +1,6 @@
 package afarsek.namespace;
 
 import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +19,6 @@ public class mainPanelActivity extends Activity
 	private TextView mTitle;
 	private String mConnectedDeviceName = null; // Name of the connected device
 	private cameraControl mCameraControl  = null;
-	private BluetoothAdapter mBluetoothAdapter;
 
 	// Constants
 	public static final String EXTRA_DEVICE_ADDRESS = "device_address";

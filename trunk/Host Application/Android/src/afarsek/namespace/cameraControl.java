@@ -64,7 +64,6 @@ public class cameraControl
 	// The Handler that gets information back from the hardwareFacade
 	private final Handler mHardwareDataHandler = new Handler()
 	{
-		@SuppressWarnings("null")
 		@Override
 		public void handleMessage(Message msg)
 		{

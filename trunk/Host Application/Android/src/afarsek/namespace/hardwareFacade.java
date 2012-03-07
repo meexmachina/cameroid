@@ -5,16 +5,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.UUID;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.ParcelUuid;
 import android.util.Log;
 
 public class hardwareFacade
@@ -29,7 +25,7 @@ public class hardwareFacade
 	private final Handler mHandler;
 	private ConnectThread mConnectThread;
 	private ConnectedThread mConnectedThread;
-	private static final UUID SPP_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+	//private static final UUID SPP_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 	// UUID.fromString("04c6093b-0000-1000-8000-00805f9b34fb");
 	// UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 	private int mState;
