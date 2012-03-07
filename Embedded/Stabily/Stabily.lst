@@ -128,8 +128,8 @@
  138               	.LSM18:
  139 0000 0E94 0000 		call Stabily_SetupHardware
  140               	.LSM19:
- 141 0004 80E0      		ldi r24,lo8(__c.4459)
- 142 0006 90E0      		ldi r25,hi8(__c.4459)
+ 141 0004 80E0      		ldi r24,lo8(__c.4461)
+ 142 0006 90E0      		ldi r25,hi8(__c.4461)
  143 0008 0E94 0000 		call puts_P
  144               	.LSM20:
  145               	/* #APP */
@@ -165,7 +165,7 @@
  176      0000 0000 
  176      00
  177               		.section	.progmem.data,"a",@progbits
- 180               	__c.4459:
+ 180               	__c.4461:
  181 0000 1B5B 3336 		.string	"\033[36mStabily v1.0 running.\r\n\033[37m"
  181      6D53 7461 
  181      6269 6C79 
@@ -174,16 +174,16 @@
  214               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 Stabily.c
-C:\Users\david\AppData\Local\Temp\ccnF0skV.s:2      *ABS*:0000003f __SREG__
-C:\Users\david\AppData\Local\Temp\ccnF0skV.s:3      *ABS*:0000003e __SP_H__
-C:\Users\david\AppData\Local\Temp\ccnF0skV.s:4      *ABS*:0000003d __SP_L__
-C:\Users\david\AppData\Local\Temp\ccnF0skV.s:5      *ABS*:00000034 __CCP__
-C:\Users\david\AppData\Local\Temp\ccnF0skV.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\david\AppData\Local\Temp\ccnF0skV.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\david\AppData\Local\Temp\ccnF0skV.s:19     .text.Stabily_SetupHardware:00000000 Stabily_SetupHardware
-C:\Users\david\AppData\Local\Temp\ccnF0skV.s:131    .text.main:00000000 main
-C:\Users\david\AppData\Local\Temp\ccnF0skV.s:180    .progmem.data:00000000 __c.4459
-C:\Users\david\AppData\Local\Temp\ccnF0skV.s:169    .data:00000000 DigitalCamera_SI_Interface
+C:\Users\david\AppData\Local\Temp\ccmxt2fi.s:2      *ABS*:0000003f __SREG__
+C:\Users\david\AppData\Local\Temp\ccmxt2fi.s:3      *ABS*:0000003e __SP_H__
+C:\Users\david\AppData\Local\Temp\ccmxt2fi.s:4      *ABS*:0000003d __SP_L__
+C:\Users\david\AppData\Local\Temp\ccmxt2fi.s:5      *ABS*:00000034 __CCP__
+C:\Users\david\AppData\Local\Temp\ccmxt2fi.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\david\AppData\Local\Temp\ccmxt2fi.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\david\AppData\Local\Temp\ccmxt2fi.s:19     .text.Stabily_SetupHardware:00000000 Stabily_SetupHardware
+C:\Users\david\AppData\Local\Temp\ccmxt2fi.s:131    .text.main:00000000 main
+C:\Users\david\AppData\Local\Temp\ccmxt2fi.s:180    .progmem.data:00000000 __c.4461
+C:\Users\david\AppData\Local\Temp\ccmxt2fi.s:169    .data:00000000 DigitalCamera_SI_Interface
 
 UNDEFINED SYMBOLS
 USB_Init

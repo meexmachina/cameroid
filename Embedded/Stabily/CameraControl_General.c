@@ -1,10 +1,14 @@
 #include "CameraControl_General.h"
 
+volatile uint8_t	g_bQuiteMode = 0;
+
 /*------------------------------------------------------------------------------
  * CameraControl_PTPErrorDescription
  */
 void CameraControl_PTPErrorDescription ( uint16_t errNum )
 {
+	if (g_bQuiteMode) return;
+
 	if (errNum==0x2001)
 		printf_P(PSTR(ESC_FG_CYAN "		[0x%04x] " ESC_FG_WHITE), errNum); 
 	else
@@ -53,6 +57,8 @@ void CameraControl_PTPErrorDescription ( uint16_t errNum )
  */
 void CameraControl_DescribePIPE_RWSTREAMError ( uint8_t uiStatus )
 {
+	if (g_bQuiteMode) return;
+
 	printf_P(PSTR("PIMA Error (%d): "), uiStatus);
 
 	switch (uiStatus)
@@ -210,4 +216,13 @@ uint8_t CameraControl_CloseSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
 	if ( ErrorCode == PIPE_RWSTREAM_NoError ) SIInterfaceInfo->State.IsSessionOpen = false;
 
 	return ErrorCode;
+}
+
+/*------------------------------------------------------------------------------
+ * CameraControl_CameraConnected
+ */
+uint8_t CameraControl_CameraConnected ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo )
+{
+	if (CAMERA_CONTROL_NOT_CONNECTED) return 0;
+	return 1;
 }

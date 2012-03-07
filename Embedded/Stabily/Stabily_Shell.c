@@ -10,6 +10,7 @@ volatile uint8_t 	g_leftDataToGet 	= 0;
 volatile uint8_t	g_EchoOnOff 		= 1;
 
 extern USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface;
+extern volatile uint8_t	g_bQuiteMode;
 
 /*------------------------------------------------------------------------------
  * cmd_t - command list
@@ -24,6 +25,7 @@ static cmd_t cmd_tbl[] =
 	{"get_storage_info",tm_cmd_get_storage_info,	""					},
 	{"capture",			tm_cmd_capture,				""					},
 	{"prop_desc", 		tm_cmd_prop_desc, 			""					},
+	{"set_quite",		tm_cmd_set_quite_mode, 		"0/1"				},
 	{NULL,      		NULL,						NULL				}
 };
 
@@ -37,8 +39,8 @@ void Stabily_Shell_Menu( void )
 {
 	if ( !g_leftDataToGet && g_EchoOnOff==1)
 	{
-    	printf_P( PSTR("\r\n"));
-    	printf_P( PSTR(COMMAND_PROMPT));
+    	printf( "\r\n");
+    	printf( COMMAND_PROMPT);
 	}
 }
 
@@ -72,7 +74,7 @@ void Stabily_Shell_Parse(char *cmd)
             return;
         }
     }
-    printf_P( PSTR("%s: Command not recognized.\r\n"), cmd);
+    printf( "%s: Command not recognized.\r\n", cmd);
 
     Stabily_Shell_Menu();
 }
@@ -107,7 +109,7 @@ void Stabily_ShellRX( void )
 
 			if (g_EchoOnOff)
 			{
-		        printf_P( PSTR("\r\n") );
+		        printf( "\r\n" );
 			}				
 	               			
 			strcpy ((char*)(last_msg), (char*)(msg));	 
@@ -146,7 +148,7 @@ void Stabily_ShellRX( void )
 void tm_cmd_echo_off(uint8_t argc, char **argv)
 {
 	g_EchoOnOff = 0;
-	printf_P (PSTR("OK\r\n"));
+	printf("OK\r\n");
 }
 
 /**************************************************************************/
@@ -157,7 +159,7 @@ void tm_cmd_echo_off(uint8_t argc, char **argv)
 void tm_cmd_echo_on(uint8_t argc, char **argv)
 {
 	g_EchoOnOff = 1;
-	printf_P (PSTR("OK\r\n"));
+	printf ("OK\r\n");
 }
 
 /**************************************************************************/
@@ -167,12 +169,12 @@ void tm_cmd_echo_on(uint8_t argc, char **argv)
 /**************************************************************************/
 void tm_cmd_idn	(uint8_t argc, char **argv)
 {
-	printf_P ( PSTR("STABILY VERSION:%03d.%d;"			// The project
-					"CLOCK:%03d MHZ;"					// CPU clock speed MHz
-					"\r\n"),
-					STABILY_VER,
-					STABILY_SUBVER,
-					STABILY_CLOCK_SPEED );
+	printf ( "STABILY VERSION:%03d.%d;"			// The project
+			 "CLOCK:%03d MHZ;"					// CPU clock speed MHz
+			 "\r\n",
+			STABILY_VER,
+			STABILY_SUBVER,
+			STABILY_CLOCK_SPEED );
 }
 
 /**************************************************************************/
@@ -182,7 +184,7 @@ void tm_cmd_idn	(uint8_t argc, char **argv)
 /**************************************************************************/
 void tm_cmd_status (uint8_t argc, char **argv)
 {
-	printf_P ( PSTR("No Status") );
+	printf ( "Camera connected:%d\r\n", CameraControl_CameraConnected(&DigitalCamera_SI_Interface) );
 }
 
 /**************************************************************************/
@@ -239,4 +241,20 @@ void tm_cmd_prop_desc		(uint8_t argc, char **argv)
 
  	CameraControl_DeviceOperation_GetPropertyDesc ( &DigitalCamera_SI_Interface,
 													iPropValue );
+}
+
+/**************************************************************************/
+/*!
+	Get a properties description
+*/
+/**************************************************************************/
+void tm_cmd_set_quite_mode	(uint8_t argc, char **argv)
+{
+	if (argc<2) 
+	{
+		printf("Need int arg");
+		return;
+	}
+
+	g_bQuiteMode = (atoi (argv[1]))!=0;
 }
