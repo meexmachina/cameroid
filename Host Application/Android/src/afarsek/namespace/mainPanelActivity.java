@@ -95,6 +95,16 @@ public class mainPanelActivity extends Activity
 	}
 
 	@Override
+	protected void onStop() 
+	{
+		if (hwFacade != null)
+			hwFacade.stop();
+		hwFacade = null;
+		
+		super.onStop();
+	};
+	
+	@Override
 	protected void onDestroy()
 	{
 		super.onDestroy();
@@ -142,6 +152,8 @@ public class mainPanelActivity extends Activity
 				break;
 			case MESSAGE_TOAST:
 				Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST), Toast.LENGTH_SHORT).show();
+				break;
+			case MESSAGE_READ:
 				break;
 			}
 		}
