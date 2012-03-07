@@ -3,14 +3,18 @@ package afarsek.namespace;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.UUID;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.ParcelUuid;
 import android.util.Log;
 
 public class hardwareFacade
@@ -20,11 +24,14 @@ public class hardwareFacade
 	private static final boolean D = true;
 
 	// Member fields
+	private final Context mContext;
 	private final BluetoothAdapter mAdapter;
 	private final Handler mHandler;
 	private ConnectThread mConnectThread;
 	private ConnectedThread mConnectedThread;
 	private static final UUID SPP_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+	// UUID.fromString("04c6093b-0000-1000-8000-00805f9b34fb");
+	// UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 	private int mState;
 
 	// Constants that indicate the current connection state
@@ -53,6 +60,7 @@ public class hardwareFacade
 		mState = STATE_NONE;
 		// mConnectionLostCount = 0;
 		mHandler = handler;
+		mContext = context;
 	}
 
 	/**
@@ -72,8 +80,7 @@ public class hardwareFacade
 	}
 
 	/**
-	 * Start the service. Specifically start AcceptThread to begin a session in listening (server) mode. Called by the Activity
-	 * onResume()
+	 * Start the service. Specifically start AcceptThread to begin a session in listening (server) mode. Called by the Activity onResume()
 	 */
 	public synchronized void start()
 	{
@@ -285,12 +292,62 @@ public class hardwareFacade
 			// given BluetoothDevice
 			try
 			{
-				tmp = device.createRfcommSocketToServiceRecord(SPP_UUID);
-			} catch (IOException e)
+				// tmp = device.createRfcommSocketToServiceRecord(SPP_UUID);
+				//device.getClass().getMethod("cancelPairingUserInput", boolean.class).invoke(device);
+				//pairDevice(device);
+				//ParcelUuid[] uuids=mmDevice.getUuids();
+				
+				Method m;
+				m = mmDevice.getClass().getMethod("createInsecureRfcommSocket", new Class[]{ int.class });
+				tmp = (BluetoothSocket) m.invoke(mmDevice, Integer.valueOf(1));
+			} catch (SecurityException e)
 			{
-				Log.e(TAG, "create() failed", e);
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			mmSocket = tmp;
+		}
+
+		public void pairDevice(BluetoothDevice device)
+		{
+			String ACTION_PAIRING_REQUEST = "android.bluetooth.device.action.PAIRING_REQUEST";
+			Intent intent = new Intent(ACTION_PAIRING_REQUEST);
+			String EXTRA_DEVICE = "android.bluetooth.device.extra.DEVICE";
+			intent.putExtra(EXTRA_DEVICE, device);
+			String EXTRA_PAIRING_VARIANT = "android.bluetooth.device.extra.PAIRING_VARIANT";
+			int PAIRING_VARIANT_PIN = 1234;
+			intent.putExtra(EXTRA_PAIRING_VARIANT, PAIRING_VARIANT_PIN);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			mContext.startActivity(intent);
+		}
+
+		public void unpairDevice(BluetoothDevice device)
+		{
+			String ACTION_PAIRING_CANCEL = "android.bluetooth.device.action.PAIRING_CANCEL";
+			Intent intent = new Intent(ACTION_PAIRING_CANCEL);
+			String EXTRA_DEVICE = "android.bluetooth.device.extra.DEVICE";
+			intent.putExtra(EXTRA_DEVICE, device);
+			String EXTRA_PAIRING_VARIANT = "android.bluetooth.device.extra.PAIRING_VARIANT";
+			int PAIRING_VARIANT_PIN = 1234;
+			intent.putExtra(EXTRA_PAIRING_VARIANT, PAIRING_VARIANT_PIN);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			mContext.startActivity(intent);
 		}
 
 		public void run()
@@ -338,6 +395,7 @@ public class hardwareFacade
 			try
 			{
 				mmSocket.close();
+				//unpairDevice(mmDevice);
 			} catch (IOException e)
 			{
 				Log.e(TAG, "close() of connect socket failed", e);
@@ -350,6 +408,7 @@ public class hardwareFacade
 	 */
 	private class ConnectedThread extends Thread
 	{
+		@SuppressWarnings("unused")
 		private final BluetoothSocket mmSocket;
 		private final InputStream mmInStream;
 		private final OutputStream mmOutStream;
@@ -439,10 +498,17 @@ public class hardwareFacade
 
 		public void cancel()
 		{
-			/*
-			 * try { //mmOutStream.write(EXIT_CMD); //mmSocket.close(); } catch (IOException e) { Log.e(TAG,
-			 * "close() of connect socket failed", e); }
-			 */
+			try
+			{
+				// mmOutStream.write(EXIT_CMD);
+				mmOutStream.close();
+				mmInStream.close();
+				mmSocket.close();
+			} catch (IOException e)
+			{
+				Log.e(TAG, "close() of connect socket failed", e);
+			}
+
 		}
 	}
 
