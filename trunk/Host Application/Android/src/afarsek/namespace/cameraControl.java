@@ -16,13 +16,6 @@ public class cameraControl
 	private BluetoothDevice mBluetoothDevice;
 	private final Handler mMainPanelHandler;
 	
-	// Message types sent from the Handler
-	public static final int MESSAGE_STATE_CHANGE = 1;
-	public static final int MESSAGE_READ = 2;
-	public static final int MESSAGE_WRITE = 3;
-	public static final int MESSAGE_DEVICE_NAME = 4;
-	public static final int MESSAGE_TOAST = 5;
-
 	private String mConnectedDeviceName = null; // Name of the connected device
 	
 	public cameraControl(String devName, Handler handler)
@@ -46,6 +39,9 @@ public class cameraControl
 		
 		// Try to connect
 		mHardwareFacade.connect(mBluetoothDevice);
+		
+		// Send something
+		mHardwareFacade.write("\r\n\r\n");
 	}
 
 	public void disconnect()
@@ -67,30 +63,22 @@ public class cameraControl
 		@Override
 		public void handleMessage(Message msg)
 		{
-			Message new_msg = new Message(); 
-			new_msg.copyFrom(msg);
-			mMainPanelHandler.sendMessage(new_msg);
-			
 			switch (msg.what)
 			{
-			case MESSAGE_STATE_CHANGE:
-				switch (msg.arg1)
-				{
-				case hardwareFacade.STATE_CONNECTED:
-					break;
-				case hardwareFacade.STATE_CONNECTING:
-					break;
-				case hardwareFacade.STATE_LISTEN:
-				case hardwareFacade.STATE_NONE:
-					break;
-				}
+			case messageDefinitions.MESSAGE_STATE_CHANGE:
+			case messageDefinitions.MESSAGE_DEVICE_NAME:
+			case messageDefinitions.MESSAGE_TOAST:
+				Message new_msg = new Message(); 
+				new_msg.copyFrom(msg);
+				mMainPanelHandler.sendMessage(new_msg);
 				break;
-			case MESSAGE_DEVICE_NAME:
-				// save the connected device's name
+			case messageDefinitions.MESSAGE_READ:
+				byte[] data = msg.getData().getByteArray(messageDefinitions.MESSAGE_READ_DATA_BYTES);
+				int length = msg.getData().getInt(messageDefinitions.MESSAGE_READ_LENGTH);
+				
+				
 				break;
-			case MESSAGE_TOAST:
-				break;
-			case MESSAGE_READ:
+			case messageDefinitions.MESSAGE_WRITE:
 				break;
 			}
 		}

@@ -36,12 +36,6 @@ public class hardwareFacade
 	public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
 	public static final int STATE_CONNECTED = 3; // now connected to a remote device
 
-	// Constants that indicate command to computer
-	// public static final int EXIT_CMD = -1;
-	// public static final int VOL_UP = 1;
-	// public static final int VOL_DOWN = 2;
-	// public static final int MOUSE_MOVE = 3;
-
 	/**
 	 * Constructor. Prepares a new BluetoothChat session.
 	 * 
@@ -71,7 +65,7 @@ public class hardwareFacade
 		mState = state;
 
 		// Give the new state to the Handler so the UI Activity can update
-		mHandler.obtainMessage(mainPanelActivity.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
+		mHandler.obtainMessage(messageDefinitions.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
 	}
 
 	/**
@@ -173,7 +167,7 @@ public class hardwareFacade
 		mConnectedThread.start();
 
 		// Send the name of the connected device back to the UI Activity
-		Message msg = mHandler.obtainMessage(mainPanelActivity.MESSAGE_DEVICE_NAME);
+		Message msg = mHandler.obtainMessage(messageDefinitions.MESSAGE_DEVICE_NAME);
 		Bundle bundle = new Bundle();
 		bundle.putString(mainPanelActivity.DEVICE_NAME, device.getName());
 		msg.setData(bundle);
@@ -270,7 +264,7 @@ public class hardwareFacade
 		setState(STATE_LISTEN);
 
 		// Send a failure message back to the Activity
-		Message msg = mHandler.obtainMessage(mainPanelActivity.MESSAGE_TOAST);
+		Message msg = mHandler.obtainMessage(messageDefinitions.MESSAGE_TOAST);
 		Bundle bundle = new Bundle();
 		bundle.putString(mainPanelActivity.TOAST, "Unable to connect device");
 		msg.setData(bundle);
@@ -284,7 +278,7 @@ public class hardwareFacade
 	{
 		setState(STATE_LISTEN);
 		// Send a failure message back to the Activity
-		Message msg = mHandler.obtainMessage(mainPanelActivity.MESSAGE_TOAST);
+		Message msg = mHandler.obtainMessage(messageDefinitions.MESSAGE_TOAST);
 		Bundle bundle = new Bundle();
 		bundle.putString(mainPanelActivity.TOAST, "Device connection was lost");
 		msg.setData(bundle);
@@ -437,9 +431,13 @@ public class hardwareFacade
 				{
 					// Read from the InputStream
 					int bytes = mmInStream.read(buffer);
-
-					// Send the obtained bytes to the UI Activity
-					mHandler.obtainMessage(mainPanelActivity.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
+					
+					Message msg = mHandler.obtainMessage(messageDefinitions.MESSAGE_READ);
+					Bundle bundle = new Bundle();
+					bundle.putInt(messageDefinitions.MESSAGE_READ_LENGTH, bytes);
+					bundle.putByteArray(messageDefinitions.MESSAGE_READ_DATA_BYTES, buffer);
+					msg.setData(bundle);
+					mHandler.sendMessage(msg);
 				} catch (IOException e)
 				{
 					Log.e(TAG, "disconnected", e);

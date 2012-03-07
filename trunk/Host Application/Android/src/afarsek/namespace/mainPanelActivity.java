@@ -25,13 +25,6 @@ public class mainPanelActivity extends Activity
 	public static final String DEVICE_NAME = "device_name";
 	public static final String TOAST = "toast";
 
-	// Message types sent from the Handler
-	public static final int MESSAGE_STATE_CHANGE = 1;
-	public static final int MESSAGE_READ = 2;
-	public static final int MESSAGE_WRITE = 3;
-	public static final int MESSAGE_DEVICE_NAME = 4;
-	public static final int MESSAGE_TOAST = 5;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -124,7 +117,7 @@ public class mainPanelActivity extends Activity
 		{
 			switch (msg.what)
 			{
-			case MESSAGE_STATE_CHANGE:
+			case messageDefinitions.MESSAGE_STATE_CHANGE:
 				switch (msg.arg1)
 				{
 				case hardwareFacade.STATE_CONNECTED:
@@ -141,15 +134,13 @@ public class mainPanelActivity extends Activity
 					break;
 				}
 				break;
-			case MESSAGE_DEVICE_NAME:
+			case messageDefinitions.MESSAGE_DEVICE_NAME:
 				// save the connected device's name
 				mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
 				Toast.makeText(getApplicationContext(), "Connected to " + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
 				break;
-			case MESSAGE_TOAST:
+			case messageDefinitions.MESSAGE_TOAST:
 				Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST), Toast.LENGTH_SHORT).show();
-				break;
-			case MESSAGE_READ:
 				break;
 			}
 		}
