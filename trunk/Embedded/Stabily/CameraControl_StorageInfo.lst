@@ -52,8 +52,8 @@
   60               	.L2:
   61               	.LSM4:
   62 003a 00D0      		rcall .
-  63 003c 80E0      		ldi r24,lo8(__c.4429)
-  64 003e 90E0      		ldi r25,hi8(__c.4429)
+  63 003c 80E0      		ldi r24,lo8(__c.4431)
+  64 003e 90E0      		ldi r25,hi8(__c.4431)
   65 0040 EDB7      		in r30,__SP_L__
   66 0042 FEB7      		in r31,__SP_H__
   67 0044 9283      		std Z+2,r25
@@ -106,8 +106,8 @@
  114               	.LSM9:
  115 0098 00D0      		rcall .
  116 009a 00D0      		rcall .
- 117 009c 80E0      		ldi r24,lo8(__c.4433)
- 118 009e 90E0      		ldi r25,hi8(__c.4433)
+ 117 009c 80E0      		ldi r24,lo8(__c.4435)
+ 118 009e 90E0      		ldi r25,hi8(__c.4435)
  119               	.LVL5:
  120 00a0 EDB7      		in r30,__SP_L__
  121 00a2 FEB7      		in r31,__SP_H__
@@ -292,8 +292,8 @@
  302               	.L10:
  303               	.LSM27:
  304 003e 00D0      		rcall .
- 305 0040 80E0      		ldi r24,lo8(__c.4449)
- 306 0042 90E0      		ldi r25,hi8(__c.4449)
+ 305 0040 80E0      		ldi r24,lo8(__c.4451)
+ 306 0042 90E0      		ldi r25,hi8(__c.4451)
  307 0044 EDB7      		in r30,__SP_L__
  308 0046 FEB7      		in r31,__SP_H__
  309 0048 9283      		std Z+2,r25
@@ -318,8 +318,8 @@
  328 006a EDB7      		in r30,__SP_L__
  329 006c FEB7      		in r31,__SP_H__
  330 006e 3196      		adiw r30,1
- 331 0070 80E0      		ldi r24,lo8(__c.4451)
- 332 0072 90E0      		ldi r25,hi8(__c.4451)
+ 331 0070 80E0      		ldi r24,lo8(__c.4453)
+ 332 0072 90E0      		ldi r25,hi8(__c.4453)
  333 0074 ADB7      		in r26,__SP_L__
  334 0076 BEB7      		in r27,__SP_H__
  335 0078 1296      		adiw r26,1+1
@@ -408,8 +408,8 @@
  418               	.LSM36:
  419 0106 00D0      		rcall .
  420 0108 00D0      		rcall .
- 421 010a 80E0      		ldi r24,lo8(__c.4455)
- 422 010c 90E0      		ldi r25,hi8(__c.4455)
+ 421 010a 80E0      		ldi r24,lo8(__c.4457)
+ 422 010c 90E0      		ldi r25,hi8(__c.4457)
  423               	.LVL33:
  424 010e ADB7      		in r26,__SP_L__
  425 0110 BEB7      		in r27,__SP_H__
@@ -820,8 +820,8 @@
  832               	.L21:
  833               	.LSM62:
  834 0042 00D0      		rcall .
- 835 0044 80E0      		ldi r24,lo8(__c.4470)
- 836 0046 90E0      		ldi r25,hi8(__c.4470)
+ 835 0044 80E0      		ldi r24,lo8(__c.4472)
+ 836 0046 90E0      		ldi r25,hi8(__c.4472)
  837 0048 EDB7      		in r30,__SP_L__
  838 004a FEB7      		in r31,__SP_H__
  839 004c 9283      		std Z+2,r25
@@ -844,27 +844,27 @@
  856               	.LSM65:
  857 006a BB24      		clr r11
  858               	.LSM66:
- 859 006c 40E0      		ldi r20,lo8(__c.4472)
+ 859 006c 40E0      		ldi r20,lo8(__c.4474)
  860 006e C42E      		mov r12,r20
- 861 0070 40E0      		ldi r20,hi8(__c.4472)
+ 861 0070 40E0      		ldi r20,hi8(__c.4474)
  862 0072 D42E      		mov r13,r20
  863               	.LSM67:
  864 0074 3AE3      		ldi r19,lo8(58)
  865 0076 832E      		mov r8,r19
  866 0078 912C      		mov r9,__zero_reg__
- 867 007a 20E0      		ldi r18,lo8(__c.4474)
+ 867 007a 20E0      		ldi r18,lo8(__c.4476)
  868 007c 622E      		mov r6,r18
- 869 007e 20E0      		ldi r18,hi8(__c.4474)
+ 869 007e 20E0      		ldi r18,hi8(__c.4476)
  870 0080 722E      		mov r7,r18
  871               	.LSM68:
- 872 0082 90E0      		ldi r25,lo8(__c.4476)
+ 872 0082 90E0      		ldi r25,lo8(__c.4478)
  873 0084 492E      		mov r4,r25
- 874 0086 90E0      		ldi r25,hi8(__c.4476)
+ 874 0086 90E0      		ldi r25,hi8(__c.4478)
  875 0088 592E      		mov r5,r25
  876               	.LSM69:
- 877 008a 80E0      		ldi r24,lo8(__c.4478)
+ 877 008a 80E0      		ldi r24,lo8(__c.4480)
  878 008c 282E      		mov r2,r24
- 879 008e 80E0      		ldi r24,hi8(__c.4478)
+ 879 008e 80E0      		ldi r24,hi8(__c.4480)
  880 0090 382E      		mov r3,r24
  881               	.LVL62:
  882 0092 1A83      		std Y+2,r17
@@ -1003,8 +1003,8 @@
  1015 0190 EDB7      		in r30,__SP_L__
  1016 0192 FEB7      		in r31,__SP_H__
  1017 0194 3196      		adiw r30,1
- 1018 0196 00E0      		ldi r16,lo8(__c.4480)
- 1019 0198 10E0      		ldi r17,hi8(__c.4480)
+ 1018 0196 00E0      		ldi r16,lo8(__c.4482)
+ 1019 0198 10E0      		ldi r17,hi8(__c.4482)
  1020 019a ADB7      		in r26,__SP_L__
  1021 019c BEB7      		in r27,__SP_H__
  1022 019e 1296      		adiw r26,1+1
@@ -1038,8 +1038,8 @@
  1050 01d6 EDB7      		in r30,__SP_L__
  1051 01d8 FEB7      		in r31,__SP_H__
  1052 01da 3196      		adiw r30,1
- 1053 01dc 00E0      		ldi r16,lo8(__c.4482)
- 1054 01de 10E0      		ldi r17,hi8(__c.4482)
+ 1053 01dc 00E0      		ldi r16,lo8(__c.4484)
+ 1054 01de 10E0      		ldi r17,hi8(__c.4484)
  1055 01e0 ADB7      		in r26,__SP_L__
  1056 01e2 BEB7      		in r27,__SP_H__
  1057 01e4 1296      		adiw r26,1+1
@@ -1066,8 +1066,8 @@
  1078 020e 0F90      		pop __tmp_reg__
  1079 0210 0F90      		pop __tmp_reg__
  1080 0212 0F90      		pop __tmp_reg__
- 1081 0214 00E0      		ldi r16,lo8(__c.4484)
- 1082 0216 10E0      		ldi r17,hi8(__c.4484)
+ 1081 0214 00E0      		ldi r16,lo8(__c.4486)
+ 1082 0216 10E0      		ldi r17,hi8(__c.4486)
  1083 0218 EDB7      		in r30,__SP_L__
  1084 021a FEB7      		in r31,__SP_H__
  1085 021c 1283      		std Z+2,r17
@@ -1083,8 +1083,8 @@
  1095 0230 9040      		sbci r25,hi8(-(g_astStorageInfo+26))
  1096 0232 0F90      		pop __tmp_reg__
  1097 0234 0F90      		pop __tmp_reg__
- 1098 0236 E0E0      		ldi r30,lo8(__c.4486)
- 1099 0238 F0E0      		ldi r31,hi8(__c.4486)
+ 1098 0236 E0E0      		ldi r30,lo8(__c.4488)
+ 1099 0238 F0E0      		ldi r31,hi8(__c.4488)
  1100 023a ADB7      		in r26,__SP_L__
  1101 023c BEB7      		in r27,__SP_H__
  1102 023e 1296      		adiw r26,1+1
@@ -1100,8 +1100,8 @@
  1112 0252 C701      		movw r24,r14
  1113 0254 8050      		subi r24,lo8(-(g_astStorageInfo+42))
  1114 0256 9040      		sbci r25,hi8(-(g_astStorageInfo+42))
- 1115 0258 E0E0      		ldi r30,lo8(__c.4488)
- 1116 025a F0E0      		ldi r31,hi8(__c.4488)
+ 1115 0258 E0E0      		ldi r30,lo8(__c.4490)
+ 1116 025a F0E0      		ldi r31,hi8(__c.4490)
  1117 025c ADB7      		in r26,__SP_L__
  1118 025e BEB7      		in r27,__SP_H__
  1119 0260 1296      		adiw r26,1+1
@@ -1255,73 +1255,73 @@
  1272               		.comm g_aiStorageIDs,16,1
  1273               		.comm g_astStorageInfo,232,1
  1274               		.section	.progmem.data,"a",@progbits
- 1277               	__c.4488:
+ 1277               	__c.4490:
  1278 0000 0956 6F6C 		.string	"\tVolume label: '%s'\r\n"
  1278      756D 6520 
  1278      6C61 6265 
  1278      6C3A 2027 
  1278      2573 270D 
- 1281               	__c.4486:
+ 1281               	__c.4488:
  1282 0016 0953 746F 		.string	"\tStorage description: '%s'\r\n"
  1282      7261 6765 
  1282      2064 6573 
  1282      6372 6970 
  1282      7469 6F6E 
- 1285               	__c.4484:
+ 1285               	__c.4486:
  1286 0033 0946 7265 		.string	"\tFree space for images: 0x%X\r\n"
  1286      6520 7370 
  1286      6163 6520 
  1286      666F 7220 
  1286      696D 6167 
- 1289               	__c.4482:
+ 1289               	__c.4484:
  1290 0052 0946 7265 		.string	"\tFree space: 0x%X\r\n"
  1290      6520 7370 
  1290      6163 653A 
  1290      2030 7825 
  1290      580D 0A00 
- 1293               	__c.4480:
+ 1293               	__c.4482:
  1294 0066 094D 6178 		.string	"\tMax capacity: 0x%X\r\n"
  1294      2063 6170 
  1294      6163 6974 
  1294      793A 2030 
  1294      7825 580D 
- 1297               	__c.4478:
+ 1297               	__c.4480:
  1298 007c 0941 6363 		.string	"\tAccess capability: 0x%X\r\n"
  1298      6573 7320 
  1298      6361 7061 
  1298      6269 6C69 
  1298      7479 3A20 
- 1301               	__c.4476:
+ 1301               	__c.4478:
  1302 0097 0946 696C 		.string	"\tFile-system type: 0x%X\r\n"
  1302      652D 7379 
  1302      7374 656D 
  1302      2074 7970 
  1302      653A 2030 
- 1305               	__c.4474:
+ 1305               	__c.4476:
  1306 00b1 0953 746F 		.string	"\tStorage type: 0x%X\r\n"
  1306      7261 6765 
  1306      2074 7970 
  1306      653A 2030 
  1306      7825 580D 
- 1309               	__c.4472:
+ 1309               	__c.4474:
  1310 00c7 5265 7472 		.string	"Retrieving storage index %d (ID=0x%X)\r\n"
  1310      6965 7669 
  1310      6E67 2073 
  1310      746F 7261 
  1310      6765 2069 
- 1313               	__c.4470:
+ 1313               	__c.4472:
  1314 00ef 4465 7669 		.string	"Device not connected.\r\n"
  1314      6365 206E 
  1314      6F74 2063 
  1314      6F6E 6E65 
  1314      6374 6564 
- 1317               	__c.4455:
+ 1317               	__c.4457:
  1318 0107 1B5B 3336 		.string	"\033[36m\tGot storage info of %d bytes.\r\n\033[37m"
  1318      6D09 476F 
  1318      7420 7374 
  1318      6F72 6167 
  1318      6520 696E 
- 1321               	__c.4451:
+ 1321               	__c.4453:
  1322 0132 4572 726F 		.ascii	"Error getting stor"
  1322      7220 6765 
  1322      7474 696E 
@@ -1332,19 +1332,19 @@
  1323      202D 2073 
  1323      746F 7261 
  1323      6765 2069 
- 1326               	__c.4449:
+ 1326               	__c.4451:
  1327 0185 4465 7669 		.string	"Device not connected.\r\n"
  1327      6365 206E 
  1327      6F74 2063 
  1327      6F6E 6E65 
  1327      6374 6564 
- 1330               	__c.4433:
+ 1330               	__c.4435:
  1331 019d 1B5B 3336 		.string	"\033[36m\tGot storage IDs of %d bytes.\r\n\033[37m"
  1331      6D09 476F 
  1331      7420 7374 
  1331      6F72 6167 
  1331      6520 4944 
- 1334               	__c.4429:
+ 1334               	__c.4431:
  1335 01c7 4465 7669 		.string	"Device not connected.\r\n"
  1335      6365 206E 
  1335      6F74 2063 
@@ -1353,34 +1353,34 @@
  1384               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 CameraControl_StorageInfo.c
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:2      *ABS*:0000003f __SREG__
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:3      *ABS*:0000003e __SP_H__
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:4      *ABS*:0000003d __SP_L__
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:5      *ABS*:00000034 __CCP__
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:19     .text.CameraControl_GetStorageIDs:00000000 CameraControl_GetStorageIDs
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1334   .progmem.data:000001c7 __c.4429
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1330   .progmem.data:0000019d __c.4433
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1270   .bss:00000000 g_iNumOfStorages
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:2      *ABS*:0000003f __SREG__
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:3      *ABS*:0000003e __SP_H__
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:4      *ABS*:0000003d __SP_L__
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:5      *ABS*:00000034 __CCP__
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:19     .text.CameraControl_GetStorageIDs:00000000 CameraControl_GetStorageIDs
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1334   .progmem.data:000001c7 __c.4431
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1330   .progmem.data:0000019d __c.4435
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1270   .bss:00000000 g_iNumOfStorages
                             *COM*:00000010 g_aiStorageIDs
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:260    .text.CameraControl_GetStorageInfo:00000000 CameraControl_GetStorageInfo
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1326   .progmem.data:00000185 __c.4449
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1321   .progmem.data:00000132 __c.4451
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1317   .progmem.data:00000107 __c.4455
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:260    .text.CameraControl_GetStorageInfo:00000000 CameraControl_GetStorageInfo
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1326   .progmem.data:00000185 __c.4451
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1321   .progmem.data:00000132 __c.4453
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1317   .progmem.data:00000107 __c.4457
                             *COM*:000000e8 g_astStorageInfo
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:788    .text.CameraControl_StorageInfo_Printout:00000000 CameraControl_StorageInfo_Printout
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1313   .progmem.data:000000ef __c.4470
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1309   .progmem.data:000000c7 __c.4472
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1305   .progmem.data:000000b1 __c.4474
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1301   .progmem.data:00000097 __c.4476
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1297   .progmem.data:0000007c __c.4478
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1293   .progmem.data:00000066 __c.4480
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1289   .progmem.data:00000052 __c.4482
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1285   .progmem.data:00000033 __c.4484
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1281   .progmem.data:00000016 __c.4486
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1277   .progmem.data:00000000 __c.4488
-C:\Users\david\AppData\Local\Temp\cc84SiM3.s:1180   .text.CameraControl_GetStorageID:00000000 CameraControl_GetStorageID
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:788    .text.CameraControl_StorageInfo_Printout:00000000 CameraControl_StorageInfo_Printout
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1313   .progmem.data:000000ef __c.4472
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1309   .progmem.data:000000c7 __c.4474
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1305   .progmem.data:000000b1 __c.4476
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1301   .progmem.data:00000097 __c.4478
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1297   .progmem.data:0000007c __c.4480
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1293   .progmem.data:00000066 __c.4482
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1289   .progmem.data:00000052 __c.4484
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1285   .progmem.data:00000033 __c.4486
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1281   .progmem.data:00000016 __c.4488
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1277   .progmem.data:00000000 __c.4490
+C:\Users\david\AppData\Local\Temp\ccC8x7JB.s:1180   .text.CameraControl_GetStorageID:00000000 CameraControl_GetStorageID
 
 UNDEFINED SYMBOLS
 USB_HostState

@@ -37,5 +37,6 @@ uint8_t CameraControl_GetResponseAndCheck (	USB_ClassInfo_SI_Host_t* SIInterface
 											PIMA_Container_t *PIMABlock );
 uint8_t CameraControl_OpenSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
 uint8_t CameraControl_CloseSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
+uint8_t CameraControl_CameraConnected ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo );
 
 #endif //_CAMERA_CONTROL_GENERAL_H_

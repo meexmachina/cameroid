@@ -53,8 +53,8 @@
   61               	.L2:
   62               	.LSM4:
   63 0038 00D0      		rcall .
-  64 003a 80E0      		ldi r24,lo8(__c.4413)
-  65 003c 90E0      		ldi r25,hi8(__c.4413)
+  64 003a 80E0      		ldi r24,lo8(__c.4415)
+  65 003c 90E0      		ldi r25,hi8(__c.4415)
   66 003e EDB7      		in r30,__SP_L__
   67 0040 FEB7      		in r31,__SP_H__
   68 0042 9283      		std Z+2,r25
@@ -89,8 +89,8 @@
   97 0070 01F0      		breq .L6
   98               	.LSM8:
   99 0072 00D0      		rcall .
- 100 0074 80E0      		ldi r24,lo8(__c.4417)
- 101 0076 90E0      		ldi r25,hi8(__c.4417)
+ 100 0074 80E0      		ldi r24,lo8(__c.4419)
+ 101 0076 90E0      		ldi r25,hi8(__c.4419)
  102 0078 EDB7      		in r30,__SP_L__
  103 007a FEB7      		in r31,__SP_H__
  104 007c 9283      		std Z+2,r25
@@ -225,8 +225,8 @@
  235               	.L8:
  236               	.LSM18:
  237 0046 00D0      		rcall .
- 238 0048 80E0      		ldi r24,lo8(__c.4429)
- 239 004a 90E0      		ldi r25,hi8(__c.4429)
+ 238 0048 80E0      		ldi r24,lo8(__c.4431)
+ 239 004a 90E0      		ldi r25,hi8(__c.4431)
  240 004c EDB7      		in r30,__SP_L__
  241 004e FEB7      		in r31,__SP_H__
  242 0050 9283      		std Z+2,r25
@@ -302,8 +302,8 @@
  312               	.LSM26:
  313 00c8 00D0      		rcall .
  314 00ca 00D0      		rcall .
- 315 00cc 80E0      		ldi r24,lo8(__c.4434)
- 316 00ce 90E0      		ldi r25,hi8(__c.4434)
+ 315 00cc 80E0      		ldi r24,lo8(__c.4436)
+ 316 00ce 90E0      		ldi r25,hi8(__c.4436)
  317               	.LVL22:
  318 00d0 ADB7      		in r26,__SP_L__
  319 00d2 BEB7      		in r27,__SP_H__
@@ -353,9 +353,9 @@
  363 0120 9C2C      		mov r9,r12
  364               	.LVL24:
  365               	.LSM31:
- 366 0122 80E0      		ldi r24,lo8(__c.4438)
+ 366 0122 80E0      		ldi r24,lo8(__c.4440)
  367 0124 A82E      		mov r10,r24
- 368 0126 80E0      		ldi r24,hi8(__c.4438)
+ 368 0126 80E0      		ldi r24,hi8(__c.4440)
  369 0128 B82E      		mov r11,r24
  370               	.LSM32:
  371 012a 00C0      		rjmp .L11
@@ -483,28 +483,28 @@
  493 01fa 0895      		ret
  494               	.LFE141:
  496               		.section	.progmem.data,"a",@progbits
- 499               	__c.4438:
+ 499               	__c.4440:
  500 0000 2530 3278 		.string	"%02x "
  500      2000 
- 503               	__c.4434:
+ 503               	__c.4436:
  504 0006 1B5B 3336 		.string	"\033[36m\tGot property info of %d bytes.\r\n\033[37m"
  504      6D09 476F 
  504      7420 7072 
  504      6F70 6572 
  504      7479 2069 
- 507               	__c.4429:
+ 507               	__c.4431:
  508 0032 4465 7669 		.string	"Device not connected.\r\n"
  508      6365 206E 
  508      6F74 2063 
  508      6F6E 6E65 
  508      6374 6564 
- 511               	__c.4417:
+ 511               	__c.4419:
  512 004a 0D0A 5374 		.string	"\r\nStorage not found. Run get_storage_info..."
  512      6F72 6167 
  512      6520 6E6F 
  512      7420 666F 
  512      756E 642E 
- 515               	__c.4413:
+ 515               	__c.4415:
  516 0077 4465 7669 		.string	"Device not connected.\r\n"
  516      6365 206E 
  516      6F74 2063 
@@ -513,19 +513,19 @@
  549               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 CameraControl_DeviceOperation.c
-C:\Users\david\AppData\Local\Temp\ccNKXkp7.s:2      *ABS*:0000003f __SREG__
-C:\Users\david\AppData\Local\Temp\ccNKXkp7.s:3      *ABS*:0000003e __SP_H__
-C:\Users\david\AppData\Local\Temp\ccNKXkp7.s:4      *ABS*:0000003d __SP_L__
-C:\Users\david\AppData\Local\Temp\ccNKXkp7.s:5      *ABS*:00000034 __CCP__
-C:\Users\david\AppData\Local\Temp\ccNKXkp7.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\david\AppData\Local\Temp\ccNKXkp7.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\david\AppData\Local\Temp\ccNKXkp7.s:19     .text.CameraControl_DeviceOperation_Capture:00000000 CameraControl_DeviceOperation_Capture
-C:\Users\david\AppData\Local\Temp\ccNKXkp7.s:515    .progmem.data:00000077 __c.4413
-C:\Users\david\AppData\Local\Temp\ccNKXkp7.s:511    .progmem.data:0000004a __c.4417
-C:\Users\david\AppData\Local\Temp\ccNKXkp7.s:187    .text.CameraControl_DeviceOperation_GetPropertyDesc:00000000 CameraControl_DeviceOperation_GetPropertyDesc
-C:\Users\david\AppData\Local\Temp\ccNKXkp7.s:507    .progmem.data:00000032 __c.4429
-C:\Users\david\AppData\Local\Temp\ccNKXkp7.s:503    .progmem.data:00000006 __c.4434
-C:\Users\david\AppData\Local\Temp\ccNKXkp7.s:499    .progmem.data:00000000 __c.4438
+C:\Users\david\AppData\Local\Temp\ccoBD00g.s:2      *ABS*:0000003f __SREG__
+C:\Users\david\AppData\Local\Temp\ccoBD00g.s:3      *ABS*:0000003e __SP_H__
+C:\Users\david\AppData\Local\Temp\ccoBD00g.s:4      *ABS*:0000003d __SP_L__
+C:\Users\david\AppData\Local\Temp\ccoBD00g.s:5      *ABS*:00000034 __CCP__
+C:\Users\david\AppData\Local\Temp\ccoBD00g.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\david\AppData\Local\Temp\ccoBD00g.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\david\AppData\Local\Temp\ccoBD00g.s:19     .text.CameraControl_DeviceOperation_Capture:00000000 CameraControl_DeviceOperation_Capture
+C:\Users\david\AppData\Local\Temp\ccoBD00g.s:515    .progmem.data:00000077 __c.4415
+C:\Users\david\AppData\Local\Temp\ccoBD00g.s:511    .progmem.data:0000004a __c.4419
+C:\Users\david\AppData\Local\Temp\ccoBD00g.s:187    .text.CameraControl_DeviceOperation_GetPropertyDesc:00000000 CameraControl_DeviceOperation_GetPropertyDesc
+C:\Users\david\AppData\Local\Temp\ccoBD00g.s:507    .progmem.data:00000032 __c.4431
+C:\Users\david\AppData\Local\Temp\ccoBD00g.s:503    .progmem.data:00000006 __c.4436
+C:\Users\david\AppData\Local\Temp\ccoBD00g.s:499    .progmem.data:00000000 __c.4440
 
 UNDEFINED SYMBOLS
 USB_HostState
