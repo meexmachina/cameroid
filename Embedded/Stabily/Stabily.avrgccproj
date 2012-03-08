@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>5.0</ProjectVersion>
+    <ProjectGuid>ed37dcb5-a105-43e2-978c-1b40a5e8fb3f</ProjectGuid>
+    <avrdevice>at90usb1287</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>Executable</OutputType>
+    <Language>C</Language>
+    <OutputFile>Stabily.elf</OutputFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <UseGlobalToolchain>False</UseGlobalToolchain>
+    <ToolchainDirPath>C:\Program Files (x86)\Atmel\AVR Tools\AVR Toolchain\bin</ToolchainDirPath>
+    <MakeDirPath>C:\Program Files (x86)\Atmel\AVR Tools\AVR Toolchain\bin</MakeDirPath>
+    <GlobalToolchainPath>C:\Program Files (x86)\Atmel\AVR Studio 5.0\AVR ToolChain\bin</GlobalToolchainPath>
+    <AvrGccProjectExtensions>
+    </AvrGccProjectExtensions>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'default' ">
+    <OutputPath>bin\default\</OutputPath>
+    <MemorySettings>
+      <MemorySegments xmlns="">
+  <InitialStack IsEnabled="0">
+    <Address />
+  </InitialStack>
+</MemorySegments>
+    </MemorySettings>
+    <ToolchainSettings>
+      <AvrGcc xmlns="">
+  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>true</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>true</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.PackStructureMembers>true</avrgcc.compiler.optimization.PackStructureMembers>
+  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>true</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+  <avrgcc.compiler.warnings.AllWarnings>true</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.compiler.miscellaneous.OtherFlags>-gdwarf-2 -std=gnu99 </avrgcc.compiler.miscellaneous.OtherFlags>
+  <avrgcc.assembler.general.AssemblerFlags>-Wall -gdwarf-2 -std=gnu99 -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums</avrgcc.assembler.general.AssemblerFlags>
+</AvrGcc>
+    </ToolchainSettings>
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>C:\Projects\Cameroid\Embedded\Stabily</OutputDirectory>
+    <ExternalMakeFilePath>C:\Projects\Cameroid\Embedded\Stabily\makefile</ExternalMakeFilePath>
+  </PropertyGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
+  <ItemGroup>
+    <Compile Include="Stabily.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ptp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CameraControl_DeviceInfo.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CameraControl_General.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CameraControl_PTPDefinitions.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CameraControl_DeviceOperation.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Stabily_Shell.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CameraControl_StorageInfo.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CameraControl_DeviceEvents.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Stabily.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CameraControl_USBEvents.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CameraControl_DeviceInfo.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CameraControl_General.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CameraControl_DeviceOperation.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Stabily_Shell.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CameraControl_StorageInfo.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CameraControl_DeviceEvents.c">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

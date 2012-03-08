@@ -45,7 +45,7 @@ uint8_t CameraControl_DeviceEvents_PollEvents( USB_ClassInfo_SI_Host_t* SIInterf
 		return 0;
 	}
 	
-	printf_P(PSTR("\r\nNew event:"));
+	//printf(PSTR("\r\nNew event:"));
 		
 	// Get the event data
 	iError =  SI_Host_ReceiveEventHeader(SIInterfaceInfo, &PIMABlock) ;

@@ -17,4 +17,7 @@ uint16_t CameraControl_DeviceOperation_Capture ( USB_ClassInfo_SI_Host_t* SIInte
 
 uint16_t CameraControl_DeviceOperation_GetPropertyDesc ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
 												 		 PTP_DEVPROPERTY_EN enPropertyType );
+
+uint16_t CameraControl_DeviceOperation_GetPropertyDesc_Bin ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
+												 		 	 PTP_DEVPROPERTY_EN enPropertyType );
 #endif // _CAMERA_CONTROL_DEVICE_OPERATION_H_

@@ -27,7 +27,7 @@ USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface =
 int main(void)
 {
 	Stabily_SetupHardware();
-	puts_P(PSTR(ESC_FG_CYAN "Stabily v1.0 running.\r\n" ESC_FG_WHITE));
+	//puts_P(PSTR(ESC_FG_CYAN "Stabily v1.0 running.\r\n" ESC_FG_WHITE));
 	sei();
 
 	for (;;)

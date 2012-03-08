@@ -271,3 +271,52 @@ uint8_t CameraControl_DeviceInfo_Printout ( USB_ClassInfo_SI_Host_t* SIInterface
 
 	return 0;
 }
+
+/*------------------------------------------------------------------------------
+ * CameraControl_DeviceInfo_Bin
+ */
+uint8_t CameraControl_DeviceInfo_Bin ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo )
+{
+	uint16_t 	DeviceInfoSize;
+	uint8_t 	ErrorCode = 0;
+	uint16_t	i;
+
+	CHECK_CAMERA_CONNECTION;
+
+	SIInterfaceInfo->State.TransactionID = 0;
+
+	// Create PIMA message block
+	PIMA_Container_t PIMABlock = (PIMA_Container_t)
+		{
+			.DataLength    = CPU_TO_LE32(PIMA_COMMAND_SIZE(0)),
+			.Type          = CPU_TO_LE16(PIMA_CONTAINER_CommandBlock),
+			.Code          = CPU_TO_LE16(PTP_OC_GetDeviceInfo),
+			.TransactionID = CPU_TO_LE32(0x00000000),
+			.Params        = {},
+		};
+
+	ErrorCode = CameraControl_InitiateTransaction ( SIInterfaceInfo, &PIMABlock );
+
+	// Get the size (in bytes) of the device info structure
+	DeviceInfoSize = (PIMABlock.DataLength - PIMA_COMMAND_SIZE(0));
+	
+	// Create a buffer large enough to hold the entire device info
+	uint8_t DeviceInfo[DeviceInfoSize];
+
+	// Read in the data block data (containing device info)
+	SI_Host_ReadData(SIInterfaceInfo, DeviceInfo, DeviceInfoSize);
+
+	// Once all the data has been read, the pipe must be cleared before the response can be sent
+	Pipe_ClearIN();
+
+	putchar(RET_CODE_DEV_INFO);
+	putchar((uint8_t)(DeviceInfoSize&0xFF));
+	putchar((uint8_t)((DeviceInfoSize>>8)&0xFF));
+	for (i=0; i<DeviceInfoSize; i++)
+		putchar(DeviceInfo[i]);
+
+	// Receive the final response block from the device 
+	CameraControl_GetResponseAndCheck (SIInterfaceInfo, &PIMABlock);
+
+	return 0;
+}

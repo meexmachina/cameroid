@@ -187,6 +187,66 @@ uint8_t CameraControl_StorageInfo_Printout 	( USB_ClassInfo_SI_Host_t* SIInterfa
 }
 
 /*------------------------------------------------------------------------------
+ * CameraControl_StorageInfo_Bin - binary transfer
+ */
+uint8_t CameraControl_StorageInfo_Bin 	( USB_ClassInfo_SI_Host_t* SIInterfaceInfo,  uint8_t iStorageIndex )
+{
+	uint16_t i;
+	uint16_t StorageInfoSize;
+	uint8_t ErrorCode;
+	uint32_t iStorageID;
+
+	CHECK_CAMERA_CONNECTION;
+
+	if ( iStorageIndex >= g_iNumOfStorages )
+	{
+		// The index is higher thet the available storage IDs
+		//printf_P(PSTR("Error getting storage info - storage index %d is bigger then num of storages %d.\r\n"), 
+		//					iStorageIndex, g_iNumOfStorages);
+		return SI_ERROR_LOGICAL_CMD_FAILED;
+	}
+
+	iStorageID = g_aiStorageIDs[iStorageIndex];
+
+	// Create PIMA message block
+	PIMA_Container_t PIMABlock = (PIMA_Container_t)
+		{
+			.DataLength    = CPU_TO_LE32(PIMA_COMMAND_SIZE(1)),
+			.Type          = CPU_TO_LE16(PIMA_CONTAINER_CommandBlock),
+			.Code          = CPU_TO_LE16(PTP_OC_GetStorageInfo),
+			.Params        = {iStorageID},
+		};
+
+	// Send the command and get response
+	ErrorCode = CameraControl_InitiateTransaction ( SIInterfaceInfo, &PIMABlock );
+	if ( ErrorCode != PIPE_RWSTREAM_NoError ) return ErrorCode;
+
+	// Get the size (in bytes) of the device info structure
+	StorageInfoSize = (PIMABlock.DataLength - PIMA_COMMAND_SIZE(0));
+	printf_P(PSTR(ESC_FG_CYAN "	Got storage info of %d bytes.\r\n" ESC_FG_WHITE), StorageInfoSize);
+
+	// Create a buffer large enough to hold the entire device info
+	uint8_t StorageInfo[StorageInfoSize];
+
+	// Read in the data block data (containing device info)
+	SI_Host_ReadData(SIInterfaceInfo, StorageInfo, StorageInfoSize);
+
+	// Once all the data has been read, the pipe must be cleared before the response can be sent
+	Pipe_ClearIN();
+
+	putchar(RET_CODE_STORAGE_INFO);
+	putchar((uint8_t)(StorageInfoSize&0xFF));
+	putchar((uint8_t)((StorageInfoSize>>8)&0xFF));
+	for (i=0; i<StorageInfoSize; i++)
+		putchar(StorageInfo[i]);
+
+	// Receive the final response block from the device 
+	CameraControl_GetResponseAndCheck (SIInterfaceInfo, &PIMABlock);
+
+	return 0;
+}
+
+/*------------------------------------------------------------------------------
  * CameraControl_GetStorageID - Search for storage ID from its type
  */
 uint8_t CameraControl_GetStorageID 	( PTP_STORETYPE_EN enStorageType, uint32_t* iStorageID )

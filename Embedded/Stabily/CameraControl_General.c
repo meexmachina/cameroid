@@ -1,6 +1,6 @@
 #include "CameraControl_General.h"
 
-volatile uint8_t	g_bQuiteMode = 0;
+volatile uint8_t	g_bQuiteMode = 1;
 
 /*------------------------------------------------------------------------------
  * CameraControl_PTPErrorDescription
