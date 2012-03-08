@@ -1,5 +1,12 @@
 #include "Stabily.h"
 #include "CameraControl_DeviceInfo.h"
+#include "Stabily_Shell.h"
+#include "CameraControl_DeviceEvents.h"
+#include "CameraControl_DeviceInfo.h"
+#include "CameraControl_DeviceOperation.h"
+#include "CameraControl_General.h"
+//#include "CameraControl_StorageInfo.h"
+#include <stdlib.h>
 
 /** LUFA Still Image Class driver interface configuration and state information. This structure is
  *  passed to all Still Image Class driver functions, so that multiple instances of the same class
