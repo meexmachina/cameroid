@@ -1,4 +1,11 @@
 #include "Stabily_Shell.h"
+#include <stdlib.h>
+#include "CameraControl_DeviceInfo.h"
+#include "CameraControl_DeviceEvents.h"
+#include "CameraControl_DeviceInfo.h"
+#include "CameraControl_DeviceOperation.h"
+#include "CameraControl_General.h"
+#include "CameraControl_StorageInfo.h"
 
 /*------------------------------------------------------------------------------
  * Variables

@@ -52,5 +52,6 @@ bool CameraControl_DeviceInfo_PrintArray(uint8_t **pp, uint16_t *count, uint8_t 
 void CameraControl_DeviceInfo_Parse(uint16_t len, uint8_t *pbuf);
 uint8_t CameraControl_DeviceInfo_GetInfo ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo );
 uint8_t CameraControl_DeviceInfo_Printout ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo );
+uint8_t CameraControl_DeviceInfo_Bin ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo );
 
 #endif // _CAMERA_CONTROL_DEVICE_INFO_H_
