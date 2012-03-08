@@ -9,7 +9,8 @@ ARCH = AVR8
 # Target board (see library "Board Types" documentation, NONE for projects not requiring
 # LUFA board drivers). If USER is selected, put custom board drivers in a directory called
 # "Board" inside the application directory.
-BOARD = MICROPENDOUS_REV2
+BOARD = NONE
+#MICROPENDOUS_REV2
 
 
 # Processor frequency.
@@ -240,7 +241,7 @@ SCANF_LIB =
 #SCANF_LIB = $(SCANF_LIB_FLOAT)
 
 
-MATH_LIB = -lm
+MATH_LIB = -ml
 
 
 # List any extra directories to look for libraries here.
@@ -393,8 +394,8 @@ LST = $(SRC:%.c=$(OBJDIR)/%.lst) $(CPPSRC:%.cpp=$(OBJDIR)/%.lst) $(ASRC:%.S=$(OB
 
 
 # Compiler flags to generate dependency files.
-GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
-
+# GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
+GENDEPFLAGS = -MMD -MP -MF Debug/$(@F).d
 
 # Combine all necessary flags and optional flags.
 # Add target processor to flags.
@@ -635,7 +636,8 @@ clean_list :
 	$(REMOVE) $(SRC:.c=.s)
 	$(REMOVE) $(SRC:.c=.d)
 	$(REMOVE) $(SRC:.c=.i)
-	$(REMOVEDIR) .dep
+#	$(REMOVEDIR) .dep
+	$(REMOVEDIR) Debug
 
 doxygen:
 	@echo Generating Project Documentation \($(TARGET)\)...
@@ -659,7 +661,8 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 
 
 # Include the dependency files.
--include $(shell mkdir .dep 2>/dev/null) $(wildcard .dep/*)
+#-include $(shell mkdir .dep 2>/dev/null) $(wildcard .dep/*)
+-include $(shell mkdir Debug 2>/dev/null) $(wildcard Debug/*)
 
 
 # Listing of phony targets.

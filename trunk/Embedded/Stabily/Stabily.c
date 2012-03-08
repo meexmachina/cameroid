@@ -41,7 +41,7 @@ int main(void)
 	{
 		Stabily_ShellRX ( );
 
-		CameraControl_DeviceEvents_PollEvents(&DigitalCamera_SI_Interface);
+		//CameraControl_DeviceEvents_PollEvents(&DigitalCamera_SI_Interface);
 		SI_Host_USBTask(&DigitalCamera_SI_Interface);
 		USB_USBTask();
 	}

@@ -96,4 +96,9 @@
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="makefile">
+      <SubType>compile</SubType>
+    </None>
+  </ItemGroup>
 </Project>
