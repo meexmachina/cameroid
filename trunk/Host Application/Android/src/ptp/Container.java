@@ -24,7 +24,7 @@ abstract public class Container extends Buffer
 	// @ 6, u16 code
 	// @ 8, u32 xid
 	// TOTAL: 12 bytes
-	static final int HDR_LEN = 12;
+	static final int HDR_LEN = 0;
 
 	public Container(byte buf[], NameFactory f)
 	{

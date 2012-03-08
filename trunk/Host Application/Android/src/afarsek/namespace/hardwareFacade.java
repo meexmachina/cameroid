@@ -507,9 +507,10 @@ public class hardwareFacade
 					Log.i(TAG, logged);
 
 					Message msg = mHandler.obtainMessage(messageDefinitions.MESSAGE_READ);
+					msg.arg1 = bytes;
 					Bundle bundle = new Bundle();
 					bundle.putInt(messageDefinitions.MESSAGE_READ_LENGTH, bytes);
-					bundle.putByteArray(messageDefinitions.MESSAGE_READ_DATA_BYTES, buffer);
+					bundle.putByteArray(messageDefinitions.MESSAGE_READ_DATA_BYTES, buffer.clone());
 					bundle.putInt(messageDefinitions.MESSAGE_READ_TAG, mCurrentMessageTag.getIndex());
 					msg.setData(bundle);
 					mHandler.sendMessage(msg);

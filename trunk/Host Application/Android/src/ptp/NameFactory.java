@@ -8,7 +8,7 @@ package ptp;
 public class NameFactory
 {
 	// package private
-	protected NameFactory()
+	public NameFactory()
 	{
 	}
 

@@ -7,6 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import ptp.DeviceInfo;
+import ptp.NameFactory;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -21,6 +22,7 @@ public class cameraControl
 	private final Handler mMainPanelHandler;
 	private int mCameraAttached = 0;
 	private DeviceInfo mDeviceInfo = null;
+	private NameFactory mNameFactory = new NameFactory();
 
 	private Timer timer;
 
@@ -43,7 +45,7 @@ public class cameraControl
 
 	private void getID()
 	{
-		mHardwareFacade.write_queue("idn_bin:".getBytes(), MessageElement.MessageTags.ME_STATUS);
+		mHardwareFacade.write_queue("idn_bin::".getBytes(), MessageElement.MessageTags.ME_STATUS);
 	}
 
 	private void getStatus()
@@ -53,7 +55,7 @@ public class cameraControl
 
 	private void getDeviceInfo()
 	{
-		mHardwareFacade.write_queue("get_dev_info_bin:".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
+		mHardwareFacade.write_queue("get_dev_info_bin::".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
 	}
 
 	class StatusTask extends TimerTask
@@ -73,7 +75,7 @@ public class cameraControl
 		mHardwareFacade.connect(mBluetoothDevice);
 
 		timer = new Timer();
-		timer.scheduleAtFixedRate(new StatusTask(), 3000, 1000);
+		timer.scheduleAtFixedRate(new StatusTask(), 5000, 7000);
 	}
 
 	public void disconnect()
@@ -123,6 +125,7 @@ public class cameraControl
 					int actualWrite = (length < leftToWrite) ? length : leftToWrite;
 					System.arraycopy(data, 0, header, lastWrittentHeader, actualWrite);
 					lastWrittentHeader += actualWrite;
+					length -= actualWrite;
 				}
 
 				if (lastWrittentHeader == 3) // get the rest of the message
@@ -137,8 +140,8 @@ public class cameraControl
 
 					if (lastWrittenLength == 0)
 					{
-						System.arraycopy(data, lastWrittentHeader, tempBuf, lastWrittenLength, length - lastWrittentHeader);
-						lastWrittenLength += length - lastWrittentHeader;
+						System.arraycopy(data, lastWrittentHeader, tempBuf, lastWrittenLength, length);
+						lastWrittenLength += length;
 					} else
 					{
 						System.arraycopy(data, 0, tempBuf, lastWrittenLength, length);
@@ -162,12 +165,6 @@ public class cameraControl
 					break;
 				}
 
-				// if (data.length > 3)
-				// {
-				// System.arraycopy(data, 0, tempBuf, lastWrittenLength, data.length);
-				// lastWrittenLength+=data.length-3;
-				// }
-
 				// Analyze the incoming data
 				if (tagIndex == MessageElement.MessageTags.ME_NO_MSG.getIndex())
 				{
@@ -177,10 +174,19 @@ public class cameraControl
 
 				} else if (tagIndex == MessageElement.MessageTags.ME_STORAGE_INFO.getIndex())
 				{
-
-				} else if (tagIndex == MessageElement.MessageTags.ME_STATUS.getIndex())
+		
+				} else if (tagIndex == MessageElement.MessageTags.ME_DEVICE_INFO.getIndex())
 				{
-					mCameraAttached = tempBuf[0]-'0';
+					mDeviceInfo = new DeviceInfo(mNameFactory, tempBuf.clone());
+				}else if (tagIndex == MessageElement.MessageTags.ME_STATUS.getIndex())
+				{
+					// if we recognize that a new camera was attached
+					if (mCameraAttached==0 && tempBuf[0]==1) 
+					{
+						getDeviceInfo();
+					}
+					
+					mCameraAttached = tempBuf[0];
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE, mCameraAttached, -1).sendToTarget();
 				} else if (tagIndex == MessageElement.MessageTags.ME_IDENT.getIndex())
 				{
