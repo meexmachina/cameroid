@@ -14,5 +14,7 @@
     <string name="title_left_text">Connected to</string>
     <string name="title_right_text">Connecting...</string>
     <string name="connect">Connect</string>
+    <string name="camera_not_connected">Camera disconnected...</string>
+    <string name="camera_connected">Camera connected...</string>
 
 </resources>
