@@ -8,6 +8,7 @@
 #include <avr/power.h>
 #include <avr/interrupt.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <LUFA/Drivers/Peripheral/Serial.h>
 #include "CameraControl_General.h"
 
