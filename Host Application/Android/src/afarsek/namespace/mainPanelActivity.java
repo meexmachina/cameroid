@@ -17,8 +17,9 @@ public class mainPanelActivity extends Activity
 
 	// Internal properties
 	private TextView mTitle;
+	private TextView mCameraConnectedText;
 	private String mConnectedDeviceName = null; // Name of the connected device
-	private cameraControl mCameraControl  = null;
+	private cameraControl mCameraControl = null;
 
 	// Constants
 	public static final String EXTRA_DEVICE_ADDRESS = "device_address";
@@ -40,6 +41,10 @@ public class mainPanelActivity extends Activity
 		mTitle.setText(R.string.app_name);
 		mTitle = (TextView) findViewById(R.id.title_right_text);
 
+		// Set up the text view for camera connected
+		mCameraConnectedText = (TextView) findViewById(R.id.camera_connected);
+		mCameraConnectedText.setText(R.string.camera_not_connected);
+
 		// Obtain the sent bundle
 		Bundle extras = getIntent().getExtras();
 		if (extras != null)
@@ -48,15 +53,12 @@ public class mainPanelActivity extends Activity
 		}
 
 		// Get local Bluetooth adapter
-		/*mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-		// If the adapter is null, then Bluetooth is not supported
-		if (mBluetoothAdapter == null)
-		{
-			Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
-			finish();
-			return;
-		}*/
+		/*
+		 * mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		 * 
+		 * // If the adapter is null, then Bluetooth is not supported if (mBluetoothAdapter == null) { Toast.makeText(this,
+		 * "Bluetooth is not available", Toast.LENGTH_LONG).show(); finish(); return; }
+		 */
 
 		// Button definitions
 		Button captureButton = (Button) findViewById(R.id.capture_button);
@@ -74,24 +76,24 @@ public class mainPanelActivity extends Activity
 	protected void onStart()
 	{
 		super.onStart();
-		
+
 		if (mCameraControl == null)
-			mCameraControl = new cameraControl (mConnectedDeviceName, mHandler);
+			mCameraControl = new cameraControl(mConnectedDeviceName, mHandler);
 
 		// Attempt to connect to the device
 		mCameraControl.connect();
 	}
 
 	@Override
-	protected void onStop() 
+	protected void onStop()
 	{
 		if (mCameraControl != null)
 			mCameraControl.disconnect();
 		mCameraControl = null;
-		
+
 		super.onStop();
 	};
-	
+
 	@Override
 	protected void onDestroy()
 	{
@@ -133,6 +135,12 @@ public class mainPanelActivity extends Activity
 					mTitle.setText(R.string.title_not_connected);
 					break;
 				}
+				break;
+			case messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE:
+				if (msg.arg1 == 1)
+					mCameraConnectedText.setText(R.string.camera_connected);
+				else
+					mCameraConnectedText.setText(R.string.camera_not_connected);
 				break;
 			case messageDefinitions.MESSAGE_DEVICE_NAME:
 				// save the connected device's name
