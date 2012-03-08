@@ -16,12 +16,12 @@
 #include <LUFA/Drivers/USB/USB.h>
 
 #include "CameraControl_PTPDefinitions.h"
-
+extern volatile uint8_t	g_bQuiteMode;
 
 /* Macros: */
 #define COMMAND_DATA_TIMEOUT_MS        	10000
 #define CAMERA_CONTROL_NOT_CONNECTED	(((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive)))
-#define CHECK_CAMERA_CONNECTION			{if (CAMERA_CONTROL_NOT_CONNECTED) { printf_P(PSTR("Device not connected.\r\n")); return 0; }}
+#define CHECK_CAMERA_CONNECTION			{if (CAMERA_CONTROL_NOT_CONNECTED) { if (!g_bQuiteMode) printf_P(PSTR("Device not connected.\r\n")); return 0; }}
 
 #define RET_CODE_DEV_INFO		1
 #define RET_CODE_STORAGE_INFO	2
