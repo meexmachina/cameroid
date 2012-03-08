@@ -123,7 +123,10 @@ void Stabily_Shell_Parse(char *cmd)
             return;
         }
     }
-    printf( "%s: Command not recognized.\r\n", cmd);
+	if ( !g_leftDataToGet && g_EchoOnOff==1)
+	{
+		printf( "%s: Command not recognized.\r\n", cmd);
+	}		
 
     Stabily_Shell_Menu();
 }
