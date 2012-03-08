@@ -133,3 +133,69 @@ uint16_t CameraControl_DeviceOperation_GetPropertyDesc ( USB_ClassInfo_SI_Host_t
 	return 0;
 }
 
+
+/*------------------------------------------------------------------------------
+ * CameraControl_DeviceOperation_GetPropertyDesc
+ */
+uint16_t CameraControl_DeviceOperation_GetPropertyDescBin ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
+															PTP_DEVPROPERTY_EN enPropertyType )
+{
+	uint16_t i;
+	uint8_t iError = 0;
+
+	CHECK_CAMERA_CONNECTION;
+
+	// Open a new session
+	iError = CameraControl_OpenSession(SIInterfaceInfo);
+	if ( iError != PIPE_RWSTREAM_NoError )
+	{
+		iError = -1;
+		return iError;
+	}
+
+	// Initiate capture operation
+	//  OpCode 0x1014 (PTP_OC_GetDevicePropDesc)
+	PIMA_Container_t PIMABlock = (PIMA_Container_t)
+		{
+			.DataLength    = CPU_TO_LE32(PIMA_COMMAND_SIZE(1)),
+			.Type          = CPU_TO_LE16(PIMA_CONTAINER_CommandBlock),
+			.Code          = CPU_TO_LE16(PTP_OC_GetDevicePropDesc),
+			.Params        = {enPropertyType},
+		};
+	
+	iError = CameraControl_InitiateTransaction ( SIInterfaceInfo, &PIMABlock );
+	if ( iError != PIPE_RWSTREAM_NoError )	return -1;
+
+	// Get the size (in bytes) of the dataset
+	uint16_t DatasetSize = (PIMABlock.DataLength - PIMA_COMMAND_SIZE(0));
+
+	if (DatasetSize==0) return -1;
+
+	//printf_P(PSTR(ESC_FG_CYAN "	Got property info of %d bytes.\r\n" ESC_FG_WHITE), DatasetSize);	
+
+	// Create a buffer large enough to hold the entire device info
+	uint8_t Dataset[DatasetSize];
+
+	// Read in the data block data
+	SI_Host_ReadData(SIInterfaceInfo, Dataset, DatasetSize);
+
+	// Once all the data has been read, the pipe must be cleared before the response can be sent
+	Pipe_ClearIN();
+
+	putchar(RET_CODE_PROP_DESC);
+	putchar((uint8_t)(DatasetSize&0xFF));
+	putchar((uint8_t)((DatasetSize>>8)&0xFF));
+	for (i=0; i<DatasetSize; i++)
+		putchar(Dataset[i]);
+
+	// Receive the final response block from the device 
+	iError = CameraControl_GetResponseAndCheck (SIInterfaceInfo, &PIMABlock);
+
+	// Close the session
+	iError = CameraControl_CloseSession(SIInterfaceInfo);
+	if ( iError != PIPE_RWSTREAM_NoError )
+	{
+	}
+
+	return 0;
+}

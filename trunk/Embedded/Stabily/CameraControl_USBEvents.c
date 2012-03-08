@@ -10,7 +10,7 @@ extern volatile uint8_t	g_bQuiteMode;
  */
 void EVENT_USB_Host_DeviceAttached(void)
 {
-	
+	g_iDataIsValid = 0;
 	if (g_bQuiteMode) return;
 	puts_P(PSTR("Device Attached.\r\n"));
 }
@@ -21,7 +21,7 @@ void EVENT_USB_Host_DeviceAttached(void)
  */
 void EVENT_USB_Host_DeviceUnattached(void)
 {
-	
+	g_iDataIsValid = 0;
 	if (g_bQuiteMode) return;
 	puts_P(PSTR("\r\nDevice Unattached.\r\n"));
 }

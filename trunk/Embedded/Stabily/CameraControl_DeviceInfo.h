@@ -31,10 +31,10 @@ typedef struct {
 	char				sVendorExtensionDescription[DEVINFO_MAX_STRING_SIZE];
 	uint16_t			iFunctionMode;
 	uint64_t			iOperationsSupported;		// 64bit bitmap - LSB = OPERATION_SUPPORT_BASE; LSB<<1 = PTP_OC_GetDeviceInfo...
-	uint64_t			iEventsSupported;			// 32bit bitmap - LSB = EVENT_SUPPORT_BASE
+	uint64_t			iEventsSupported;			// 64bit bitmap - LSB = EVENT_SUPPORT_BASE
 	uint64_t			iPropertiesSupported;		// 64bit bitmap - LSB = PROPERTY_SUPPORT_BASE
-	uint64_t			iCaptureFormatsSupported;	// 32bit bitmap - LSB = CAP_FORMAT_SUPPORT_BASE
-	uint64_t			iImageFormatsSupported;		// 32bit bitmap - LSB = IM_FORMAT_SUPPORT_BASE
+	uint64_t			iCaptureFormatsSupported;	// 64bit bitmap - LSB = CAP_FORMAT_SUPPORT_BASE
+	uint64_t			iImageFormatsSupported;		// 64bit bitmap - LSB = IM_FORMAT_SUPPORT_BASE
 	char				sManufacturer[DEVINFO_MAX_STRING_SIZE];
 	char				Model[DEVINFO_MAX_STRING_SIZE];
 	char				DeviceVersion[DEVINFO_MAX_STRING_SIZE];
