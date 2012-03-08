@@ -20,7 +20,6 @@ public class cameraControl
 	private BluetoothDevice mBluetoothDevice;
 	private final Handler mMainPanelHandler;
 	private int mCameraAttached = 0;
-	private int mCurrentExecuting = 0;
 	private DeviceInfo mDeviceInfo = null;
 
 	private Timer timer;
@@ -41,47 +40,21 @@ public class cameraControl
 		mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(mConnectedDeviceName);
 
 	}
-	
+
 	private void setQuiteMode(int onoff)
 	{
-		if (mCurrentExecuting != 0)
-			return;
-
 		String command = "set_quite " + String.valueOf(onoff) + ":";
 		mHardwareFacade.write(command.getBytes());
-		mCurrentExecuting = 0;
-	}
-	
-	private void setEchoMode(int onoff)
-	{
-		if (mCurrentExecuting != 0)
-			return;
-
-		String command = null;
-		
-		if (onoff==1) command = "eon:";
-		else command = "eof:";
-		
-		mHardwareFacade.write(command.getBytes());
-		mCurrentExecuting = 0;
 	}
 
 	private void getStatus()
 	{
-		if (mCurrentExecuting != 0)
-			return;
-
-		mHardwareFacade.write("status:".getBytes());
-		mCurrentExecuting = 10;
+		mHardwareFacade.write_queue("status:".getBytes(), MessageElement.MessageTags.ME_STATUS);
 	}
 
 	private void getDeviceInfo()
 	{
-		if (mCurrentExecuting != 0)
-			return;
-
-		mHardwareFacade.write("get_dev_info_bin:".getBytes());
-		mCurrentExecuting = 1;
+		mHardwareFacade.write_queue("get_dev_info_bin:".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
 	}
 
 	class StatusTask extends TimerTask
@@ -96,7 +69,7 @@ public class cameraControl
 	{
 		if (mHardwareFacade == null)
 			mHardwareFacade = new hardwareFacade(mHardwareDataHandler);
-		
+
 		// Try to connect
 		mHardwareFacade.connect(mBluetoothDevice);
 
@@ -108,7 +81,6 @@ public class cameraControl
 	{
 		timer.cancel();
 		mHardwareFacade.stop();
-		mCurrentExecuting = 0;
 		mHardwareFacade = null;
 	}
 
@@ -135,33 +107,28 @@ public class cameraControl
 				break;
 			case messageDefinitions.MESSAGE_READ:
 				char[] data = (new String(msg.getData().getByteArray(messageDefinitions.MESSAGE_READ_DATA_BYTES))).toCharArray();
-				//int length = msg.getData().getInt(messageDefinitions.MESSAGE_READ_LENGTH);
+				int tagIndex = msg.getData().getInt(messageDefinitions.MESSAGE_READ_TAG);
 
-				switch (mCurrentExecuting)
+				// Analyze the incoming data
+				if (tagIndex == MessageElement.MessageTags.ME_NO_MSG.getIndex())
 				{
-				case 0:
-					mCurrentExecuting = 0;
-					break;
-				case 1:
-					mCurrentExecuting = 0;
-					break;
-				case 2:
-					mCurrentExecuting = 0;
-					break;
-				case 3:
-					mCurrentExecuting = 0;
-					break;
-				case 10:
-					mCameraAttached = data[0]-'0';
-					mCurrentExecuting = 0;
-					break;
-				case 11:
-					mCurrentExecuting = 0;
-					break;
-				case 12:
-					mCurrentExecuting = 0;
-					break;
-				
+
+				} else if (tagIndex == MessageElement.MessageTags.ME_DEVICE_INFO.getIndex())
+				{
+
+				} else if (tagIndex == MessageElement.MessageTags.ME_PROPERTY_DESC.getIndex())
+				{
+
+				} else if (tagIndex == MessageElement.MessageTags.ME_STORAGE_INFO.getIndex())
+				{
+
+				} else if (tagIndex == MessageElement.MessageTags.ME_STATUS.getIndex())
+				{
+					mCameraAttached = data[0] - '0';
+					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE, mCameraAttached, -1).sendToTarget();
+				} else
+				{
+
 				}
 
 				break;

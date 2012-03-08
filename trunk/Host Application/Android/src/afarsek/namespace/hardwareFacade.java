@@ -496,7 +496,7 @@ public class hardwareFacade
 					Bundle bundle = new Bundle();
 					bundle.putInt(messageDefinitions.MESSAGE_READ_LENGTH, bytes);
 					bundle.putByteArray(messageDefinitions.MESSAGE_READ_DATA_BYTES, buffer);
-					bundle.putInt (messageDefinitions.MESSAGE_READ_TAG, mCurrentMessageTag.ordinal());
+					bundle.putInt (messageDefinitions.MESSAGE_READ_TAG, mCurrentMessageTag.getIndex());
 					msg.setData(bundle);
 					mHandler.sendMessage(msg);
 				} catch (IOException e)
