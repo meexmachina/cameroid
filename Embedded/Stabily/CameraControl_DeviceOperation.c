@@ -1,4 +1,5 @@
 #include "CameraControl_DeviceOperation.h"
+#include "CameraControl_StorageInfo.h"
 
 /*------------------------------------------------------------------------------
  * CameraControl_DeviceOperation_Capture
