@@ -4,7 +4,16 @@ public class MessageElement
 {
 	enum MessageTags
 	{
-		ME_NO_MSG, ME_STATUS, ME_DEVICE_INFO, ME_STORAGE_INFO, ME_PROPERTY_DESC;
+		ME_NO_MSG(0), ME_STATUS(1), ME_DEVICE_INFO(2), ME_STORAGE_INFO(3), ME_PROPERTY_DESC(4);
+		
+		private final int index;
+		MessageTags(int idx) {
+	        this.index = idx;
+	    }
+		public int getIndex()
+		{
+			return index;
+		}
 	}
 
 	public byte[] mData;
