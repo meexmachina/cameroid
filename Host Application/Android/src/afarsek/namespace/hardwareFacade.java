@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.NoSuchElementException;
+import java.util.Queue;
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -25,9 +28,8 @@ public class hardwareFacade
 	private final Handler mHandler;
 	private ConnectThread mConnectThread;
 	private ConnectedThread mConnectedThread;
-	//private static final UUID SPP_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-	// UUID.fromString("04c6093b-0000-1000-8000-00805f9b34fb");
-	// UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+	private Queue<MessageElement> mToSendQueue;
+	private MessageElement.MessageTags mCurrentMessageTag = MessageElement.MessageTags.ME_NO_MSG;
 	private int mState;
 
 	// Constants that indicate the current connection state
@@ -195,6 +197,57 @@ public class hardwareFacade
 		}
 
 		setState(STATE_NONE);
+	}
+
+	/**
+	 * Push to the message queue
+	 * 
+	 * @param out
+	 *            The string to write
+	 * @param tag
+	 *            The message type tag
+	 * @see ConnectedThread#write(byte[])
+	 */
+	public void write_queue(String out, MessageElement.MessageTags tag)
+	{
+		write_queue(out.getBytes(), tag);
+	}
+
+	/**
+	 * Push to the message queue
+	 * 
+	 * @param out
+	 *            The byte array to write
+	 * @param tag
+	 *            The message type tag
+	 * @see ConnectedThread#write(byte[])
+	 */
+	public void write_queue(byte[] out, MessageElement.MessageTags tag)
+	{
+		MessageElement me = new MessageElement(out, tag);
+		mToSendQueue.add(me);
+	}
+
+	/**
+	 * Write to the ConnectedThread through a queue
+	 * 
+	 * @see ConnectedThread#write(byte[])
+	 */
+	public void release_from_queue()
+	{
+		MessageElement me;
+		try
+		{
+			me = mToSendQueue.remove();
+		}
+		catch (NoSuchElementException e)
+		{
+			// TODO Auto-generated catch block
+			return;
+		}
+		
+		mCurrentMessageTag = me.mTag;
+		write(me.mData);				
 	}
 
 	/**
@@ -431,18 +484,19 @@ public class hardwareFacade
 				{
 					// Read from the InputStream
 					int bytes = mmInStream.read(buffer);
-					
+
 					String logged = "Trans Read: ";
-					for (int i=0; i<bytes; i++)
+					for (int i = 0; i < bytes; i++)
 					{
 						logged += String.format("%x ", buffer[i]);
 					}
 					Log.i(TAG, logged);
-					
+
 					Message msg = mHandler.obtainMessage(messageDefinitions.MESSAGE_READ);
 					Bundle bundle = new Bundle();
 					bundle.putInt(messageDefinitions.MESSAGE_READ_LENGTH, bytes);
 					bundle.putByteArray(messageDefinitions.MESSAGE_READ_DATA_BYTES, buffer);
+					bundle.putInt (messageDefinitions.MESSAGE_READ_TAG, mCurrentMessageTag.ordinal());
 					msg.setData(bundle);
 					mHandler.sendMessage(msg);
 				} catch (IOException e)
@@ -471,7 +525,7 @@ public class hardwareFacade
 				// buffer)
 				// .sendToTarget();
 				String logged = "Trans Write: ";
-				for (int i=0; i<buffer.length; i++)
+				for (int i = 0; i < buffer.length; i++)
 				{
 					logged += String.format("%x ", buffer[i]);
 				}
