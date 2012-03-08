@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 
@@ -28,7 +29,7 @@ public class hardwareFacade
 	private final Handler mHandler;
 	private ConnectThread mConnectThread;
 	private ConnectedThread mConnectedThread;
-	private Queue<MessageElement> mToSendQueue;
+	private Queue<MessageElement> mToSendQueue = new LinkedList<MessageElement>();
 	private MessageElement.MessageTags mCurrentMessageTag = MessageElement.MessageTags.ME_NO_MSG;
 	private int mState;
 
@@ -224,6 +225,18 @@ public class hardwareFacade
 	 */
 	public void write_queue(byte[] out, MessageElement.MessageTags tag)
 	{
+		// if nothing is queued
+		if (mCurrentMessageTag == MessageElement.MessageTags.ME_NO_MSG)
+		{
+			write(out);
+			mCurrentMessageTag = tag;
+			return;
+		}
+
+		// do not allow more then 20
+		if (mToSendQueue.size() > 20)
+			return;
+
 		MessageElement me = new MessageElement(out, tag);
 		mToSendQueue.add(me);
 	}
@@ -239,15 +252,16 @@ public class hardwareFacade
 		try
 		{
 			me = mToSendQueue.remove();
-		}
-		catch (NoSuchElementException e)
+		} catch (NoSuchElementException e)
 		{
-			// TODO Auto-generated catch block
+			mCurrentMessageTag = MessageElement.MessageTags.ME_NO_MSG;
+			Log.i(TAG, "release_from_queue - currentTag = no_msg");
 			return;
 		}
-		
+
+		Log.i(TAG, "release_from_queue - releasing currentTag changed");
 		mCurrentMessageTag = me.mTag;
-		write(me.mData);				
+		write(me.mData);
 	}
 
 	/**
@@ -496,7 +510,7 @@ public class hardwareFacade
 					Bundle bundle = new Bundle();
 					bundle.putInt(messageDefinitions.MESSAGE_READ_LENGTH, bytes);
 					bundle.putByteArray(messageDefinitions.MESSAGE_READ_DATA_BYTES, buffer);
-					bundle.putInt (messageDefinitions.MESSAGE_READ_TAG, mCurrentMessageTag.getIndex());
+					bundle.putInt(messageDefinitions.MESSAGE_READ_TAG, mCurrentMessageTag.getIndex());
 					msg.setData(bundle);
 					mHandler.sendMessage(msg);
 				} catch (IOException e)

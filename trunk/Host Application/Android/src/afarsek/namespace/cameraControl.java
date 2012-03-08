@@ -41,9 +41,14 @@ public class cameraControl
 
 	}
 
+	private void getID()
+	{
+		mHardwareFacade.write_queue("idn_bin:".getBytes(), MessageElement.MessageTags.ME_STATUS);
+	}
+
 	private void getStatus()
 	{
-		mHardwareFacade.write_queue("status:".getBytes(), MessageElement.MessageTags.ME_STATUS);
+		mHardwareFacade.write_queue("status_bin:".getBytes(), MessageElement.MessageTags.ME_STATUS);
 	}
 
 	private void getDeviceInfo()
@@ -87,6 +92,13 @@ public class cameraControl
 	// The Handler that gets information back from the hardwareFacade
 	private final Handler mHardwareDataHandler = new Handler()
 	{
+		private int curType = 0;
+		private int curLength = 0;
+		private int lastWrittenLength = 0;
+		private byte[] tempBuf;
+		private int lastWrittentHeader = 0;
+		private byte[] header = new byte[3];
+
 		@Override
 		public void handleMessage(Message msg)
 		{
@@ -100,14 +112,64 @@ public class cameraControl
 				mMainPanelHandler.sendMessage(new_msg);
 				break;
 			case messageDefinitions.MESSAGE_READ:
-				char[] data = (new String(msg.getData().getByteArray(messageDefinitions.MESSAGE_READ_DATA_BYTES))).toCharArray();
+				byte[] data = msg.getData().getByteArray(messageDefinitions.MESSAGE_READ_DATA_BYTES);
+				int length = msg.arg1;
 				int tagIndex = msg.getData().getInt(messageDefinitions.MESSAGE_READ_TAG);
+
+				// start of new transaction - get the header
+				if (lastWrittentHeader < 3)
+				{
+					int leftToWrite = 3 - lastWrittentHeader;
+					int actualWrite = (length < leftToWrite) ? length : leftToWrite;
+					System.arraycopy(data, 0, header, lastWrittentHeader, actualWrite);
+					lastWrittentHeader += actualWrite;
+				}
+
+				if (lastWrittentHeader == 3) // get the rest of the message
+				{
+					// Combine the header info
+					if (lastWrittenLength == 0)
+					{
+						curType = header[0];
+						curLength = header[1] | (header[2] << 8);
+						tempBuf = new byte[curLength];
+					}
+
+					if (lastWrittenLength == 0)
+					{
+						System.arraycopy(data, lastWrittentHeader, tempBuf, lastWrittenLength, length - lastWrittentHeader);
+						lastWrittenLength += length - lastWrittentHeader;
+					} else
+					{
+						System.arraycopy(data, 0, tempBuf, lastWrittenLength, length);
+						lastWrittenLength += length;
+					}
+
+					if (lastWrittenLength == curLength)
+					{
+						curLength = 0;
+						curType = 0;
+						lastWrittenLength = 0;
+						lastWrittentHeader = 0;
+						mHardwareFacade.release_from_queue();
+					} else
+					{
+						// wait for the next transaction
+						break;
+					}
+				} else
+				{
+					break;
+				}
+
+				// if (data.length > 3)
+				// {
+				// System.arraycopy(data, 0, tempBuf, lastWrittenLength, data.length);
+				// lastWrittenLength+=data.length-3;
+				// }
 
 				// Analyze the incoming data
 				if (tagIndex == MessageElement.MessageTags.ME_NO_MSG.getIndex())
-				{
-
-				} else if (tagIndex == MessageElement.MessageTags.ME_DEVICE_INFO.getIndex())
 				{
 
 				} else if (tagIndex == MessageElement.MessageTags.ME_PROPERTY_DESC.getIndex())
@@ -118,8 +180,11 @@ public class cameraControl
 
 				} else if (tagIndex == MessageElement.MessageTags.ME_STATUS.getIndex())
 				{
-					mCameraAttached = data[0] - '0';
+					mCameraAttached = tempBuf[0]-'0';
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE, mCameraAttached, -1).sendToTarget();
+				} else if (tagIndex == MessageElement.MessageTags.ME_IDENT.getIndex())
+				{
+
 				} else
 				{
 
