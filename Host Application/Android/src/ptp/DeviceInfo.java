@@ -41,7 +41,7 @@ public class DeviceInfo extends Data
 		super(true, null, 0, f);
 	}
 
-	DeviceInfo(NameFactory f, byte[] data)
+	public DeviceInfo(NameFactory f, byte[] data)
 	{
 		super(true, data, data.length, f);
 		parse();
