@@ -2,19 +2,41 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/main_panel_layout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
-        <Spinner
-            android:id="@+id/aperture"
+        <TextView
+            android:id="@+id/camera_connected"
             android:layout_width="fill_parent"
-            android:layout_height="99dp"
-            android:layout_weight="1" />
-
+            android:layout_height="wrap_content"
+            android:text="Camera disconnected..."
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
             android:id="@+id/capture_button"
             android:layout_width="fill_parent"
-            android:layout_height="99dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
             android:text="Shoot!" />
+
+        <LinearLayout
+            android:id="@+id/control_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9" >
+
+            <Spinner
+                android:id="@+id/shutter_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.18" />
+
+            <Spinner
+                android:id="@+id/aperture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.18" />
+
+        </LinearLayout>
 
     </LinearLayout>
