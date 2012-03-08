@@ -432,6 +432,13 @@ public class hardwareFacade
 					// Read from the InputStream
 					int bytes = mmInStream.read(buffer);
 					
+					String logged = "Trans Read: ";
+					for (int i=0; i<bytes; i++)
+					{
+						logged += String.format("%x ", buffer[i]);
+					}
+					Log.i(TAG, logged);
+					
 					Message msg = mHandler.obtainMessage(messageDefinitions.MESSAGE_READ);
 					Bundle bundle = new Bundle();
 					bundle.putInt(messageDefinitions.MESSAGE_READ_LENGTH, bytes);
@@ -463,6 +470,12 @@ public class hardwareFacade
 				// mHandler.obtainMessage(BluetoothChat.MESSAGE_WRITE, -1, -1,
 				// buffer)
 				// .sendToTarget();
+				String logged = "Trans Write: ";
+				for (int i=0; i<buffer.length; i++)
+				{
+					logged += String.format("%x ", buffer[i]);
+				}
+				Log.i(TAG, logged);
 			} catch (IOException e)
 			{
 				Log.e(TAG, "Exception during write", e);
@@ -479,6 +492,7 @@ public class hardwareFacade
 				// mHandler.obtainMessage(BluetoothChat.MESSAGE_WRITE, -1, -1,
 				// buffer)
 				// .sendToTarget();
+				Log.i(TAG, "Trans Write: " + String.valueOf(out));
 			} catch (IOException e)
 			{
 				Log.e(TAG, "Exception during write", e);
