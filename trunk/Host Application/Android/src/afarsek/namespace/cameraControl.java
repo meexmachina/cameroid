@@ -41,12 +41,6 @@ public class cameraControl
 
 	}
 
-	private void setQuiteMode(int onoff)
-	{
-		String command = "set_quite " + String.valueOf(onoff) + ":";
-		mHardwareFacade.write(command.getBytes());
-	}
-
 	private void getStatus()
 	{
 		mHardwareFacade.write_queue("status:".getBytes(), MessageElement.MessageTags.ME_STATUS);
