@@ -14,10 +14,10 @@
      limitations under the License.
 -->
 <resources>
-    <color name="actionbar_separator">#8B1A1A</color>
+    <color name="actionbar_separator">#1A1A1A</color>
     <color name="actionbar_title">#FFFFFF</color>
-    <color name="actionbar_background_start">#8B1A1A</color>
-    <color name="actionbar_background_end">#CD2626</color>
-    <color name="actionbar_background_item_pressed_start">#FF7F00</color>
-    <color name="actionbar_background_item_pressed_end">#EE7600</color>
+    <color name="actionbar_background_start">#8B8B8B</color>
+    <color name="actionbar_background_end">#CDCDCD</color>
+    <color name="actionbar_background_item_pressed_start">#FF7F7F</color>
+    <color name="actionbar_background_item_pressed_end">#EEEEEE</color>
 </resources>
