@@ -16,9 +16,9 @@ public class DeviceInfo extends Data
 	String vendorExtensionDesc;
 
 	int functionalMode; // may change;
-	int operationsSupported[]; // 10.2
-	int eventsSupported[]; // 12.5
-	int propertiesSupported[]; // 13.3.5
+	public int operationsSupported[]; // 10.2
+	public int eventsSupported[]; // 12.5
+	public int propertiesSupported[]; // 13.3.5
 
 	int captureFormats[]; // 6
 	int imageFormats[]; // 6

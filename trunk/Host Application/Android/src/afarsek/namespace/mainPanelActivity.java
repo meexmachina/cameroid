@@ -61,14 +61,14 @@ public class mainPanelActivity extends Activity
 		 */
 
 		// Button definitions
-		Button captureButton = (Button) findViewById(R.id.capture_button);
+	/*	Button captureButton = (Button) findViewById(R.id.capture_button);
 		captureButton.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(View v)
 			{
 				mCameraControl.capture();
 			}
-		});
+		});*/
 
 	}
 
