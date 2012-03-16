@@ -18,6 +18,7 @@ package widget;
 
 import java.util.LinkedList;
 
+import afarsek.namespace.R;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -88,7 +89,7 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
     /**
      * Shows the provided logo to the left in the action bar.
      * 
-     * This is ment to be used instead of the setHomeAction and does not draw
+     * This is meant to be used instead of the setHomeAction and does not draw
      * a divider to the left of the provided logo.
      * 
      * @param resId The drawable resource id
@@ -145,7 +146,6 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
         mTitleView.setOnClickListener(listener);
     }
 
-    @Override
     public void onClick(View view) {
         final Object tag = view.getTag();
         if (tag instanceof Action) {
@@ -262,7 +262,6 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
             mDrawable = drawable;
         }
 
-        @Override
         public int getDrawable() {
             return mDrawable;
         }
@@ -278,7 +277,6 @@ public class ActionBar extends RelativeLayout implements OnClickListener {
             mIntent = intent;
         }
 
-        @Override
         public void performAction(View view) {
             try {
                mContext.startActivity(mIntent); 

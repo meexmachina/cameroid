@@ -16,5 +16,6 @@
     <string name="connect">Connect</string>
     <string name="camera_not_connected">Camera disconnected...</string>
     <string name="camera_connected">Camera connected...</string>
+	<string name="actionbar_activity_not_found">Failed to open intent...</string>
 
 </resources>
