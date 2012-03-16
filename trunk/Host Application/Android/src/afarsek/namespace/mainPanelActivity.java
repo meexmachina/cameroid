@@ -30,7 +30,8 @@ public class mainPanelActivity extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
+		//requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
 		// Set up the window layout
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.main_panel);

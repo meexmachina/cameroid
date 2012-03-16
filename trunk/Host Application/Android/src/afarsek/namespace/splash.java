@@ -3,6 +3,7 @@ package afarsek.namespace;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Window;
 
 public class splash extends Activity
 {
@@ -12,8 +13,10 @@ public class splash extends Activity
 	{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.splash);
-
+		
+		
 		Thread splashTimer = new Thread()
 		{
 			public void run()

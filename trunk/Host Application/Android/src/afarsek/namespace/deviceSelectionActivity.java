@@ -1,6 +1,11 @@
 package afarsek.namespace;
 
 import java.util.Set;
+
+import widget.ActionBar;
+import widget.ActionBar.AbstractAction;
+import widget.ActionBar.Action;
+import widget.ActionBar.IntentAction;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -11,6 +16,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,22 +43,20 @@ public class deviceSelectionActivity extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		// Setup the window
 		setContentView(R.layout.device_selection);
 
+		// Setup the action-bar
+		final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar.setTitle("Select A Device...");
+
+		//final Action refreshAction = new IntentAction(this, refreshDeviceList(), R.drawable.ic_action_refresh);
+		actionBar.addAction(new refreshAction());
+		
 		// Initialize array adapter
 		m_DevicesArrayAdapter = new ArrayAdapter<String>(this, R.layout.device_name);
-
-		// Initialize the button to perform device discovery
-		Button refreshButton = (Button) findViewById(R.id.refresh_button);
-		refreshButton.setOnClickListener(new OnClickListener()
-		{
-			public void onClick(View v)
-			{
-				refreshDeviceList();
-			}
-		});
 
 		// Find and set up the ListView for paired devices
 		ListView devicesListView = (ListView) findViewById(R.id.device_list_view);
@@ -99,6 +103,22 @@ public class deviceSelectionActivity extends Activity
 		}
 
 		refreshDeviceList();
+	}
+
+	private class refreshAction extends AbstractAction
+	{
+
+		public refreshAction()
+		{
+			super(R.drawable.ic_action_refresh);
+			
+		}
+
+		public void performAction(View view)
+		{
+			refreshDeviceList();
+		}
+
 	}
 
 	@Override
@@ -179,6 +199,8 @@ public class deviceSelectionActivity extends Activity
 
 	/**
 	 * Start device discover with the BluetoothAdapter
+	 * 
+	 * @return
 	 */
 	private void refreshDeviceList()
 	{
