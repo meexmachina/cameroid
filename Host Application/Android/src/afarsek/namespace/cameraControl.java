@@ -8,6 +8,7 @@ import java.util.TimerTask;
 
 import ptp.DeviceInfo;
 import ptp.NameFactory;
+import ptp.StorageInfo;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -22,6 +23,7 @@ public class cameraControl
 	private final Handler mMainPanelHandler;
 	private int mCameraAttached = 0;
 	private DeviceInfo mDeviceInfo = null;
+	private StorageInfo mStorageInfo = null;
 	private NameFactory mNameFactory = new NameFactory();
 
 	private Timer timer;
@@ -45,7 +47,7 @@ public class cameraControl
 
 	private void getID()
 	{
-		mHardwareFacade.write_queue("idn_bin::".getBytes(), MessageElement.MessageTags.ME_STATUS);
+		mHardwareFacade.write_queue("idn_bin:".getBytes(), MessageElement.MessageTags.ME_STATUS);
 	}
 
 	private void getStatus()
@@ -55,8 +57,20 @@ public class cameraControl
 
 	private void getDeviceInfo()
 	{
-		mHardwareFacade.write_queue("get_dev_info_bin::".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
+		mHardwareFacade.write_queue("get_dev_info_bin:".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
 	}
+
+	private void getStorageInfo()
+	{
+		mHardwareFacade.write_queue("get_storage_info_bin 0:".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
+	}
+	
+	private void getPropertiesDescriptions()
+	{
+		int[] props = mDeviceInfo.propertiesSupported;
+		
+	}
+
 
 	class StatusTask extends TimerTask
 	{
@@ -75,7 +89,7 @@ public class cameraControl
 		mHardwareFacade.connect(mBluetoothDevice);
 
 		timer = new Timer();
-		timer.scheduleAtFixedRate(new StatusTask(), 5000, 7000);
+		timer.scheduleAtFixedRate(new StatusTask(), 5000, 1000);
 	}
 
 	public void disconnect()
@@ -117,12 +131,14 @@ public class cameraControl
 				byte[] data = msg.getData().getByteArray(messageDefinitions.MESSAGE_READ_DATA_BYTES);
 				int length = msg.arg1;
 				int tagIndex = msg.getData().getInt(messageDefinitions.MESSAGE_READ_TAG);
+				int leftToWrite = 0;
+				int actualWrite = 0;
 
 				// start of new transaction - get the header
 				if (lastWrittentHeader < 3)
 				{
-					int leftToWrite = 3 - lastWrittentHeader;
-					int actualWrite = (length < leftToWrite) ? length : leftToWrite;
+					leftToWrite = 3 - lastWrittentHeader;
+					actualWrite = (length < leftToWrite) ? length : leftToWrite;
 					System.arraycopy(data, 0, header, lastWrittentHeader, actualWrite);
 					lastWrittentHeader += actualWrite;
 					length -= actualWrite;
@@ -140,7 +156,7 @@ public class cameraControl
 
 					if (lastWrittenLength == 0)
 					{
-						System.arraycopy(data, lastWrittentHeader, tempBuf, lastWrittenLength, length);
+						System.arraycopy(data, leftToWrite, tempBuf, lastWrittenLength, length);
 						lastWrittenLength += length;
 					} else
 					{
@@ -174,18 +190,20 @@ public class cameraControl
 
 				} else if (tagIndex == MessageElement.MessageTags.ME_STORAGE_INFO.getIndex())
 				{
-		
+					mStorageInfo = new StorageInfo(mNameFactory, tempBuf.clone());
 				} else if (tagIndex == MessageElement.MessageTags.ME_DEVICE_INFO.getIndex())
 				{
 					mDeviceInfo = new DeviceInfo(mNameFactory, tempBuf.clone());
-				}else if (tagIndex == MessageElement.MessageTags.ME_STATUS.getIndex())
+					getStorageInfo();
+					getPropertiesDescriptions();
+				} else if (tagIndex == MessageElement.MessageTags.ME_STATUS.getIndex())
 				{
 					// if we recognize that a new camera was attached
-					if (mCameraAttached==0 && tempBuf[0]==1) 
+					if (mCameraAttached == 0 && tempBuf[0] == 1)
 					{
 						getDeviceInfo();
 					}
-					
+
 					mCameraAttached = tempBuf[0];
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE, mCameraAttached, -1).sendToTarget();
 				} else if (tagIndex == MessageElement.MessageTags.ME_IDENT.getIndex())
@@ -201,6 +219,7 @@ public class cameraControl
 				break;
 			}
 		}
+
 	};
 
 }
