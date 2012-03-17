@@ -1,5 +1,6 @@
 package afarsek.namespace;
 
+import widget.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +14,10 @@ public class mainPanelActivity extends Activity
 {
 
 	// Internal properties
-	private TextView mTitle;
 	private TextView mCameraConnectedText;
 	private String mConnectedDeviceName = null; // Name of the connected device
 	private cameraControl mCameraControl = null;
+	private ActionBar actionBar; 
 
 	// Constants
 	public static final String EXTRA_DEVICE_ADDRESS = "device_address";
@@ -27,18 +28,15 @@ public class mainPanelActivity extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		//requestWindowFeature(Window.FEATURE_NO_TITLE);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
 		// Set up the window layout
-		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.main_panel);
-		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
-
-		// Set up the custom title
-		mTitle = (TextView) findViewById(R.id.title_left_text);
-		mTitle.setText(R.string.app_name);
-		mTitle = (TextView) findViewById(R.id.title_right_text);
-
+		
+		// Setup the action-bar
+		actionBar = (ActionBar) findViewById(R.id.actionbar_main);
+		actionBar.setTitle("Main Window");
+		
 		// Set up the text view for camera connected
 		mCameraConnectedText = (TextView) findViewById(R.id.camera_connected);
 		mCameraConnectedText.setText(R.string.camera_not_connected);
@@ -121,16 +119,14 @@ public class mainPanelActivity extends Activity
 				switch (msg.arg1)
 				{
 				case hardwareFacade.STATE_CONNECTED:
-					mTitle.setText(R.string.title_connected_to);
-					mTitle.append(" ");
-					mTitle.append(mConnectedDeviceName);
+					actionBar.setTitle("Connected to " + mConnectedDeviceName);
 					break;
 				case hardwareFacade.STATE_CONNECTING:
-					mTitle.setText(R.string.title_connecting);
+					actionBar.setTitle("Connecting...");
 					break;
 				case hardwareFacade.STATE_LISTEN:
 				case hardwareFacade.STATE_NONE:
-					mTitle.setText(R.string.title_not_connected);
+					actionBar.setTitle("Disconnected");
 					break;
 				}
 				break;
