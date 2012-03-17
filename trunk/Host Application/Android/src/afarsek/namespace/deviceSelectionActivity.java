@@ -220,7 +220,6 @@ public class deviceSelectionActivity extends Activity
 				textName.setTextSize(20);
 				textName.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
 				textName.setText(deviceName);
-				//textName.setBackgroundColor(R.color.bgColor);
 				PanelV.addView(textName);
 
 				TextView textAddress = new TextView(context);
