@@ -4,57 +4,16 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/camera_connected"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Camera disconnected..."
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TabHost
-            android:id="@android:id/tabhost"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-
-            <LinearLayout
-                android:id="@+id/linearLayout1"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical" >
-
-                <FrameLayout
-                    android:id="@android:id/tabcontent"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" >
-
-                    <LinearLayout
-                        android:id="@+id/tab1"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent" >
-
-                        <TabWidget
-                            android:id="@android:id/tabs"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom" >
-                        </TabWidget>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/tab2"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent" >
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/tab3"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent" >
-                    </LinearLayout>
-                </FrameLayout>
-            </LinearLayout>
-        </TabHost>
+    
+    <widget.ActionBar
+        android:id="@+id/actionbar_main"
+        style="@style/ActionBar" />
+    
+    <TextView
+        android:id="@+id/camera_connected"
+        android:layout_width="fill_parent"
+        android:layout_height="26dp"
+        android:text="Camera disconnected..."
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </LinearLayout>
