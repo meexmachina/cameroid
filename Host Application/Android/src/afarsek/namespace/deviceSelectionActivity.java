@@ -1,22 +1,34 @@
 package afarsek.namespace;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import widget.ActionBar;
 import widget.ActionBar.AbstractAction;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothClass.Device;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,8 +37,9 @@ public class deviceSelectionActivity extends Activity
 {
 
 	// Member fields
-	private BluetoothAdapter m_BtAdapter;
-	private ArrayAdapter<String> m_DevicesArrayAdapter;
+	private BluetoothAdapter mBtAdapter;
+	private ListView mDevicesListView;
+	private ImageAdapter mDevicesImageAdapter;
 
 	// Intent request codes
 	private static final int REQUEST_ENABLE_BT = 2;
@@ -47,17 +60,12 @@ public class deviceSelectionActivity extends Activity
 		// Setup the action-bar
 		final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
 		actionBar.setTitle("Select A Device...");
-
-		//final Action refreshAction = new IntentAction(this, refreshDeviceList(), R.drawable.ic_action_refresh);
 		actionBar.addAction(new refreshAction());
-		
-		// Initialize array adapter
-		m_DevicesArrayAdapter = new ArrayAdapter<String>(this, R.layout.device_name);
 
-		// Find and set up the ListView for paired devices
-		ListView devicesListView = (ListView) findViewById(R.id.device_list_view);
-		devicesListView.setAdapter(m_DevicesArrayAdapter);
-		devicesListView.setOnItemClickListener(m_DeviceClickListener);
+		mDevicesListView = (ListView) findViewById(R.id.device_list_view);
+		mDevicesImageAdapter = new ImageAdapter(this);
+		mDevicesListView.setAdapter(mDevicesImageAdapter);
+		mDevicesListView.setOnItemClickListener(mDeviceClickListener);
 
 		// Register for broadcasts when a device is discovered
 		IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -68,8 +76,8 @@ public class deviceSelectionActivity extends Activity
 		this.registerReceiver(m_Receiver, filter);
 
 		// Get the local Bluetooth adapter
-		m_BtAdapter = BluetoothAdapter.getDefaultAdapter();
-		if (m_BtAdapter == null)
+		mBtAdapter = BluetoothAdapter.getDefaultAdapter();
+		if (mBtAdapter == null)
 		{
 			Toast.makeText(this, "Bluetooth hardware not detected.", Toast.LENGTH_LONG).show();
 			finish();
@@ -77,25 +85,25 @@ public class deviceSelectionActivity extends Activity
 		}
 
 		// If BT is not on, request that it be enabled.
-		if (!m_BtAdapter.isEnabled())
+		if (!mBtAdapter.isEnabled())
 		{
 			Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
 		}
 
 		// Get a set of currently paired devices
-		Set<BluetoothDevice> pairedDevices = m_BtAdapter.getBondedDevices();
+		Set<BluetoothDevice> pairedDevices = mBtAdapter.getBondedDevices();
 
 		// If there are paired devices, add each one to the ArrayAdapter
 		if (pairedDevices.size() > 0)
 		{
 			for (BluetoothDevice device : pairedDevices)
 			{
-				m_DevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+				mDevicesImageAdapter.add(device.getName(), device.getAddress());
 			}
 		} else
 		{
-			m_DevicesArrayAdapter.add("No paired devices...");
+			mDevicesImageAdapter.add("No paired devices...", "");
 		}
 
 		refreshDeviceList();
@@ -107,7 +115,7 @@ public class deviceSelectionActivity extends Activity
 		public refreshAction()
 		{
 			super(R.drawable.ic_action_refresh);
-			
+
 		}
 
 		public void performAction(View view)
@@ -117,50 +125,145 @@ public class deviceSelectionActivity extends Activity
 
 	}
 
+	public class ImageAdapter extends BaseAdapter
+	{
+		Context MyContext;
+		private List<String> mDeviceNames;
+		private List<String> mDeviceAddresses;
+
+		public ImageAdapter(Context _MyContext)
+		{
+			MyContext = _MyContext;
+			mDeviceNames = new ArrayList<String>();
+			mDeviceAddresses = new ArrayList<String>();
+		}
+
+		public void add(String deviceName, String deviceAddress)
+		{
+			mDeviceNames.add(deviceName);
+			mDeviceAddresses.add(deviceAddress);
+			notifyDataSetChanged();
+		}
+
+		public int getCount()
+		{
+			/* Set the number of element we want on the grid */
+			return mDeviceNames.size();
+		}
+		
+		public String getAddress (long arg3)
+		{
+			// TODO Auto-generated method stub
+			if (arg3 >= 0 && arg3 < mDeviceAddresses.size())
+			{
+				return mDeviceAddresses.get((int) arg3);
+			}
+
+			return null;			
+		}
+
+		public void clear()
+		{
+			mDeviceNames.clear();
+			mDeviceAddresses.clear();
+			notifyDataSetChanged();
+		}
+
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
+			String deviceName = mDeviceNames.get(position);
+			String deviceAddress = mDeviceAddresses.get(position);
+			View v = new CustomAdapterView(this.MyContext, deviceName, deviceAddress, position);
+			return v;
+		}
+
+		public Object getItem(int arg0)
+		{
+			// TODO Auto-generated method stub
+			if (arg0 >= 0 && arg0 < mDeviceAddresses.size())
+			{
+				return mDeviceAddresses.get(arg0);
+			}
+
+			return null;
+		}
+
+		public long getItemId(int arg0)
+		{
+			return arg0;
+		}
+
+		class CustomAdapterView extends LinearLayout
+		{
+			public CustomAdapterView(Context context, String deviceName, String deviceAddress, int id)
+			{
+				super(context);
+				setId(id);
+
+				// container is a horizontal layer
+				setOrientation(LinearLayout.HORIZONTAL);
+				setPadding(0, 6, 0, 6);
+
+				// image:params
+				LinearLayout.LayoutParams Params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				Params.setMargins(6, 0, 6, 0);
+				// image:itself
+				ImageView ivLogo = new ImageView(context);
+				// load image
+				ivLogo.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_camera));
+
+				// image:add
+				addView(ivLogo, Params);
+
+				// vertical layer for text
+				Params = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+				LinearLayout PanelV = new LinearLayout(context);
+				PanelV.setOrientation(LinearLayout.VERTICAL);
+				PanelV.setGravity(Gravity.BOTTOM);
+
+				TextView textName = new TextView(context);
+				textName.setTextSize(20);
+				textName.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+				textName.setText(deviceName);
+				//textName.setBackgroundColor(R.color.bgColor);
+				PanelV.addView(textName);
+
+				TextView textAddress = new TextView(context);
+				textAddress.setTextSize(16);
+				textAddress.setText(deviceAddress);
+				PanelV.addView(textAddress);
+
+				addView(PanelV, Params);
+			}
+		}
+	}
+
 	@Override
 	protected void onDestroy()
 	{
 		super.onDestroy();
 
 		// Make sure we're not doing discovery anymore
-		if (m_BtAdapter != null)
+		if (mBtAdapter != null)
 		{
-			m_BtAdapter.cancelDiscovery();
+			mBtAdapter.cancelDiscovery();
 		}
 
 		// Unregister broadcast listeners
 		this.unregisterReceiver(m_Receiver);
 	}
 
-	private OnItemClickListener m_DeviceClickListener = new OnItemClickListener()
-	{
-		public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3)
-		{
-			// Cancel discovery because it's costly and we're about to connect
-			m_BtAdapter.cancelDiscovery();
-
-			// Get the device MAC address, which is the last 17 chars in the
-			// View
-			String info = ((TextView) view).getText().toString();
-			try
-			{
-				// Attempt to extract a MAC address
-				String address = info.substring(info.length() - 17);
-
-				// Create the result Intent and include the MAC address
-				Intent startMainPanel = new Intent("afarsek.namespace.MAINPANELACTIVITY");
-				startMainPanel.putExtra(EXTRA_DEVICE_ADDRESS, address);
-				startActivity(startMainPanel);
-				finish();
-			} catch (IndexOutOfBoundsException e)
-			{
-				// Extraction failed, set result and finish this Activity
-				setResult(Activity.RESULT_CANCELED);
-				finish();
-			}
-		}
-	};
-
+	/*
+	 * private OnItemClickListener m_DeviceClickListener = new OnItemClickListener() { public void onItemClick(AdapterView<?> arg0, View
+	 * view, int arg2, long arg3) { // Cancel discovery because it's costly and we're about to connect mBtAdapter.cancelDiscovery();
+	 * 
+	 * // Get the device MAC address, which is the last 17 chars in the // View String info = ((TextView) view).getText().toString(); try {
+	 * // Attempt to extract a MAC address String address = info.substring(info.length() - 17);
+	 * 
+	 * // Create the result Intent and include the MAC address Intent startMainPanel = new Intent("afarsek.namespace.MAINPANELACTIVITY");
+	 * startMainPanel.putExtra(EXTRA_DEVICE_ADDRESS, address); startActivity(startMainPanel); finish(); } catch (IndexOutOfBoundsException
+	 * e) { // Extraction failed, set result and finish this Activity setResult(Activity.RESULT_CANCELED); finish(); } } };
+	 */
 	// The BroadcastReceiver that listens for discovered devices and
 	// changes the title when discovery is finished
 	private final BroadcastReceiver m_Receiver = new BroadcastReceiver()
@@ -179,16 +282,42 @@ public class deviceSelectionActivity extends Activity
 				// already
 				if (device.getBondState() != BluetoothDevice.BOND_BONDED)
 				{
-					m_DevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+					mDevicesImageAdapter.add(device.getName(), device.getAddress());
 				}
 				// When discovery is finished, change the Activity title
 			} else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
 			{
 				setProgressBarIndeterminateVisibility(false);
-				if (m_DevicesArrayAdapter.getCount() == 0)
+				if (mDevicesImageAdapter.getCount() == 0)
 				{
-					m_DevicesArrayAdapter.add("No devices...");
+					mDevicesImageAdapter.add("No devices...", "");
 				}
+			}
+		}
+	};
+
+	private OnItemClickListener mDeviceClickListener = new OnItemClickListener()
+	{
+		public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3)
+		{
+			// Cancel discovery because it's costly and we're about to connect
+			mBtAdapter.cancelDiscovery();
+
+			// Get the device MAC address, which is the last 17 chars in the
+			// View
+			String address = ((ImageAdapter) mDevicesListView.getAdapter()).getAddress(arg3);
+			try
+			{
+				// Create the result Intent and include the MAC address
+				Intent startMainPanel = new Intent("afarsek.namespace.MAINPANELACTIVITY");
+				startMainPanel.putExtra(EXTRA_DEVICE_ADDRESS, address);
+				startActivity(startMainPanel);
+				finish();
+			} catch (IndexOutOfBoundsException e)
+			{
+				// Extraction failed, set result and finish this Activity
+				setResult(Activity.RESULT_CANCELED);
+				finish();
 			}
 		}
 	};
@@ -203,29 +332,29 @@ public class deviceSelectionActivity extends Activity
 		setProgressBarIndeterminateVisibility(true);
 
 		// If we're already discovering, stop it
-		if (m_BtAdapter.isDiscovering())
+		if (mBtAdapter.isDiscovering())
 		{
-			m_BtAdapter.cancelDiscovery();
+			mBtAdapter.cancelDiscovery();
 		}
 
-		m_DevicesArrayAdapter.clear();
+		mDevicesImageAdapter.clear();
 		// Get a set of currently paired devices
-		Set<BluetoothDevice> pairedDevices = m_BtAdapter.getBondedDevices();
+		Set<BluetoothDevice> pairedDevices = mBtAdapter.getBondedDevices();
 
 		// If there are paired devices, add each one to the ArrayAdapter
 		if (pairedDevices.size() > 0)
 		{
 			for (BluetoothDevice device : pairedDevices)
 			{
-				m_DevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+				mDevicesImageAdapter.add(device.getName(), device.getAddress());
 			}
 		} else
 		{
-			m_DevicesArrayAdapter.add("No paired devices...");
+			mDevicesImageAdapter.add("No paired devices...", "");
 		}
 
 		// Request discovery from BluetoothAdapter
-		m_BtAdapter.startDiscovery();
+		mBtAdapter.startDiscovery();
 	}
 
 	@Override
