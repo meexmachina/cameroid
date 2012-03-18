@@ -129,15 +129,14 @@ public class mainPanelActivity extends TabActivity
 		{
 		case R.id.preferences:
 			// newGame();
-			return true;
+			return super.onOptionsItemSelected(item);
 		case R.id.help:
 			// showHelp();
-			return true;
+			return super.onOptionsItemSelected(item);
 		case R.id.about:
         	Intent aboutPanel = new Intent("afarsek.namespace.ABOUTPANELACTIVITY");
 			startActivity(aboutPanel);
-			super.onOptionsItemSelected(item);
-			return true;
+			return super.onOptionsItemSelected(item);
 		default:
 			return super.onOptionsItemSelected(item);
 		}
