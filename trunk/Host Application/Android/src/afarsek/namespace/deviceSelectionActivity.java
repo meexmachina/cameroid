@@ -263,14 +263,14 @@ public class deviceSelectionActivity extends Activity
 	    switch (item.getItemId()) {
 	        case R.id.preferences:
 	            //newGame();
-	            return true;
+	        	return super.onOptionsItemSelected(item);
 	        case R.id.help:
 	            //showHelp();
-	            return true;
+	        	return super.onOptionsItemSelected(item);
 	        case R.id.about:
 	        	Intent aboutPanel = new Intent("afarsek.namespace.ABOUTPANELACTIVITY");
 				startActivity(aboutPanel);
-	        	return true;
+	        	return super.onOptionsItemSelected(item);
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
