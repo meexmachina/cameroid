@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2010 Johan Nilsson <http://markupartist.com>
+<!--
+     Copyright (C) 2010 Johan Nilsson <http://markupartist.com>
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,13 +15,15 @@
      limitations under the License.
 -->
 <resources>
+
     <dimen name="actionbar_height">45dip</dimen>
     <dimen name="actionbar_item_height">45dip</dimen>
     <dimen name="actionbar_item_width">45dip</dimen>
-    <dimen name="corner_radius">8dp</dimen> 
+    <dimen name="corner_radius">8dp</dimen>
     <dimen name="tab_space_top">4dp</dimen>
     <dimen name="tab_space">0dp</dimen>
     <dimen name="tab_space_plus1">3dp</dimen>
     <dimen name="tab_space_bottom_line">36sp</dimen>
-    <dimen name="tab_space_unselected_top">6sp</dimen> 
+    <dimen name="tab_space_unselected_top">6sp</dimen>
+
 </resources>

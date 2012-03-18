@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/bgColor"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/bgColor"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linearSplashImage"
+        android:layout_width="288dp"
+        android:layout_height="305dp"
+        android:background="@drawable/peach_splash"
         android:gravity="center"
         android:orientation="vertical" >
-
-        <LinearLayout
-            android:id="@+id/linearSplashImage"
-            android:layout_width="288dp"
-            android:layout_height="305dp"
-            android:background="@drawable/peach_splash"
-            android:gravity="center"
-            android:orientation="vertical" >
-        </LinearLayout>
-
     </LinearLayout>
-    
+
+</LinearLayout>
