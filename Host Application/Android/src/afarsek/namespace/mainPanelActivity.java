@@ -4,6 +4,7 @@ import widget.ActionBar;
 import widget.ActionBar.AbstractAction;
 import android.app.TabActivity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -134,7 +135,7 @@ public class mainPanelActivity extends TabActivity
 			// showHelp();
 			return super.onOptionsItemSelected(item);
 		case R.id.about:
-        	Intent aboutPanel = new Intent("afarsek.namespace.ABOUTPANELACTIVITY");
+			Intent aboutPanel = new Intent("afarsek.namespace.ABOUTPANELACTIVITY");
 			startActivity(aboutPanel);
 			return super.onOptionsItemSelected(item);
 		default:
@@ -142,14 +143,30 @@ public class mainPanelActivity extends TabActivity
 		}
 	}
 
+	@Override
+	public void onConfigurationChanged(Configuration newConfig)
+	{
+		super.onConfigurationChanged(newConfig);
+
+		// Set up the window layout
+		setContentView(R.layout.main_panel);
+
+		// Setup the action-bar
+		actionBar = (ActionBar) findViewById(R.id.actionbar_main);
+		actionBar.setTitle("Main Window");
+		actionBar.addAction(new preferencesAction());
+
+		setTabs();
+	}
+
 	private void setTabs()
 	{
 		tabHost = getTabHost();
-		
+
 		addTab("Gallery", R.drawable.tab_gallery, galleryTabPanelActivity.class);
 		addTab("Capture", R.drawable.tab_capture, generalTabPanelActivity.class);
 		addTab("Advanced", R.drawable.tab_advanced, advancedTabPanelActivity.class);
-		
+
 		tabHost.setCurrentTab(1);
 	}
 
