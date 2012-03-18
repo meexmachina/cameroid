@@ -2,7 +2,6 @@ package afarsek.namespace;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Window;
 
 public class preferencesPanelActivity extends Activity
 {

@@ -31,9 +31,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:configChanges="orientation"
             android:label="@string/main_panel_activity_title"
-            android:name=".mainPanelActivity"
-            android:configChanges="orientation" >
+            android:name=".mainPanelActivity" >
             <intent-filter >
                 <action android:name="afarsek.namespace.MAINPANELACTIVITY" />
 
