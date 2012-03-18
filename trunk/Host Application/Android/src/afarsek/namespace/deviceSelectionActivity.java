@@ -267,6 +267,10 @@ public class deviceSelectionActivity extends Activity
 	        case R.id.help:
 	            //showHelp();
 	            return true;
+	        case R.id.about:
+	        	Intent aboutPanel = new Intent("afarsek.namespace.ABOUTPANELACTIVITY");
+				startActivity(aboutPanel);
+	        	return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
