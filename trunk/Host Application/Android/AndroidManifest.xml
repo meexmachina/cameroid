@@ -32,7 +32,8 @@
         </activity>
         <activity
             android:label="@string/main_panel_activity_title"
-            android:name=".mainPanelActivity" >
+            android:name=".mainPanelActivity"
+            android:configChanges="orientation" >
             <intent-filter >
                 <action android:name="afarsek.namespace.MAINPANELACTIVITY" />
 
@@ -50,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:label="@string/no_title"
+            android:label="@string/title_about_afarsek"
             android:name=".aboutPanelActivity"
             android:theme="@android:style/Theme.Dialog" >
             <intent-filter >
