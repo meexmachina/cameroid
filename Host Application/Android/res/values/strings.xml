@@ -4,9 +4,11 @@
     <string name="hello">Hello World, afarsekActivity!</string>
     <string name="app_name">afarsek</string>
     <string name="description">bluetooth</string>
+
     <color name="bgColor">#ff000000</color>
+
     <string name="device_selection_activity_title">Detected devices</string>
-    <string name="preferences_panel_activity_title">Preferences</string> 
+    <string name="preferences_panel_activity_title">Preferences</string>
     <string name="main_panel_activity_title">Control your device</string>
     <string name="main_panel_bt_not_available">Bluetooth hardware not found.</string>
     <string name="title_connected_to">Connected to </string>
@@ -17,8 +19,9 @@
     <string name="connect">Connect</string>
     <string name="camera_not_connected">Camera disconnected...</string>
     <string name="camera_connected">Camera connected...</string>
-	<string name="actionbar_activity_not_found">Failed to open intent...</string>
-	<string name="menu_help">Help!</string>
-	<string name="menu_preferences">Preferences</string>
+    <string name="actionbar_activity_not_found">Failed to open intent...</string>
+    <string name="menu_help">Help!</string>
+    <string name="menu_preferences">Preferences</string>
+    <string name="no_title">no title</string>
 
 </resources>
