@@ -20,10 +20,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:configChanges="orientation"
             android:label="@string/device_selection_activity_title"
-            android:name=".deviceSelectionActivity" 
-            android:screenOrientation="portrait"
-            android:configChanges="orientation">
+            android:name=".deviceSelectionActivity"
+            android:screenOrientation="portrait" >
             <intent-filter >
                 <action android:name="afarsek.namespace.DEVICESELECTIONACTIVITY" />
 
@@ -49,7 +49,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
+        <activity
+            android:label="@string/no_title"
+            android:name=".aboutPanelActivity"
+            android:theme="@android:style/Theme.Dialog" >
+            <intent-filter >
+                <action android:name="afarsek.namespace.ABOUTPANELACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:label="@string/no_title"
             android:name=".galleryTabPanelActivity" >
@@ -58,7 +67,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>    
+        </activity>
         <activity
             android:label="@string/no_title"
             android:name=".generalTabPanelActivity" >
@@ -67,7 +76,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>    
+        </activity>
         <activity
             android:label="@string/no_title"
             android:name=".advancedTabPanelActivity" >
@@ -76,7 +85,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>    
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.BLUETOOTH" />

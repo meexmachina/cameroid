@@ -133,6 +133,11 @@ public class mainPanelActivity extends TabActivity
 		case R.id.help:
 			// showHelp();
 			return true;
+		case R.id.about:
+        	Intent aboutPanel = new Intent("afarsek.namespace.ABOUTPANELACTIVITY");
+			startActivity(aboutPanel);
+			super.onOptionsItemSelected(item);
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
