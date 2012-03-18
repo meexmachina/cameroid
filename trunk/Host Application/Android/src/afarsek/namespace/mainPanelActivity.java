@@ -3,26 +3,30 @@ package afarsek.namespace;
 import widget.ActionBar;
 import widget.ActionBar.AbstractAction;
 import android.app.Activity;
+import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Gallery;
+import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class mainPanelActivity extends Activity
+public class mainPanelActivity extends TabActivity
 {
 
-	// Internal properties
-	private TextView mCameraConnectedText;
 	private String mConnectedDeviceName = null; // Name of the connected device
 	private cameraControl mCameraControl = null;
-	private ActionBar actionBar; 
+	private ActionBar actionBar;
+	private TabHost tabHost;
 
 	// Constants
 	public static final String EXTRA_DEVICE_ADDRESS = "device_address";
@@ -34,18 +38,20 @@ public class mainPanelActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
+
 		// Set up the window layout
 		setContentView(R.layout.main_panel);
-		
+
 		// Setup the action-bar
 		actionBar = (ActionBar) findViewById(R.id.actionbar_main);
 		actionBar.setTitle("Main Window");
 		actionBar.addAction(new preferencesAction());
-		
+
+		setTabs();
+
 		// Set up the text view for camera connected
-		mCameraConnectedText = (TextView) findViewById(R.id.camera_connected);
-		mCameraConnectedText.setText(R.string.camera_not_connected);
+		// mCameraConnectedText = (TextView) findViewById(R.id.camera_connected);
+		// mCameraConnectedText.setText(R.string.camera_not_connected);
 
 		// Obtain the sent bundle
 		Bundle extras = getIntent().getExtras();
@@ -63,14 +69,10 @@ public class mainPanelActivity extends Activity
 		 */
 
 		// Button definitions
-	/*	Button captureButton = (Button) findViewById(R.id.capture_button);
-		captureButton.setOnClickListener(new OnClickListener()
-		{
-			public void onClick(View v)
-			{
-				mCameraControl.capture();
-			}
-		});*/
+		/*
+		 * Button captureButton = (Button) findViewById(R.id.capture_button); captureButton.setOnClickListener(new OnClickListener() {
+		 * public void onClick(View v) { mCameraControl.capture(); } });
+		 */
 
 	}
 
@@ -112,27 +114,57 @@ public class mainPanelActivity extends Activity
 		startActivity(discoveryPanel);
 		finish();
 	};
-	
+
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.option_menu, menu);
-	    return true;
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.option_menu, menu);
+		return true;
 	}
-	
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle item selection
-	    switch (item.getItemId()) {
-	        case R.id.preferences:
-	            //newGame();
-	            return true;
-	        case R.id.help:
-	            //showHelp();
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		// Handle item selection
+		switch (item.getItemId())
+		{
+		case R.id.preferences:
+			// newGame();
+			return true;
+		case R.id.help:
+			// showHelp();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	private void setTabs()
+	{
+		tabHost = getTabHost();
+		
+		addTab("Gallery", R.drawable.tab_gallery, galleryTabPanelActivity.class);
+		addTab("Capture", R.drawable.tab_capture, generalTabPanelActivity.class);
+		addTab("Advanced", R.drawable.tab_advanced, advancedTabPanelActivity.class);
+		
+		tabHost.setCurrentTab(1);
+	}
+
+	private void addTab(String labelId, int drawableId, Class<?> c)
+	{
+		Intent intent = new Intent(this, c);
+		TabHost.TabSpec spec = tabHost.newTabSpec("tab" + labelId);
+
+		View tabIndicator = LayoutInflater.from(this).inflate(R.layout.tab_indicator, getTabWidget(), false);
+		TextView title = (TextView) tabIndicator.findViewById(R.id.title);
+		title.setText(labelId);
+		ImageView icon = (ImageView) tabIndicator.findViewById(R.id.icon);
+		icon.setImageResource(drawableId);
+
+		spec.setIndicator(tabIndicator);
+		spec.setContent(intent);
+		tabHost.addTab(spec);
 	}
 
 	// The Handler that gets information back from the hardwareFacade
@@ -159,10 +191,10 @@ public class mainPanelActivity extends Activity
 				}
 				break;
 			case messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE:
-				if (msg.arg1 == 1)
-					mCameraConnectedText.setText(R.string.camera_connected);
-				else
-					mCameraConnectedText.setText(R.string.camera_not_connected);
+				// if (msg.arg1 == 1)
+				// mCameraConnectedText.setText(R.string.camera_connected);
+				// else
+				// mCameraConnectedText.setText(R.string.camera_not_connected);
 				break;
 			case messageDefinitions.MESSAGE_DEVICE_NAME:
 				// save the connected device's name
@@ -175,7 +207,7 @@ public class mainPanelActivity extends Activity
 			}
 		}
 	};
-	
+
 	private class preferencesAction extends AbstractAction
 	{
 
@@ -189,7 +221,7 @@ public class mainPanelActivity extends Activity
 		{
 			// Create the result Intent and include the MAC address
 			Intent preferncesMainPanel = new Intent("afarsek.namespace.PREFERENCESPANELACTIVITY");
-			//startMainPanel.putExtra(EXTRA_DEVICE_ADDRESS, address);
+			// startMainPanel.putExtra(EXTRA_DEVICE_ADDRESS, address);
 			startActivity(preferncesMainPanel);
 		}
 

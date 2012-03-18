@@ -47,6 +47,34 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:label="@string/no_title"
+            android:name=".galleryTabPanelActivity" >
+            <intent-filter >
+                <action android:name="afarsek.namespace.GALLERYTABPANELACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>    
+        <activity
+            android:label="@string/no_title"
+            android:name=".generalTabPanelActivity" >
+            <intent-filter >
+                <action android:name="afarsek.namespace.GENERALTABPANELACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>    
+        <activity
+            android:label="@string/no_title"
+            android:name=".advancedTabPanelActivity" >
+            <intent-filter >
+                <action android:name="afarsek.namespace.ADVANCEDTABPANELACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>    
     </application>
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
