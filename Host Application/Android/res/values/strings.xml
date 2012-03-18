@@ -22,6 +22,7 @@
     <string name="actionbar_activity_not_found">Failed to open intent...</string>
     <string name="menu_help">Help!</string>
     <string name="menu_preferences">Preferences</string>
+    <string name="menu_about">About</string>
     <string name="no_title">no title</string>
 
 </resources>
