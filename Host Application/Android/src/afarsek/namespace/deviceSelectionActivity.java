@@ -16,6 +16,9 @@ import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -246,7 +249,29 @@ public class deviceSelectionActivity extends Activity
 		// Unregister broadcast listeners
 		this.unregisterReceiver(m_Receiver);
 	}
-
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.option_menu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.preferences:
+	            //newGame();
+	            return true;
+	        case R.id.help:
+	            //showHelp();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
 	/*
 	 * private OnItemClickListener m_DeviceClickListener = new OnItemClickListener() { public void onItemClick(AdapterView<?> arg0, View
 	 * view, int arg2, long arg3) { // Cancel discovery because it's costly and we're about to connect mBtAdapter.cancelDiscovery();

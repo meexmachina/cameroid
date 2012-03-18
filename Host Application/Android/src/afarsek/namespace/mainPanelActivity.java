@@ -1,11 +1,16 @@
 package afarsek.namespace;
 
 import widget.ActionBar;
+import widget.ActionBar.AbstractAction;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +41,7 @@ public class mainPanelActivity extends Activity
 		// Setup the action-bar
 		actionBar = (ActionBar) findViewById(R.id.actionbar_main);
 		actionBar.setTitle("Main Window");
+		actionBar.addAction(new preferencesAction());
 		
 		// Set up the text view for camera connected
 		mCameraConnectedText = (TextView) findViewById(R.id.camera_connected);
@@ -106,6 +112,28 @@ public class mainPanelActivity extends Activity
 		startActivity(discoveryPanel);
 		finish();
 	};
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.option_menu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.preferences:
+	            //newGame();
+	            return true;
+	        case R.id.help:
+	            //showHelp();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 
 	// The Handler that gets information back from the hardwareFacade
 	private final Handler mHandler = new Handler()
@@ -147,5 +175,24 @@ public class mainPanelActivity extends Activity
 			}
 		}
 	};
+	
+	private class preferencesAction extends AbstractAction
+	{
+
+		public preferencesAction()
+		{
+			super(R.drawable.ic_menu_preferences);
+
+		}
+
+		public void performAction(View view)
+		{
+			// Create the result Intent and include the MAC address
+			Intent preferncesMainPanel = new Intent("afarsek.namespace.PREFERENCESPANELACTIVITY");
+			//startMainPanel.putExtra(EXTRA_DEVICE_ADDRESS, address);
+			startActivity(preferncesMainPanel);
+		}
+
+	}
 
 }
