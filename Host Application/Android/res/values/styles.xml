@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2010 Johan Nilsson <http://markupartist.com>
+<!--
+     Copyright (C) 2010 Johan Nilsson <http://markupartist.com>
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,29 +15,35 @@
      limitations under the License.
 -->
 <resources>
+
     <style name="ActionBar">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">45dip</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:background">@drawable/actionbar_background</item>
     </style>
+
     <style name="ActionBarItem">
         <item name="android:layout_width">45dip</item>
         <item name="android:layout_height">45dip</item>
         <item name="android:padding">5dp</item>
         <item name="android:layout_marginLeft">1px</item>
     </style>
+
     <style name="ActionBarHomeItem" parent="ActionBarItem">
         <item name="android:layout_marginRight">1px</item>
         <item name="android:layout_marginLeft">0px</item>
     </style>
+
     <style name="ActionBarHomeLogo">
         <item name="android:layout_marginRight">1px</item>
         <item name="android:layout_marginLeft">0px</item>
     </style>
-    <style name="ActionBarProgressBar" parent="@android:style/Widget.ProgressBar.Small">
-    </style>
+
+    <style name="ActionBarProgressBar" parent="@android:style/Widget.ProgressBar.Small"></style>
+
     <style name="app_theme" parent="android:Theme.NoTitleBar">
-		<item name="android:windowBackground">@drawable/app_background</item>
-	</style>	
+        <item name="android:windowBackground">@drawable/app_background</item>
+    </style>
+
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2010 Johan Nilsson <http://markupartist.com>
+<!--
+     Copyright (C) 2010 Johan Nilsson <http://markupartist.com>
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,6 +15,7 @@
      limitations under the License.
 -->
 <resources>
+
     <color name="actionbar_separator">#1A1A1A</color>
     <color name="actionbar_title">#FFFFFF</color>
     <color name="actionbar_background_start">#8B8B8B</color>
@@ -21,6 +23,7 @@
     <color name="actionbar_background_item_pressed_start">#FF7F7F</color>
     <color name="actionbar_background_item_pressed_end">#EEEEEE</color>
     <color name="tabMedium">#2B2B2B</color>
-	<color name="tabDark">#000000</color>
-	<color name="tabTransparent">#10ffffff</color>
+    <color name="tabDark">#000000</color>
+    <color name="tabTransparent">#10ffffff</color>
+
 </resources>
