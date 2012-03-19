@@ -24,9 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="F5.6"
-            android:textStyle="bold"
-            android:textColor="@color/widgetText" />
-
+            android:textColor="@color/widgetText"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>
