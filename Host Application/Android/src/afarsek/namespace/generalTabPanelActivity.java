@@ -42,7 +42,12 @@ public class generalTabPanelActivity extends Activity
 		mCameraControlAdapter = new CameraControlAdapter(this);
 		mControlGridView.setAdapter(mCameraControlAdapter);
 		
-		
+		CameraControlView view = new CameraControlView(this,0);
+		view.setControlType(CameraControlView.controlType.controlType_Aperture);
+		mCameraControlAdapter.add(view);
+		CameraControlView view1 = new CameraControlView(this,1);
+		view.setControlType(CameraControlView.controlType.controlType_Flash);
+		mCameraControlAdapter.add(view1);
 	}
 
 	@Override
