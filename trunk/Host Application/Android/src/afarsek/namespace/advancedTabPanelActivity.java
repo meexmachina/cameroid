@@ -16,7 +16,7 @@ public class advancedTabPanelActivity extends Activity
 		// Setup the window
 		setContentView(R.layout.advanced_tab_panel);
 	}
-	
+
 	@Override
 	public void onBackPressed()
 	{

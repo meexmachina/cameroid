@@ -64,13 +64,12 @@ public class cameraControl
 	{
 		mHardwareFacade.write_queue("get_storage_info_bin 0:".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
 	}
-	
+
 	private void getPropertiesDescriptions()
 	{
 		int[] props = mDeviceInfo.propertiesSupported;
-		
-	}
 
+	}
 
 	class StatusTask extends TimerTask
 	{

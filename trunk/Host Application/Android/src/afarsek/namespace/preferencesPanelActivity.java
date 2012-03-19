@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 public class preferencesPanelActivity extends Activity
 {
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
