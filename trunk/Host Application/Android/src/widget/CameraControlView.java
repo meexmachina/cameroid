@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class CameraControlView extends LinearLayout
 {
 	Context mContext;
-	
+
 	public enum controlType
 	{
 		controlType_Aperture, controlType_Shutter, controlType_Focus, controlType_WB, controlType_ISO, controlType_Battery, controlType_Flash;
@@ -23,52 +23,63 @@ public class CameraControlView extends LinearLayout
 	private LinearLayout mValueLayout;
 	private ImageView mSymbolView;
 	private TextView mValueView;
-	
+
 	private int mVal;
 
-	public CameraControlView(Context context, int id)
+	public View getView()
+	{
+		return mItemView;
+	}
+
+	public CameraControlView(Context context)
 	{
 		super(context);
 		mContext = context;
-		setId(id);
-		
+
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mItemView = (LinearLayout) mInflater.inflate(R.layout.camera_control_item, this);
+		mItemView = (LinearLayout) mInflater.inflate(R.layout.camera_control_item, null);
 		addView(mItemView);
-		
+
 		mSymbolView = (ImageView) mItemView.findViewById(R.id.control_symbol);
 		mValueLayout = (LinearLayout) mItemView.findViewById(R.id.value_layout);
 		mValueView = (TextView) mValueLayout.findViewById(R.id.control_value);
-		
-		setControlType(controlType.controlType_Aperture);
-		setControlValue(0);
+
+		// setControlType(controlType.controlType_Aperture);
+		// setControlValue(0);
 	}
-	
+
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+	{
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		setMeasuredDimension(getMeasuredWidth(), getMeasuredHeight());
+	}
+
 	public void setControlValue(int val)
 	{
 		mVal = val;
 		switch (mControlType)
 		{
 		case controlType_Aperture:
-//			mValueView.setText(String.valueOf(val));
+			// mValueView.setText(String.valueOf(val));
 			break;
 		case controlType_Shutter:
-//			mValueView.setText(String.valueOf(val));
+			// mValueView.setText(String.valueOf(val));
 			break;
 		case controlType_Focus:
-//			mValueView.setText(String.valueOf(val));
+			// mValueView.setText(String.valueOf(val));
 			break;
 		case controlType_WB:
-//			mValueView.setText(String.valueOf(val));
+			// mValueView.setText(String.valueOf(val));
 			break;
 		case controlType_ISO:
-//			mValueView.setText(String.valueOf(val));
+			// mValueView.setText(String.valueOf(val));
 			break;
 		case controlType_Battery:
-//			mValueView.setText(String.valueOf(val));
+			// mValueView.setText(String.valueOf(val));
 			break;
 		case controlType_Flash:
-//			mValueView.setText(String.valueOf(val));
+			// mValueView.setText(String.valueOf(val));
 			break;
 		default:
 		}
