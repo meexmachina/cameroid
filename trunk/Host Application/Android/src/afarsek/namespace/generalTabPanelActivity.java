@@ -11,9 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class generalTabPanelActivity extends Activity
 {
@@ -39,6 +42,17 @@ public class generalTabPanelActivity extends Activity
 		CameraControlView view1 = new CameraControlView(this);
 		view.setControlType(CameraControlView.controlType.controlType_Flash);
 		mCameraControlAdapter.add(view1);
+
+		mControlGridView.setOnItemClickListener(new OnItemClickListener()
+		{
+			//AdapterView<?> parent, View v, int position, long id
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+			{
+				Toast.makeText(getApplicationContext(),"Bla", Toast.LENGTH_SHORT)
+				.show();
+
+			}
+		});
 	}
 
 	@Override
@@ -74,11 +88,8 @@ public class generalTabPanelActivity extends Activity
 				gridView = inflater.inflate(R.layout.camera_control_item, null);
 
 				ImageView mSymbolView = (ImageView) gridView.findViewById(R.id.control_symbol);
-				
-				mSymbolView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_widget_shutter));
-				
-				//gridView = (View) mControledList.get(position).getView();
 
+				mSymbolView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_widget_shutter));
 			} else
 			{
 				gridView = (View) convertView;
