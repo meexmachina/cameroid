@@ -16,7 +16,7 @@ public class galleryTabPanelActivity extends Activity
 		// Setup the window
 		setContentView(R.layout.gallery_tab_panel);
 	}
-	
+
 	@Override
 	public void onBackPressed()
 	{

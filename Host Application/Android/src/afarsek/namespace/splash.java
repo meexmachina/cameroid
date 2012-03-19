@@ -15,8 +15,7 @@ public class splash extends Activity
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.splash);
-		
-		
+
 		Thread splashTimer = new Thread()
 		{
 			public void run()

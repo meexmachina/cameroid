@@ -148,8 +148,8 @@ public class deviceSelectionActivity extends Activity
 			/* Set the number of element we want on the grid */
 			return mDeviceNames.size();
 		}
-		
-		public String getAddress (long arg3)
+
+		public String getAddress(long arg3)
 		{
 			// TODO Auto-generated method stub
 			if (arg3 >= 0 && arg3 < mDeviceAddresses.size())
@@ -157,7 +157,7 @@ public class deviceSelectionActivity extends Activity
 				return mDeviceAddresses.get((int) arg3);
 			}
 
-			return null;			
+			return null;
 		}
 
 		public void clear()
@@ -249,33 +249,36 @@ public class deviceSelectionActivity extends Activity
 		// Unregister broadcast listeners
 		this.unregisterReceiver(m_Receiver);
 	}
-	
+
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.option_menu, menu);
-	    return true;
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.option_menu, menu);
+		return true;
 	}
-	
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle item selection
-	    switch (item.getItemId()) {
-	        case R.id.preferences:
-	            //newGame();
-	        	return super.onOptionsItemSelected(item);
-	        case R.id.help:
-	            //showHelp();
-	        	return super.onOptionsItemSelected(item);
-	        case R.id.about:
-	        	Intent aboutPanel = new Intent("afarsek.namespace.ABOUTPANELACTIVITY");
-				startActivity(aboutPanel);
-	        	return super.onOptionsItemSelected(item);
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		// Handle item selection
+		switch (item.getItemId())
+		{
+		case R.id.preferences:
+			// newGame();
+			return super.onOptionsItemSelected(item);
+		case R.id.help:
+			// showHelp();
+			return super.onOptionsItemSelected(item);
+		case R.id.about:
+			Intent aboutPanel = new Intent("afarsek.namespace.ABOUTPANELACTIVITY");
+			startActivity(aboutPanel);
+			return super.onOptionsItemSelected(item);
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
-	
+
 	/*
 	 * private OnItemClickListener m_DeviceClickListener = new OnItemClickListener() { public void onItemClick(AdapterView<?> arg0, View
 	 * view, int arg2, long arg3) { // Cancel discovery because it's costly and we're about to connect mBtAdapter.cancelDiscovery();
