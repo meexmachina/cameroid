@@ -3,7 +3,9 @@
 
     <name >
 
+
 afarsek
+    
     
     </name>
 
@@ -19,7 +21,9 @@ afarsek
 
             <name >
 
+
 com.android.ide.eclipse.adt.ResourceManagerBuilder
+            
             
             </name>
 
@@ -30,20 +34,10 @@ com.android.ide.eclipse.adt.ResourceManagerBuilder
         <buildCommand >
 
             <name >
+
 
 com.android.ide.eclipse.adt.PreCompilerBuilder
             
-            </name>
-
-            <arguments >
-            </arguments>
-        </buildCommand>
-
-        <buildCommand >
-
-            <name >
-
-org.eclipse.jdt.core.javabuilder
             
             </name>
 
@@ -55,7 +49,23 @@ org.eclipse.jdt.core.javabuilder
 
             <name >
 
+
+org.eclipse.jdt.core.javabuilder
+            
+            
+            </name>
+
+            <arguments >
+            </arguments>
+        </buildCommand>
+
+        <buildCommand >
+
+            <name >
+
+
 com.android.ide.eclipse.adt.ApkBuilder
+            
             
             </name>
 
@@ -68,13 +78,17 @@ com.android.ide.eclipse.adt.ApkBuilder
 
         <nature >
 
+
 com.android.ide.eclipse.adt.AndroidNature
+        
         
         </nature>
 
         <nature >
 
+
 org.eclipse.jdt.core.javanature
+        
         
         </nature>
     </natures>
