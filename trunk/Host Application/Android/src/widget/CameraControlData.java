@@ -1,5 +1,7 @@
 package widget;
 
+import java.text.DecimalFormat;
+
 import afarsek.namespace.R;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -10,7 +12,10 @@ public class CameraControlData
 	{
 		controlType_Aperture, controlType_Shutter, controlType_Focus, controlType_WB, controlType_ISO, controlType_Battery, controlType_Flash;
 	};
-	
+
+	private int[] mShutterValues =
+	{ 2, 4, 8, 15, 30, 60, 125, 250, 500, 1000, 2000, 4000, 10000 };
+
 	private Context mContext;
 	private controlType mType;
 	private int mVal;
@@ -21,23 +26,33 @@ public class CameraControlData
 	public CameraControlData(Context context, controlType type, int val)
 	{
 		mContext = context;
-		setControlType(controlType.controlType_Aperture);
-		setControlValue(0);
+		setControlType(type);
+		setControlValue(val);
 	}
-	
-	public Drawable getIcon ()
+
+	public Drawable getIcon()
 	{
 		return mIconDrawable;
 	}
-	
+
 	public boolean isReadOnly()
 	{
 		return mReadOnly;
 	}
-	
-	public String getText ()
+
+	public String getText()
 	{
 		return mActualText;
+	}
+
+	public int getValue()
+	{
+		return mVal;
+	}
+
+	public controlType getType()
+	{
+		return mType;
 	}
 
 	public void setControlValue(int val)
@@ -46,10 +61,23 @@ public class CameraControlData
 		switch (mType)
 		{
 		case controlType_Aperture:
-			mActualText = String.valueOf(val);
+			mActualText = "F/" + String.valueOf((double)(val) / 100.0);
+
 			break;
 		case controlType_Shutter:
-			mActualText = String.valueOf(val);
+			if (val >= 10000) // more then a second
+			{
+				double fScaled = val;
+				DecimalFormat df = new DecimalFormat("#.#");
+				mActualText = df.format(fScaled / 10000.0);
+			} else
+			{
+				DecimalFormat zeroDForm = new DecimalFormat("#");
+				double fScaled = val;
+				Double closeVal = Double.valueOf(zeroDForm.format(10000.0 / fScaled));
+				int iCloseVal = closeVal.intValue();
+				mActualText = "1/"+String.valueOf(iCloseVal);
+			}
 			break;
 		case controlType_Focus:
 			mActualText = String.valueOf(val);
@@ -58,7 +86,14 @@ public class CameraControlData
 			mActualText = String.valueOf(val);
 			break;
 		case controlType_ISO:
-			mActualText = String.valueOf(val);
+			if (val == 0xFFFF)
+			{
+				mActualText = "AUTO";
+			}
+			else
+			{
+				mActualText= String.valueOf(val);
+			}
 			break;
 		case controlType_Battery:
 			mActualText = String.valueOf(val);
@@ -106,15 +141,4 @@ public class CameraControlData
 		default:
 		}
 	}
-
-	public int getValue()
-	{
-		return mVal;
-	}
-
-	public controlType getType()
-	{
-		return mType;
-	}
-
 }

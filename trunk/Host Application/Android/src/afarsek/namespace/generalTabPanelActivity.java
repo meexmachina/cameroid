@@ -31,9 +31,9 @@ public class generalTabPanelActivity extends Activity
 		mCameraControlAdapter = new CameraControlAdapter(this);
 		mControlGridView.setAdapter(mCameraControlAdapter);
 
-		CameraControlData view = new CameraControlData(this, CameraControlData.controlType.controlType_Aperture, 0);
+		CameraControlData view = new CameraControlData(this, CameraControlData.controlType.controlType_Aperture, 280);
 		mCameraControlAdapter.add(view);
-		CameraControlData view1 = new CameraControlData(this, CameraControlData.controlType.controlType_Battery, 0);
+		CameraControlData view1 = new CameraControlData(this, CameraControlData.controlType.controlType_Shutter, 2500);
 		mCameraControlAdapter.add(view1);
 
 		mControlGridView.setOnItemClickListener(new OnItemClickListener()
