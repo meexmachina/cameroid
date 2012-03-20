@@ -195,7 +195,7 @@ public class mainPanelActivity extends TabActivity
 				int curTab = tabHost.getCurrentTab();
 				if (curTab==1)	// if we are already in capture
 				{
-					
+					if (mCameraControl!=null) mCameraControl.capture();
 				} 
 				else tabHost.setCurrentTab(1);
 			}

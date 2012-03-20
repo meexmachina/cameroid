@@ -25,5 +25,6 @@
     <string name="menu_about">About</string>
     <string name="title_about_afarsek">ABOUT AFARSEK</string>
     <string name="no_title">no title</string>
+    <string name="widget_selection_title">Select Controls</string>
 
 </resources>

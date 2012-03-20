@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:label="@string/preferences_panel_activity_title"
+            android:label="@string/widget_selection_title"
             android:name=".preferencesPanelActivity"
             android:theme="@android:style/Theme.Dialog" >
             <intent-filter >
