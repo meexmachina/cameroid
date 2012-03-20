@@ -41,6 +41,8 @@ public class CameraControlAdapter extends BaseAdapter
 			TextView textView = (TextView) secLayout.findViewById(R.id.control_value);
 			textView.setText(mControledList.get(position).getText());
 			
+			
+			//if (mControledList.get(position).getValueBackground()!=null)
 			secLayout.setBackgroundDrawable(mControledList.get(position).getValueBackground());
 
 		} else
