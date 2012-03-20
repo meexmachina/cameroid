@@ -115,7 +115,6 @@ public class CameraControlData
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_flash);
 				break;					
 			}
-			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_auto);
 			break;
 		case controlType_ISO:
 			if (val == 0xFFFF)

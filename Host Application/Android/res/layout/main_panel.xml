@@ -9,6 +9,14 @@
         android:id="@+id/actionbar_main"
         style="@style/ActionBar" />
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="  "
+        android:textSize="3dp"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
     <TabHost
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@android:id/tabhost"
@@ -24,7 +32,8 @@
                 android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
                 android:layout_height="0dip"
-                android:layout_weight="1" />
+                android:layout_weight="1" >
+            </FrameLayout>
 
             <TabWidget
                 android:id="@android:id/tabs"
