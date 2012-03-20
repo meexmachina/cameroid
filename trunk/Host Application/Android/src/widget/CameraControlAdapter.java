@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class CameraControlAdapter extends BaseAdapter
@@ -36,7 +37,7 @@ public class CameraControlAdapter extends BaseAdapter
 			ImageView mSymbolView = (ImageView) gridView.findViewById(R.id.control_symbol);
 			mSymbolView.setImageDrawable(mControledList.get(position).getIcon());
 			
-			LinearLayout secLayout = (LinearLayout) gridView.findViewById(R.id.value_layout);
+			RelativeLayout secLayout = (RelativeLayout) gridView.findViewById(R.id.value_layout);
 			TextView textView = (TextView) secLayout.findViewById(R.id.control_value);
 			textView.setText(mControledList.get(position).getText());
 		} else
