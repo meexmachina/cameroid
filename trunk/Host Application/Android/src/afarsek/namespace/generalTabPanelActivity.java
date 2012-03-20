@@ -5,6 +5,7 @@ import widget.CameraControlData;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -26,7 +27,35 @@ public class generalTabPanelActivity extends Activity
 
 		// Setup the window
 		setContentView(R.layout.general_tab_panel);
+		
+		setupControlWidgets();
 
+		mControlGridView.setOnItemClickListener(new OnItemClickListener()
+		{
+			// AdapterView<?> parent, View v, int position, long id
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+			{
+				Toast.makeText(getApplicationContext(), "Bla", Toast.LENGTH_SHORT).show();
+
+			}
+		});
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		//setupControlWidgets();
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig)
+	{
+		super.onConfigurationChanged(newConfig);
+	}
+
+	private void setupControlWidgets()
+	{
 		mControlGridView = (GridView) findViewById(R.id.camera_control_grid);
 		mCameraControlAdapter = new CameraControlAdapter(this);
 		mControlGridView.setAdapter(mCameraControlAdapter);
@@ -41,16 +70,6 @@ public class generalTabPanelActivity extends Activity
 		mCameraControlAdapter.add(view3);
 		CameraControlData view4 = new CameraControlData(this, CameraControlData.controlType.controlType_Add, 0);
 		mCameraControlAdapter.add(view4);
-		
-		mControlGridView.setOnItemClickListener(new OnItemClickListener()
-		{
-			// AdapterView<?> parent, View v, int position, long id
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-			{
-				Toast.makeText(getApplicationContext(), "Bla", Toast.LENGTH_SHORT).show();
-
-			}
-		});
 	}
 
 	@Override
