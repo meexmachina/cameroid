@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class CameraControlAdapter extends BaseAdapter
 {
-	Context mContext;
+	private Context mContext;
 	private ArrayList<CameraControlData> mControledList;
 
 	public CameraControlAdapter(Context context)
@@ -32,7 +34,11 @@ public class CameraControlAdapter extends BaseAdapter
 			gridView = new View(mContext);
 			gridView = inflater.inflate(R.layout.camera_control_item, null);
 			ImageView mSymbolView = (ImageView) gridView.findViewById(R.id.control_symbol);
-			mSymbolView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_widget_shutter));
+			mSymbolView.setImageDrawable(mControledList.get(position).getIcon());
+			
+			LinearLayout secLayout = (LinearLayout) gridView.findViewById(R.id.value_layout);
+			TextView textView = (TextView) secLayout.findViewById(R.id.control_value);
+			textView.setText(mControledList.get(position).getText());
 		} else
 		{
 			gridView = (View) convertView;
