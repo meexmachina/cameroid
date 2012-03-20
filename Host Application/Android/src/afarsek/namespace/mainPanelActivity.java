@@ -26,6 +26,7 @@ public class mainPanelActivity extends TabActivity
 	private cameraControl mCameraControl = null;
 	private ActionBar actionBar;
 	private TabHost tabHost;
+	private int mCurrentTab = 1;
 
 	// Constants
 	public static final String EXTRA_DEVICE_ADDRESS = "device_address";
@@ -147,6 +148,8 @@ public class mainPanelActivity extends TabActivity
 	public void onConfigurationChanged(Configuration newConfig)
 	{
 		super.onConfigurationChanged(newConfig);
+		
+		mCurrentTab = tabHost.getCurrentTab();
 
 		// Set up the window layout
 		setContentView(R.layout.main_panel);
@@ -167,7 +170,7 @@ public class mainPanelActivity extends TabActivity
 		addTab("Capture", R.drawable.tab_capture, generalTabPanelActivity.class);
 		addTab("Advanced", R.drawable.tab_advanced, advancedTabPanelActivity.class);
 
-		tabHost.setCurrentTab(1);
+		tabHost.setCurrentTab(mCurrentTab);
 	}
 
 	private void addTab(String labelId, int drawableId, Class<?> c)
