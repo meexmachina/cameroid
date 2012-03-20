@@ -14,7 +14,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="  "
-        android:textSize="3dp"
+        android:textSize="5dp"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TabHost
