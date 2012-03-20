@@ -113,7 +113,9 @@ public class CameraControlData
 				break;		
 			case 0x0007:		// Flash
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_flash);
-				break;					
+				break;				
+			default:
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_auto);	
 			}
 			break;
 		case controlType_ISO:
@@ -129,7 +131,30 @@ public class CameraControlData
 			mActualText = String.valueOf(val);
 			break;
 		case controlType_Flash:
-			mActualText = String.valueOf(val);
+			mActualText = "";
+			switch (val)
+			{
+			case 0x0001:		// auto flash
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_auto);
+				break;
+			case 0x0002:		// Flash off
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_never);
+				break;
+			case 0x0003:		// Fill flash
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_always);
+				break;
+			case 0x0004:		// Red eye auto
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_auto_eye);
+				break;					
+			case 0x0005:		// Red eye fill
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_flash_eye);	
+				break;				
+			case 0x0006:		// External Sync
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_never);
+				break;	
+			default:
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_never);
+			}			
 			break;
 		default:
 		}
