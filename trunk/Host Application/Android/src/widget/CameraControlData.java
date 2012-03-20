@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class CameraControlView extends LinearLayout
+public class CameraControlData extends LinearLayout
 {
 	Context mContext;
 
@@ -31,7 +31,7 @@ public class CameraControlView extends LinearLayout
 		return mItemView;
 	}
 
-	public CameraControlView(Context context)
+	public CameraControlData(Context context)
 	{
 		super(context);
 		mContext = context;
@@ -46,13 +46,6 @@ public class CameraControlView extends LinearLayout
 
 		// setControlType(controlType.controlType_Aperture);
 		// setControlValue(0);
-	}
-
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-	{
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		setMeasuredDimension(getMeasuredWidth(), getMeasuredHeight());
 	}
 
 	public void setControlValue(int val)
