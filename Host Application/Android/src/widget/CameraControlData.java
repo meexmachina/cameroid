@@ -20,8 +20,10 @@ public class CameraControlData
 	private controlType mType;
 	private int mVal;
 	private Drawable mIconDrawable;
+	private Drawable mValueBackground;
 	private String mActualText;
 	private boolean mReadOnly;
+	private boolean mIsTextValue;
 
 	public CameraControlData(Context context, controlType type, int val)
 	{
@@ -36,6 +38,11 @@ public class CameraControlData
 	}
 
 	public boolean isReadOnly()
+	{
+		return mReadOnly;
+	}
+
+	public boolean isTextValue()
 	{
 		return mReadOnly;
 	}
@@ -61,7 +68,7 @@ public class CameraControlData
 		switch (mType)
 		{
 		case controlType_Aperture:
-			mActualText = "F/" + String.valueOf((double)(val) / 100.0);
+			mActualText = "F/" + String.valueOf((double) (val) / 100.0);
 
 			break;
 		case controlType_Shutter:
@@ -76,23 +83,47 @@ public class CameraControlData
 				double fScaled = val;
 				Double closeVal = Double.valueOf(zeroDForm.format(10000.0 / fScaled));
 				int iCloseVal = closeVal.intValue();
-				mActualText = "1/"+String.valueOf(iCloseVal);
+				mActualText = "1/" + String.valueOf(iCloseVal);
 			}
 			break;
 		case controlType_Focus:
 			mActualText = String.valueOf(val);
 			break;
 		case controlType_WB:
-			mActualText = String.valueOf(val);
+			mActualText = "";
+			switch (val)
+			{
+			case 0x0001:		// manual K
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_kelvin);
+				break;
+			case 0x0002:		// Auto
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_auto);
+				break;
+			case 0x0003:		// One-Push auto
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_auto);
+				break;
+			case 0x0004:		// Daylight
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_sunny);
+				break;					
+			case 0x0005:		// Floura
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_floura);	
+				break;				
+			case 0x0006:		// Tungsten
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_tongstan);
+				break;		
+			case 0x0007:		// Flash
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_sunny);
+				break;					
+			}
+			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_auto);
 			break;
 		case controlType_ISO:
 			if (val == 0xFFFF)
 			{
 				mActualText = "AUTO";
-			}
-			else
+			} else
 			{
-				mActualText= String.valueOf(val);
+				mActualText = String.valueOf(val);
 			}
 			break;
 		case controlType_Battery:
@@ -112,30 +143,37 @@ public class CameraControlData
 		{
 		case controlType_Aperture:
 			mIconDrawable = mContext.getResources().getDrawable(R.drawable.ic_widget_aperture);
+			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_bottom);
 			mReadOnly = false;
 			break;
 		case controlType_Shutter:
 			mIconDrawable = mContext.getResources().getDrawable(R.drawable.ic_widget_shutter);
+			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_bottom);
 			mReadOnly = false;
 			break;
 		case controlType_Focus:
 			mIconDrawable = mContext.getResources().getDrawable(R.drawable.ic_widget_focus);
+			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_bottom);
 			mReadOnly = false;
 			break;
 		case controlType_WB:
 			mIconDrawable = mContext.getResources().getDrawable(R.drawable.ic_widget_wb);
+			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_auto);
 			mReadOnly = false;
 			break;
 		case controlType_ISO:
 			mIconDrawable = mContext.getResources().getDrawable(R.drawable.ic_widget_iso);
+			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_bottom);
 			mReadOnly = false;
 			break;
 		case controlType_Battery:
 			mIconDrawable = mContext.getResources().getDrawable(R.drawable.ic_widget_battery);
+			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_bottom);
 			mReadOnly = true;
 			break;
 		case controlType_Flash:
 			mIconDrawable = mContext.getResources().getDrawable(R.drawable.ic_widget_flash);
+			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_bottom);
 			mReadOnly = false;
 			break;
 		default:
