@@ -3,19 +3,27 @@ package afarsek.namespace;
 import widget.ActionBar;
 import widget.ActionBar.AbstractAction;
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.Window;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageView;
 import android.widget.TabHost;
+import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -148,7 +156,7 @@ public class mainPanelActivity extends TabActivity
 	public void onConfigurationChanged(Configuration newConfig)
 	{
 		super.onConfigurationChanged(newConfig);
-		
+
 		mCurrentTab = tabHost.getCurrentTab();
 
 		// Set up the window layout
@@ -171,6 +179,28 @@ public class mainPanelActivity extends TabActivity
 		addTab("Advanced", R.drawable.tab_advanced, advancedTabPanelActivity.class);
 
 		tabHost.setCurrentTab(mCurrentTab);
+
+		tabHost.setOnTabChangedListener(new OnTabChangeListener()
+		{
+			public void onTabChanged(String tabId)
+			{
+
+			}
+		});
+
+		getTabWidget().getChildAt(1).setOnClickListener(new OnClickListener()
+		{
+			public void onClick(View v)
+			{
+				int curTab = tabHost.getCurrentTab();
+				if (curTab==1)	// if we are already in capture
+				{
+					
+				} 
+				else tabHost.setCurrentTab(1);
+			}
+		});
+
 	}
 
 	private void addTab(String labelId, int drawableId, Class<?> c)

@@ -68,8 +68,6 @@ public class generalTabPanelActivity extends Activity
 		mCameraControlAdapter.add(view2);
 		CameraControlData view3 = new CameraControlData(this, CameraControlData.controlType.controlType_Flash, 4);
 		mCameraControlAdapter.add(view3);
-		CameraControlData view4 = new CameraControlData(this, CameraControlData.controlType.controlType_Add, 0);
-		mCameraControlAdapter.add(view4);
 	}
 
 	@Override
