@@ -42,9 +42,9 @@ public class CameraControlData
 		return mReadOnly;
 	}
 
-	public boolean isTextValue()
+	public Drawable getValueBackground()
 	{
-		return mReadOnly;
+		return mValueBackground;
 	}
 
 	public String getText()
@@ -112,7 +112,7 @@ public class CameraControlData
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_tongstan);
 				break;		
 			case 0x0007:		// Flash
-				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_sunny);
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_flash);
 				break;					
 			}
 			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_auto);
