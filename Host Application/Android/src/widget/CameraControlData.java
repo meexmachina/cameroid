@@ -10,7 +10,7 @@ public class CameraControlData
 {
 	public enum controlType
 	{
-		controlType_Aperture, controlType_Shutter, controlType_Focus, controlType_WB, controlType_ISO, controlType_Battery, controlType_Flash;
+		controlType_Aperture, controlType_Shutter, controlType_Focus, controlType_WB, controlType_ISO, controlType_Battery, controlType_Flash, controlType_Add;
 	};
 
 	private int[] mShutterValues =
@@ -156,6 +156,11 @@ public class CameraControlData
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_never);
 			}			
 			break;
+			
+		case controlType_Add:
+			mValueBackground = null;
+			mActualText = "";
+			break;			
 		default:
 		}
 	}
@@ -200,6 +205,12 @@ public class CameraControlData
 			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_bottom);
 			mReadOnly = false;
 			break;
+		case controlType_Add:
+			mIconDrawable = mContext.getResources().getDrawable(R.drawable.ic_widget_add);
+			mValueBackground = null;
+			mActualText = "";
+			mReadOnly = true;
+			break;	
 		default:
 		}
 	}
