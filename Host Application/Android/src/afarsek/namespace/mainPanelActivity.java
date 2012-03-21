@@ -2,6 +2,7 @@ package afarsek.namespace;
 
 import widget.ActionBar;
 import widget.ActionBar.AbstractAction;
+import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +36,8 @@ public class mainPanelActivity extends TabActivity
 	private ActionBar actionBar;
 	private TabHost tabHost;
 	private int mCurrentTab = 1;
+	
+	int[] mUsedProperties;
 
 	// Constants
 	public static final String EXTRA_DEVICE_ADDRESS = "device_address";
@@ -129,6 +132,15 @@ public class mainPanelActivity extends TabActivity
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.option_menu, menu);
 		return true;
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) 
+	{
+	  super.onActivityResult(requestCode, resultCode, data);
+	  Bundle extras = data.getExtras();
+	  
+	  mUsedProperties = extras.getIntArray("ChosenProperties");
 	}
 
 	@Override
@@ -273,8 +285,10 @@ public class mainPanelActivity extends TabActivity
 		{
 			// Create the result Intent and include the MAC address
 			Intent preferncesMainPanel = new Intent("afarsek.namespace.PREFERENCESPANELACTIVITY");
+			preferncesMainPanel.putExtra("CurrentChosen", mUsedProperties);
+
 			// startMainPanel.putExtra(EXTRA_DEVICE_ADDRESS, address);
-			startActivity(preferncesMainPanel);
+			startActivityForResult(preferncesMainPanel, 1);
 		}
 
 	}
