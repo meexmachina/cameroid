@@ -1,6 +1,8 @@
 package afarsek.namespace;
 
+import ptp.DeviceInfo;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,16 +15,32 @@ public class preferencesPanelActivity extends Activity
 	private ListView mListView;
 	private ArrayAdapter<String> mListAdapter;
 	private LinearLayout mLayout;
-	private String mItemStrings[] =
-	{ "Battery Level", "Image Size", "Compression Setting", "White Balance", "F-Stop", "Focal Length", "Focus Distance", "Focus Mode",
-			"Exposure Metering Mode", "Flash Mode", "Exposure Time", "Exposure Program Mode", "Exposure Index",
-			"Exposure Bias Compensation", "Date Time", "Capture Delay", "Still Capture Mode", "Contrast", "Sharpness", "Digital Zoom",
-			"Effect Mode", "Burst Number", "Burst Interval", "Timelapse Number", "Timelapse Interval", "Focus Metering Mode", "Upload URL",
-			"Artist", "Copyright Info" };
 
-	private int mItemNumbers[] =
-	{ 0x5001, 0x5003, 0x5004, 0x5005, 0x5007, 0x5008, 0x5009, 0x500a, 0x500b, 0x500c, 0x500d, 0x500e, 0x500f, 0x5010, 0x5011, 0x5012,
-			0x5013, 0x5014, 0x5015, 0x5016, 0x5017, 0x5018, 0x5019, 0x501a, 0x501b, 0x501c, 0x501d, 0x501d, 0x501e, 0x501f };
+	public class propertyList
+	{
+		public String mItemString;
+		public int mCode;
+		public boolean mAvailable;
+		public boolean mChosen;
+
+		public propertyList(String name, int code, boolean avail, boolean chosen)
+		{
+			mItemString = name;
+			mCode = code;
+			mAvailable = avail;
+			mChosen = chosen;
+			if (avail == false)
+				mChosen = false;
+		}
+	}
+
+	private propertyList[] mProperties =
+	{ new propertyList("Battery Level", 0x5001, false, false), new propertyList("White Balance", 0x5005, false, false),
+			new propertyList("Aperture", 0x5007, false, false), new propertyList("Focal Length", 0x5008, false, false),
+			new propertyList("Focus Distance", 0x5009, false, false), new propertyList("Focus Mode", 0x500a, false, false),
+			new propertyList("Flash Mode", 0x500c, false, false), new propertyList("Shutter Speed", 0x500d, false, false) };
+
+	private int mNumOfAvailableProperties = 0;
 
 	@Override
 	public void onCreate(Bundle icicle)
@@ -30,14 +48,39 @@ public class preferencesPanelActivity extends Activity
 		super.onCreate(icicle);
 		setContentView(R.layout.preferences_panel);
 		mLayout = (LinearLayout) findViewById(R.id.preferences_panel_layout);
-
 		mListView = (ListView) mLayout.findViewById(R.id.property_list_view);
+
+		// Create the items list
+		String[] mItemStrings = new String[mNumOfAvailableProperties];
+		int count = 0;
+
+		for (int i = 0; i < mProperties.length; i++)
+		{
+			if (mProperties[i].mAvailable == true)
+			{
+				mItemStrings[count] = mProperties[i].mItemString;
+				count++;
+			}
+		}
 
 		mListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, mItemStrings);
 
 		// Set option as Multiple Choice. So that user can able to select more the one option from list
 		mListView.setAdapter(mListAdapter);
 		mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		
+		int[] currentCodes = icicle.getIntArray("CurrentChosen");
+		for (int i=0; i<mProperties.length; i++)
+		{
+			mProperties[i].mChosen = false;
+			for (int j=0; j<currentCodes.length; j++)
+				if (currentCodes[j]==mProperties[i].mCode)
+					mProperties[i].mChosen=true;
+			
+			if ()
+			String item = mListAdapter.getItem(i);
+			if ()
+		}
 
 		// When item is tapped, toggle checked properties of CheckBox and Planet.
 		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -53,6 +96,54 @@ public class preferencesPanelActivity extends Activity
 				mListAdapter.getItem(position);
 			}
 		});
+	}
+
+	@Override
+	public void onBackPressed()
+	{
+		int count = 0;
+		for (int i = 0; i < mProperties.length; i++)
+		{
+			if (mProperties[i].mChosen == true)
+				count++;
+		}
+
+		int[] chosen = new int[count];
+		count = 0;
+		for (int i = 0; i < mProperties.length; i++)
+		{
+			if (mProperties[i].mChosen == true)
+			{
+				chosen[count] = mProperties[i].mCode;
+				count++;
+			}
+		}
+
+		Intent myIntent = new Intent(this, mainPanelActivity.class);
+		myIntent.putExtra("ChosenProperties", chosen);
+		setResult(RESULT_OK, myIntent);
+		super.onBackPressed();
+	}
+
+	public void setDeviceInfo(DeviceInfo info)
+	{
+		int[] properties = info.propertiesSupported;
+		mNumOfAvailableProperties = 0;
+
+		for (int i = 0; i < mProperties.length; i++)
+		{
+			int curProp = mProperties[i].mCode;
+			mProperties[i].mAvailable = false;
+
+			for (int j = 0; j < properties.length; j++)
+			{
+				if (properties[j] == curProp)
+				{
+					mProperties[i].mAvailable = true;
+					mNumOfAvailableProperties++;
+				}
+			}
+		}
 	}
 
 }

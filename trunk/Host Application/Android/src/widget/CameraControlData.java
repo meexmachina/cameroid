@@ -10,7 +10,8 @@ public class CameraControlData
 {
 	public enum controlType
 	{
-		controlType_Aperture, controlType_Shutter, controlType_Focus, controlType_WB, controlType_ISO, controlType_Battery, controlType_Flash, controlType_Add;
+		controlType_Battery, controlType_WB, controlType_Aperture, controlType_FocalLength, controlType_Focus, 
+		controlType_FocusMode, controlType_ExposureMeteringMode, controlType_Flash, controlType_Shutter, controlType_ISO, ;
 	};
 
 	private int[] mShutterValues =
@@ -93,29 +94,29 @@ public class CameraControlData
 			mActualText = "";
 			switch (val)
 			{
-			case 0x0001:		// manual K
+			case 0x0001: // manual K
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_kelvin);
 				break;
-			case 0x0002:		// Auto
+			case 0x0002: // Auto
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_auto);
 				break;
-			case 0x0003:		// One-Push auto
+			case 0x0003: // One-Push auto
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_auto);
 				break;
-			case 0x0004:		// Daylight
+			case 0x0004: // Daylight
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_sunny);
-				break;					
-			case 0x0005:		// Floura
-				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_floura);	
-				break;				
-			case 0x0006:		// Tungsten
+				break;
+			case 0x0005: // Floura
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_floura);
+				break;
+			case 0x0006: // Tungsten
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_tongstan);
-				break;		
-			case 0x0007:		// Flash
+				break;
+			case 0x0007: // Flash
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_flash);
-				break;				
+				break;
 			default:
-				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_auto);	
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_auto);
 			}
 			break;
 		case controlType_ISO:
@@ -134,33 +135,29 @@ public class CameraControlData
 			mActualText = "";
 			switch (val)
 			{
-			case 0x0001:		// auto flash
+			case 0x0001: // auto flash
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_auto);
 				break;
-			case 0x0002:		// Flash off
+			case 0x0002: // Flash off
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_never);
 				break;
-			case 0x0003:		// Fill flash
+			case 0x0003: // Fill flash
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_always);
 				break;
-			case 0x0004:		// Red eye auto
+			case 0x0004: // Red eye auto
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_auto_eye);
-				break;					
-			case 0x0005:		// Red eye fill
-				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_flash_eye);	
-				break;				
-			case 0x0006:		// External Sync
+				break;
+			case 0x0005: // Red eye fill
+				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_flash_eye);
+				break;
+			case 0x0006: // External Sync
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_never);
-				break;	
+				break;
 			default:
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_flash_never);
-			}			
+			}
 			break;
-			
-		case controlType_Add:
-			mValueBackground = null;
-			mActualText = "";
-			break;			
+
 		default:
 		}
 	}
@@ -205,12 +202,6 @@ public class CameraControlData
 			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_bottom);
 			mReadOnly = false;
 			break;
-		case controlType_Add:
-			mIconDrawable = mContext.getResources().getDrawable(R.drawable.ic_widget_add);
-			mValueBackground = null;
-			mActualText = "";
-			mReadOnly = true;
-			break;	
 		default:
 		}
 	}
