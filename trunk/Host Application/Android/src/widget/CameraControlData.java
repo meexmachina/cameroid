@@ -10,12 +10,9 @@ public class CameraControlData
 {
 	public enum controlType
 	{
-		controlType_Battery, controlType_WB, controlType_Aperture, controlType_FocalLength, controlType_Focus, 
-		controlType_FocusMode, controlType_ExposureMeteringMode, controlType_Flash, controlType_Shutter, controlType_ISO, ;
+		controlType_Battery, controlType_WB, controlType_Aperture, controlType_FocalLength, controlType_FocusDistance, 
+		controlType_FocusMode, controlType_Flash, controlType_Shutter, controlType_ISO ;
 	};
-
-	private int[] mShutterValues =
-	{ 2, 4, 8, 15, 30, 60, 125, 250, 500, 1000, 2000, 4000, 10000 };
 
 	private Context mContext;
 	private controlType mType;
@@ -24,8 +21,6 @@ public class CameraControlData
 	private Drawable mValueBackground;
 	private String mActualText;
 	private boolean mReadOnly;
-	private boolean mIsTextValue;
-
 	public CameraControlData(Context context, controlType type, int val)
 	{
 		mContext = context;
@@ -66,8 +61,28 @@ public class CameraControlData
 	public void setControlValue(int val)
 	{
 		mVal = val;
+		
 		switch (mType)
 		{
+		case controlType_FocusMode:
+			switch (val)
+			{
+			case 0x001:
+				mActualText = "Manual";
+				break;
+			case 0x002:
+				mActualText = "AF-S";
+				break;
+			case 0x003:
+				mActualText = "AF-S";
+				break;
+			default:
+				mActualText = "AF-C";				
+			}
+			break;
+		case controlType_FocalLength:
+				mActualText = String.valueOf((double) (val) / 100.0) + "mm";
+			break;
 		case controlType_Aperture:
 			mActualText = "F/" + String.valueOf((double) (val) / 100.0);
 
@@ -87,7 +102,7 @@ public class CameraControlData
 				mActualText = "1/" + String.valueOf(iCloseVal);
 			}
 			break;
-		case controlType_Focus:
+		case controlType_FocusDistance:
 			mActualText = String.valueOf(val);
 			break;
 		case controlType_WB:
@@ -167,6 +182,16 @@ public class CameraControlData
 		mType = type;
 		switch (type)
 		{
+		case controlType_FocusMode:
+			mIconDrawable = mContext.getResources().getDrawable(R.drawable.ic_widget_focus_mode);
+			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_bottom);
+			mReadOnly = false;
+			break;
+		case controlType_FocalLength:
+			mIconDrawable = mContext.getResources().getDrawable(R.drawable.ic_widget_focal_length);
+			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_bottom);
+			mReadOnly = false;
+			break;
 		case controlType_Aperture:
 			mIconDrawable = mContext.getResources().getDrawable(R.drawable.ic_widget_aperture);
 			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_bottom);
@@ -177,8 +202,8 @@ public class CameraControlData
 			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_bottom);
 			mReadOnly = false;
 			break;
-		case controlType_Focus:
-			mIconDrawable = mContext.getResources().getDrawable(R.drawable.ic_widget_focus);
+		case controlType_FocusDistance:
+			mIconDrawable = mContext.getResources().getDrawable(R.drawable.ic_widget_focus_distance);
 			mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_bottom);
 			mReadOnly = false;
 			break;

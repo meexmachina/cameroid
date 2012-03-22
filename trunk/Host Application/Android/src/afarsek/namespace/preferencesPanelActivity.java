@@ -4,7 +4,6 @@ import ptp.DeviceInfo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,7 +38,8 @@ public class preferencesPanelActivity extends Activity
 	{ new propertyList("Battery Level", 0x5001, false, false), new propertyList("White Balance", 0x5005, false, false),
 			new propertyList("Aperture", 0x5007, false, false), new propertyList("Focal Length", 0x5008, false, false),
 			new propertyList("Focus Distance", 0x5009, false, false), new propertyList("Focus Mode", 0x500a, false, false),
-			new propertyList("Flash Mode", 0x500c, false, false), new propertyList("Shutter Speed", 0x500d, false, false) };
+			new propertyList("Flash Mode", 0x500c, false, false), new propertyList("Shutter Speed", 0x500d, false, false),
+			new propertyList("ISO Speed", 0x500F, false, false) };
 
 	private int mNumOfAvailableProperties = 0;
 
@@ -53,16 +53,16 @@ public class preferencesPanelActivity extends Activity
 
 		Intent received = getIntent();
 		Bundle recBundle = received.getExtras();
-		
+
 		// the camera's available property list
 		int[] devInfoPropery = recBundle.getIntArray("AvailableProperties");
 		int count = 0;
-		
-		for (int i=0; i<mProperties.length; i++)
+
+		for (int i = 0; i < mProperties.length; i++)
 		{
-			for (int j=0; j<devInfoPropery.length; j++)
+			for (int j = 0; j < devInfoPropery.length; j++)
 			{
-				if (devInfoPropery[j]==mProperties[i].mCode)
+				if (devInfoPropery[j] == mProperties[i].mCode)
 				{
 					count++;
 					mProperties[i].mAvailable = true;
@@ -70,7 +70,7 @@ public class preferencesPanelActivity extends Activity
 				}
 			}
 		}
-		
+
 		// Create the items list
 		mNumOfAvailableProperties = count;
 		String[] mItemStrings = new String[mNumOfAvailableProperties];
@@ -90,33 +90,33 @@ public class preferencesPanelActivity extends Activity
 		// Set option as Multiple Choice. So that user can able to select more the one option from list
 		mListView.setAdapter(mListAdapter);
 		mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-		
+
 		int[] currentCodes = recBundle.getIntArray("CurrentChosen");
-		for (int i=0; i<mProperties.length; i++)
+		for (int i = 0; i < mProperties.length; i++)
 		{
 			mProperties[i].mChosen = false;
-			for (int j=0; j<currentCodes.length; j++)
+			for (int j = 0; j < currentCodes.length; j++)
 			{
-				if (currentCodes[j]==mProperties[i].mCode)
+				if (currentCodes[j] == mProperties[i].mCode)
 				{
-					mProperties[i].mChosen=true;
+					mProperties[i].mChosen = true;
 					break;
 				}
 			}
-			
-			if (mProperties[i].mChosen==true)
+
+			if (mProperties[i].mChosen == true)
 			{
 				int k;
 				boolean found = false;
-				for (k=0; k<mListAdapter.getCount(); k++)
+				for (k = 0; k < mListAdapter.getCount(); k++)
 				{
-					if (mListAdapter.getItem(k)==mProperties[i].mItemString)
+					if (mListAdapter.getItem(k) == mProperties[i].mItemString)
 					{
 						found = true;
 						break;
 					}
 				}
-				
+
 				if (found == true)
 					mListView.setItemChecked(k, true);
 			}
@@ -129,10 +129,10 @@ public class preferencesPanelActivity extends Activity
 			{
 				boolean selected = mListView.isItemChecked(position);
 				String name = mListAdapter.getItem(position);
-				
-				for (int i=0; i<mProperties.length; i++)
+
+				for (int i = 0; i < mProperties.length; i++)
 				{
-					if (mProperties[i].mItemString==name)
+					if (mProperties[i].mItemString == name)
 						mProperties[i].mChosen = selected;
 				}
 			}
@@ -143,7 +143,7 @@ public class preferencesPanelActivity extends Activity
 	public void onBackPressed()
 	{
 		int count = 0;
-	
+
 		for (int i = 0; i < mProperties.length; i++)
 		{
 			if (mProperties[i].mChosen == true)
