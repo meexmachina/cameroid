@@ -74,12 +74,30 @@ public class preferencesPanelActivity extends Activity
 		{
 			mProperties[i].mChosen = false;
 			for (int j=0; j<currentCodes.length; j++)
+			{
 				if (currentCodes[j]==mProperties[i].mCode)
+				{
 					mProperties[i].mChosen=true;
+					break;
+				}
+			}
 			
-			if ()
-			String item = mListAdapter.getItem(i);
-			if ()
+			if (mProperties[i].mChosen==true)
+			{
+				int k;
+				boolean found = false;
+				for (k=0; k<mListAdapter.getCount(); k++)
+				{
+					if (mListAdapter.getItem(i)==mProperties[i].mItemString)
+					{
+						found = true;
+						break;
+					}
+				}
+				
+				if (found == true)
+					mListView.setItemChecked(k, true);
+			}
 		}
 
 		// When item is tapped, toggle checked properties of CheckBox and Planet.
