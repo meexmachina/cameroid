@@ -142,6 +142,9 @@ public class mainPanelActivity extends TabActivity
 		Bundle extras = data.getExtras();
 
 		mUsedProperties = extras.getIntArray("ChosenProperties");
+		
+		// Rearrange the shown widgets
+		
 	}
 
 	@Override
@@ -290,7 +293,7 @@ public class mainPanelActivity extends TabActivity
 			if (mUsedProperties == null)
 			{
 				int[] temp =
-				{ 0x5001, 0x5005, 0x5007, 0x5008, 0x5009, 0x500a, 0x500c, 0x500d };
+				{ 0x5001, 0x5005, 0x5007, 0x5008, 0x5009, 0x500a, 0x500c, 0x500d, 0x500F };
 				mUsedProperties = temp;
 			}
 
