@@ -21,9 +21,9 @@ public class cameraControl
 	private BluetoothAdapter mBluetoothAdapter;
 	private BluetoothDevice mBluetoothDevice;
 	private final Handler mMainPanelHandler;
-	private int mCameraAttached = 0;
-	private DeviceInfo mDeviceInfo = null;
-	private StorageInfo mStorageInfo = null;
+	public int mCameraAttached = 0;
+	public DeviceInfo mDeviceInfo = null;
+	public StorageInfo mStorageInfo = null;
 	private NameFactory mNameFactory = new NameFactory();
 
 	private Timer timer;

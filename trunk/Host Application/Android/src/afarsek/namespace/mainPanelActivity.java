@@ -2,6 +2,7 @@ package afarsek.namespace;
 
 import widget.ActionBar;
 import widget.ActionBar.AbstractAction;
+import afarsek.namespace.preferencesPanelActivity.propertyList;
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Context;
@@ -36,7 +37,7 @@ public class mainPanelActivity extends TabActivity
 	private ActionBar actionBar;
 	private TabHost tabHost;
 	private int mCurrentTab = 1;
-	
+
 	int[] mUsedProperties;
 
 	// Constants
@@ -135,12 +136,12 @@ public class mainPanelActivity extends TabActivity
 	}
 
 	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) 
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-	  super.onActivityResult(requestCode, resultCode, data);
-	  Bundle extras = data.getExtras();
-	  
-	  mUsedProperties = extras.getIntArray("ChosenProperties");
+		super.onActivityResult(requestCode, resultCode, data);
+		Bundle extras = data.getExtras();
+
+		mUsedProperties = extras.getIntArray("ChosenProperties");
 	}
 
 	@Override
@@ -205,11 +206,12 @@ public class mainPanelActivity extends TabActivity
 			public void onClick(View v)
 			{
 				int curTab = tabHost.getCurrentTab();
-				if (curTab==1)	// if we are already in capture
+				if (curTab == 1) // if we are already in capture
 				{
-					if (mCameraControl!=null) mCameraControl.capture();
-				} 
-				else tabHost.setCurrentTab(1);
+					if (mCameraControl != null)
+						mCameraControl.capture();
+				} else
+					tabHost.setCurrentTab(1);
 			}
 		});
 
@@ -285,12 +287,28 @@ public class mainPanelActivity extends TabActivity
 		{
 			// Create the result Intent and include the MAC address
 			Intent preferncesMainPanel = new Intent("afarsek.namespace.PREFERENCESPANELACTIVITY");
+			if (mUsedProperties == null)
+			{
+				int[] temp =
+				{ 0x5001, 0x5005, 0x5007, 0x5008, 0x5009, 0x500a, 0x500c, 0x500d };
+				mUsedProperties = temp;
+			}
+
 			preferncesMainPanel.putExtra("CurrentChosen", mUsedProperties);
+
+			if (mCameraControl.mDeviceInfo != null)
+				preferncesMainPanel.putExtra("AvailableProperties", mCameraControl.mDeviceInfo.propertiesSupported);
+			else
+			{
+				// for debug
+				int[] properties =
+				{ 0x5001, 0x5005, 0x5007, 0x5008, 0x5009, 0x500a, 0x500c, 0x500d };
+				preferncesMainPanel.putExtra("AvailableProperties", properties);
+			}
 
 			// startMainPanel.putExtra(EXTRA_DEVICE_ADDRESS, address);
 			startActivityForResult(preferncesMainPanel, 1);
 		}
-
 	}
 
 }
