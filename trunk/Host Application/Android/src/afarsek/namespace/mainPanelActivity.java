@@ -1,7 +1,10 @@
 package afarsek.namespace;
 
+import ptp.DevicePropDesc;
 import widget.ActionBar;
 import widget.ActionBar.AbstractAction;
+import widget.CameraControlData;
+import widget.CameraControlData.controlType;
 import afarsek.namespace.preferencesPanelActivity.propertyList;
 import android.app.Activity;
 import android.app.TabActivity;
@@ -142,9 +145,50 @@ public class mainPanelActivity extends TabActivity
 		Bundle extras = data.getExtras();
 
 		mUsedProperties = extras.getIntArray("ChosenProperties");
+
+		// TODO: Read those properties from the device
+		int[] values = new int[mUsedProperties.length];
 		
+				
 		// Rearrange the shown widgets
-		
+		controlType[] types = new controlType[mUsedProperties.length];
+		for (int i=0; i<types.length; i++)
+		{
+			switch (mUsedProperties[i])
+			{
+			case DevicePropDesc.BatteryLevel:
+				types[i]=CameraControlData.controlType.controlType_Battery;
+				break;
+			case DevicePropDesc.WhiteBalance:
+				types[i]=CameraControlData.controlType.controlType_WB;
+				break;
+			case DevicePropDesc.FStop:
+				types[i]=CameraControlData.controlType.controlType_Aperture;
+				break;
+			case DevicePropDesc.FocalLength:
+				types[i]=CameraControlData.controlType.controlType_FocalLength;
+				break;
+			case DevicePropDesc.FocusDistance:
+				types[i]=CameraControlData.controlType.controlType_FocusDistance;
+				break;
+			case DevicePropDesc.FocusMode:
+				types[i]=CameraControlData.controlType.controlType_FocusMode;
+				break;
+			case DevicePropDesc.FlashMode:
+				types[i]=CameraControlData.controlType.controlType_Flash;
+				break;
+			case DevicePropDesc.ExposureTime:
+				types[i]=CameraControlData.controlType.controlType_Shutter;
+				break;
+			case DevicePropDesc.ExposureIndex:
+				types[i]=CameraControlData.controlType.controlType_ISO;
+				break;
+			}
+			
+			values[i] = 2;
+		}
+
+		((generalTabPanelActivity) (this.getLocalActivityManager().getCurrentActivity())).setupControlWidgets(types,values);
 	}
 
 	@Override
@@ -305,7 +349,7 @@ public class mainPanelActivity extends TabActivity
 			{
 				// for debug
 				int[] properties =
-				{ 0x5001, 0x5005, 0x5007, 0x5008, 0x5009, 0x500a, 0x500c, 0x500d };
+				{ 0x5001, 0x5005, 0x5007, 0x5008, 0x5009, 0x500a, 0x500c, 0x500d, 0x500F };
 				preferncesMainPanel.putExtra("AvailableProperties", properties);
 			}
 

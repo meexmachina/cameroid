@@ -2,6 +2,7 @@ package afarsek.namespace;
 
 import widget.CameraControlAdapter;
 import widget.CameraControlData;
+import widget.CameraControlData.controlType;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -28,7 +29,11 @@ public class generalTabPanelActivity extends Activity
 		// Setup the window
 		setContentView(R.layout.general_tab_panel);
 		
-		setupControlWidgets();
+		mControlGridView = (GridView) findViewById(R.id.camera_control_grid);
+		mCameraControlAdapter = new CameraControlAdapter(this);
+		mControlGridView.setAdapter(mCameraControlAdapter);
+		
+		//setupControlWidgets();
 
 		mControlGridView.setOnItemClickListener(new OnItemClickListener()
 		{
@@ -54,20 +59,14 @@ public class generalTabPanelActivity extends Activity
 		super.onConfigurationChanged(newConfig);
 	}
 
-	private void setupControlWidgets()
+	public void setupControlWidgets(controlType[] types, int[] values)
 	{
-		mControlGridView = (GridView) findViewById(R.id.camera_control_grid);
-		mCameraControlAdapter = new CameraControlAdapter(this);
-		mControlGridView.setAdapter(mCameraControlAdapter);
-
-		CameraControlData view = new CameraControlData(this, CameraControlData.controlType.controlType_Aperture, 280);
-		mCameraControlAdapter.add(view);
-		CameraControlData view1 = new CameraControlData(this, CameraControlData.controlType.controlType_Shutter, 2500);
-		mCameraControlAdapter.add(view1);
-		CameraControlData view2 = new CameraControlData(this, CameraControlData.controlType.controlType_WB, 4);
-		mCameraControlAdapter.add(view2);
-		CameraControlData view3 = new CameraControlData(this, CameraControlData.controlType.controlType_Flash, 4);
-		mCameraControlAdapter.add(view3);
+		mCameraControlAdapter.clear();
+		for (int i=0; i<types.length; i++)
+		{
+			CameraControlData view = new CameraControlData(this, types[i], values[i]);
+			mCameraControlAdapter.add(view);
+		}
 	}
 
 	@Override
