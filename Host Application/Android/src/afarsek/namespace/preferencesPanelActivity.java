@@ -4,6 +4,7 @@ import ptp.DeviceInfo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -50,9 +51,30 @@ public class preferencesPanelActivity extends Activity
 		mLayout = (LinearLayout) findViewById(R.id.preferences_panel_layout);
 		mListView = (ListView) mLayout.findViewById(R.id.property_list_view);
 
-		// Create the items list
-		String[] mItemStrings = new String[mNumOfAvailableProperties];
+		Intent received = getIntent();
+		Bundle recBundle = received.getExtras();
+		
+		// the camera's available property list
+		int[] devInfoPropery = recBundle.getIntArray("AvailableProperties");
 		int count = 0;
+		
+		for (int i=0; i<mProperties.length; i++)
+		{
+			for (int j=0; j<devInfoPropery.length; j++)
+			{
+				if (devInfoPropery[j]==mProperties[i].mCode)
+				{
+					count++;
+					mProperties[i].mAvailable = true;
+					break;
+				}
+			}
+		}
+		
+		// Create the items list
+		mNumOfAvailableProperties = count;
+		String[] mItemStrings = new String[mNumOfAvailableProperties];
+		count = 0;
 
 		for (int i = 0; i < mProperties.length; i++)
 		{
@@ -69,7 +91,7 @@ public class preferencesPanelActivity extends Activity
 		mListView.setAdapter(mListAdapter);
 		mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		
-		int[] currentCodes = icicle.getIntArray("CurrentChosen");
+		int[] currentCodes = recBundle.getIntArray("CurrentChosen");
 		for (int i=0; i<mProperties.length; i++)
 		{
 			mProperties[i].mChosen = false;
@@ -88,7 +110,7 @@ public class preferencesPanelActivity extends Activity
 				boolean found = false;
 				for (k=0; k<mListAdapter.getCount(); k++)
 				{
-					if (mListAdapter.getItem(i)==mProperties[i].mItemString)
+					if (mListAdapter.getItem(k)==mProperties[i].mItemString)
 					{
 						found = true;
 						break;
@@ -103,15 +125,16 @@ public class preferencesPanelActivity extends Activity
 		// When item is tapped, toggle checked properties of CheckBox and Planet.
 		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
-
-			/*
-			 * Planet planet = listAdapter.getItem(position); planet.toggleChecked(); PlanetViewHolder viewHolder = (PlanetViewHolder)
-			 * item.getTag(); viewHolder.getCheckBox().setChecked(planet.isChecked());
-			 */
-
 			public void onItemClick(AdapterView<?> parent, View item, int position, long id)
 			{
-				mListAdapter.getItem(position);
+				boolean selected = mListView.isItemChecked(position);
+				String name = mListAdapter.getItem(position);
+				
+				for (int i=0; i<mProperties.length; i++)
+				{
+					if (mProperties[i].mItemString==name)
+						mProperties[i].mChosen = selected;
+				}
 			}
 		});
 	}
@@ -120,6 +143,7 @@ public class preferencesPanelActivity extends Activity
 	public void onBackPressed()
 	{
 		int count = 0;
+	
 		for (int i = 0; i < mProperties.length; i++)
 		{
 			if (mProperties[i].mChosen == true)
