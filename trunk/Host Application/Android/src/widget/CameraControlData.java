@@ -10,8 +10,7 @@ public class CameraControlData
 {
 	public enum controlType
 	{
-		controlType_Battery, controlType_WB, controlType_Aperture, controlType_FocalLength, controlType_FocusDistance, 
-		controlType_FocusMode, controlType_Flash, controlType_Shutter, controlType_ISO ;
+		controlType_Battery, controlType_WB, controlType_Aperture, controlType_FocalLength, controlType_FocusDistance, controlType_FocusMode, controlType_Flash, controlType_Shutter, controlType_ISO;
 	};
 
 	private Context mContext;
@@ -21,6 +20,7 @@ public class CameraControlData
 	private Drawable mValueBackground;
 	private String mActualText;
 	private boolean mReadOnly;
+
 	public CameraControlData(Context context, controlType type, int val)
 	{
 		mContext = context;
@@ -61,13 +61,13 @@ public class CameraControlData
 	public void setControlValue(int val)
 	{
 		mVal = val;
-		
-		if (val==-1)		// N/A
+
+		if (val == -1) // N/A
 		{
 			mActualText = "N/A";
 			return;
 		}
-		
+
 		switch (mType)
 		{
 		case controlType_FocusMode:
@@ -83,11 +83,11 @@ public class CameraControlData
 				mActualText = "AF-S";
 				break;
 			default:
-				mActualText = "AF-C";				
+				mActualText = "AF-C";
 			}
 			break;
 		case controlType_FocalLength:
-				mActualText = String.valueOf((double) (val) / 100.0) + "mm";
+			mActualText = String.valueOf((double) (val) / 100.0) + "mm";
 			break;
 		case controlType_Aperture:
 			mActualText = "F/" + String.valueOf((double) (val) / 100.0);
