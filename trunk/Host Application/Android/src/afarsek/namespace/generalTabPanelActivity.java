@@ -20,6 +20,12 @@ public class generalTabPanelActivity extends Activity
 	private GridView mControlGridView;
 	private CameraControlAdapter mCameraControlAdapter;
 
+	private controlType[] mTypes =
+	{ controlType.controlType_Battery, controlType.controlType_WB, controlType.controlType_Aperture, controlType.controlType_FocalLength,
+			controlType.controlType_FocusDistance, controlType.controlType_FocusMode, controlType.controlType_Flash,
+			controlType.controlType_Shutter, controlType.controlType_ISO };
+	private int[] mCurrentValues = {-1, -1, -1, -1, -1, -1, -1, -1, -1};
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -28,12 +34,12 @@ public class generalTabPanelActivity extends Activity
 
 		// Setup the window
 		setContentView(R.layout.general_tab_panel);
-		
+
 		mControlGridView = (GridView) findViewById(R.id.camera_control_grid);
 		mCameraControlAdapter = new CameraControlAdapter(this);
 		mControlGridView.setAdapter(mCameraControlAdapter);
-		
-		//setupControlWidgets();
+
+		setupControlWidgets(mTypes, mCurrentValues);
 
 		mControlGridView.setOnItemClickListener(new OnItemClickListener()
 		{
@@ -50,19 +56,22 @@ public class generalTabPanelActivity extends Activity
 	protected void onResume()
 	{
 		super.onResume();
-		//setupControlWidgets();
+		// setupControlWidgets();
 	}
-	
+
 	@Override
 	public void onConfigurationChanged(Configuration newConfig)
 	{
 		super.onConfigurationChanged(newConfig);
+		setupControlWidgets(mTypes, mCurrentValues);
 	}
 
 	public void setupControlWidgets(controlType[] types, int[] values)
 	{
 		mCameraControlAdapter.clear();
-		for (int i=0; i<types.length; i++)
+		mTypes = types;
+		mCurrentValues = values;
+		for (int i = 0; i < types.length; i++)
 		{
 			CameraControlData view = new CameraControlData(this, types[i], values[i]);
 			mCameraControlAdapter.add(view);

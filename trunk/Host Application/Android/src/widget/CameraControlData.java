@@ -62,6 +62,12 @@ public class CameraControlData
 	{
 		mVal = val;
 		
+		if (val==-1)		// N/A
+		{
+			mActualText = "N/A";
+			return;
+		}
+		
 		switch (mType)
 		{
 		case controlType_FocusMode:
