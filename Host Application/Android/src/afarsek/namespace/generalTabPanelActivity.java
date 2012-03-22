@@ -35,12 +35,20 @@ public class generalTabPanelActivity extends Activity
 		// Setup the window
 		setContentView(R.layout.general_tab_panel);
 
+
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		
 		mControlGridView = (GridView) findViewById(R.id.camera_control_grid);
 		mCameraControlAdapter = new CameraControlAdapter(this);
 		mControlGridView.setAdapter(mCameraControlAdapter);
 
 		setupControlWidgets(mTypes, mCurrentValues);
-
+		
 		mControlGridView.setOnItemClickListener(new OnItemClickListener()
 		{
 			// AdapterView<?> parent, View v, int position, long id
@@ -53,17 +61,10 @@ public class generalTabPanelActivity extends Activity
 	}
 
 	@Override
-	protected void onResume()
-	{
-		super.onResume();
-		// setupControlWidgets();
-	}
-
-	@Override
 	public void onConfigurationChanged(Configuration newConfig)
 	{
 		super.onConfigurationChanged(newConfig);
-		setupControlWidgets(mTypes, mCurrentValues);
+		
 	}
 
 	public void setupControlWidgets(controlType[] types, int[] values)
