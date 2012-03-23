@@ -2,6 +2,8 @@ package widget;
 
 import java.util.ArrayList;
 
+import widget.CameraControlData.controlType;
+
 import afarsek.namespace.R;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -23,6 +25,11 @@ public class CameraControlAdapter extends BaseAdapter
 		mControledList = new ArrayList<CameraControlData>();
 	}
 
+	public controlType getItemType (int position)
+	{
+		return mControledList.get(position).getType();
+	}
+	
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
