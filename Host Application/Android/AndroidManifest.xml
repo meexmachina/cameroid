@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:configChanges="keyboardHidden|orientation" 
+            android:configChanges="keyboardHidden|orientation"
             android:label="@string/main_panel_activity_title"
             android:name=".mainPanelActivity" >
             <intent-filter >
@@ -63,7 +63,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:configChanges="keyboardHidden|orientation" 
+            android:label="@string/title_about_camera"
+            android:name=".aboutCameraActivity"
+            android:theme="@android:style/Theme.Dialog" >
+            <intent-filter >
+                <action android:name="afarsek.namespace.ABOUTCAMERAACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:configChanges="keyboardHidden|orientation"
             android:label="@string/no_title"
             android:name=".galleryTabPanelActivity" >
             <intent-filter >
@@ -83,7 +93,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:configChanges="keyboardHidden|orientation" 
+            android:configChanges="keyboardHidden|orientation"
             android:label="@string/no_title"
             android:name=".advancedTabPanelActivity" >
             <intent-filter >

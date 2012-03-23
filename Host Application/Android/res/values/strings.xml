@@ -26,5 +26,6 @@
     <string name="title_about_afarsek">ABOUT AFARSEK</string>
     <string name="no_title">no title</string>
     <string name="widget_selection_title">Select Controls</string>
+    <string name="title_about_camera">About This Camera</string>
 
 </resources>
