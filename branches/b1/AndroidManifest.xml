@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="afarsek.namespace"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="7" />
+
+    <application
+        android:description="@string/description"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:name=".splash"
+            android:screenOrientation="portrait" >
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:configChanges="orientation"
+            android:label="@string/device_selection_activity_title"
+            android:name=".deviceSelectionActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter >
+                <action android:name="afarsek.namespace.DEVICESELECTIONACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/main_panel_activity_title"
+            android:name=".mainPanelActivity" >
+            <intent-filter >
+                <action android:name="afarsek.namespace.MAINPANELACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:label="@string/widget_selection_title"
+            android:name=".preferencesPanelActivity"
+            android:theme="@android:style/Theme.Dialog" >
+            <intent-filter >
+                <action android:name="afarsek.namespace.PREFERENCESPANELACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:label="@string/title_about_afarsek"
+            android:name=".aboutPanelActivity"
+            android:theme="@android:style/Theme.Dialog" >
+            <intent-filter >
+                <action android:name="afarsek.namespace.ABOUTPANELACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:label="@string/title_about_camera"
+            android:name=".aboutCameraActivity"
+            android:theme="@android:style/Theme.Dialog" >
+            <intent-filter >
+                <action android:name="afarsek.namespace.ABOUTCAMERAACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/no_title"
+            android:name=".galleryTabPanelActivity" >
+            <intent-filter >
+                <action android:name="afarsek.namespace.GALLERYTABPANELACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/no_title"
+            android:name=".generalTabPanelActivity" >
+            <intent-filter >
+                <action android:name="afarsek.namespace.GENERALTABPANELACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/no_title"
+            android:name=".advancedTabPanelActivity" >
+            <intent-filter >
+                <action android:name="afarsek.namespace.ADVANCEDTABPANELACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+</manifest>
