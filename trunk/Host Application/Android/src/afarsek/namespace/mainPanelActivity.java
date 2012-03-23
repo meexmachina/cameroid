@@ -5,27 +5,19 @@ import widget.ActionBar;
 import widget.ActionBar.AbstractAction;
 import widget.CameraControlData;
 import widget.CameraControlData.controlType;
-import afarsek.namespace.preferencesPanelActivity.propertyList;
-import android.app.Activity;
 import android.app.TabActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.Window;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
@@ -60,6 +52,14 @@ public class mainPanelActivity extends TabActivity
 		// Setup the action-bar
 		actionBar = (ActionBar) findViewById(R.id.actionbar_main);
 		actionBar.setTitle("Main Window");
+		actionBar.setOnTitleClickListener(new OnClickListener()
+		{
+			public void onClick(View v)
+			{
+				Intent aboutCameraIntent =  new Intent("afarsek.namespace.ABOUTCAMERAACTIVITY");
+				startActivity(aboutCameraIntent);
+			}
+		});
 		actionBar.addAction(new preferencesAction());
 
 		setTabs();
@@ -148,47 +148,46 @@ public class mainPanelActivity extends TabActivity
 
 		// TODO: Read those properties from the device
 		int[] values = new int[mUsedProperties.length];
-		
-				
+
 		// Rearrange the shown widgets
 		controlType[] types = new controlType[mUsedProperties.length];
-		for (int i=0; i<types.length; i++)
+		for (int i = 0; i < types.length; i++)
 		{
 			switch (mUsedProperties[i])
 			{
 			case DevicePropDesc.BatteryLevel:
-				types[i]=CameraControlData.controlType.controlType_Battery;
+				types[i] = CameraControlData.controlType.controlType_Battery;
 				break;
 			case DevicePropDesc.WhiteBalance:
-				types[i]=CameraControlData.controlType.controlType_WB;
+				types[i] = CameraControlData.controlType.controlType_WB;
 				break;
 			case DevicePropDesc.FStop:
-				types[i]=CameraControlData.controlType.controlType_Aperture;
+				types[i] = CameraControlData.controlType.controlType_Aperture;
 				break;
 			case DevicePropDesc.FocalLength:
-				types[i]=CameraControlData.controlType.controlType_FocalLength;
+				types[i] = CameraControlData.controlType.controlType_FocalLength;
 				break;
 			case DevicePropDesc.FocusDistance:
-				types[i]=CameraControlData.controlType.controlType_FocusDistance;
+				types[i] = CameraControlData.controlType.controlType_FocusDistance;
 				break;
 			case DevicePropDesc.FocusMode:
-				types[i]=CameraControlData.controlType.controlType_FocusMode;
+				types[i] = CameraControlData.controlType.controlType_FocusMode;
 				break;
 			case DevicePropDesc.FlashMode:
-				types[i]=CameraControlData.controlType.controlType_Flash;
+				types[i] = CameraControlData.controlType.controlType_Flash;
 				break;
 			case DevicePropDesc.ExposureTime:
-				types[i]=CameraControlData.controlType.controlType_Shutter;
+				types[i] = CameraControlData.controlType.controlType_Shutter;
 				break;
 			case DevicePropDesc.ExposureIndex:
-				types[i]=CameraControlData.controlType.controlType_ISO;
+				types[i] = CameraControlData.controlType.controlType_ISO;
 				break;
 			}
-			
+
 			values[i] = 2;
 		}
 
-		((generalTabPanelActivity) (this.getLocalActivityManager().getCurrentActivity())).setupControlWidgets(types,values);
+		((generalTabPanelActivity) (this.getLocalActivityManager().getCurrentActivity())).setupControlWidgets(types, values);
 	}
 
 	@Override
