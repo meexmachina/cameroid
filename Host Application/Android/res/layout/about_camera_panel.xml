@@ -2,12 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linearLayout1"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/about_panel_drawable" />
 
     <ScrollView
         android:id="@+id/ScrlView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_width="300dp"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -36,8 +45,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="Manufacturer:"
-                    android:textStyle="bold"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView1"
@@ -47,11 +56,10 @@
                     android:gravity="right"
                     android:text="Nikon Corporation (c)"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
-
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textView70"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -71,8 +79,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="Model:"
-                    android:textStyle="bold"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView1"
@@ -84,7 +92,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textView71"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -104,8 +112,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="Version:"
-                    android:textStyle="bold"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView1"
@@ -117,7 +125,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textView72"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -137,8 +145,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="Serial Number:"
-                    android:textStyle="bold"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView1"
