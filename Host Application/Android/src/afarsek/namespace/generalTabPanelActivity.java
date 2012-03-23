@@ -56,50 +56,59 @@ public class generalTabPanelActivity extends Activity
 			return;
 		case controlType_WB:
 			title = "White Balance";
-			String[] temp1 = {"aa","bb"};
+			String[] temp1 =
+			{ "Manual K", "Auto WB", "Single Auto WB", "Daylight", "Fluorescence", "Tungsten", "Flash" };
 			menuItems = temp1.clone();
 			break;
 		case controlType_Aperture:
 			title = "Aperture";
-			String[] temp2 = {"aa","bb"};
+			String[] temp2 =
+			{ "F/1.0", "F/1.4", "F/1.8", "F/2.0", "F/2.8", "F/3.5", "F/4.0", "F/5.6", "F/8.0" };
 			menuItems = temp2.clone();
 			break;
 		case controlType_FocalLength:
-			title = "Focal Length";
-			String[] temp3 = {"aa","bb"};
-			menuItems = temp3.clone();
+			Toast.makeText(getApplicationContext(), "This property is read-only.", Toast.LENGTH_SHORT).show();
+			// title = "Focal Length";
+			// String[] temp3 = {"aa","bb"};
+			// menuItems = temp3.clone();
 			break;
 		case controlType_FocusDistance:
 			title = "Focus Distance";
-			String[] temp4 = {"aa","bb"};
+			String[] temp4 =
+			{ "aa", "bb" };
 			menuItems = temp4.clone();
 			break;
 		case controlType_FocusMode:
 			title = "Focus Mode";
-			String[] temp5 = {"aa","bb"};
+			String[] temp5 =
+			{ "Manual", "AF-S", "AF-C" };
 			menuItems = temp5.clone();
 			break;
 		case controlType_Flash:
 			title = "Flash Mode";
-			String[] temp6 = {"aa","bb"};
+			String[] temp6 =
+			{ "Auto Flash", "Flash Off", "Fill Flash", "Red-Eye Auto", "Red-Eye Fill", "External Sync" };
 			menuItems = temp6.clone();
 			break;
 		case controlType_Shutter:
 			title = "Shutter Speed";
-			String[] temp7 = {"aa","bb"};
+			String[] temp7 =
+			{ "aa", "bb" };
 			menuItems = temp7.clone();
 			break;
 		case controlType_ISO:
 			title = "ISO Speed";
-			String[] temp8 = {"aa","bb"};
+			String[] temp8 =
+			{ "100", "200", "400", "600", "800", "1000", "1250", "1600", "2000", "2400", "3200", "6400" };
 			menuItems = temp8.clone();
 			break;
 		default:
 		}
 
 		menu.setHeaderTitle(title);
-		
-		if (menuItems==null) return;
+
+		if (menuItems == null)
+			return;
 
 		for (int i = 0; i < menuItems.length; i++)
 		{
