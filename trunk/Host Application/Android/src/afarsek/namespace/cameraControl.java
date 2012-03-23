@@ -3,10 +3,14 @@
  */
 package afarsek.namespace;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import ptp.DeviceInfo;
+import ptp.DevicePropDesc;
 import ptp.NameFactory;
 import ptp.StorageInfo;
 
@@ -24,8 +28,8 @@ public class cameraControl
 	public int mCameraAttached = 0;
 	public DeviceInfo mDeviceInfo = null;
 	public StorageInfo mStorageInfo = null;
+	public ArrayList<DevicePropDesc> mPropertyArray = new ArrayList<DevicePropDesc>();
 	private NameFactory mNameFactory = new NameFactory();
-
 	private Timer timer;
 
 	private String mConnectedDeviceName = null; // Name of the connected device
@@ -43,6 +47,16 @@ public class cameraControl
 		// Get the BT device from name
 		mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(mConnectedDeviceName);
 
+	}
+	
+	public int findProperty(int propCode)
+	{
+		for (int i=0; i<mPropertyArray.size(); i++)
+		{
+			if (mPropertyArray.get(i).propertyCode==propCode)
+				return i;
+		}
+		return -1;
 	}
 
 	private void getID()
@@ -212,6 +226,16 @@ public class cameraControl
 
 				} else if (tagIndex == MessageElement.MessageTags.ME_PROPERTY_DESC.getIndex())
 				{
+					DevicePropDesc prop = new DevicePropDesc(mNameFactory, tempBuf.clone());
+					int pos = findProperty(prop.propertyCode);
+					if (pos==-1)	// not found
+					{
+						mPropertyArray.add(prop);
+					}
+					else
+					{
+						mPropertyArray.set(pos, prop);
+					}
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_PROPERTY_INFO, -1, -1).sendToTarget();
 				} else if (tagIndex == MessageElement.MessageTags.ME_STORAGE_INFO.getIndex())
 				{

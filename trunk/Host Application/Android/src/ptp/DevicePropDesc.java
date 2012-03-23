@@ -15,13 +15,13 @@ import java.util.Vector;
  */
 public class DevicePropDesc extends Data
 {
-	int propertyCode;
-	int dataType;
-	boolean writable;
-	Object factoryDefault;
-	Object currentValue;
-	int formType;
-	Object constraints;
+	public int propertyCode;
+	public int dataType;
+	public boolean writable;
+	public Object factoryDefault;
+	public Object currentValue;
+	public int formType;
+	public Object constraints;
 
 	public DevicePropDesc(NameFactory f)
 	{
