@@ -65,10 +65,34 @@ public class cameraControl
 		mHardwareFacade.write_queue("get_storage_info_bin 0:".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
 	}
 
-	private void getPropertiesDescriptions()
+	public int getPropertiesDescriptions(int propCode)
 	{
-		int[] props = mDeviceInfo.propertiesSupported;
+		if (mCameraAttached == 0)
+		{
+			return -1;
+		}
 
+		int[] props = mDeviceInfo.propertiesSupported;
+		boolean found = false;
+
+		for (int i = 0; i < props.length; i++)
+		{
+			if (props[i] == propCode)
+			{
+				found = true;
+				break;
+			}
+		}
+
+		if (found == false)
+		{
+			return -2;
+		}
+
+		mHardwareFacade.write_queue(("get_prop_desc_bin " + String.valueOf(propCode) + ":").getBytes(),
+				MessageElement.MessageTags.ME_PROPERTY_DESC);
+
+		return 0;
 	}
 
 	class StatusTask extends TimerTask
@@ -103,16 +127,15 @@ public class cameraControl
 		// TODO Auto-generated method stub
 
 	}
-	
-	public int cameraAttached ()
+
+	public int cameraAttached()
 	{
-		return mCameraAttached; 
+		return mCameraAttached;
 	}
 
 	// The Handler that gets information back from the hardwareFacade
 	private final Handler mHardwareDataHandler = new Handler()
 	{
-		private int curType = 0;
 		private int curLength = 0;
 		private int lastWrittenLength = 0;
 		private byte[] tempBuf;
@@ -153,7 +176,6 @@ public class cameraControl
 					// Combine the header info
 					if (lastWrittenLength == 0)
 					{
-						curType = header[0];
 						curLength = header[1] | (header[2] << 8);
 						tempBuf = new byte[curLength];
 					}
@@ -171,7 +193,6 @@ public class cameraControl
 					if (lastWrittenLength == curLength)
 					{
 						curLength = 0;
-						curType = 0;
 						lastWrittenLength = 0;
 						lastWrittentHeader = 0;
 						mHardwareFacade.release_from_queue();
@@ -191,15 +212,16 @@ public class cameraControl
 
 				} else if (tagIndex == MessageElement.MessageTags.ME_PROPERTY_DESC.getIndex())
 				{
-
+					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_PROPERTY_INFO, -1, -1).sendToTarget();
 				} else if (tagIndex == MessageElement.MessageTags.ME_STORAGE_INFO.getIndex())
 				{
 					mStorageInfo = new StorageInfo(mNameFactory, tempBuf.clone());
+					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_STORAGE_INFO, -1, -1).sendToTarget();
 				} else if (tagIndex == MessageElement.MessageTags.ME_DEVICE_INFO.getIndex())
 				{
 					mDeviceInfo = new DeviceInfo(mNameFactory, tempBuf.clone());
+					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_DEVICE_INFO, -1, -1).sendToTarget();
 					getStorageInfo();
-					getPropertiesDescriptions();
 				} else if (tagIndex == MessageElement.MessageTags.ME_STATUS.getIndex())
 				{
 					// if we recognize that a new camera was attached

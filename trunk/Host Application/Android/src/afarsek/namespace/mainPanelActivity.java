@@ -100,7 +100,7 @@ public class mainPanelActivity extends TabActivity
 	{
 		public void run()
 		{
-			
+			// update the 
 		}
 	}
 
@@ -314,11 +314,19 @@ public class mainPanelActivity extends TabActivity
 				}
 				break;
 			case messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE:
-				// if (msg.arg1 == 1)
-				// mCameraConnectedText.setText(R.string.camera_connected);
-				// else
-				// mCameraConnectedText.setText(R.string.camera_not_connected);
+				// if connected then start negotiation
+				// if not connected hide icons
 				break;
+				
+			case messageDefinitions.MESSAGE_CAMERA_DEVICE_INFO:
+				break;
+				
+			case messageDefinitions.MESSAGE_CAMERA_STORAGE_INFO:
+				break;
+				
+			case messageDefinitions.MESSAGE_CAMERA_PROPERTY_INFO:
+				break;
+				
 			case messageDefinitions.MESSAGE_DEVICE_NAME:
 				// save the connected device's name
 				mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
