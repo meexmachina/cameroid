@@ -37,18 +37,16 @@ public class CameraControlAdapter extends BaseAdapter
 		{
 			gridView = (View) convertView;
 		}
-		
+
 		ImageView mSymbolView = (ImageView) gridView.findViewById(R.id.control_symbol);
 		mSymbolView.setImageDrawable(mControledList.get(position).getIcon());
-		
+
 		RelativeLayout secLayout = (RelativeLayout) gridView.findViewById(R.id.value_layout);
 		TextView textView = (TextView) secLayout.findViewById(R.id.control_value);
 		textView.setText(mControledList.get(position).getText());
-		
-		
-		//if (mControledList.get(position).getValueBackground()!=null)
+
 		secLayout.setBackgroundDrawable(mControledList.get(position).getValueBackground());
-		
+
 		return gridView;
 	}
 
