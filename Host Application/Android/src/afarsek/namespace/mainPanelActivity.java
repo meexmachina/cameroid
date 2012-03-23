@@ -32,6 +32,7 @@ public class mainPanelActivity extends TabActivity
 	private ActionBar actionBar;
 	private TabHost tabHost;
 	private int mCurrentTab = 1;
+	private boolean mCameraAttached = false; 
 
 	int[] mUsedProperties;
 
@@ -57,6 +58,22 @@ public class mainPanelActivity extends TabActivity
 			public void onClick(View v)
 			{
 				Intent aboutCameraIntent =  new Intent("afarsek.namespace.ABOUTCAMERAACTIVITY");
+				
+				if (mCameraAttached==true)
+				{
+					aboutCameraIntent.putExtra("Manufacturer", mCameraControl.mDeviceInfo.manufacturer);
+					aboutCameraIntent.putExtra("Model", mCameraControl.mDeviceInfo.model);
+					aboutCameraIntent.putExtra("Version", mCameraControl.mDeviceInfo.deviceVersion);
+					aboutCameraIntent.putExtra("SerialNumber", mCameraControl.mDeviceInfo.serialNumber);
+				}
+				else
+				{
+					aboutCameraIntent.putExtra("Manufacturer", "n/a");
+					aboutCameraIntent.putExtra("Model", "n/a");
+					aboutCameraIntent.putExtra("Version", "n/a");
+					aboutCameraIntent.putExtra("SerialNumber", "n/a");
+				}
+				
 				startActivity(aboutCameraIntent);
 			}
 		});
