@@ -144,14 +144,6 @@ public class generalTabPanelActivity extends Activity
 		registerForContextMenu(mControlGridView);
 
 		setupControlWidgets(mTypes, mCurrentValues);
-
-		/*
-		 * mControlGridView.setOnItemClickListener(new OnItemClickListener() { // AdapterView<?> parent, View v, int position, long id
-		 * public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) { Toast.makeText(getApplicationContext(), "Bla",
-		 * Toast.LENGTH_SHORT).show();
-		 * 
-		 * } });
-		 */
 	}
 
 	@Override

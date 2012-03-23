@@ -11,23 +11,23 @@ public class DeviceInfo extends Data
 {
 	// need some transport-neutral interface; this is USB-specific
 
-	int standardVersion;
-	int vendorExtensionId;
-	int vendorExtensionVersion;
-	String vendorExtensionDesc;
+	public int standardVersion;
+	public int vendorExtensionId;
+	public int vendorExtensionVersion;
+	public String vendorExtensionDesc;
 
-	int functionalMode; // may change;
+	public int functionalMode; // may change;
 	public int operationsSupported[]; // 10.2
 	public int eventsSupported[]; // 12.5
 	public int propertiesSupported[]; // 13.3.5
 
-	int captureFormats[]; // 6
-	int imageFormats[]; // 6
-	String manufacturer;
-	String model;
+	public int captureFormats[]; // 6
+	public int imageFormats[]; // 6
+	public String manufacturer;
+	public String model;
 
-	String deviceVersion;
-	String serialNumber;
+	public String deviceVersion;
+	public String serialNumber;
 
 	// FIXME add formal vendor hooks, which we'd consult for string
 	// mappings ... we don't have any here.

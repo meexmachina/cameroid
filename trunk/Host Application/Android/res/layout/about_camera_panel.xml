@@ -49,7 +49,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/manTextView"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -83,7 +83,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/modelTextView"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
@@ -116,7 +116,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/verTextView"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
@@ -149,7 +149,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/serNumTextView"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
