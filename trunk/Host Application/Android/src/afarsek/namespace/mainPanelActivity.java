@@ -1,10 +1,14 @@
 package afarsek.namespace;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import ptp.DevicePropDesc;
 import widget.ActionBar;
 import widget.ActionBar.AbstractAction;
 import widget.CameraControlData;
 import widget.CameraControlData.controlType;
+import afarsek.namespace.cameraControl.StatusTask;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -32,7 +36,7 @@ public class mainPanelActivity extends TabActivity
 	private ActionBar actionBar;
 	private TabHost tabHost;
 	private int mCurrentTab = 1;
-	private boolean mCameraAttached = false; 
+	private Timer timer;
 
 	int[] mUsedProperties;
 
@@ -41,6 +45,7 @@ public class mainPanelActivity extends TabActivity
 	public static final String DEVICE_NAME = "device_name";
 	public static final String TOAST = "toast";
 
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -57,33 +62,28 @@ public class mainPanelActivity extends TabActivity
 		{
 			public void onClick(View v)
 			{
-				Intent aboutCameraIntent =  new Intent("afarsek.namespace.ABOUTCAMERAACTIVITY");
-				
-				if (mCameraAttached==true)
+				Intent aboutCameraIntent = new Intent("afarsek.namespace.ABOUTCAMERAACTIVITY");
+
+				if (mCameraControl.cameraAttached() == 1)
 				{
 					aboutCameraIntent.putExtra("Manufacturer", mCameraControl.mDeviceInfo.manufacturer);
 					aboutCameraIntent.putExtra("Model", mCameraControl.mDeviceInfo.model);
 					aboutCameraIntent.putExtra("Version", mCameraControl.mDeviceInfo.deviceVersion);
 					aboutCameraIntent.putExtra("SerialNumber", mCameraControl.mDeviceInfo.serialNumber);
-				}
-				else
+				} else
 				{
 					aboutCameraIntent.putExtra("Manufacturer", "n/a");
 					aboutCameraIntent.putExtra("Model", "n/a");
 					aboutCameraIntent.putExtra("Version", "n/a");
 					aboutCameraIntent.putExtra("SerialNumber", "n/a");
 				}
-				
+
 				startActivity(aboutCameraIntent);
 			}
 		});
 		actionBar.addAction(new preferencesAction());
 
 		setTabs();
-
-		// Set up the text view for camera connected
-		// mCameraConnectedText = (TextView) findViewById(R.id.camera_connected);
-		// mCameraConnectedText.setText(R.string.camera_not_connected);
 
 		// Obtain the sent bundle
 		Bundle extras = getIntent().getExtras();
@@ -92,20 +92,16 @@ public class mainPanelActivity extends TabActivity
 			mConnectedDeviceName = extras.getString(EXTRA_DEVICE_ADDRESS);
 		}
 
-		// Get local Bluetooth adapter
-		/*
-		 * mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-		 * 
-		 * // If the adapter is null, then Bluetooth is not supported if (mBluetoothAdapter == null) { Toast.makeText(this,
-		 * "Bluetooth is not available", Toast.LENGTH_LONG).show(); finish(); return; }
-		 */
-
-		// Button definitions
-		/*
-		 * Button captureButton = (Button) findViewById(R.id.capture_button); captureButton.setOnClickListener(new OnClickListener() {
-		 * public void onClick(View v) { mCameraControl.capture(); } });
-		 */
-
+		timer = new Timer();
+		timer.scheduleAtFixedRate(new StatusTask(), 1000, 200);
+	}
+	
+	class StatusTask extends TimerTask
+	{
+		public void run()
+		{
+			
+		}
 	}
 
 	@Override
@@ -214,10 +210,8 @@ public class mainPanelActivity extends TabActivity
 		switch (item.getItemId())
 		{
 		case R.id.preferences:
-			// newGame();
 			return super.onOptionsItemSelected(item);
 		case R.id.help:
-			// showHelp();
 			return super.onOptionsItemSelected(item);
 		case R.id.about:
 			Intent aboutPanel = new Intent("afarsek.namespace.ABOUTPANELACTIVITY");
