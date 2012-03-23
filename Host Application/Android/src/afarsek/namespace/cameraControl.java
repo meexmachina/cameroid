@@ -88,7 +88,7 @@ public class cameraControl
 		mHardwareFacade.connect(mBluetoothDevice);
 
 		timer = new Timer();
-		timer.scheduleAtFixedRate(new StatusTask(), 5000, 1000);
+		timer.scheduleAtFixedRate(new StatusTask(), 4000, 1000);
 	}
 
 	public void disconnect()
@@ -102,6 +102,11 @@ public class cameraControl
 	{
 		// TODO Auto-generated method stub
 
+	}
+	
+	public int cameraAttached ()
+	{
+		return mCameraAttached; 
 	}
 
 	// The Handler that gets information back from the hardwareFacade
