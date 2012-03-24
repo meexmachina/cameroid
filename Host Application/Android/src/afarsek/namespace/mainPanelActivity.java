@@ -9,6 +9,7 @@ import widget.ActionBar.AbstractAction;
 import widget.CameraControlData;
 import widget.CameraControlData.controlType;
 import afarsek.namespace.cameraControl.StatusTask;
+import android.app.LocalActivityManager;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -37,15 +38,16 @@ public class mainPanelActivity extends TabActivity
 	private TabHost tabHost;
 	private int mCurrentTab = 1;
 	private Timer timer;
+	private LocalActivityManager mLocalActivityManager = null;
 
-	int[] mUsedProperties;
+	private int[] mUsedProperties;
+	private int mCurrentlyUpdatingProperty = 0;
 
 	// Constants
 	public static final String EXTRA_DEVICE_ADDRESS = "device_address";
 	public static final String DEVICE_NAME = "device_name";
 	public static final String TOAST = "toast";
 
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -85,6 +87,8 @@ public class mainPanelActivity extends TabActivity
 
 		setTabs();
 
+		mLocalActivityManager = this.getLocalActivityManager();
+
 		// Obtain the sent bundle
 		Bundle extras = getIntent().getExtras();
 		if (extras != null)
@@ -93,14 +97,24 @@ public class mainPanelActivity extends TabActivity
 		}
 
 		timer = new Timer();
-		timer.scheduleAtFixedRate(new StatusTask(), 1000, 200);
+		timer.scheduleAtFixedRate(new StatusTask(), 1000, 400);
 	}
-	
+
 	class StatusTask extends TimerTask
 	{
 		public void run()
 		{
-			// update the 
+			if (mCameraControl.mCameraAttached == 0)
+				return;
+
+			if (mUsedProperties == null)
+				return;
+			
+			if (mUsedProperties.length == 0)
+				return;
+
+			mCurrentlyUpdatingProperty = (mCurrentlyUpdatingProperty + 1) % mUsedProperties.length;
+			mCameraControl.getPropertiesDescriptions(mUsedProperties[mCurrentlyUpdatingProperty]);
 		}
 	}
 
@@ -197,7 +211,7 @@ public class mainPanelActivity extends TabActivity
 				break;
 			}
 
-			values[i] = 2;
+			values[i] = -1;
 		}
 
 		((generalTabPanelActivity) (this.getLocalActivityManager().getCurrentActivity())).setupControlWidgets(types, values);
@@ -220,24 +234,6 @@ public class mainPanelActivity extends TabActivity
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-	}
-
-	@Override
-	public void onConfigurationChanged(Configuration newConfig)
-	{
-		super.onConfigurationChanged(newConfig);
-
-		mCurrentTab = tabHost.getCurrentTab();
-
-		// Set up the window layout
-		setContentView(R.layout.main_panel);
-
-		// Setup the action-bar
-		actionBar = (ActionBar) findViewById(R.id.actionbar_main);
-		actionBar.setTitle("Main Window");
-		actionBar.addAction(new preferencesAction());
-
-		setTabs();
 	}
 
 	private void setTabs()
@@ -317,16 +313,64 @@ public class mainPanelActivity extends TabActivity
 				// if connected then start negotiation
 				// if not connected hide icons
 				break;
-				
+
 			case messageDefinitions.MESSAGE_CAMERA_DEVICE_INFO:
 				break;
-				
+
 			case messageDefinitions.MESSAGE_CAMERA_STORAGE_INFO:
 				break;
-				
+
 			case messageDefinitions.MESSAGE_CAMERA_PROPERTY_INFO:
-				break;
+				int propCode = msg.arg1;
+				if (mCurrentTab != 1)
+					break;
+
+				int propIndex = mCameraControl.findProperty(propCode);
+
+				if (propIndex == -1)
+					break;
 				
+				DevicePropDesc prop = mCameraControl.mPropertyArray.get(propIndex);
+				controlType type = null;
+				int value = 0;
+				
+				DevicePropDesc.Range range = prop.getRange();
+				value = (Integer) prop.getValue();
+				
+				switch (propCode)
+				{
+				case DevicePropDesc.BatteryLevel:
+					type = CameraControlData.controlType.controlType_Battery;
+					break;
+				case DevicePropDesc.WhiteBalance:
+					type = CameraControlData.controlType.controlType_WB;
+					break;
+				case DevicePropDesc.FStop:
+					type = CameraControlData.controlType.controlType_Aperture;
+					break;
+				case DevicePropDesc.FocalLength:
+					type = CameraControlData.controlType.controlType_FocalLength;
+					break;
+				case DevicePropDesc.FocusDistance:
+					type = CameraControlData.controlType.controlType_FocusDistance;
+					break;
+				case DevicePropDesc.FocusMode:
+					type = CameraControlData.controlType.controlType_FocusMode;
+					break;
+				case DevicePropDesc.FlashMode:
+					type = CameraControlData.controlType.controlType_Flash;
+					break;
+				case DevicePropDesc.ExposureTime:
+					type = CameraControlData.controlType.controlType_Shutter;
+					break;
+				case DevicePropDesc.ExposureIndex:
+					type = CameraControlData.controlType.controlType_ISO;
+					break;
+				}
+
+				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData (type, value, range);
+				break;
+
 			case messageDefinitions.MESSAGE_DEVICE_NAME:
 				// save the connected device's name
 				mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);

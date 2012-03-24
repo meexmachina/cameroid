@@ -1,5 +1,6 @@
 package afarsek.namespace;
 
+import ptp.DevicePropDesc;
 import widget.CameraControlAdapter;
 import widget.CameraControlData;
 import widget.CameraControlData.controlType;
@@ -163,6 +164,19 @@ public class generalTabPanelActivity extends Activity
 		{
 			CameraControlData view = new CameraControlData(this, types[i], values[i]);
 			mCameraControlAdapter.add(view);
+		}
+	}
+	
+	public void updateControlWidgetData (controlType type, int value, DevicePropDesc.Range range)
+	{
+		for (int i=0; i<mCameraControlAdapter.getCount(); i++)
+		{
+			CameraControlData view = (CameraControlData) mCameraControlAdapter.getItem(i);
+			if (view.getType()==type)
+			{
+				view.setControlValue(value);
+				mCameraControlAdapter.notifyDataSetChanged();
+			}
 		}
 	}
 
