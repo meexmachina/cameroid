@@ -199,4 +199,5 @@ uint16_t CameraControl_DeviceOperation_GetPropertyDescBin ( USB_ClassInfo_SI_Hos
 	}
 
 	return 0;
-}
+}
+
