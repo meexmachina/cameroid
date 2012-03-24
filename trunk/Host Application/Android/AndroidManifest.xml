@@ -35,8 +35,8 @@
         <activity
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/main_panel_activity_title"
-            android:screenOrientation="portrait"
-            android:name=".mainPanelActivity" >
+            android:name=".mainPanelActivity"
+            android:screenOrientation="portrait" >
             <intent-filter >
                 <action android:name="afarsek.namespace.MAINPANELACTIVITY" />
 
@@ -79,8 +79,8 @@
         <activity
             android:configChanges="orientation"
             android:label="@string/no_title"
-            android:screenOrientation="portrait"
-            android:name=".galleryTabPanelActivity" >
+            android:name=".galleryTabPanelActivity"
+            android:screenOrientation="portrait" >
             <intent-filter >
                 <action android:name="afarsek.namespace.GALLERYTABPANELACTIVITY" />
 
@@ -90,8 +90,8 @@
         <activity
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/no_title"
-            android:screenOrientation="portrait"
-            android:name=".generalTabPanelActivity" >
+            android:name=".generalTabPanelActivity"
+            android:screenOrientation="portrait" >
             <intent-filter >
                 <action android:name="afarsek.namespace.GENERALTABPANELACTIVITY" />
 
@@ -101,8 +101,8 @@
         <activity
             android:configChanges="orientation"
             android:label="@string/no_title"
-            android:screenOrientation="portrait"
-            android:name=".advancedTabPanelActivity" >
+            android:name=".advancedTabPanelActivity"
+            android:screenOrientation="portrait" >
             <intent-filter >
                 <action android:name="afarsek.namespace.ADVANCEDTABPANELACTIVITY" />
 
