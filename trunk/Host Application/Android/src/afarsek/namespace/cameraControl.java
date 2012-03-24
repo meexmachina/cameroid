@@ -236,7 +236,7 @@ public class cameraControl
 					{
 						mPropertyArray.set(pos, prop);
 					}
-					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_PROPERTY_INFO, -1, -1).sendToTarget();
+					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_PROPERTY_INFO, prop.propertyCode, -1).sendToTarget();
 				} else if (tagIndex == MessageElement.MessageTags.ME_STORAGE_INFO.getIndex())
 				{
 					mStorageInfo = new StorageInfo(mNameFactory, tempBuf.clone());

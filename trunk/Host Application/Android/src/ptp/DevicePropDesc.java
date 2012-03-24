@@ -21,7 +21,7 @@ public class DevicePropDesc extends Data
 	public Object factoryDefault;
 	public Object currentValue;
 	public int formType;
-	public Object constraints;
+	Object constraints;
 
 	public DevicePropDesc(NameFactory f)
 	{
@@ -97,7 +97,7 @@ public class DevicePropDesc extends Data
 			break;
 		case 2:
 		{
-			Vector v = (Vector) constraints;
+			Vector<?> v = (Vector<?>) constraints;
 			out.print(" { ");
 			for (int i = 0; i < v.size(); i++)
 			{
@@ -275,10 +275,10 @@ public class DevicePropDesc extends Data
 		return null;
 	}
 
-	private Vector parseEnumeration()
+	private Vector<Object> parseEnumeration()
 	{
 		int len = nextU16();
-		Vector retval = new Vector(len);
+		Vector<Object> retval = new Vector<Object>(len);
 
 		while (len-- > 0)
 			retval.addElement(DevicePropValue.get(dataType, this));
@@ -286,10 +286,10 @@ public class DevicePropDesc extends Data
 	}
 
 	/** Returns any enumerated options for this property's value, or null */
-	public Vector getEnumeration()
+	public Vector<?> getEnumeration()
 	{
 		if (formType == 2)
-			return (Vector) constraints;
+			return (Vector<?>) constraints;
 		return null;
 	}
 }
