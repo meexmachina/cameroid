@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +43,15 @@ public class generalTabPanelActivity extends Activity
 
 	}
 
+	@Override
+	public void onBackPressed()
+	{
+		Log.d("General Activity", "Back button was pressed. going back to device selection activity.");
+		Intent discoveryPanel = new Intent("afarsek.namespace.DEVICESELECTIONACTIVITY");
+		startActivity(discoveryPanel);
+		finish();
+	};
+	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
 	{
@@ -180,11 +190,4 @@ public class generalTabPanelActivity extends Activity
 		}
 	}
 
-	@Override
-	public void onBackPressed()
-	{
-		Intent discoveryPanel = new Intent("afarsek.namespace.DEVICESELECTIONACTIVITY");
-		startActivity(discoveryPanel);
-		finish();
-	};
 }
