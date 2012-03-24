@@ -16,6 +16,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 public class cameraControl
 {
@@ -36,6 +37,8 @@ public class cameraControl
 	{
 		super();
 
+		Log.d("Camera Control Class", "C'tor CameraControl: DevName" + devName);
+
 		mConnectedDeviceName = devName;
 		mMainPanelHandler = handler;
 
@@ -44,44 +47,67 @@ public class cameraControl
 
 		// Get the BT device from name
 		mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(mConnectedDeviceName);
-
+		Log.d("Camera Control Class", "C'tor - got the bluetooth device from name: " + mConnectedDeviceName);
 	}
-	
+
 	public int findProperty(int propCode)
 	{
-		for (int i=0; i<mPropertyArray.size(); i++)
+		Log.d("Camera Control Class", "findProperty - searching for propCode: " + Integer.toHexString(propCode));
+		for (int i = 0; i < mPropertyArray.size(); i++)
 		{
-			if (mPropertyArray.get(i).propertyCode==propCode)
+			if (mPropertyArray.get(i).propertyCode == propCode)
+			{
+				Log.d("Camera Control Class", "findProperty - found at index: " + Integer.toString(i));
 				return i;
+			}
 		}
+		Log.d("Camera Control Class", "findProperty - not found, returning -1.");
 		return -1;
 	}
 
 	private void getID()
 	{
+		Log.d("Camera Control Class", "getID - enqueuing 'idn_bin:' command.");
 		mHardwareFacade.write_queue("idn_bin:".getBytes(), MessageElement.MessageTags.ME_STATUS);
 	}
 
 	private void getStatus()
 	{
+		Log.d("Camera Control Class", "getStatus - enqueuing 'status_bin:' command.");
 		mHardwareFacade.write_queue("status_bin:".getBytes(), MessageElement.MessageTags.ME_STATUS);
 	}
 
 	private void getDeviceInfo()
 	{
+		Log.d("Camera Control Class", "getDeviceInfo - enqueuing 'get_dev_info_bin:' command.");
 		mHardwareFacade.write_queue("get_dev_info_bin:".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
 	}
 
 	private void getStorageInfo()
 	{
+		Log.d("Camera Control Class", "getStorageInfo - enqueuing 'get_storage_info_bin 0:' command.");
 		mHardwareFacade.write_queue("get_storage_info_bin 0:".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
 	}
 
 	public int getPropertiesDescriptions(int propCode)
 	{
+		Log.d("Camera Control Class", "getPropertiesDescriptions - trying to get property info: " + Integer.toHexString(propCode));
 		if (mCameraAttached == 0)
 		{
+			Log.d("Camera Control Class", "getPropertiesDescriptions - camera is not attached yet.");
 			return -1;
+		}
+
+		if (mDeviceInfo == null)
+		{
+			Log.d("Camera Control Class", "getPropertiesDescriptions - DeviceInfo was not initialized yet.");
+			return -2;
+		}
+
+		if (mDeviceInfo.propertiesSupported.length == 0)
+		{
+			Log.d("Camera Control Class", "getPropertiesDescriptions - DeviceInfo.propertiesSupported was not initialized yet or empty.");
+			return -3;
 		}
 
 		int[] props = mDeviceInfo.propertiesSupported;
@@ -98,9 +124,12 @@ public class cameraControl
 
 		if (found == false)
 		{
-			return -2;
+			Log.d("Camera Control Class", "getPropertiesDescriptions - propCode " + Integer.toHexString(propCode)
+					+ "was not foound in the supported properties.");
+			return -4;
 		}
 
+		Log.d("Camera Control Class", "getPropertiesDescriptions - enqueuing 'get_prop_desc_bin propCode:' command.");
 		mHardwareFacade.write_queue(("get_prop_desc_bin " + String.valueOf(propCode) + ":").getBytes(),
 				MessageElement.MessageTags.ME_PROPERTY_DESC);
 
@@ -118,8 +147,12 @@ public class cameraControl
 	public void connect()
 	{
 		if (mHardwareFacade == null)
+		{
+			Log.d("Camera Control Class", "connect - Initializing mHardwareFacade.");
 			mHardwareFacade = new hardwareFacade(mHardwareDataHandler);
+		}
 
+		Log.d("Camera Control Class", "connect - trying to connect mBTDevice.");
 		// Try to connect
 		mHardwareFacade.connect(mBluetoothDevice);
 
@@ -129,7 +162,9 @@ public class cameraControl
 
 	public void disconnect()
 	{
+		Log.d("Camera Control Class", "disconnect - cancelling timer events.");
 		timer.cancel();
+		Log.d("Camera Control Class", "disconnect - stopping and erasing mHardwareFacade.");
 		mHardwareFacade.stop();
 		mHardwareFacade = null;
 	}
@@ -137,7 +172,7 @@ public class cameraControl
 	public void capture()
 	{
 		// TODO Auto-generated method stub
-
+		Log.d("Camera Control Class", "capture - trying to send 'capture' command");
 	}
 
 	public int cameraAttached()
@@ -226,11 +261,10 @@ public class cameraControl
 				{
 					DevicePropDesc prop = new DevicePropDesc(mNameFactory, tempBuf.clone());
 					int pos = findProperty(prop.propertyCode);
-					if (pos==-1)	// not found
+					if (pos == -1) // not found
 					{
 						mPropertyArray.add(prop);
-					}
-					else
+					} else
 					{
 						mPropertyArray.set(pos, prop);
 					}
