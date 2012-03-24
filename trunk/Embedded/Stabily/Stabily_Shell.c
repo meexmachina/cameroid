@@ -321,6 +321,7 @@ void tm_cmd_get_storage_info_bin(uint8_t argc, char **argv)
 	} 
 
 	CameraControl_OpenSession( &DigitalCamera_SI_Interface );
+	CameraControl_GetStorageIDs ( &DigitalCamera_SI_Interface );
 	if ( 0!=CameraControl_StorageInfo_Bin ( &DigitalCamera_SI_Interface, atoi(argv[1]) ))
 		putchar(255);
 	CameraControl_CloseSession( &DigitalCamera_SI_Interface );
@@ -375,7 +376,7 @@ void tm_cmd_prop_desc_bin		(uint8_t argc, char **argv)
 		return;
 	} 
 
-	sscanf( argv[1], "%x", &iPropValue );
+	sscanf( argv[1], "%d", &iPropValue );
 
  	CameraControl_DeviceOperation_GetPropertyDescBin ( &DigitalCamera_SI_Interface,
 														iPropValue );
