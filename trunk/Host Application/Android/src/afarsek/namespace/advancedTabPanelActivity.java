@@ -22,7 +22,7 @@ public class advancedTabPanelActivity extends Activity
 	@Override
 	public void onBackPressed()
 	{
-		Log.d("Advanced Activity", "Back button waas pressed. going back to device selection activity.");
+		Log.d("Advanced Activity", "Back button was pressed. going back to device selection activity.");
 		Intent discoveryPanel = new Intent("afarsek.namespace.DEVICESELECTIONACTIVITY");
 		startActivity(discoveryPanel);
 		finish();

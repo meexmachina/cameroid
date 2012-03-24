@@ -265,10 +265,8 @@ public class deviceSelectionActivity extends Activity
 		switch (item.getItemId())
 		{
 		case R.id.preferences:
-			// newGame();
 			return super.onOptionsItemSelected(item);
 		case R.id.help:
-			// showHelp();
 			return super.onOptionsItemSelected(item);
 		case R.id.about:
 			Intent aboutPanel = new Intent("afarsek.namespace.ABOUTPANELACTIVITY");
@@ -277,6 +275,13 @@ public class deviceSelectionActivity extends Activity
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	public void onBackPressed()
+	{
+		super.onBackPressed();
+		finish();
 	}
 
 	/*
@@ -381,14 +386,6 @@ public class deviceSelectionActivity extends Activity
 
 		// Request discovery from BluetoothAdapter
 		mBtAdapter.startDiscovery();
-	}
-
-	@Override
-	protected void onPause()
-	{
-		// TODO Auto-generated method stub
-		super.onPause();
-		finish();
 	}
 
 };
