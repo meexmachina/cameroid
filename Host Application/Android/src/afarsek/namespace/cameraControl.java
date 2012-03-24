@@ -194,6 +194,9 @@ public class cameraControl
 		{
 			switch (msg.what)
 			{
+			/*******************************************************************************************
+			 * All the following messages come from the hardware facade and sent directly to the main panel without thinking to much.
+			 **/
 			case messageDefinitions.MESSAGE_STATE_CHANGE:
 			case messageDefinitions.MESSAGE_DEVICE_NAME:
 			case messageDefinitions.MESSAGE_TOAST:
@@ -201,12 +204,20 @@ public class cameraControl
 				new_msg.copyFrom(msg);
 				mMainPanelHandler.sendMessage(new_msg);
 				break;
+
+			/*******************************************************************************************
+			 * Message acceptance handler from the hardware facade
+			 **/
 			case messageDefinitions.MESSAGE_READ:
+				Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - Read new info from stream.");
+
 				byte[] data = msg.getData().getByteArray(messageDefinitions.MESSAGE_READ_DATA_BYTES);
 				int length = msg.arg1;
 				int tagIndex = msg.getData().getInt(messageDefinitions.MESSAGE_READ_TAG);
 				int leftToWrite = 0;
 				int actualWrite = 0;
+
+				Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - data transaction length: " + Integer.toString(length));
 
 				// start of new transaction - get the header
 				if (lastWrittentHeader < 3)
@@ -224,6 +235,8 @@ public class cameraControl
 					if (lastWrittenLength == 0)
 					{
 						curLength = header[1] | (header[2] << 8);
+						Log.d("Camera Control Class",
+								"MSG HWFacade=>cameraControl - finished getting header - data length: " + Integer.toString(curLength));
 						tempBuf = new byte[curLength];
 					}
 
@@ -256,9 +269,10 @@ public class cameraControl
 				// Analyze the incoming data
 				if (tagIndex == MessageElement.MessageTags.ME_NO_MSG.getIndex())
 				{
-
+					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - ME_NO_MSG was accepted.");
 				} else if (tagIndex == MessageElement.MessageTags.ME_PROPERTY_DESC.getIndex())
 				{
+					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - ME_PROPERTY_DESC was accepted.");
 					DevicePropDesc prop = new DevicePropDesc(mNameFactory, tempBuf.clone());
 					int pos = findProperty(prop.propertyCode);
 					if (pos == -1) // not found
@@ -271,15 +285,18 @@ public class cameraControl
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_PROPERTY_INFO, prop.propertyCode, -1).sendToTarget();
 				} else if (tagIndex == MessageElement.MessageTags.ME_STORAGE_INFO.getIndex())
 				{
+					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - ME_STORAGE_INFO was accepted.");
 					mStorageInfo = new StorageInfo(mNameFactory, tempBuf.clone());
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_STORAGE_INFO, -1, -1).sendToTarget();
 				} else if (tagIndex == MessageElement.MessageTags.ME_DEVICE_INFO.getIndex())
 				{
+					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - ME_DEVICE_INFO was accepted. Creating object and trying to get storage info.");
 					mDeviceInfo = new DeviceInfo(mNameFactory, tempBuf.clone());
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_DEVICE_INFO, -1, -1).sendToTarget();
 					getStorageInfo();
 				} else if (tagIndex == MessageElement.MessageTags.ME_STATUS.getIndex())
 				{
+					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - ME_STATUS was accepted.");
 					// if we recognize that a new camera was attached
 					if (mCameraAttached == 0 && tempBuf[0] == 1)
 					{
@@ -290,6 +307,7 @@ public class cameraControl
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE, mCameraAttached, -1).sendToTarget();
 				} else if (tagIndex == MessageElement.MessageTags.ME_IDENT.getIndex())
 				{
+					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - ME_IDENT was accepted.");
 
 				} else
 				{
