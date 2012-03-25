@@ -195,21 +195,21 @@ public class DevicePropDesc extends Data
 	}
 
 	static NameMap names[] =
-	{ new NameMap(BatteryLevel, "BatteryLevel"), new NameMap(FunctionalMode, "FunctionalMode"), new NameMap(ImageSize, "ImageSize"),
-			new NameMap(CompressionSetting, "CompressionSetting"), new NameMap(WhiteBalance, "WhiteBalance"),
-			new NameMap(RGBGain, "RGBGain"), new NameMap(FStop, "FStop"), new NameMap(FocalLength, "FocalLength"),
-			new NameMap(FocusDistance, "FocusDistance"), new NameMap(FocusMode, "FocusMode"),
-			new NameMap(ExposureMeteringMode, "ExposureMeteringMode"), new NameMap(FlashMode, "FlashMode"),
-			new NameMap(ExposureTime, "ExposureTime"), new NameMap(ExposureProgramMode, "ExposureProgramMode"),
-			new NameMap(ExposureIndex, "ExposureIndex"), new NameMap(ExposureBiasCompensation, "ExposureBiasCompensation"),
-			new NameMap(DateTime, "DateTime"), new NameMap(CaptureDelay, "CaptureDelay"),
-			new NameMap(StillCaptureMode, "StillCaptureMode"), new NameMap(Contrast, "Contrast"), new NameMap(Sharpness, "Sharpness"),
-			new NameMap(DigitalZoom, "DigitalZoom"), new NameMap(EffectMode, "EffectMode"), new NameMap(BurstNumber, "BurstNumber"),
-			new NameMap(BurstInterval, "BurstInterval"), new NameMap(TimelapseNumber, "TimelapseNumber"),
-			new NameMap(TimelapseInterval, "TimelapseInterval"), new NameMap(FocusMeteringMode, "FocusMeteringMode"),
-			new NameMap(UploadURL, "UploadURL"), new NameMap(Artist, "Artist"), new NameMap(CopyrightInfo, "CopyrightInfo"), };
+	{ new NameMap(BatteryLevel, "Battery Level"), new NameMap(FunctionalMode, "Functional Mode"), new NameMap(ImageSize, "Image Size"),
+			new NameMap(CompressionSetting, "Compression Setting"), new NameMap(WhiteBalance, "White Balance"),
+			new NameMap(RGBGain, "RGB Gain"), new NameMap(FStop, "Aperture"), new NameMap(FocalLength, "Focal Length"),
+			new NameMap(FocusDistance, "Focus Distance"), new NameMap(FocusMode, "Focus Mode"),
+			new NameMap(ExposureMeteringMode, "Exposure Metering Mode"), new NameMap(FlashMode, "Flash Mode"),
+			new NameMap(ExposureTime, "Shutter Speed"), new NameMap(ExposureProgramMode, "Exposure Program Mode"),
+			new NameMap(ExposureIndex, "ISO Speed"), new NameMap(ExposureBiasCompensation, "Exposure Bias Compensation"),
+			new NameMap(DateTime, "Date/Time"), new NameMap(CaptureDelay, "Capture Delay"),
+			new NameMap(StillCaptureMode, "Still Capture Mode"), new NameMap(Contrast, "Contrast"), new NameMap(Sharpness, "Sharpness"),
+			new NameMap(DigitalZoom, "Digital Zoom"), new NameMap(EffectMode, "Effect Mode"), new NameMap(BurstNumber, "Burst Number"),
+			new NameMap(BurstInterval, "Burst Interval"), new NameMap(TimelapseNumber, "Timelapse Number"),
+			new NameMap(TimelapseInterval, "Timelapse Interval"), new NameMap(FocusMeteringMode, "Focus Metering Mode"),
+			new NameMap(UploadURL, "Upload URL"), new NameMap(Artist, "Artist"), new NameMap(CopyrightInfo, "Copyright Info"), };
 
-	static String _getPropertyName(int code)
+	public static String _getPropertyName(int code)
 	{
 		for (int i = 0; i < names.length; i++)
 			if (names[i].value == code)
