@@ -29,13 +29,15 @@ import android.widget.Toast;
 
 public class mainPanelActivity extends TabActivity
 {
-
+	/**************************************************************************************************
+	 * Class Properties
+	 */
 	private String mConnectedDeviceName = null; // Name of the connected device
 	private cameraControl mCameraControl = null;
 	private ActionBar actionBar;
 	private TabHost tabHost;
 	private int mCurrentTab = 1;
-	private Timer timer;
+	private Timer mStatusTimer;
 	private LocalActivityManager mLocalActivityManager = null;
 
 	private int[] mUsedProperties;
@@ -46,6 +48,9 @@ public class mainPanelActivity extends TabActivity
 	public static final String DEVICE_NAME = "device_name";
 	public static final String TOAST = "toast";
 
+	/**************************************************************************************************
+	 * Class Methods
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -57,7 +62,6 @@ public class mainPanelActivity extends TabActivity
 
 		// Setup the action-bar
 		actionBar = (ActionBar) findViewById(R.id.actionbar_main);
-		actionBar.setTitle("Main Window");
 		actionBar.setOnTitleClickListener(new OnClickListener()
 		{
 			public void onClick(View v)
@@ -82,6 +86,14 @@ public class mainPanelActivity extends TabActivity
 			}
 		});
 		actionBar.addAction(new preferencesAction());
+		if (mCameraControl.cameraAttached() == 1)
+		{
+			actionBar.setTitle("Connected: " + mCameraControl.mDeviceInfo.manufacturer + " " + mCameraControl.mDeviceInfo.model);
+		}
+		else
+		{
+			actionBar.setTitle("Camera is disconnected.");
+		}
 
 		setTabs();
 
@@ -94,10 +106,13 @@ public class mainPanelActivity extends TabActivity
 			mConnectedDeviceName = extras.getString(EXTRA_DEVICE_ADDRESS);
 		}
 
-		timer = new Timer();
-		timer.scheduleAtFixedRate(new StatusTask(), 1000, 400);
+		mStatusTimer = new Timer();
+		mStatusTimer.scheduleAtFixedRate(new StatusTask(), 1000, 400);
 	}
 
+	/**************************************************************************************************
+	 * Timer task which obtains the the current camera connection state
+	 */
 	class StatusTask extends TimerTask
 	{
 		public void run()
@@ -107,7 +122,7 @@ public class mainPanelActivity extends TabActivity
 
 			if (mUsedProperties == null)
 				return;
-			
+
 			if (mUsedProperties.length == 0)
 				return;
 
@@ -327,14 +342,14 @@ public class mainPanelActivity extends TabActivity
 
 				if (propIndex == -1)
 					break;
-				
+
 				DevicePropDesc prop = mCameraControl.mPropertyArray.get(propIndex);
 				controlType type = null;
 				int value = 0;
-				
+
 				DevicePropDesc.Range range = prop.getRange();
 				value = (Integer) prop.getValue();
-				
+
 				switch (propCode)
 				{
 				case DevicePropDesc.BatteryLevel:
@@ -366,7 +381,7 @@ public class mainPanelActivity extends TabActivity
 					break;
 				}
 
-				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData (type, value, range);
+				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(type, value, range);
 				break;
 
 			case messageDefinitions.MESSAGE_DEVICE_NAME:
