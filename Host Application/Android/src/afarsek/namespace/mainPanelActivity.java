@@ -292,10 +292,12 @@ public class mainPanelActivity extends TabActivity
 
 			// DEVICE INFO MESSAGE WAS RECEIVED
 			case messageDefinitions.MESSAGE_CAMERA_DEVICE_INFO:
+				
 				break;
 
 			// STORAGE INFO MESSAGE WAS RECEIVED
 			case messageDefinitions.MESSAGE_CAMERA_STORAGE_INFO:
+				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).setDeviceInfo(mCameraControl.mDeviceInfo);
 				break;
 
 			// CAMERA PROPERTY INFO WAS RECEIVED
