@@ -2,6 +2,7 @@ package afarsek.namespace;
 
 import java.util.ArrayList;
 
+import ptp.DeviceInfo;
 import ptp.DevicePropDesc;
 import widget.CameraControlAdapter;
 import widget.CameraControlData;
@@ -252,6 +253,32 @@ public class generalTabPanelActivity extends Activity
 	public DevicePropDesc.Range getRange(controlType type)
 	{
 		return mRanges[type.ordinal()];
+	}
+
+	public void setDeviceInfo(DeviceInfo info)
+	{
+		// we need to filter out those properties that are not available in the camera
+		int[] properties = info.propertiesSupported;
+		
+		for (int i=0; i<mTypes.length; i++)
+		{
+			mAvailable[i] = false;
+			
+			for (int j = 0; j<properties.length; j++)
+			{
+				if (mTypes[i].getCode() == properties[j])
+				{
+					mAvailable[i] = true;
+					break;
+				}
+			}
+			
+			// if not available then deactivate 
+			if (mAvailable[i]==false)
+			{
+				mActivated[i] = false;
+			}
+		}
 	}
 
 }
