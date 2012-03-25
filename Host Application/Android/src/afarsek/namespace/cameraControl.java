@@ -130,7 +130,7 @@ public class cameraControl
 		}
 
 		Log.d("Camera Control Class", "getPropertiesDescriptions - enqueuing 'get_prop_desc_bin propCode:' command.");
-		mHardwareFacade.write_queue(("get_prop_desc_bin " + String.valueOf(propCode) + ":").getBytes(),
+		mHardwareFacade.write_queue(("prop_desc_bin " + String.valueOf(propCode) + ":").getBytes(),
 				MessageElement.MessageTags.ME_PROPERTY_DESC);
 
 		return 0;
