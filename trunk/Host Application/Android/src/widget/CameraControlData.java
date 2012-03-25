@@ -19,27 +19,15 @@ public class CameraControlData
 				DevicePropDesc.ExposureTime), controlType_ISO(DevicePropDesc.ExposureIndex);
 
 		private int propCode;
-		private int currentValue;
 
 		private controlType(int c)
 		{
 			propCode = c;
-			currentValue = -1;
 		}
 
 		public int getCode()
 		{
 			return propCode;
-		}
-
-		public void setValue(int val)
-		{
-			currentValue = val;
-		}
-
-		public int getValue()
-		{
-			return currentValue;
 		}
 
 		@Override

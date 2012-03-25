@@ -1,5 +1,7 @@
 package afarsek.namespace;
 
+import java.util.ArrayList;
+
 import ptp.DevicePropDesc;
 import widget.CameraControlAdapter;
 import widget.CameraControlData;
@@ -26,13 +28,9 @@ public class generalTabPanelActivity extends Activity
 	 */
 	private GridView mControlGridView;
 	private CameraControlAdapter mCameraControlAdapter;
+	private ArrayList<CameraControlData> mControledList;
 
 	private controlType[] mTypes = controlType.values();
-	/*
-	 * { controlType.controlType_Battery, controlType.controlType_WB, controlType.controlType_Aperture, controlType.controlType_FocalLength,
-	 * controlType.controlType_FocusDistance, controlType.controlType_FocusMode, controlType.controlType_Flash,
-	 * controlType.controlType_Shutter, controlType.controlType_ISO };
-	 */
 	private int[] mCurrentValues =
 	{ -1, -1, -1, -1, -1, -1, -1, -1, -1 };
 
@@ -42,10 +40,19 @@ public class generalTabPanelActivity extends Activity
 		Log.d("General Activity", "Created a new 'generalTabPanelActivity'");
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+		
 		// Setup the window
 		setContentView(R.layout.general_tab_panel);
+		
+		mControledList = new ArrayList<CameraControlData>();
+		mControlGridView = (GridView) findViewById(R.id.camera_control_grid);
+		mCameraControlAdapter = new CameraControlAdapter(this);
+		mCameraControlAdapter.setCameraControlDataList(mControledList);
+		mControlGridView.setAdapter(mCameraControlAdapter);
 
+		registerForContextMenu(mControlGridView);
+
+		setupControlWidgets(mTypes, mCurrentValues);
 	}
 
 	@Override
@@ -138,19 +145,6 @@ public class generalTabPanelActivity extends Activity
 		return (super.onOptionsItemSelected(item));
 	}
 
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-
-		mControlGridView = (GridView) findViewById(R.id.camera_control_grid);
-		mCameraControlAdapter = new CameraControlAdapter(this);
-		mControlGridView.setAdapter(mCameraControlAdapter);
-
-		registerForContextMenu(mControlGridView);
-
-		setupControlWidgets(mTypes, mCurrentValues);
-	}
 
 	public void setupControlWidgets(controlType[] types, int[] values)
 	{
@@ -200,6 +194,7 @@ public class generalTabPanelActivity extends Activity
 				if (((CameraControlData) mCameraControlAdapter.getItem(j)).getType().getCode()==availableProperties[i])
 				{
 					found = true;
+					break;
 				}
 			}
 			
@@ -215,5 +210,6 @@ public class generalTabPanelActivity extends Activity
 				}
 			}
 		}
+		mCameraControlAdapter.notifyDataSetChanged();
 	}
 }
