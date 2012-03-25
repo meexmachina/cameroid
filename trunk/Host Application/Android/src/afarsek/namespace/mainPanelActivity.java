@@ -154,9 +154,6 @@ public class mainPanelActivity extends TabActivity
 	protected void onDestroy()
 	{
 		super.onDestroy();
-
-		if (mCameraControl != null)
-			mCameraControl.disconnect();
 	};
 
 	@Override
