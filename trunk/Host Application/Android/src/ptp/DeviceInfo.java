@@ -1,7 +1,6 @@
 package ptp;
 
 import java.io.PrintStream;
-import java.io.Serializable;
 
 /**
  * DeviceInfo describes device functionality such supported image formats, operations, events, and device properties.

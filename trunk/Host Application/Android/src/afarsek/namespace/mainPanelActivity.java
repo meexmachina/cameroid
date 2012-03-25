@@ -40,8 +40,7 @@ public class mainPanelActivity extends TabActivity
 	private Timer mStatusTimer;
 	private LocalActivityManager mLocalActivityManager = null;
 
-	// private int[] mUsedProperties;
-	private int mCurrentlyUpdatingProperty = 0;
+	//private int mCurrentlyUpdatingProperty = 0;
 
 	// Constants
 	public static final String EXTRA_DEVICE_ADDRESS = "device_address";
