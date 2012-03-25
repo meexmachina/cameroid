@@ -60,6 +60,15 @@ public class CameraControlAdapter extends BaseAdapter
 
 		secLayout.setBackgroundDrawable(mControledList.get(position).getValueBackground());
 
+		if (mControledList.get(position).getIsActive()==true)
+		{
+			gridView.setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			gridView.setVisibility(View.GONE);
+		}
+		
 		return gridView;
 	}
 

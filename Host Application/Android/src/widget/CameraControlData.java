@@ -19,15 +19,27 @@ public class CameraControlData
 				DevicePropDesc.ExposureTime), controlType_ISO(DevicePropDesc.ExposureIndex);
 
 		private int propCode;
-
+		private int currentValue;
+		
 		private controlType(int c)
 		{
 			propCode = c;
+			currentValue = -1;
 		}
 
 		public int getCode()
 		{
 			return propCode;
+		}
+		
+		public void setValue(int val)
+		{
+			currentValue = val;
+		}
+		
+		public int getValue()
+		{
+			return currentValue;
 		}
 
 		@Override
@@ -47,6 +59,7 @@ public class CameraControlData
 	private Drawable mValueBackground;
 	private String mActualText;
 	private boolean mReadOnly;
+	private boolean mActivated = true;
 
 	/**************************************************************************************************
 	 * Methods
@@ -56,6 +69,7 @@ public class CameraControlData
 		mContext = context;
 		setControlType(type);
 		setControlValue(val);
+		mActivated = true;
 	}
 
 	public Drawable getIcon()
@@ -86,6 +100,16 @@ public class CameraControlData
 	public controlType getType()
 	{
 		return mType;
+	}
+	
+	public boolean getIsActive ()
+	{
+		return mActivated;
+	}
+	
+	public void setActive(boolean active)
+	{
+		mActivated = active;
 	}
 
 	/**************************************************************************************************
