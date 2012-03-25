@@ -106,11 +106,11 @@ public class mainPanelActivity extends TabActivity
 	{
 		public void run()
 		{
-			if (mCameraControl == null)
-				return;
-
-			if (mCameraControl.mCameraAttached == 0)
-				return;
+//			if (mCameraControl == null)
+	//			return;
+//
+	//		if (mCameraControl.mCameraAttached == 0)
+		//		return;
 
 /*			if (mUsedProperties == null)
 				return;
@@ -134,7 +134,7 @@ public class mainPanelActivity extends TabActivity
 		// Attempt to connect to the device
 		mCameraControl.connect();
 		mStatusTimer = new Timer();
-		mStatusTimer.scheduleAtFixedRate(new StatusTask(), 1000, 400);
+		mStatusTimer.scheduleAtFixedRate(new StatusTask(), 1000, 2000);
 	}
 
 	@Override
@@ -292,12 +292,12 @@ public class mainPanelActivity extends TabActivity
 
 			// DEVICE INFO MESSAGE WAS RECEIVED
 			case messageDefinitions.MESSAGE_CAMERA_DEVICE_INFO:
-				
+				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).setDeviceInfo(mCameraControl.mDeviceInfo);
 				break;
 
 			// STORAGE INFO MESSAGE WAS RECEIVED
 			case messageDefinitions.MESSAGE_CAMERA_STORAGE_INFO:
-				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).setDeviceInfo(mCameraControl.mDeviceInfo);
+				
 				break;
 
 			// CAMERA PROPERTY INFO WAS RECEIVED
@@ -312,12 +312,9 @@ public class mainPanelActivity extends TabActivity
 					break;
 
 				DevicePropDesc prop = mCameraControl.mPropertyArray.get(propIndex);
-				controlType type = null;
-				int value = 0;
+				controlType type = controlType.getTypeFromCode(propCode);
 
-				type = controlType.getTypeFromCode(propCode);
-
-				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(type, prop);
+				//((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(type, prop);
 				break;
 
 			// DEVICE NAME MESSAGE WAS RECEIVED
