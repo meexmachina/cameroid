@@ -30,12 +30,17 @@ public class CameraControlAdapter extends BaseAdapter
 		mContext = context;
 		mControledList = new ArrayList<CameraControlData>();
 	}
+	
+	public void setCameraControlDataList(ArrayList<CameraControlData> list)
+	{
+		mControledList = list;
+	}
 
-	public controlType getItemType (int position)
+	public controlType getItemType(int position)
 	{
 		return mControledList.get(position).getType();
 	}
-	
+
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -50,7 +55,7 @@ public class CameraControlAdapter extends BaseAdapter
 		{
 			gridView = (View) convertView;
 		}
-
+		
 		ImageView mSymbolView = (ImageView) gridView.findViewById(R.id.control_symbol);
 		mSymbolView.setImageDrawable(mControledList.get(position).getIcon());
 
@@ -60,15 +65,6 @@ public class CameraControlAdapter extends BaseAdapter
 
 		secLayout.setBackgroundDrawable(mControledList.get(position).getValueBackground());
 
-		if (mControledList.get(position).getIsActive()==true)
-		{
-			gridView.setVisibility(View.VISIBLE);
-		}
-		else
-		{
-			gridView.setVisibility(View.GONE);
-		}
-		
 		return gridView;
 	}
 
