@@ -84,54 +84,75 @@ public class generalTabPanelActivity extends Activity
 		controlType type = mCameraControlAdapter.getItemType(info.position);
 		String[] menuItems = null;
 
-		switch (type)
+		// if the current item is read only then show a toast and return 
+		if (mReadOnly[type.ordinal()] == true)
 		{
-		case controlType_Battery:
-			Log.d("General Activity", "ContextMenu - battery level was pressed.");
 			Toast.makeText(getApplicationContext(), "This property '" + type.toString() + "' is read-only.", Toast.LENGTH_SHORT).show();
 			return;
+		}
+
+		switch (type)
+		{
+
+		// BATTERY LEVEL
+		case controlType_Battery:
+			Log.d("General Activity", "ContextMenu - battery level was pressed.");
+			return;
+
+			// WHITE BALANCE
 		case controlType_WB:
 			Log.d("General Activity", "ContextMenu - white balance was pressed.");
 			String[] temp1 =
 			{ "Manual K", "Auto WB", "Single Auto WB", "Daylight", "Fluorescence", "Tungsten", "Flash" };
 			menuItems = temp1.clone();
 			break;
+
+		// APERTURE
 		case controlType_Aperture:
 			Log.d("General Activity", "ContextMenu - aperture was pressed.");
 			String[] temp2 =
 			{ "F/1.0", "F/1.4", "F/1.8", "F/2.0", "F/2.8", "F/3.5", "F/4.0", "F/5.6", "F/8.0" };
 			menuItems = temp2.clone();
 			break;
+
+		// FOCAL LENGTH
 		case controlType_FocalLength:
 			Log.d("General Activity", "ContextMenu - focal length was pressed.");
-			Toast.makeText(getApplicationContext(), "This property '" + type.toString() + "' is read-only.", Toast.LENGTH_SHORT).show();
-			// String[] temp3 = {"aa","bb"};
-			// menuItems = temp3.clone();
 			break;
+
+		// FOCUS DISTANCE
 		case controlType_FocusDistance:
 			Log.d("General Activity", "ContextMenu - focus distance was pressed.");
 			String[] temp4 =
 			{ "aa", "bb" };
 			menuItems = temp4.clone();
 			break;
+
+		// FOCUS MODE
 		case controlType_FocusMode:
 			Log.d("General Activity", "ContextMenu - focus mode was pressed.");
 			String[] temp5 =
 			{ "Manual", "AF-S", "AF-C" };
 			menuItems = temp5.clone();
 			break;
+
+		// FLASH MODE
 		case controlType_Flash:
 			Log.d("General Activity", "ContextMenu - flash mode was pressed.");
 			String[] temp6 =
 			{ "Auto Flash", "Flash Off", "Fill Flash", "Red-Eye Auto", "Red-Eye Fill", "External Sync" };
 			menuItems = temp6.clone();
 			break;
+
+		// SHUTTER SPEED
 		case controlType_Shutter:
 			Log.d("General Activity", "ContextMenu - shutter speed was pressed.");
 			String[] temp7 =
 			{ "aa", "bb" };
 			menuItems = temp7.clone();
 			break;
+
+		// ISO SPEED
 		case controlType_ISO:
 			Log.d("General Activity", "ContextMenu - ISO speed was pressed.");
 			String[] temp8 =
@@ -186,7 +207,7 @@ public class generalTabPanelActivity extends Activity
 				mRanges[i] = range;
 			}
 		}
-		
+
 		for (int i = 0; i < mControledList.size(); i++)
 		{
 			if (mControledList.get(i).getType() == type)
@@ -206,50 +227,49 @@ public class generalTabPanelActivity extends Activity
 	{
 		for (int i = 0; i < mTypes.length; i++)
 		{
-			for (int j=0; j<availablePropertyCount; j++)
+			for (int j = 0; j < availablePropertyCount; j++)
 			{
-				if (mTypes[i].getCode()==availableProperties[j])
+				if (mTypes[i].getCode() == availableProperties[j])
 				{
-					if (mAvailable[i]==true)
+					if (mAvailable[i] == true)
 					{
 						mActivated[i] = activeProperties[j];
-					}
-					else
+					} else
 					{
 						mActivated[i] = false;
 					}
 				}
 			}
 		}
-		
+
 		updateControlWidgets();
 	}
-	
-	public controlType getType (int pos)
+
+	public controlType getType(int pos)
 	{
 		return mTypes[pos];
 	}
-	
-	public int getCurrentValues (controlType type)
+
+	public int getCurrentValues(controlType type)
 	{
 		return mCurrentValues[type.ordinal()];
 	}
-	
-	public boolean getReadOnly (controlType type)
+
+	public boolean getReadOnly(controlType type)
 	{
 		return mReadOnly[type.ordinal()];
 	}
-	
+
 	public boolean getActivated(controlType type)
 	{
 		return mActivated[type.ordinal()];
 	}
-	
+
 	public boolean getAvailable(controlType type)
 	{
 		return mAvailable[type.ordinal()];
 	}
-	
+
 	public DevicePropDesc.Range getRange(controlType type)
 	{
 		return mRanges[type.ordinal()];
@@ -259,12 +279,12 @@ public class generalTabPanelActivity extends Activity
 	{
 		// we need to filter out those properties that are not available in the camera
 		int[] properties = info.propertiesSupported;
-		
-		for (int i=0; i<mTypes.length; i++)
+
+		for (int i = 0; i < mTypes.length; i++)
 		{
 			mAvailable[i] = false;
-			
-			for (int j = 0; j<properties.length; j++)
+
+			for (int j = 0; j < properties.length; j++)
 			{
 				if (mTypes[i].getCode() == properties[j])
 				{
@@ -272,9 +292,9 @@ public class generalTabPanelActivity extends Activity
 					break;
 				}
 			}
-			
-			// if not available then deactivate 
-			if (mAvailable[i]==false)
+
+			// if not available then deactivate
+			if (mAvailable[i] == false)
 			{
 				mActivated[i] = false;
 			}
