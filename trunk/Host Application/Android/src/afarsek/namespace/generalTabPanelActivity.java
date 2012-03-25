@@ -84,7 +84,7 @@ public class generalTabPanelActivity extends Activity
 		controlType type = mCameraControlAdapter.getItemType(info.position);
 		String[] menuItems = null;
 
-		// if the current item is read only then show a toast and return 
+		// if the current item is read only then show a toast and return
 		if (mReadOnly[type.ordinal()] == true)
 		{
 			Toast.makeText(getApplicationContext(), "This property '" + type.toString() + "' is read-only.", Toast.LENGTH_SHORT).show();
@@ -195,7 +195,7 @@ public class generalTabPanelActivity extends Activity
 		mCameraControlAdapter.notifyDataSetChanged();
 	}
 
-	public void updateControlWidgetData(controlType type, int value, DevicePropDesc.Range range)
+	public void updateControlWidgetData(controlType type, int value)
 	{
 		Log.d("General Activity", "Update Widget - updating widget of type " + type.toString());
 
@@ -204,7 +204,6 @@ public class generalTabPanelActivity extends Activity
 			if (mTypes[i] == type)
 			{
 				mCurrentValues[i] = value;
-				mRanges[i] = range;
 			}
 		}
 
@@ -216,6 +215,37 @@ public class generalTabPanelActivity extends Activity
 				mCameraControlAdapter.notifyDataSetChanged();
 			}
 		}
+	}
+	
+	public void updateControlWidgetData(controlType type, DevicePropDesc prop)
+	{
+		int value = 0;
+		boolean found = false;
+		
+		for (int i = 0; i < mTypes.length; i++)
+		{
+			if (mTypes[i] == type)
+			{
+				found = true;
+				mCurrentValues[i] = (Integer) prop.getValue();
+				mReadOnly[i] = !prop.writable;
+				mRanges[i] = prop.getRange();
+				value = mCurrentValues[i];
+			}
+		}
+		
+		if (found == false)
+			return;
+		
+		for (int i = 0; i < mControledList.size(); i++)
+		{
+			if (mControledList.get(i).getType() == type)
+			{
+				mControledList.get(i).setControlValue(value);
+				mCameraControlAdapter.notifyDataSetChanged();
+			}
+		}
+		
 	}
 
 	public CameraControlAdapter getListAdapter()

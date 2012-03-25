@@ -315,11 +315,9 @@ public class mainPanelActivity extends TabActivity
 				controlType type = null;
 				int value = 0;
 
-				DevicePropDesc.Range range = prop.getRange();
-				value = (Integer) prop.getValue();
 				type = controlType.getTypeFromCode(propCode);
 
-				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(type, value, range);
+				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(type, prop);
 				break;
 
 			// DEVICE NAME MESSAGE WAS RECEIVED
