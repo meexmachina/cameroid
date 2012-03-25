@@ -20,7 +20,7 @@ public class CameraControlData
 
 		private int propCode;
 		private int currentValue;
-		
+
 		private controlType(int c)
 		{
 			propCode = c;
@@ -31,12 +31,12 @@ public class CameraControlData
 		{
 			return propCode;
 		}
-		
+
 		public void setValue(int val)
 		{
 			currentValue = val;
 		}
-		
+
 		public int getValue()
 		{
 			return currentValue;
@@ -46,6 +46,21 @@ public class CameraControlData
 		public String toString()
 		{
 			return DevicePropDesc._getPropertyName(propCode);
+		}
+
+		public static controlType getTypeFromCode(int code)
+		{
+			controlType[] types = controlType.values();
+			
+			for (int i=0; i<types.length; i++)
+			{
+				if (types[i].getCode()==code)
+				{
+					return types[i];
+				}
+			}
+			
+			return types[0];
 		}
 	};
 
@@ -60,6 +75,7 @@ public class CameraControlData
 	private String mActualText;
 	private boolean mReadOnly;
 	private boolean mActivated = true;
+	private boolean mAvailable = true;
 
 	/**************************************************************************************************
 	 * Methods
@@ -70,6 +86,7 @@ public class CameraControlData
 		setControlType(type);
 		setControlValue(val);
 		mActivated = true;
+		mAvailable = true;
 	}
 
 	public Drawable getIcon()
@@ -101,15 +118,25 @@ public class CameraControlData
 	{
 		return mType;
 	}
-	
-	public boolean getIsActive ()
+
+	public boolean getIsActive()
 	{
 		return mActivated;
 	}
-	
+
 	public void setActive(boolean active)
 	{
 		mActivated = active;
+	}
+
+	public void setAvailable(boolean avail)
+	{
+		mAvailable = avail;
+	}
+
+	public boolean getAvailable()
+	{
+		return mAvailable;
 	}
 
 	/**************************************************************************************************

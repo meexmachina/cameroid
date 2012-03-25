@@ -40,7 +40,7 @@ public class mainPanelActivity extends TabActivity
 	private Timer mStatusTimer;
 	private LocalActivityManager mLocalActivityManager = null;
 
-	private int[] mUsedProperties;
+	// private int[] mUsedProperties;
 	private int mCurrentlyUpdatingProperty = 0;
 
 	// Constants
@@ -109,18 +109,18 @@ public class mainPanelActivity extends TabActivity
 		{
 			if (mCameraControl == null)
 				return;
-			
+
 			if (mCameraControl.mCameraAttached == 0)
 				return;
 
-			if (mUsedProperties == null)
+/*			if (mUsedProperties == null)
 				return;
 
 			if (mUsedProperties.length == 0)
 				return;
 
 			mCurrentlyUpdatingProperty = (mCurrentlyUpdatingProperty + 1) % mUsedProperties.length;
-			mCameraControl.getPropertiesDescriptions(mUsedProperties[mCurrentlyUpdatingProperty]);
+			mCameraControl.getPropertiesDescriptions(mUsedProperties[mCurrentlyUpdatingProperty]);*/
 		}
 	}
 
@@ -142,7 +142,7 @@ public class mainPanelActivity extends TabActivity
 	protected void onStop()
 	{
 		mStatusTimer.cancel();
-		
+
 		if (mCameraControl != null)
 			mCameraControl.disconnect();
 		mCameraControl = null;
@@ -172,50 +172,13 @@ public class mainPanelActivity extends TabActivity
 		super.onActivityResult(requestCode, resultCode, data);
 		Bundle extras = data.getExtras();
 
-		mUsedProperties = extras.getIntArray("ChosenProperties");
+		int[] availableProperties = extras.getIntArray("AvailableProperties");
+		boolean[] activeProperties = extras.getBooleanArray("ActiveProperties");
+		int availablePropertyCount = extras.getInt("AvailablePropertiesCount");
 
-		// TODO: Read those properties from the device
-		int[] values = new int[mUsedProperties.length];
-
-		// Rearrange the shown widgets
-		controlType[] types = new controlType[mUsedProperties.length];
-		for (int i = 0; i < types.length; i++)
-		{
-			switch (mUsedProperties[i])
-			{
-			case DevicePropDesc.BatteryLevel:
-				types[i] = CameraControlData.controlType.controlType_Battery;
-				break;
-			case DevicePropDesc.WhiteBalance:
-				types[i] = CameraControlData.controlType.controlType_WB;
-				break;
-			case DevicePropDesc.FStop:
-				types[i] = CameraControlData.controlType.controlType_Aperture;
-				break;
-			case DevicePropDesc.FocalLength:
-				types[i] = CameraControlData.controlType.controlType_FocalLength;
-				break;
-			case DevicePropDesc.FocusDistance:
-				types[i] = CameraControlData.controlType.controlType_FocusDistance;
-				break;
-			case DevicePropDesc.FocusMode:
-				types[i] = CameraControlData.controlType.controlType_FocusMode;
-				break;
-			case DevicePropDesc.FlashMode:
-				types[i] = CameraControlData.controlType.controlType_Flash;
-				break;
-			case DevicePropDesc.ExposureTime:
-				types[i] = CameraControlData.controlType.controlType_Shutter;
-				break;
-			case DevicePropDesc.ExposureIndex:
-				types[i] = CameraControlData.controlType.controlType_ISO;
-				break;
-			}
-
-			values[i] = -1;
-		}
-
-		((generalTabPanelActivity) (this.getLocalActivityManager().getCurrentActivity())).setupControlWidgets(types, values);
+		// get the current general panel reference
+		generalTabPanelActivity tempActivity = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity()));
+		tempActivity.setWidgetState(availableProperties, activeProperties, availablePropertyCount);
 	}
 
 	@Override
@@ -265,7 +228,9 @@ public class mainPanelActivity extends TabActivity
 					if (mCameraControl != null)
 						mCameraControl.capture();
 				} else
+				{
 					mTabHost.setCurrentTab(1);
+				}
 			}
 		});
 
@@ -295,6 +260,8 @@ public class mainPanelActivity extends TabActivity
 		{
 			switch (msg.what)
 			{
+
+			// THE STATE WAS CHANGED
 			case messageDefinitions.MESSAGE_STATE_CHANGE:
 				switch (msg.arg1)
 				{
@@ -310,25 +277,29 @@ public class mainPanelActivity extends TabActivity
 					break;
 				}
 				break;
+
+			// CAMERA CONNECTION STATE HAS CHANGED
 			case messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE:
 				// if connected then start negotiation
 				// if not connected hide icons
 				if (mCameraControl.cameraAttached() == 1)
 				{
 					mActionBar.setTitle("Connected: " + mCameraControl.mDeviceInfo.manufacturer + " " + mCameraControl.mDeviceInfo.model);
-				}
-				else
+				} else
 				{
 					mActionBar.setTitle("Camera is disconnected.");
 				}
 				break;
 
+			// DEVICE INFO MESSAGE WAS RECEIVED
 			case messageDefinitions.MESSAGE_CAMERA_DEVICE_INFO:
 				break;
 
+			// STORAGE INFO MESSAGE WAS RECEIVED
 			case messageDefinitions.MESSAGE_CAMERA_STORAGE_INFO:
 				break;
 
+			// CAMERA PROPERTY INFO WAS RECEIVED
 			case messageDefinitions.MESSAGE_CAMERA_PROPERTY_INFO:
 				int propCode = msg.arg1;
 				if (mCurrentTab != 1)
@@ -345,46 +316,19 @@ public class mainPanelActivity extends TabActivity
 
 				DevicePropDesc.Range range = prop.getRange();
 				value = (Integer) prop.getValue();
-
-				switch (propCode)
-				{
-				case DevicePropDesc.BatteryLevel:
-					type = CameraControlData.controlType.controlType_Battery;
-					break;
-				case DevicePropDesc.WhiteBalance:
-					type = CameraControlData.controlType.controlType_WB;
-					break;
-				case DevicePropDesc.FStop:
-					type = CameraControlData.controlType.controlType_Aperture;
-					break;
-				case DevicePropDesc.FocalLength:
-					type = CameraControlData.controlType.controlType_FocalLength;
-					break;
-				case DevicePropDesc.FocusDistance:
-					type = CameraControlData.controlType.controlType_FocusDistance;
-					break;
-				case DevicePropDesc.FocusMode:
-					type = CameraControlData.controlType.controlType_FocusMode;
-					break;
-				case DevicePropDesc.FlashMode:
-					type = CameraControlData.controlType.controlType_Flash;
-					break;
-				case DevicePropDesc.ExposureTime:
-					type = CameraControlData.controlType.controlType_Shutter;
-					break;
-				case DevicePropDesc.ExposureIndex:
-					type = CameraControlData.controlType.controlType_ISO;
-					break;
-				}
+				type = controlType.getTypeFromCode(propCode);
 
 				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(type, value, range);
 				break;
 
+			// DEVICE NAME MESSAGE WAS RECEIVED
 			case messageDefinitions.MESSAGE_DEVICE_NAME:
 				// save the connected device's name
 				mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
 				Toast.makeText(getApplicationContext(), "Connected to " + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
 				break;
+
+			// TOAST NEEDS TO BE SHOWN
 			case messageDefinitions.MESSAGE_TOAST:
 				Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST), Toast.LENGTH_SHORT).show();
 				break;
@@ -398,33 +342,43 @@ public class mainPanelActivity extends TabActivity
 		public preferencesAction()
 		{
 			super(R.drawable.ic_menu_preferences);
-
 		}
 
 		public void performAction(View view)
 		{
-			// Create the result Intent and include the MAC address
+			// if accidently we came here while not being in the general panel then exit
+			if (mCurrentTab != 1)
+				return;
+
+			// create the intent to go to the preferences panel
 			Intent preferncesMainPanel = new Intent("afarsek.namespace.PREFERENCESPANELACTIVITY");
-			if (mUsedProperties == null)
+
+			// get the current general panel reference
+			generalTabPanelActivity tempActivity = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity()));
+
+			// the availableProperties is all the properties that are available by the connected camera
+			// the activeProperties is the bitmap of usage
+			int[] availableProperties = new int[CameraControlData.controlType.values().length];
+			boolean[] activeProperties = new boolean[CameraControlData.controlType.values().length];
+			int availablePropertyCount = 0;
+			for (int i = 0; i < availableProperties.length; i++)
 			{
-				int[] temp =
-				{ 0x5001, 0x5005, 0x5007, 0x5008, 0x5009, 0x500a, 0x500c, 0x500d, 0x500F };
-				mUsedProperties = temp;
+				int code = ((CameraControlData) tempActivity.getListAdapter().getItem(i)).getType().getCode();
+				boolean available = ((CameraControlData) tempActivity.getListAdapter().getItem(i)).getAvailable();
+				boolean active = ((CameraControlData) tempActivity.getListAdapter().getItem(i)).getIsActive();
+
+				if (available == true)
+				{
+					availableProperties[availablePropertyCount] = code;
+					activeProperties[availablePropertyCount] = active;
+					availablePropertyCount++;
+				}
 			}
 
-			preferncesMainPanel.putExtra("CurrentChosen", mUsedProperties);
+			preferncesMainPanel.putExtra("AvailableProperties", availableProperties);
+			preferncesMainPanel.putExtra("ActiveProperties", activeProperties);
+			preferncesMainPanel.putExtra("AvailablePropertiesCount", availablePropertyCount);
 
-			if (mCameraControl.mDeviceInfo != null)
-				preferncesMainPanel.putExtra("AvailableProperties", mCameraControl.mDeviceInfo.propertiesSupported);
-			else
-			{
-				// for debug
-				int[] properties =
-				{ 0x5001, 0x5005, 0x5007, 0x5008, 0x5009, 0x500a, 0x500c, 0x500d, 0x500F };
-				preferncesMainPanel.putExtra("AvailableProperties", properties);
-			}
-
-			// startMainPanel.putExtra(EXTRA_DEVICE_ADDRESS, address);
 			startActivityForResult(preferncesMainPanel, 1);
 		}
 	}

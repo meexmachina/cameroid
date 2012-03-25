@@ -135,16 +135,6 @@ public class generalTabPanelActivity extends Activity
 	@Override
 	public boolean onContextItemSelected(MenuItem item)
 	{
-		// switch (item.getItemId())
-		// {
-		// case 1:
-		// AdapterView.AdapterContextMenuInfo info=
-		// (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-
-		// delete(info.id);
-		// return(true);
-		// }
-
 		return (super.onOptionsItemSelected(item));
 	}
 
@@ -189,6 +179,40 @@ public class generalTabPanelActivity extends Activity
 			if (mTypes[i] == type)
 			{
 				mCurrentValues[i] = value;
+			}
+		}
+	}
+
+	public CameraControlAdapter getListAdapter()
+	{
+		return mCameraControlAdapter;
+	}
+
+	public void setWidgetState(int[] availableProperties, boolean[] activeProperties, int availablePropertyCount)
+	{
+		for (int i = 0; i<availablePropertyCount; i++)
+		{
+			// we need to find for each availableProperties[i] the node in the adapter
+			int j = 0;
+			boolean found = false;
+			for (j = 0; j<mCameraControlAdapter.getCount(); j++)
+			{
+				if (((CameraControlData) mCameraControlAdapter.getItem(j)).getType().getCode()==availableProperties[i])
+				{
+					found = true;
+				}
+			}
+			
+			if (found == true)
+			{
+				if (((CameraControlData) mCameraControlAdapter.getItem(j)).getAvailable()==true)
+				{
+					((CameraControlData) mCameraControlAdapter.getItem(j)).setActive(activeProperties[i]);
+				}
+				else
+				{
+					((CameraControlData) mCameraControlAdapter.getItem(j)).setActive(false);
+				}
 			}
 		}
 	}
