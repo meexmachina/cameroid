@@ -363,9 +363,11 @@ public class mainPanelActivity extends TabActivity
 			int availablePropertyCount = 0;
 			for (int i = 0; i < availableProperties.length; i++)
 			{
-				int code = ((CameraControlData) tempActivity.getListAdapter().getItem(i)).getType().getCode();
-				boolean available = ((CameraControlData) tempActivity.getListAdapter().getItem(i)).getAvailable();
-				boolean active = ((CameraControlData) tempActivity.getListAdapter().getItem(i)).getIsActive();
+				controlType type = tempActivity.getType(i);
+				
+				int code = type.getCode();
+				boolean available = tempActivity.getAvailable(type);
+				boolean active = tempActivity.getActivated(type);
 
 				if (available == true)
 				{

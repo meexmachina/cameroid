@@ -19,12 +19,87 @@ public class CameraControlData
 				DevicePropDesc.ExposureTime), controlType_ISO(DevicePropDesc.ExposureIndex);
 
 		private int propCode;
+		private int initValue;
+		private boolean initReadOnly;
+		private boolean initAvailable;
+		private boolean initActive;
 
 		private controlType(int c)
 		{
 			propCode = c;
+
+			switch (c)
+			{
+			case DevicePropDesc.BatteryLevel:
+				initValue = 100;
+				initReadOnly = true;
+				break;
+
+			case DevicePropDesc.WhiteBalance:
+				initValue = 2;
+				initReadOnly = false;
+				break;
+
+			case DevicePropDesc.FStop:
+				initValue = 280;
+				initReadOnly = false;
+				break;
+
+			case DevicePropDesc.FocalLength:
+				initValue = 500;
+				initReadOnly = true;
+				break;
+
+			case DevicePropDesc.FocusDistance:
+				initValue = 500;
+				initReadOnly = false;
+				break;
+
+			case DevicePropDesc.FocusMode:
+				initValue = 2;
+				initReadOnly = false;
+				break;
+
+			case DevicePropDesc.FlashMode:
+				initValue = 1;
+				initReadOnly = false;
+				break;
+
+			case DevicePropDesc.ExposureTime:
+				initValue = 1000;
+				initReadOnly = false;
+				break;
+
+			case DevicePropDesc.ExposureIndex:
+				initValue = 100;
+				initReadOnly = false;
+				break;
+			}
+			
+			initAvailable = true;
+			initActive = true;
+		}
+		
+		public int getInitialValue ()
+		{
+			return initValue;
 		}
 
+		public boolean getInitialReadOnly ()
+		{
+			return initReadOnly;
+		}
+		
+		public boolean getInitialAvailable ()
+		{
+			return initAvailable;
+		}
+
+		public boolean getInitialActive ()
+		{
+			return initActive;
+		}
+		
 		public int getCode()
 		{
 			return propCode;
@@ -39,15 +114,15 @@ public class CameraControlData
 		public static controlType getTypeFromCode(int code)
 		{
 			controlType[] types = controlType.values();
-			
-			for (int i=0; i<types.length; i++)
+
+			for (int i = 0; i < types.length; i++)
 			{
-				if (types[i].getCode()==code)
+				if (types[i].getCode() == code)
 				{
 					return types[i];
 				}
 			}
-			
+
 			return types[0];
 		}
 	};
