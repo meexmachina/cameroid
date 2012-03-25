@@ -34,8 +34,8 @@ public class mainPanelActivity extends TabActivity
 	 */
 	private String mConnectedDeviceName = null; // Name of the connected device
 	private cameraControl mCameraControl = null;
-	private ActionBar actionBar;
-	private TabHost tabHost;
+	private ActionBar mActionBar;
+	private TabHost mTabHost;
 	private int mCurrentTab = 1;
 	private Timer mStatusTimer;
 	private LocalActivityManager mLocalActivityManager = null;
@@ -61,8 +61,8 @@ public class mainPanelActivity extends TabActivity
 		setContentView(R.layout.main_panel);
 
 		// Setup the action-bar
-		actionBar = (ActionBar) findViewById(R.id.actionbar_main);
-		actionBar.setOnTitleClickListener(new OnClickListener()
+		mActionBar = (ActionBar) findViewById(R.id.actionbar_main);
+		mActionBar.setOnTitleClickListener(new OnClickListener()
 		{
 			public void onClick(View v)
 			{
@@ -85,7 +85,7 @@ public class mainPanelActivity extends TabActivity
 				startActivity(aboutCameraIntent);
 			}
 		});
-		actionBar.addAction(new preferencesAction());
+		mActionBar.addAction(new preferencesAction());
 
 		setTabs();
 
@@ -148,12 +148,6 @@ public class mainPanelActivity extends TabActivity
 		mCameraControl = null;
 
 		super.onStop();
-	};
-
-	@Override
-	protected void onDestroy()
-	{
-		super.onDestroy();
 	};
 
 	@Override
@@ -245,19 +239,19 @@ public class mainPanelActivity extends TabActivity
 
 	private void setTabs()
 	{
-		tabHost = getTabHost();
+		mTabHost = getTabHost();
 
 		addTab("Gallery", R.drawable.tab_gallery, galleryTabPanelActivity.class);
 		addTab("Capture", R.drawable.tab_capture, generalTabPanelActivity.class);
 		addTab("Advanced", R.drawable.tab_advanced, advancedTabPanelActivity.class);
 
-		tabHost.setCurrentTab(mCurrentTab);
+		mTabHost.setCurrentTab(mCurrentTab);
 
-		tabHost.setOnTabChangedListener(new OnTabChangeListener()
+		mTabHost.setOnTabChangedListener(new OnTabChangeListener()
 		{
 			public void onTabChanged(String tabId)
 			{
-
+				mCurrentTab = mTabHost.getCurrentTab();
 			}
 		});
 
@@ -265,13 +259,13 @@ public class mainPanelActivity extends TabActivity
 		{
 			public void onClick(View v)
 			{
-				int curTab = tabHost.getCurrentTab();
+				int curTab = mTabHost.getCurrentTab();
 				if (curTab == 1) // if we are already in capture
 				{
 					if (mCameraControl != null)
 						mCameraControl.capture();
 				} else
-					tabHost.setCurrentTab(1);
+					mTabHost.setCurrentTab(1);
 			}
 		});
 
@@ -280,7 +274,7 @@ public class mainPanelActivity extends TabActivity
 	private void addTab(String labelId, int drawableId, Class<?> c)
 	{
 		Intent intent = new Intent(this, c);
-		TabHost.TabSpec spec = tabHost.newTabSpec("tab" + labelId);
+		TabHost.TabSpec spec = mTabHost.newTabSpec("tab" + labelId);
 
 		View tabIndicator = LayoutInflater.from(this).inflate(R.layout.tab_indicator, getTabWidget(), false);
 		TextView title = (TextView) tabIndicator.findViewById(R.id.title);
@@ -290,7 +284,7 @@ public class mainPanelActivity extends TabActivity
 
 		spec.setIndicator(tabIndicator);
 		spec.setContent(intent);
-		tabHost.addTab(spec);
+		mTabHost.addTab(spec);
 	}
 
 	// The Handler that gets information back from the hardwareFacade
@@ -305,14 +299,14 @@ public class mainPanelActivity extends TabActivity
 				switch (msg.arg1)
 				{
 				case hardwareFacade.STATE_CONNECTED:
-					actionBar.setTitle("Connected to " + mConnectedDeviceName);
+					mActionBar.setTitle("Connected to " + mConnectedDeviceName);
 					break;
 				case hardwareFacade.STATE_CONNECTING:
-					actionBar.setTitle("Connecting...");
+					mActionBar.setTitle("Connecting...");
 					break;
 				case hardwareFacade.STATE_LISTEN:
 				case hardwareFacade.STATE_NONE:
-					actionBar.setTitle("Disconnected");
+					mActionBar.setTitle("Disconnected");
 					break;
 				}
 				break;
@@ -321,11 +315,11 @@ public class mainPanelActivity extends TabActivity
 				// if not connected hide icons
 				if (mCameraControl.cameraAttached() == 1)
 				{
-					actionBar.setTitle("Connected: " + mCameraControl.mDeviceInfo.manufacturer + " " + mCameraControl.mDeviceInfo.model);
+					mActionBar.setTitle("Connected: " + mCameraControl.mDeviceInfo.manufacturer + " " + mCameraControl.mDeviceInfo.model);
 				}
 				else
 				{
-					actionBar.setTitle("Camera is disconnected.");
+					mActionBar.setTitle("Camera is disconnected.");
 				}
 				break;
 
