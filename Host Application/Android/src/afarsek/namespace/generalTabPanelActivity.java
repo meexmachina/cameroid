@@ -31,8 +31,11 @@ public class generalTabPanelActivity extends Activity
 	private ArrayList<CameraControlData> mControledList;
 
 	private controlType[] mTypes = controlType.values();
-	private int[] mCurrentValues =
-	{ -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+	private int[] mCurrentValues = new int[controlType.values().length];
+	private boolean[] mReadOnly = new boolean[controlType.values().length];
+	private boolean[] mActivated = new boolean[controlType.values().length];
+	private boolean[] mAvailable = new boolean[controlType.values().length];
+	private DevicePropDesc.Range[] mRanges = new DevicePropDesc.Range[controlType.values().length];
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -40,10 +43,19 @@ public class generalTabPanelActivity extends Activity
 		Log.d("General Activity", "Created a new 'generalTabPanelActivity'");
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
+
 		// Setup the window
 		setContentView(R.layout.general_tab_panel);
-		
+
+		// initialize the lists
+		for (int i = 0; i < mTypes.length; i++)
+		{
+			mCurrentValues[i] = mTypes[i].getInitialValue();
+			mReadOnly[i] = mTypes[i].getInitialReadOnly();
+			mActivated[i] = mTypes[i].getInitialActive();
+			mAvailable[i] = mTypes[i].getInitialAvailable();
+		}
+
 		mControledList = new ArrayList<CameraControlData>();
 		mControlGridView = (GridView) findViewById(R.id.camera_control_grid);
 		mCameraControlAdapter = new CameraControlAdapter(this);
@@ -52,7 +64,7 @@ public class generalTabPanelActivity extends Activity
 
 		registerForContextMenu(mControlGridView);
 
-		setupControlWidgets(mTypes, mCurrentValues);
+		updateControlWidgets();
 	}
 
 	@Override
@@ -145,34 +157,41 @@ public class generalTabPanelActivity extends Activity
 		return (super.onOptionsItemSelected(item));
 	}
 
-
-	public void setupControlWidgets(controlType[] types, int[] values)
+	private void updateControlWidgets()
 	{
 		mCameraControlAdapter.clear();
-		mTypes = types;
-		mCurrentValues = values;
-		for (int i = 0; i < types.length; i++)
+		for (int i = 0; i < mTypes.length; i++)
 		{
-			CameraControlData view = new CameraControlData(this, types[i], values[i]);
-			mCameraControlAdapter.add(view);
+			if (mAvailable[i] == true && mActivated[i] == true)
+			{
+				CameraControlData view = new CameraControlData(this, mTypes[i], mCurrentValues[i]);
+				view.setAvailable(mAvailable[i]);
+				view.setActive(mActivated[i]);
+				mControledList.add(view);
+			}
 		}
+		mCameraControlAdapter.notifyDataSetChanged();
 	}
 
 	public void updateControlWidgetData(controlType type, int value, DevicePropDesc.Range range)
 	{
 		Log.d("General Activity", "Update Widget - updating widget of type " + type.toString());
-		for (int i = 0; i < mCameraControlAdapter.getCount(); i++)
-		{
-			CameraControlData view = (CameraControlData) mCameraControlAdapter.getItem(i);
-			if (view.getType() == type)
-			{
-				view.setControlValue(value);
-				mCameraControlAdapter.notifyDataSetChanged();
-			}
 
+		for (int i = 0; i < mTypes.length; i++)
+		{
 			if (mTypes[i] == type)
 			{
 				mCurrentValues[i] = value;
+				mRanges[i] = range;
+			}
+		}
+		
+		for (int i = 0; i < mControledList.size(); i++)
+		{
+			if (mControledList.get(i).getType() == type)
+			{
+				mControledList.get(i).setControlValue(value);
+				mCameraControlAdapter.notifyDataSetChanged();
 			}
 		}
 	}
@@ -184,32 +203,55 @@ public class generalTabPanelActivity extends Activity
 
 	public void setWidgetState(int[] availableProperties, boolean[] activeProperties, int availablePropertyCount)
 	{
-		for (int i = 0; i<availablePropertyCount; i++)
+		for (int i = 0; i < mTypes.length; i++)
 		{
-			// we need to find for each availableProperties[i] the node in the adapter
-			int j = 0;
-			boolean found = false;
-			for (j = 0; j<mCameraControlAdapter.getCount(); j++)
+			for (int j=0; j<availablePropertyCount; j++)
 			{
-				if (((CameraControlData) mCameraControlAdapter.getItem(j)).getType().getCode()==availableProperties[i])
+				if (mTypes[i].getCode()==availableProperties[j])
 				{
-					found = true;
-					break;
-				}
-			}
-			
-			if (found == true)
-			{
-				if (((CameraControlData) mCameraControlAdapter.getItem(j)).getAvailable()==true)
-				{
-					((CameraControlData) mCameraControlAdapter.getItem(j)).setActive(activeProperties[i]);
-				}
-				else
-				{
-					((CameraControlData) mCameraControlAdapter.getItem(j)).setActive(false);
+					if (mAvailable[i]==true)
+					{
+						mActivated[i] = activeProperties[j];
+					}
+					else
+					{
+						mActivated[i] = false;
+					}
 				}
 			}
 		}
-		mCameraControlAdapter.notifyDataSetChanged();
+		
+		updateControlWidgets();
 	}
+	
+	public controlType getType (int pos)
+	{
+		return mTypes[pos];
+	}
+	
+	public int getCurrentValues (controlType type)
+	{
+		return mCurrentValues[type.ordinal()];
+	}
+	
+	public boolean getReadOnly (controlType type)
+	{
+		return mReadOnly[type.ordinal()];
+	}
+	
+	public boolean getActivated(controlType type)
+	{
+		return mActivated[type.ordinal()];
+	}
+	
+	public boolean getAvailable(controlType type)
+	{
+		return mAvailable[type.ordinal()];
+	}
+	
+	public DevicePropDesc.Range getRange(controlType type)
+	{
+		return mRanges[type.ordinal()];
+	}
+
 }
