@@ -16,9 +16,15 @@ import android.widget.TextView;
 
 public class CameraControlAdapter extends BaseAdapter
 {
+	/**************************************************************************************************
+	 * Private class properties
+	 */
 	private Context mContext;
 	private ArrayList<CameraControlData> mControledList;
 
+	/**************************************************************************************************
+	 * class methods
+	 */
 	public CameraControlAdapter(Context context)
 	{
 		mContext = context;
@@ -75,18 +81,18 @@ public class CameraControlAdapter extends BaseAdapter
 		notifyDataSetChanged();
 	}
 
-	public Object getItem(int arg0)
+	public Object getItem(int pos)
 	{
-		if (arg0 >= 0 && arg0 < mControledList.size())
+		if (pos >= 0 && pos < mControledList.size())
 		{
-			return mControledList.get(arg0);
+			return mControledList.get(pos);
 		}
 
 		return null;
 	}
 
-	public long getItemId(int arg0)
+	public long getItemId(int pos)
 	{
-		return arg0;
+		return pos;
 	}
 }
