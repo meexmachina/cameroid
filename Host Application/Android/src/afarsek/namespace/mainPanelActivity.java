@@ -86,14 +86,6 @@ public class mainPanelActivity extends TabActivity
 			}
 		});
 		actionBar.addAction(new preferencesAction());
-		if (mCameraControl.cameraAttached() == 1)
-		{
-			actionBar.setTitle("Connected: " + mCameraControl.mDeviceInfo.manufacturer + " " + mCameraControl.mDeviceInfo.model);
-		}
-		else
-		{
-			actionBar.setTitle("Camera is disconnected.");
-		}
 
 		setTabs();
 
@@ -106,8 +98,6 @@ public class mainPanelActivity extends TabActivity
 			mConnectedDeviceName = extras.getString(EXTRA_DEVICE_ADDRESS);
 		}
 
-		mStatusTimer = new Timer();
-		mStatusTimer.scheduleAtFixedRate(new StatusTask(), 1000, 400);
 	}
 
 	/**************************************************************************************************
@@ -117,6 +107,9 @@ public class mainPanelActivity extends TabActivity
 	{
 		public void run()
 		{
+			if (mCameraControl == null)
+				return;
+			
 			if (mCameraControl.mCameraAttached == 0)
 				return;
 
@@ -141,11 +134,15 @@ public class mainPanelActivity extends TabActivity
 
 		// Attempt to connect to the device
 		mCameraControl.connect();
+		mStatusTimer = new Timer();
+		mStatusTimer.scheduleAtFixedRate(new StatusTask(), 1000, 400);
 	}
 
 	@Override
 	protected void onStop()
 	{
+		mStatusTimer.cancel();
+		
 		if (mCameraControl != null)
 			mCameraControl.disconnect();
 		mCameraControl = null;
@@ -325,6 +322,14 @@ public class mainPanelActivity extends TabActivity
 			case messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE:
 				// if connected then start negotiation
 				// if not connected hide icons
+				if (mCameraControl.cameraAttached() == 1)
+				{
+					actionBar.setTitle("Connected: " + mCameraControl.mDeviceInfo.manufacturer + " " + mCameraControl.mDeviceInfo.model);
+				}
+				else
+				{
+					actionBar.setTitle("Camera is disconnected.");
+				}
 				break;
 
 			case messageDefinitions.MESSAGE_CAMERA_DEVICE_INFO:
