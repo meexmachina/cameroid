@@ -1,6 +1,7 @@
 package afarsek.namespace;
 
 import ptp.DeviceInfo;
+import widget.CameraControlData.controlType;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,33 +16,9 @@ public class preferencesPanelActivity extends Activity
 	private ListView mListView;
 	private ArrayAdapter<String> mListAdapter;
 	private LinearLayout mLayout;
-
-	public class propertyList
-	{
-		public String mItemString;
-		public int mCode;
-		public boolean mAvailable;
-		public boolean mChosen;
-
-		public propertyList(String name, int code, boolean avail, boolean chosen)
-		{
-			mItemString = name;
-			mCode = code;
-			mAvailable = avail;
-			mChosen = chosen;
-			if (avail == false)
-				mChosen = false;
-		}
-	}
-
-	private propertyList[] mProperties =
-	{ new propertyList("Battery Level", 0x5001, false, false), new propertyList("White Balance", 0x5005, false, false),
-			new propertyList("Aperture", 0x5007, false, false), new propertyList("Focal Length", 0x5008, false, false),
-			new propertyList("Focus Distance", 0x5009, false, false), new propertyList("Focus Mode", 0x500a, false, false),
-			new propertyList("Flash Mode", 0x500c, false, false), new propertyList("Shutter Speed", 0x500d, false, false),
-			new propertyList("ISO Speed", 0x500F, false, false) };
-
-	private int mNumOfAvailableProperties = 0;
+	int[] mAvailableProperties = null;
+	boolean[] mActiveProperties = null;
+	int mAvailablePropertyCount = 0;
 
 	@Override
 	public void onCreate(Bundle icicle)
@@ -54,36 +31,10 @@ public class preferencesPanelActivity extends Activity
 		Intent received = getIntent();
 		Bundle recBundle = received.getExtras();
 
-		// the camera's available property list
-		int[] devInfoPropery = recBundle.getIntArray("AvailableProperties");
-		int count = 0;
-
-		for (int i = 0; i < mProperties.length; i++)
-		{
-			for (int j = 0; j < devInfoPropery.length; j++)
-			{
-				if (devInfoPropery[j] == mProperties[i].mCode)
-				{
-					count++;
-					mProperties[i].mAvailable = true;
-					break;
-				}
-			}
-		}
-
-		// Create the items list
-		mNumOfAvailableProperties = count;
-		String[] mItemStrings = new String[mNumOfAvailableProperties];
-		count = 0;
-
-		for (int i = 0; i < mProperties.length; i++)
-		{
-			if (mProperties[i].mAvailable == true)
-			{
-				mItemStrings[count] = mProperties[i].mItemString;
-				count++;
-			}
-		}
+		mAvailableProperties = recBundle.getIntArray("AvailableProperties");
+		mActiveProperties = recBundle.getBooleanArray("ActiveProperties");
+		mAvailablePropertyCount = recBundle.getInt("AvailablePropertiesCount");
+		String[] mItemStrings = new String[mAvailablePropertyCount];
 
 		mListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, mItemStrings);
 
@@ -91,50 +42,19 @@ public class preferencesPanelActivity extends Activity
 		mListView.setAdapter(mListAdapter);
 		mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-		int[] currentCodes = recBundle.getIntArray("CurrentChosen");
-		for (int i = 0; i < mProperties.length; i++)
+		for (int i = 0; i < mAvailablePropertyCount; i++)
 		{
-			mProperties[i].mChosen = false;
-			for (int j = 0; j < currentCodes.length; j++)
-			{
-				if (currentCodes[j] == mProperties[i].mCode)
-				{
-					mProperties[i].mChosen = true;
-					break;
-				}
-			}
-
-			if (mProperties[i].mChosen == true)
-			{
-				int k;
-				boolean found = false;
-				for (k = 0; k < mListAdapter.getCount(); k++)
-				{
-					if (mListAdapter.getItem(k) == mProperties[i].mItemString)
-					{
-						found = true;
-						break;
-					}
-				}
-
-				if (found == true)
-					mListView.setItemChecked(k, true);
-			}
+			controlType type = controlType.getTypeFromCode(mAvailableProperties[i]);
+			mItemStrings[i] = type.toString();
+			mListView.setItemChecked(i, mActiveProperties[i]);
 		}
 
-		// When item is tapped, toggle checked properties of CheckBox and Planet.
+		// When item is tapped, toggle checked properties of CheckBox
 		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 			public void onItemClick(AdapterView<?> parent, View item, int position, long id)
 			{
-				boolean selected = mListView.isItemChecked(position);
-				String name = mListAdapter.getItem(position);
-
-				for (int i = 0; i < mProperties.length; i++)
-				{
-					if (mProperties[i].mItemString == name)
-						mProperties[i].mChosen = selected;
-				}
+				mActiveProperties[position] = mListView.isItemChecked(position);
 			}
 		});
 	}
@@ -142,50 +62,13 @@ public class preferencesPanelActivity extends Activity
 	@Override
 	public void onBackPressed()
 	{
-		int count = 0;
+		Intent mainPanelIntent = new Intent(this, mainPanelActivity.class);
+		
+		mainPanelIntent.putExtra("AvailableProperties", mAvailableProperties);
+		mainPanelIntent.putExtra("ActiveProperties", mActiveProperties);
+		mainPanelIntent.putExtra("AvailablePropertiesCount", mAvailablePropertyCount);
 
-		for (int i = 0; i < mProperties.length; i++)
-		{
-			if (mProperties[i].mChosen == true)
-				count++;
-		}
-
-		int[] chosen = new int[count];
-		count = 0;
-		for (int i = 0; i < mProperties.length; i++)
-		{
-			if (mProperties[i].mChosen == true)
-			{
-				chosen[count] = mProperties[i].mCode;
-				count++;
-			}
-		}
-
-		Intent myIntent = new Intent(this, mainPanelActivity.class);
-		myIntent.putExtra("ChosenProperties", chosen);
-		setResult(RESULT_OK, myIntent);
+		setResult(RESULT_OK, mainPanelIntent);
 		super.onBackPressed();
 	}
-
-	public void setDeviceInfo(DeviceInfo info)
-	{
-		int[] properties = info.propertiesSupported;
-		mNumOfAvailableProperties = 0;
-
-		for (int i = 0; i < mProperties.length; i++)
-		{
-			int curProp = mProperties[i].mCode;
-			mProperties[i].mAvailable = false;
-
-			for (int j = 0; j < properties.length; j++)
-			{
-				if (properties[j] == curProp)
-				{
-					mProperties[i].mAvailable = true;
-					mNumOfAvailableProperties++;
-				}
-			}
-		}
-	}
-
 }
