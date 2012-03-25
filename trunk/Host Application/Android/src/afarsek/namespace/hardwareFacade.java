@@ -211,6 +211,7 @@ public class hardwareFacade
 	 */
 	public void write_queue(String out, MessageElement.MessageTags tag)
 	{
+		Log.d(TAG, "write_queue - enqueuing '" + out + "' with tag " + Integer.toString(tag.getIndex()));
 		write_queue(out.getBytes(), tag);
 	}
 
@@ -226,8 +227,10 @@ public class hardwareFacade
 	public void write_queue(byte[] out, MessageElement.MessageTags tag)
 	{
 		// if nothing is queued
+		Log.d(TAG, "write_queue (byte[]) - enqueuing '" + (new String(out)) + "' with tag " + Integer.toString(tag.getIndex()));
 		if (mCurrentMessageTag == MessageElement.MessageTags.ME_NO_MSG)
 		{
+			Log.d(TAG, "write_queue (byte[]) - Nothing in the queue so sending.");
 			write(out);
 			mCurrentMessageTag = tag;
 			return;
@@ -235,8 +238,12 @@ public class hardwareFacade
 
 		// do not allow more then 20
 		if (mToSendQueue.size() > 20)
+		{
+			Log.d(TAG, "write_queue (byte[]) - the write queue is bigger then 20. returning");
 			return;
+		}
 
+		Log.d(TAG, "write_queue (byte[]) - Adding the new element to the queue");
 		MessageElement me = new MessageElement(out, tag);
 		mToSendQueue.add(me);
 	}
@@ -255,11 +262,11 @@ public class hardwareFacade
 		} catch (NoSuchElementException e)
 		{
 			mCurrentMessageTag = MessageElement.MessageTags.ME_NO_MSG;
-			Log.i(TAG, "release_from_queue - currentTag = no_msg");
+			Log.d(TAG, "release_from_queue - currentTag = no_msg");
 			return;
 		}
 
-		Log.i(TAG, "release_from_queue - releasing currentTag changed");
+		Log.d(TAG, "release_from_queue - releasing currentTag changed");
 		mCurrentMessageTag = me.mTag;
 		write(me.mData);
 	}
@@ -370,11 +377,6 @@ public class hardwareFacade
 			// given BluetoothDevice
 			try
 			{
-				// tmp = device.createRfcommSocketToServiceRecord(SPP_UUID);
-				// device.getClass().getMethod("cancelPairingUserInput", boolean.class).invoke(device);
-				// pairDevice(device);
-				// ParcelUuid[] uuids=mmDevice.getUuids();
-
 				Method m;
 				m = mmDevice.getClass().getMethod("createInsecureRfcommSocket", new Class[]
 				{ int.class });
