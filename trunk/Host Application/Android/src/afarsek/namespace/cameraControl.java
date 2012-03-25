@@ -219,6 +219,7 @@ public class cameraControl
 
 				Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - data transaction length: " + Integer.toString(length));
 
+				// The following code analyzes and stitches the incoming read data
 				// start of new transaction - get the header
 				if (lastWrittentHeader < 3)
 				{
@@ -263,6 +264,7 @@ public class cameraControl
 					}
 				} else
 				{
+					// wait for the next transaction
 					break;
 				}
 
