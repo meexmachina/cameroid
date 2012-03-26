@@ -8,6 +8,8 @@ import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -31,6 +33,7 @@ public class hardwareFacade
 	private ConnectedThread mConnectedThread;
 	private Queue<MessageElement> mToSendQueue = new LinkedList<MessageElement>();
 	private MessageElement.MessageTags mCurrentMessageTag = MessageElement.MessageTags.ME_NO_MSG;
+	private int mTransactionID = 0;
 	private int mState;
 
 	// Constants that indicate the current connection state
@@ -233,6 +236,8 @@ public class hardwareFacade
 			Log.d(TAG, "write_queue (byte[]) - Nothing in the queue so sending.");
 			write(out);
 			mCurrentMessageTag = tag;
+			Timer timeoutTimer = new Timer();
+			timeoutTimer.schedule(new TimeoutTask(), 200);	// set a timer of 200 ms
 			return;
 		}
 
@@ -244,7 +249,7 @@ public class hardwareFacade
 		}
 
 		Log.d(TAG, "write_queue (byte[]) - Adding the new element to the queue");
-		MessageElement me = new MessageElement(out, tag);
+		MessageElement me = new MessageElement(out, tag, mTransactionID++);
 		mToSendQueue.add(me);
 	}
 
@@ -269,6 +274,18 @@ public class hardwareFacade
 		Log.d(TAG, "release_from_queue - releasing currentTag changed");
 		mCurrentMessageTag = me.mTag;
 		write(me.mData);
+		
+		Timer timeoutTimer = new Timer();
+		timeoutTimer.schedule(new TimeoutTask(), 200);	// set a timer of 200 ms
+	}
+	
+	class TimeoutTask extends TimerTask
+	{
+		public void run()
+		{
+			mCurrentMessageTag = MessageElement.MessageTags.ME_NO_MSG;
+			release_from_queue();
+		}
 	}
 
 	/**

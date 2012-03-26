@@ -40,7 +40,7 @@ public class mainPanelActivity extends TabActivity
 	private Timer mStatusTimer;
 	private LocalActivityManager mLocalActivityManager = null;
 
-	//private int mCurrentlyUpdatingProperty = 0;
+	// private int mCurrentlyUpdatingProperty = 0;
 
 	// Constants
 	public static final String EXTRA_DEVICE_ADDRESS = "device_address";
@@ -67,18 +67,19 @@ public class mainPanelActivity extends TabActivity
 			{
 				Intent aboutCameraIntent = new Intent("afarsek.namespace.ABOUTCAMERAACTIVITY");
 
-				if (mCameraControl.cameraAttached() == 1)
-				{
-					aboutCameraIntent.putExtra("Manufacturer", mCameraControl.mDeviceInfo.manufacturer);
-					aboutCameraIntent.putExtra("Model", mCameraControl.mDeviceInfo.model);
-					aboutCameraIntent.putExtra("Version", mCameraControl.mDeviceInfo.deviceVersion);
-					aboutCameraIntent.putExtra("SerialNumber", mCameraControl.mDeviceInfo.serialNumber);
-				} else
+				if (mCameraControl.cameraAttached() == 0 || mCameraControl.mDeviceInfo == null)
 				{
 					aboutCameraIntent.putExtra("Manufacturer", "n/a");
 					aboutCameraIntent.putExtra("Model", "n/a");
 					aboutCameraIntent.putExtra("Version", "n/a");
 					aboutCameraIntent.putExtra("SerialNumber", "n/a");
+				} else
+				{
+					aboutCameraIntent.putExtra("Manufacturer", mCameraControl.mDeviceInfo.manufacturer);
+					aboutCameraIntent.putExtra("Model", mCameraControl.mDeviceInfo.model);
+					aboutCameraIntent.putExtra("Version", mCameraControl.mDeviceInfo.deviceVersion);
+					aboutCameraIntent.putExtra("SerialNumber", mCameraControl.mDeviceInfo.serialNumber);
+
 				}
 
 				startActivity(aboutCameraIntent);
@@ -106,20 +107,20 @@ public class mainPanelActivity extends TabActivity
 	{
 		public void run()
 		{
-//			if (mCameraControl == null)
-	//			return;
-//
-	//		if (mCameraControl.mCameraAttached == 0)
-		//		return;
+			// if (mCameraControl == null)
+			// return;
+			//
+			// if (mCameraControl.mCameraAttached == 0)
+			// return;
 
-/*			if (mUsedProperties == null)
-				return;
-
-			if (mUsedProperties.length == 0)
-				return;
-
-			mCurrentlyUpdatingProperty = (mCurrentlyUpdatingProperty + 1) % mUsedProperties.length;
-			mCameraControl.getPropertiesDescriptions(mUsedProperties[mCurrentlyUpdatingProperty]);*/
+			/*
+			 * if (mUsedProperties == null) return;
+			 * 
+			 * if (mUsedProperties.length == 0) return;
+			 * 
+			 * mCurrentlyUpdatingProperty = (mCurrentlyUpdatingProperty + 1) % mUsedProperties.length;
+			 * mCameraControl.getPropertiesDescriptions(mUsedProperties[mCurrentlyUpdatingProperty]);
+			 */
 		}
 	}
 
@@ -281,6 +282,10 @@ public class mainPanelActivity extends TabActivity
 			case messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE:
 				// if connected then start negotiation
 				// if not connected hide icons
+				break;
+
+			// DEVICE INFO MESSAGE WAS RECEIVED
+			case messageDefinitions.MESSAGE_CAMERA_DEVICE_INFO:
 				if (mCameraControl.cameraAttached() == 1)
 				{
 					mActionBar.setTitle("Connected: " + mCameraControl.mDeviceInfo.manufacturer + " " + mCameraControl.mDeviceInfo.model);
@@ -288,16 +293,12 @@ public class mainPanelActivity extends TabActivity
 				{
 					mActionBar.setTitle("Camera is disconnected.");
 				}
-				break;
-
-			// DEVICE INFO MESSAGE WAS RECEIVED
-			case messageDefinitions.MESSAGE_CAMERA_DEVICE_INFO:
 				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).setDeviceInfo(mCameraControl.mDeviceInfo);
 				break;
 
 			// STORAGE INFO MESSAGE WAS RECEIVED
 			case messageDefinitions.MESSAGE_CAMERA_STORAGE_INFO:
-				
+
 				break;
 
 			// CAMERA PROPERTY INFO WAS RECEIVED
@@ -314,7 +315,7 @@ public class mainPanelActivity extends TabActivity
 				DevicePropDesc prop = mCameraControl.mPropertyArray.get(propIndex);
 				controlType type = controlType.getTypeFromCode(propCode);
 
-				//((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(type, prop);
+				// ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(type, prop);
 				break;
 
 			// DEVICE NAME MESSAGE WAS RECEIVED
@@ -360,7 +361,7 @@ public class mainPanelActivity extends TabActivity
 			for (int i = 0; i < availableProperties.length; i++)
 			{
 				controlType type = tempActivity.getType(i);
-				
+
 				int code = type.getCode();
 				boolean available = tempActivity.getAvailable(type);
 				boolean active = tempActivity.getActivated(type);

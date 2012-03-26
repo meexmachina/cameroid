@@ -21,10 +21,12 @@ public class MessageElement
 
 	public byte[] mData;
 	public MessageTags mTag;
+	public int mTransactionID;
 
-	public MessageElement(byte[] data, MessageTags tag)
+	public MessageElement(byte[] data, MessageTags tag, int transaction)
 	{
 		mData = data.clone();
 		mTag = tag;
+		mTransactionID = transaction;
 	}
 }

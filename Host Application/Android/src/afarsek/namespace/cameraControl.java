@@ -304,6 +304,12 @@ public class cameraControl
 					{
 						getDeviceInfo();
 					}
+					
+					if (mCameraAttached == 1 && mDeviceInfo==null)
+					{
+						getDeviceInfo();
+					}
+						
 
 					mCameraAttached = tempBuf[0];
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE, mCameraAttached, -1).sendToTarget();
