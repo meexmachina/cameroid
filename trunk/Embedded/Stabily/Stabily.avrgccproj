@@ -44,6 +44,12 @@
   </PropertyGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
   <ItemGroup>
+    <Compile Include="ISRUart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ISRUart.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Stabily.h">
       <SubType>compile</SubType>
     </Compile>

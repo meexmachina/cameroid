@@ -5,6 +5,7 @@
 #include "CameraControl_DeviceInfo.h"
 #include "CameraControl_DeviceOperation.h"
 #include "CameraControl_General.h"
+#include "ISRUart.h"
 //#include "CameraControl_StorageInfo.h"
 #include <stdlib.h>
 
@@ -26,7 +27,7 @@ USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface =
 				.EventsPipeDoubleBank   = false,
 			},
 	};
-
+	
 /*********************************************************************************************************************
  *  Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
@@ -58,12 +59,15 @@ void Stabily_SetupHardware(void)
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
 
-	/* Hardware Initialization */
-	Serial_Init(9600, false);
+	/* Uart Initialization */
+	uart_init(UART_BAUD_SELECT(9600,F_CPU));
+	
+	//Serial_Init(9600, false);
 	LEDs_Init();
 	USB_Init();
 
 	/* Create a stdio stream for the serial port for stdin and stdout */
-	Serial_CreateStream(NULL);
+	//Serial_CreateStream(NULL);
 }
+
 

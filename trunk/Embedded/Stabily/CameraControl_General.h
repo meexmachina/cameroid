@@ -16,6 +16,7 @@
 #include <LUFA/Drivers/USB/USB.h>
 
 #include "CameraControl_PTPDefinitions.h"
+#include "ISRUart.h"
 extern volatile uint8_t	g_bQuiteMode;
 
 /* Macros: */

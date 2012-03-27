@@ -7,6 +7,7 @@
 #include <avr/power.h>
 #include <avr/interrupt.h>
 #include <stdio.h>
+#include "ISRUart.h"
 
 #include "CameraControl_General.h"
 

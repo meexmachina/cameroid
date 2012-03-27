@@ -6,6 +6,7 @@
 #include "CameraControl_DeviceOperation.h"
 #include "CameraControl_General.h"
 #include "CameraControl_StorageInfo.h"
+#include "ISRUart.h"
 
 /*------------------------------------------------------------------------------
  * Variables
@@ -146,9 +147,9 @@ void Stabily_Shell_Parse(char *cmd)
 /**************************************************************************/
 void Stabily_ShellRX( void )
 {
-	while (Serial_IsCharReceived( ))
+	while (uart_rx_ready( ))
 	{
-		char c = Serial_ReceiveByte ( );
+		char c = uart_getc ( stdin );
 
 	    switch (c)
 	    {
@@ -174,16 +175,16 @@ void Stabily_ShellRX( void )
 	        if (msg_ptr > msg)
 	        {
 	            msg_ptr--;
-				Serial_SendByte ( c );
-				Serial_SendByte ( ' ' );
-				Serial_SendByte ( c );
+				uart_putc( c, stdout);
+				uart_putc ( ' ', stdin );
+				uart_putc ( c, stdin );
 			}
 	        break;
 			
            
 	    default:
 			if (g_EchoOnOff)
-				Serial_SendByte ( c );
+				uart_putc ( c, stdout );
 
 	        *msg_ptr++ = c;
 	        break;
