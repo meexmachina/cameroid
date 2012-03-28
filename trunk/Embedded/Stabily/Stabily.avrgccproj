@@ -101,6 +101,12 @@
     <Compile Include="CameraControl_DeviceEvents.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="TransferProtocol.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TransferProtocol.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="makefile">

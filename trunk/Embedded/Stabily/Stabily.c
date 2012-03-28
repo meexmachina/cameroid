@@ -35,7 +35,7 @@ USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface =
 int main(void)
 {
 	Stabily_SetupHardware();
-	//puts_P(PSTR(ESC_FG_CYAN "Stabily v1.0 running.\r\n" ESC_FG_WHITE));
+	
 	sei();
 
 	for (;;)
@@ -60,7 +60,7 @@ void Stabily_SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 
 	/* Uart Initialization */
-	uart_init(UART_BAUD_SELECT(9600,F_CPU));
+	uart_init(UART_BAUD_SELECT(115200,F_CPU));
 	
 	//Serial_Init(9600, false);
 	LEDs_Init();
