@@ -39,6 +39,7 @@ static cmd_t cmd_tbl[] =
 	{"prop_desc", 				tm_cmd_prop_desc, 			""					},
 	{"prop_desc_bin",			tm_cmd_prop_desc_bin,		"propID"			},
 	{"set_quite",				tm_cmd_set_quite_mode, 		"0/1"				},
+	{"configure_bt",			tm_cmd_configure_bt,		""					},
 	{NULL,      				NULL,						NULL				}
 };
 
@@ -397,4 +398,77 @@ void tm_cmd_set_quite_mode	(uint8_t argc, char **argv)
 	}
 
 	g_bQuiteMode = (atoi (argv[1]))!=0;
+}
+
+/**************************************************************************/
+/*!
+	Setup Bluetooth
+*/
+/**************************************************************************/
+void tm_cmd_configure_bt (uint8_t argc, char **argv)
+{
+	uint8_t iTestCommandPass = 0;
+	uint8_t iNameChanged = 0;
+	uint8_t iUARTChanged = 0;
+	char sVersion[16] = {0};
+	char sTemp[32] = {0};
+	char *cTok = NULL;
+	DDRD |= 0x80;
+	printf( "Entering AT mode...\r\n");
+
+	_delay_ms(1000);
+	// pin7 Port D
+	
+	PORTD |= 0x80;
+	
+	uart_init(UART_BAUD_SELECT(9600,F_CPU));
+	
+	_delay_ms(1000);
+	
+	printf( "AT\r\n");
+	_delay_ms(500);
+	if ( gets(sTemp) )
+	{
+		if ( strstr(sTemp, "OK") )
+			iTestCommandPass = 1;
+		else goto ErrorFunction;
+	}
+	
+	printf( "AT+VERSION?\r\n");
+	_delay_ms(500);
+	if ( gets(sTemp) )
+	{
+		cTok = strtok ( sTemp, ":\n" );
+		cTok = strtok ( NULL, ":\n" );
+		strcpy (sVersion, cTok);
+	}
+	
+	printf( "AT+NAME=AFARSEK0001\r\n");
+	_delay_ms(500);
+	if ( gets(sTemp) )
+	{
+		if ( strstr(sTemp, "OK") )
+			iNameChanged = 1;
+	}	
+	
+	printf( "AT+UART=115200,0,0\r\n");
+	_delay_ms(500);
+	if ( gets(sTemp) )
+	{
+		if ( strstr(sTemp, "OK") )
+			iUARTChanged = 1;
+	}	
+
+ErrorFunction:	
+	// pin7 Port D
+	PORTD &= ~0x80;
+	
+	//uart_init(UART_BAUD_SELECT(9600,F_CPU));
+	uart_init(UART_BAUD_SELECT(115200,F_CPU));
+	_delay_ms(500);
+	printf( "Exiting AT mode... Configuration complete.\r\n");
+	printf_P( "Bluetooth info:\r\n  Status: %d\r\n  Version: %s\r\n  Name change: %d\r\n  Baud change: %d\r\n", iTestCommandPass, sVersion, iNameChanged, iUARTChanged);
+	
+	
+	
 }

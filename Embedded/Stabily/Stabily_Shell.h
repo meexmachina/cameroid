@@ -57,6 +57,7 @@ void tm_cmd_capture					(uint8_t argc, char **argv);
 void tm_cmd_prop_desc				(uint8_t argc, char **argv);
 void tm_cmd_prop_desc_bin			(uint8_t argc, char **argv);
 void tm_cmd_set_quite_mode			(uint8_t argc, char **argv);
+void tm_cmd_configure_bt			(uint8_t argc, char **argv);
 
 
 #endif // STABILY_SHELL_H
