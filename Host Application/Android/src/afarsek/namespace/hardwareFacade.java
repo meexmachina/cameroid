@@ -231,14 +231,14 @@ public class hardwareFacade
 	{
 		// if nothing is queued
 		Log.d(TAG, "write_queue (byte[]) - enqueuing '" + (new String(out)) + "' with tag " + Integer.toString(tag.getIndex()));
-		
+
 		if (mCurrentMessageTag == MessageElement.MessageTags.ME_NO_MSG)
 		{
 			Log.d(TAG, "write_queue (byte[]) - Nothing in the queue so sending.");
 			write(out);
 			mCurrentMessageTag = tag;
 			Timer timeoutTimer = new Timer();
-			timeoutTimer.schedule(new TimeoutTask(), 200);	// set a timer of 200 ms
+			timeoutTimer.schedule(new TimeoutTask(), 200); // set a timer of 200 ms
 			return;
 		}
 
@@ -275,17 +275,17 @@ public class hardwareFacade
 		Log.d(TAG, "release_from_queue - releasing currentTag changed");
 		mCurrentMessageTag = me.mTag;
 		write(me.mData);
-		
+
 		Timer timeoutTimer = new Timer();
-		timeoutTimer.schedule(new TimeoutTask(), 200);	// set a timer of 200 ms
+		timeoutTimer.schedule(new TimeoutTask(), 200); // set a timer of 200 ms
 	}
-	
+
 	class TimeoutTask extends TimerTask
 	{
 		public void run()
 		{
-			mCurrentMessageTag = MessageElement.MessageTags.ME_NO_MSG;
-			release_from_queue();
+			//mCurrentMessageTag = MessageElement.MessageTags.ME_NO_MSG;
+			//release_from_queue();
 		}
 	}
 
@@ -476,6 +476,52 @@ public class hardwareFacade
 		}
 	}
 
+	public static final int CT_STATE_GETTING_MSG_HEADER = 0x01;
+	public static final int CT_STATE_GETTING_MSG_EVENT = 0x02;
+	public static final int CT_STATE_GETTING_MSG_DATA = 0x03;
+
+	public static final int CT_LENGTH_MSG_HEADER = 5; // 5 bytes
+	public static final int CT_LENGTH_MSG_EVENT = 9; // 9 bytes
+
+	/**
+	 * This class implements the message header of Transfer Protocol
+	 */
+	public class TP_header
+	{
+		public int mType;
+		public int mLength;
+		public int mTransID;
+
+		public TP_header()
+		{
+			mType = 0;
+			mLength = 0;
+			mTransID = 0;
+		}
+
+		public TP_header(byte[] data)
+		{
+			mType = data[0];
+			mLength = 0xff & data[1];
+			mLength |= 0xff00 & (data[2] << 8);
+			mTransID = 0xff & data[3];
+			mTransID |= 0xff00 & (data[4] << 8);
+		}
+
+		public byte[] getByteArray()
+		{
+			byte[] arr = new byte[CT_LENGTH_MSG_HEADER];
+
+			arr[0] = (byte) mType;
+			arr[1] = (byte) ((mLength) & 0xff); // first LSB
+			arr[2] = (byte) ((mLength >> 8) & 0xff); // second MSB
+			arr[3] = (byte) ((mTransID) & 0xff); // first LSB
+			arr[4] = (byte) ((mTransID >> 8) & 0xff); // second MSB
+
+			return arr;
+		}
+	}
+
 	/**
 	 * This thread runs during a connection with a remote device. It handles all incoming and outgoing transmissions.
 	 */
@@ -510,30 +556,62 @@ public class hardwareFacade
 		{
 			Log.i(TAG, "BEGIN mConnectedThread");
 			byte[] buffer = new byte[1024];
+			int byteCount = 0;
 
 			// Keep listening to the InputStream while connected
 			while (true)
 			{
 				try
 				{
-					// Read from the InputStream
-					int bytes = mmInStream.read(buffer);
-
-					String logged = "Trans Read: ";
-					for (int i = 0; i < bytes; i++)
+					byteCount = mmInStream.read(buffer, 0, CT_LENGTH_MSG_HEADER);
+					
+					// write the header to the logger
+					String logged = "Trans Read Header: ";
+					for (int i = 0; i < byteCount; i++)
 					{
 						logged += String.format("%x ", buffer[i]);
 					}
-					Log.i(TAG, logged);
+					Log.d(TAG, logged);
 
-					Message msg = mHandler.obtainMessage(messageDefinitions.MESSAGE_READ);
-					msg.arg1 = bytes;
-					Bundle bundle = new Bundle();
-					bundle.putInt(messageDefinitions.MESSAGE_READ_LENGTH, bytes);
-					bundle.putByteArray(messageDefinitions.MESSAGE_READ_DATA_BYTES, buffer.clone());
-					bundle.putInt(messageDefinitions.MESSAGE_READ_TAG, mCurrentMessageTag.getIndex());
-					msg.setData(bundle);
-					mHandler.sendMessage(msg);
+					// if we just got the 5 bytes analyze them
+					if (byteCount != 5)
+					{
+						// error
+						continue;
+					}
+
+					TP_header header = new TP_header(buffer);
+
+					// if its an event
+					if (header.mType > MessageElement.TP_EVENT_START && header.mType < MessageElement.TP_EVENT_END)
+					{
+						byteCount = mmInStream.read(buffer, 0, header.mLength);
+
+						// if we just got the bytes
+						int arg1 = ((int) buffer[0]) | (((int) buffer[1]) << 8) | (((int) buffer[2]) << 16) | (((int) buffer[3]) << 24);
+
+						// send the info to camera-control class
+						Message msg = mHandler.obtainMessage(messageDefinitions.MESSAGE_READ, header.mType, arg1);
+						Bundle bundle = new Bundle();
+						bundle.putInt("TransactionID", header.mTransID);
+						msg.setData(bundle);
+						mHandler.sendMessage(msg);
+					} else if (header.mType > MessageElement.TP_DATA_START && header.mType < MessageElement.TP_DATA_END)
+					{
+						int remainingBytesToRead = header.mLength;
+						byte[] data = new byte[remainingBytesToRead];
+
+						byteCount = mmInStream.read(data, 0, remainingBytesToRead);
+
+						// send the info to camera-control class
+						Message msg = mHandler.obtainMessage(messageDefinitions.MESSAGE_READ, header.mType, header.mLength);
+						Bundle bundle = new Bundle();
+						bundle.putInt("TransactionID", header.mTransID);
+						bundle.putByteArray("GottenData", data.clone());
+						msg.setData(bundle);
+						mHandler.sendMessage(msg);
+					}
+
 				} catch (IOException e)
 				{
 					Log.e(TAG, "disconnected", e);

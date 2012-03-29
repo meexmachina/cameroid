@@ -67,31 +67,31 @@ public class cameraControl
 
 	private void getID()
 	{
-		Log.d("Camera Control Class", "getID - enqueuing 'idn_bin:' command.");
-		mHardwareFacade.write_queue("idn_bin:".getBytes(), MessageElement.MessageTags.ME_STATUS);
+		//Log.d("Camera Control Class", "getID - enqueuing 'idn_bin:' command.");
+		//mHardwareFacade.write_queue("idn_bin:".getBytes(), MessageElement.MessageTags.ME_STATUS);
 	}
 
 	private void getStatus()
 	{
-		Log.d("Camera Control Class", "getStatus - enqueuing 'status_bin:' command.");
-		mHardwareFacade.write_queue("status_bin:".getBytes(), MessageElement.MessageTags.ME_STATUS);
+		//Log.d("Camera Control Class", "getStatus - enqueuing 'status_bin:' command.");
+		//mHardwareFacade.write_queue("status_bin:".getBytes(), MessageElement.MessageTags.ME_STATUS);
 	}
 
 	private void getDeviceInfo()
 	{
-		Log.d("Camera Control Class", "getDeviceInfo - enqueuing 'get_dev_info_bin:' command.");
-		mHardwareFacade.write_queue("get_dev_info_bin:".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
+		//Log.d("Camera Control Class", "getDeviceInfo - enqueuing 'get_dev_info_bin:' command.");
+		//mHardwareFacade.write_queue("get_dev_info_bin:".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
 	}
 
 	private void getStorageInfo()
 	{
-		Log.d("Camera Control Class", "getStorageInfo - enqueuing 'get_storage_info_bin 0:' command.");
-		mHardwareFacade.write_queue("get_storage_info_bin 0:".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
+		//Log.d("Camera Control Class", "getStorageInfo - enqueuing 'get_storage_info_bin 0:' command.");
+		//mHardwareFacade.write_queue("get_storage_info_bin 0:".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
 	}
 
 	public int getPropertiesDescriptions(int propCode)
 	{
-		Log.d("Camera Control Class", "getPropertiesDescriptions - trying to get property info: " + Integer.toHexString(propCode));
+		/*Log.d("Camera Control Class", "getPropertiesDescriptions - trying to get property info: " + Integer.toHexString(propCode));
 		if (mCameraAttached == 0)
 		{
 			Log.d("Camera Control Class", "getPropertiesDescriptions - camera is not attached yet.");
@@ -131,7 +131,7 @@ public class cameraControl
 
 		Log.d("Camera Control Class", "getPropertiesDescriptions - enqueuing 'get_prop_desc_bin propCode:' command.");
 		mHardwareFacade.write_queue(("prop_desc_bin " + String.valueOf(propCode) + ":").getBytes(),
-				MessageElement.MessageTags.ME_PROPERTY_DESC);
+				MessageElement.MessageTags.ME_PROPERTY_DESC);*/
 
 		return 0;
 	}
@@ -140,7 +140,7 @@ public class cameraControl
 	{
 		public void run()
 		{
-			getStatus();
+			//getStatus();
 		}
 	}
 
@@ -183,12 +183,6 @@ public class cameraControl
 	// The Handler that gets information back from the hardwareFacade
 	private final Handler mHardwareDataHandler = new Handler()
 	{
-		private int curLength = 0;
-		private int lastWrittenLength = 0;
-		private byte[] tempBuf;
-		private int lastWrittentHeader = 0;
-		private byte[] header = new byte[3];
-
 		@Override
 		public void handleMessage(Message msg)
 		{
@@ -210,117 +204,6 @@ public class cameraControl
 			 **/
 			case messageDefinitions.MESSAGE_READ:
 				Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - Read new info from stream.");
-
-				byte[] data = msg.getData().getByteArray(messageDefinitions.MESSAGE_READ_DATA_BYTES);
-				int length = msg.arg1;
-				int tagIndex = msg.getData().getInt(messageDefinitions.MESSAGE_READ_TAG);
-				int leftToWrite = 0;
-				int actualWrite = 0;
-
-				Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - data transaction length: " + Integer.toString(length));
-
-				// The following code analyzes and stitches the incoming read data
-				// start of new transaction - get the header
-				if (lastWrittentHeader < 3)
-				{
-					leftToWrite = 3 - lastWrittentHeader;
-					actualWrite = (length < leftToWrite) ? length : leftToWrite;
-					System.arraycopy(data, 0, header, lastWrittentHeader, actualWrite);
-					lastWrittentHeader += actualWrite;
-					length -= actualWrite;
-				}
-
-				if (lastWrittentHeader == 3) // get the rest of the message
-				{
-					// Combine the header info
-					if (lastWrittenLength == 0)
-					{
-						curLength = header[1] | (header[2] << 8);
-						Log.d("Camera Control Class",
-								"MSG HWFacade=>cameraControl - finished getting header - data length: " + Integer.toString(curLength));
-						tempBuf = new byte[curLength];
-					}
-
-					if (lastWrittenLength == 0)
-					{
-						System.arraycopy(data, leftToWrite, tempBuf, lastWrittenLength, length);
-						lastWrittenLength += length;
-					} else
-					{
-						System.arraycopy(data, 0, tempBuf, lastWrittenLength, length);
-						lastWrittenLength += length;
-					}
-
-					if (lastWrittenLength == curLength)
-					{
-						curLength = 0;
-						lastWrittenLength = 0;
-						lastWrittentHeader = 0;
-						mHardwareFacade.release_from_queue();
-					} else
-					{
-						// wait for the next transaction
-						break;
-					}
-				} else
-				{
-					// wait for the next transaction
-					break;
-				}
-
-				// Analyze the incoming data
-				if (tagIndex == MessageElement.MessageTags.ME_NO_MSG.getIndex())
-				{
-					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - ME_NO_MSG was accepted.");
-				} else if (tagIndex == MessageElement.MessageTags.ME_PROPERTY_DESC.getIndex())
-				{
-					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - ME_PROPERTY_DESC was accepted.");
-					DevicePropDesc prop = new DevicePropDesc(mNameFactory, tempBuf.clone());
-					int pos = findProperty(prop.propertyCode);
-					if (pos == -1) // not found
-					{
-						mPropertyArray.add(prop);
-					} else
-					{
-						mPropertyArray.set(pos, prop);
-					}
-					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_PROPERTY_INFO, prop.propertyCode, -1).sendToTarget();
-				} else if (tagIndex == MessageElement.MessageTags.ME_STORAGE_INFO.getIndex())
-				{
-					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - ME_STORAGE_INFO was accepted.");
-					mStorageInfo = new StorageInfo(mNameFactory, tempBuf.clone());
-					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_STORAGE_INFO, -1, -1).sendToTarget();
-				} else if (tagIndex == MessageElement.MessageTags.ME_DEVICE_INFO.getIndex())
-				{
-					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - ME_DEVICE_INFO was accepted. Creating object and trying to get storage info.");
-					mDeviceInfo = new DeviceInfo(mNameFactory, tempBuf.clone());
-					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_DEVICE_INFO, -1, -1).sendToTarget();
-					getStorageInfo();
-				} else if (tagIndex == MessageElement.MessageTags.ME_STATUS.getIndex())
-				{
-					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - ME_STATUS was accepted.");
-					// if we recognize that a new camera was attached
-					if (mCameraAttached == 0 && tempBuf[0] == 1)
-					{
-						getDeviceInfo();
-					}
-					
-					if (mCameraAttached == 1 && mDeviceInfo==null)
-					{
-						getDeviceInfo();
-					}
-						
-
-					mCameraAttached = tempBuf[0];
-					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE, mCameraAttached, -1).sendToTarget();
-				} else if (tagIndex == MessageElement.MessageTags.ME_IDENT.getIndex())
-				{
-					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - ME_IDENT was accepted.");
-
-				} else
-				{
-
-				}
 
 				break;
 			case messageDefinitions.MESSAGE_WRITE:
