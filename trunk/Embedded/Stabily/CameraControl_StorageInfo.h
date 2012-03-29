@@ -27,6 +27,6 @@ uint8_t CameraControl_GetStorageInfo 		( USB_ClassInfo_SI_Host_t* SIInterfaceInf
 uint8_t CameraControl_StorageInfo_Printout 	( USB_ClassInfo_SI_Host_t* SIInterfaceInfo );
 uint8_t CameraControl_StorageInfo_Bin 		( USB_ClassInfo_SI_Host_t* SIInterfaceInfo,  
 											  uint8_t iStorageIndex, uint16_t transID );
-
+uint8_t CameraControl_GetStorageID 			( PTP_STORETYPE_EN enStorageType, uint32_t* iStorageID );
 
 #endif // _CAMERA_CONTROL_STORAGE_INFO_H_

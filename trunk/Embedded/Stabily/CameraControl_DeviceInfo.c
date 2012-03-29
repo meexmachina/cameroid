@@ -314,7 +314,7 @@ uint8_t CameraControl_DeviceInfo_Bin ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
 	header.length = DeviceInfoSize;
 	header.transID = transID;
 	header.type = TP_DATA_CAMERA_INFO;
-	SendHeader(&header);
+	TP_SendHeader(&header);
 	for (i=0; i<DeviceInfoSize; i++)
 		putchar(DeviceInfo[i]);
 

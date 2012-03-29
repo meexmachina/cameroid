@@ -188,7 +188,7 @@ uint16_t CameraControl_DeviceOperation_GetPropertyDescBin ( USB_ClassInfo_SI_Hos
 	header.length = DatasetSize;
 	header.transID = transID;
 	header.type = TP_DATA_PROP_DESC;
-	SendHeader(&header);
+	TP_SendHeader(&header);
 	for (i=0; i<DatasetSize; i++)
 		putchar(Dataset[i]);
 
@@ -254,7 +254,7 @@ uint16_t CameraControl_DeviceOperation_GetPropertyValBin ( USB_ClassInfo_SI_Host
 	header.length = DatasetSize;
 	header.transID = transID;
 	header.type = TP_DATA_PROP_VAL;
-	SendHeader(&header);
+	TP_SendHeader(&header);
 	for (i=0; i<DatasetSize; i++)
 		putchar(Dataset[i]);
 

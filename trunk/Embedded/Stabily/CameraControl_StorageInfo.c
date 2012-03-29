@@ -239,7 +239,7 @@ uint8_t CameraControl_StorageInfo_Bin 	( USB_ClassInfo_SI_Host_t* SIInterfaceInf
 	header.length = StorageInfoSize;
 	header.transID = transID;
 	header.type = TP_DATA_STORAGE_INFO;
-	SendHeader(&header);
+	TP_SendHeader(&header);
 	for (i=0; i<StorageInfoSize; i++)
 		putchar(StorageInfo[i]);
 		

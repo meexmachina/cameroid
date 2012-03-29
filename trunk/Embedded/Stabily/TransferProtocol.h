@@ -20,10 +20,10 @@
 #define TP_COMMAND_GET_SYSTEM_STATUS	0x06
 #define TP_COMMAND_GET_OBJECT_INFO		0x07
 #define TP_COMMAND_GET_OBJECT			0x08
-#define TP_COMMAND_GET_THUMB_LIST		0x09
-#define TP_COMMAND_GET_THUMB			0x0A
-#define TP_COMMAND_CAPTURE				0x0B
-#define TP_COMMAND_GET_PROP_DESC		0x0C
+#define TP_COMMAND_GET_THUMB			0x09
+#define TP_COMMAND_CAPTURE				0x0A
+#define TP_COMMAND_GET_PROP_DESC		0x0B
+#define TP_COMMAND_GET_PROP_VAL			0x0C
 #define TP_COMMAND_SET_PROP_VAL			0x0D
 
 #define TP_EVENT_CAMERA_CONNECTED		0x31
@@ -74,12 +74,14 @@ typedef struct
 } TP_Outgoing_Event_ST;			// 9 bytes
 #define TP_EVENT_SIZE	(TP_HEADER_SIZE+4)
 
+#define TP_EVENT_QUEUE_SIZE		5
+
 /*------------------------------------------------------------------------------
  * Function Definitions
  */
 uint8_t TP_GetIncomingCommand ( void );
 uint8_t TP_SendEvent (TP_Outgoing_Event_ST* event);
 uint8_t TP_RespondTo (TP_Incoming_Command_ST* command);
-void SendHeader(TP_Header_ST *header);
+void TP_SendHeader(TP_Header_ST *header);
 
 #endif /* TRANSFERPROTOCOL_H_ */
