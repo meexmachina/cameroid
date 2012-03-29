@@ -231,6 +231,7 @@ public class hardwareFacade
 	{
 		// if nothing is queued
 		Log.d(TAG, "write_queue (byte[]) - enqueuing '" + (new String(out)) + "' with tag " + Integer.toString(tag.getIndex()));
+		
 		if (mCurrentMessageTag == MessageElement.MessageTags.ME_NO_MSG)
 		{
 			Log.d(TAG, "write_queue (byte[]) - Nothing in the queue so sending.");
