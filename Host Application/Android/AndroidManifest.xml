@@ -11,99 +11,99 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
+            android:name=".splash"
             android:configChanges="orientation"
             android:label="@string/app_name"
-            android:name=".splash"
             android:screenOrientation="portrait" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:name=".deviceSelectionActivity"
             android:configChanges="orientation"
             android:label="@string/device_selection_activity_title"
-            android:name=".deviceSelectionActivity"
             android:screenOrientation="portrait" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="afarsek.namespace.DEVICESELECTIONACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
+            android:name=".mainPanelActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/main_panel_activity_title"
-            android:name=".mainPanelActivity"
             android:screenOrientation="portrait" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="afarsek.namespace.MAINPANELACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:label="@string/widget_selection_title"
             android:name=".preferencesPanelActivity"
+            android:label="@string/widget_selection_title"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="afarsek.namespace.PREFERENCESPANELACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:label="@string/title_about_afarsek"
             android:name=".aboutPanelActivity"
+            android:label="@string/title_about_afarsek"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="afarsek.namespace.ABOUTPANELACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:label="@string/title_about_camera"
             android:name=".aboutCameraActivity"
+            android:label="@string/title_about_camera"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="afarsek.namespace.ABOUTCAMERAACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
+            android:name=".galleryTabPanelActivity"
             android:configChanges="orientation"
             android:label="@string/no_title"
-            android:name=".galleryTabPanelActivity"
             android:screenOrientation="portrait" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="afarsek.namespace.GALLERYTABPANELACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
+            android:name=".generalTabPanelActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/no_title"
-            android:name=".generalTabPanelActivity"
             android:screenOrientation="portrait" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="afarsek.namespace.GENERALTABPANELACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
+            android:name=".advancedTabPanelActivity"
             android:configChanges="orientation"
             android:label="@string/no_title"
-            android:name=".advancedTabPanelActivity"
             android:screenOrientation="portrait" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="afarsek.namespace.ADVANCEDTABPANELACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
