@@ -1,4 +1,5 @@
 #include "CameraControl_StorageInfo.h"
+#include "TransferProtocol.h"
 
 //==============================================================================
 // 			V A R I A B L E S 
@@ -189,7 +190,7 @@ uint8_t CameraControl_StorageInfo_Printout 	( USB_ClassInfo_SI_Host_t* SIInterfa
 /*------------------------------------------------------------------------------
  * CameraControl_StorageInfo_Bin - binary transfer
  */
-uint8_t CameraControl_StorageInfo_Bin 	( USB_ClassInfo_SI_Host_t* SIInterfaceInfo,  uint8_t iStorageIndex )
+uint8_t CameraControl_StorageInfo_Bin 	( USB_ClassInfo_SI_Host_t* SIInterfaceInfo,  uint8_t iStorageIndex, uint16_t transID )
 {
 	uint16_t i;
 	uint16_t StorageInfoSize;
@@ -234,12 +235,14 @@ uint8_t CameraControl_StorageInfo_Bin 	( USB_ClassInfo_SI_Host_t* SIInterfaceInf
 	// Once all the data has been read, the pipe must be cleared before the response can be sent
 	Pipe_ClearIN();
 
-	putchar(RET_CODE_STORAGE_INFO);
-	putchar((uint8_t)(StorageInfoSize&0xFF));
-	putchar((uint8_t)((StorageInfoSize>>8)&0xFF));
+	TP_Header_ST header;
+	header.length = StorageInfoSize;
+	header.transID = transID;
+	header.type = TP_DATA_STORAGE_INFO;
+	SendHeader(&header);
 	for (i=0; i<StorageInfoSize; i++)
 		putchar(StorageInfo[i]);
-
+		
 	// Receive the final response block from the device 
 	CameraControl_GetResponseAndCheck (SIInterfaceInfo, &PIMABlock);
 

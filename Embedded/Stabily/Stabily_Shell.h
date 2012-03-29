@@ -50,12 +50,12 @@ void tm_cmd_idn_bin					(uint8_t argc, char **argv);
 void tm_cmd_status					(uint8_t argc, char **argv);
 void tm_cmd_status_bin				(uint8_t argc, char **argv);
 void tm_cmd_get_dev_info			(uint8_t argc, char **argv);
-void tm_cmd_get_dev_info_bin		(uint8_t argc, char **argv);
+//void tm_cmd_get_dev_info_bin		(uint8_t argc, char **argv);
 void tm_cmd_get_storage_info		(uint8_t argc, char **argv);
-void tm_cmd_get_storage_info_bin	(uint8_t argc, char **argv);
+//void tm_cmd_get_storage_info_bin	(uint8_t argc, char **argv);
 void tm_cmd_capture					(uint8_t argc, char **argv);
 void tm_cmd_prop_desc				(uint8_t argc, char **argv);
-void tm_cmd_prop_desc_bin			(uint8_t argc, char **argv);
+//void tm_cmd_prop_desc_bin			(uint8_t argc, char **argv);
 void tm_cmd_set_quite_mode			(uint8_t argc, char **argv);
 void tm_cmd_configure_bt			(uint8_t argc, char **argv);
 
