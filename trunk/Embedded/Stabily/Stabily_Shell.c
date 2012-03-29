@@ -32,12 +32,12 @@ static cmd_t cmd_tbl[] =
 	{"eof",						tm_cmd_echo_off,			""					},
 	{"eon",						tm_cmd_echo_on,				""					},
 	{"get_dev_info",			tm_cmd_get_dev_info,		""					},
-	{"get_dev_info_bin",		tm_cmd_get_dev_info_bin,	""					},
+//	{"get_dev_info_bin",		tm_cmd_get_dev_info_bin,	""					},
 	{"get_storage_info",		tm_cmd_get_storage_info,	""					},
-	{"get_storage_info_bin", 	tm_cmd_get_storage_info_bin,"stIdx"				},
+//	{"get_storage_info_bin", 	tm_cmd_get_storage_info_bin,"stIdx"				},
 	{"capture",					tm_cmd_capture,				""					},
 	{"prop_desc", 				tm_cmd_prop_desc, 			""					},
-	{"prop_desc_bin",			tm_cmd_prop_desc_bin,		"propID"			},
+//	{"prop_desc_bin",			tm_cmd_prop_desc_bin,		"propID"			},
 	{"set_quite",				tm_cmd_set_quite_mode, 		"0/1"				},
 	{"configure_bt",			tm_cmd_configure_bt,		""					},
 	{NULL,      				NULL,						NULL				}
@@ -289,13 +289,13 @@ void tm_cmd_get_dev_info	(uint8_t argc, char **argv)
 	Print-out the current attached device info
 */
 /**************************************************************************/
-void tm_cmd_get_dev_info_bin(uint8_t argc, char **argv)
+/*void tm_cmd_get_dev_info_bin(uint8_t argc, char **argv)
 {
 	if (CameraControl_DeviceInfo_Bin ( &DigitalCamera_SI_Interface )!=0)
 	{
 		putchar(255);
 	}
-}
+}*/
 
 /**************************************************************************/
 /*!
@@ -314,7 +314,7 @@ void tm_cmd_get_storage_info(uint8_t argc, char **argv)
 	Print-out the current attached device's storage info   
 */
 /**************************************************************************/
-void tm_cmd_get_storage_info_bin(uint8_t argc, char **argv)
+/*void tm_cmd_get_storage_info_bin(uint8_t argc, char **argv)
 {
 	if ( argc < 2 )
 	{
@@ -327,7 +327,7 @@ void tm_cmd_get_storage_info_bin(uint8_t argc, char **argv)
 	if ( 0!=CameraControl_StorageInfo_Bin ( &DigitalCamera_SI_Interface, atoi(argv[1]) ))
 		putchar(255);
 	CameraControl_CloseSession( &DigitalCamera_SI_Interface );
-}
+}*/
 
 /**************************************************************************/
 /*!
@@ -368,7 +368,7 @@ void tm_cmd_prop_desc		(uint8_t argc, char **argv)
 	Get a properties description
 */
 /**************************************************************************/
-void tm_cmd_prop_desc_bin		(uint8_t argc, char **argv)
+/*void tm_cmd_prop_desc_bin		(uint8_t argc, char **argv)
 {
 	uint16_t iPropValue;
 
@@ -382,7 +382,7 @@ void tm_cmd_prop_desc_bin		(uint8_t argc, char **argv)
 
  	CameraControl_DeviceOperation_GetPropertyDescBin ( &DigitalCamera_SI_Interface,
 														iPropValue );
-}
+}*/
 
 /**************************************************************************/
 /*!

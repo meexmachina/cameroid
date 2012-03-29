@@ -1,5 +1,6 @@
 #include "CameraControl_DeviceInfo.h"
 #include "CameraControl_General.h"
+#include "TransferProtocol.h"
 
 
 //==============================================================================
@@ -275,7 +276,7 @@ uint8_t CameraControl_DeviceInfo_Printout ( USB_ClassInfo_SI_Host_t* SIInterface
 /*------------------------------------------------------------------------------
  * CameraControl_DeviceInfo_Bin
  */
-uint8_t CameraControl_DeviceInfo_Bin ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo )
+uint8_t CameraControl_DeviceInfo_Bin ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t transID )
 {
 	uint16_t 	DeviceInfoSize;
 	uint8_t 	ErrorCode = 0;
@@ -309,9 +310,11 @@ uint8_t CameraControl_DeviceInfo_Bin ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo 
 	// Once all the data has been read, the pipe must be cleared before the response can be sent
 	Pipe_ClearIN();
 
-	putchar(RET_CODE_DEV_INFO);
-	putchar((uint8_t)(DeviceInfoSize&0xFF));
-	putchar((uint8_t)((DeviceInfoSize>>8)&0xFF));
+	TP_Header_ST header;
+	header.length = DeviceInfoSize;
+	header.transID = transID;
+	header.type = TP_DATA_CAMERA_INFO;
+	SendHeader(&header);
 	for (i=0; i<DeviceInfoSize; i++)
 		putchar(DeviceInfo[i]);
 
