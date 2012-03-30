@@ -41,7 +41,9 @@ uint8_t TP_GetIncomingCommand ( void )
 	{
 		// get the new char
 		iInCommand[g_iInCommandPos] = uart_getc ( stdin );
-		g_iCurrentCheckSum += *((uint8_t*)(iInCommand+g_iInCommandPos));
+		
+		// accumulate checksum only if its not the last char
+		if (g_iInCommandPos<(TP_COMMAND_SIZE-1))	g_iCurrentCheckSum += *((uint8_t*)(iInCommand+g_iInCommandPos));
 		g_iInCommandPos ++;
 		
 		// check if the command was finished
@@ -55,7 +57,6 @@ uint8_t TP_GetIncomingCommand ( void )
 				// flush all incoming buffers
 				return 1;
 			}
-			
 			// assume that the message is OK
 			g_iCurrentCheckSum = 0;
 			g_iInCommandPos = 0;
@@ -86,7 +87,7 @@ uint8_t TP_SendEvent (void)
 	TP_SendHeader(&event->header);
 	
 	char* tempPos = (char*)((void*)(&event->arg1));
-	uart_putc(tempPos[0], stdout);		// msb
+	uart_putc(tempPos[0], stdout);		// MSB
 	uart_putc(tempPos[1], stdout);
 	uart_putc(tempPos[2], stdout);
 	uart_putc(tempPos[3], stdout);
