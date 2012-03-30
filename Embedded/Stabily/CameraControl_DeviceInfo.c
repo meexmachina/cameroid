@@ -316,7 +316,7 @@ uint8_t CameraControl_DeviceInfo_Bin ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
 	header.type = TP_DATA_CAMERA_INFO;
 	TP_SendHeader(&header);
 	for (i=0; i<DeviceInfoSize; i++)
-		putchar(DeviceInfo[i]);
+		uart_putc(DeviceInfo[i], stdout);
 
 	// Receive the final response block from the device 
 	CameraControl_GetResponseAndCheck (SIInterfaceInfo, &PIMABlock);

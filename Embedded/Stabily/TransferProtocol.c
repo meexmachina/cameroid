@@ -148,7 +148,7 @@ uint8_t TP_RespondTo (TP_Incoming_Command_ST* command)
 			for ( uint8_t i=0; i<g_iNumOfStorages; i++ )
 			{
 				char* tempPos = (char*)((void*)(&g_aiStorageIDs[i]));
-				uart_putc(tempPos[0], stdout);		// msb
+				uart_putc(tempPos[0], stdout);		// MSB
 				uart_putc(tempPos[1], stdout);
 				uart_putc(tempPos[2], stdout);
 				uart_putc(tempPos[3], stdout);
