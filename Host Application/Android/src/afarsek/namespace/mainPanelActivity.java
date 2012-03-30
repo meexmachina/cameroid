@@ -282,6 +282,7 @@ public class mainPanelActivity extends TabActivity
 			case messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE:
 				// if connected then start negotiation
 				// if not connected hide icons
+
 				break;
 
 			// DEVICE INFO MESSAGE WAS RECEIVED

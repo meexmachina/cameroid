@@ -482,11 +482,16 @@ public class hardwareFacade
 
 	public static final int CT_LENGTH_MSG_HEADER = 5; // 5 bytes
 	public static final int CT_LENGTH_MSG_EVENT = 9; // 9 bytes
+	
+	public static int byteToInteger (byte b)
+	{
+		return (b<0)?(int)(256+b):(int)b;
+	}
 
 	/**
 	 * This class implements the message header of Transfer Protocol
 	 */
-	public class TP_header
+	public static class TP_header
 	{
 		public int mType;
 		public int mLength;
@@ -501,11 +506,11 @@ public class hardwareFacade
 
 		public TP_header(byte[] data)
 		{
-			mType = data[0];
-			mLength = 0xff & data[1];
-			mLength |= 0xff00 & (data[2] << 8);
-			mTransID = 0xff & data[3];
-			mTransID |= 0xff00 & (data[4] << 8);
+			mType = byteToInteger(data[0]);
+			mLength = 0xff & byteToInteger(data[1]);
+			mLength |= 0xff00 & (byteToInteger(data[2]) << 8);
+			mTransID = 0xff & byteToInteger(data[3]);
+			mTransID |= 0xff00 & (byteToInteger(data[4]) << 8);
 		}
 
 		public byte[] getByteArray()
@@ -518,6 +523,71 @@ public class hardwareFacade
 			arr[3] = (byte) ((mTransID) & 0xff); // first LSB
 			arr[4] = (byte) ((mTransID >> 8) & 0xff); // second MSB
 
+			return arr;
+		}
+
+		public byte getChecksum()
+		{
+			byte[] arr = getByteArray();
+			int sum = 0;
+			for (int i = 0; i < arr.length; i++)
+				sum += (int) byteToInteger(arr[i]);
+
+			return (byte) (sum & 0xff);
+		}
+	}
+
+	/**
+	 * This class implements the outgoing command message for Transfer Protocol
+	 */
+	public static class TP_command
+	{
+		public static final int CT_LENGTH_MSG_COMMAND = 18; // 18 bytes
+
+		public TP_header header;
+		public int arg1;
+		public int arg2;
+		public int arg3;
+		private byte checksum;
+
+		public TP_command(TP_header h, int a1, int a2, int a3)
+		{
+			header = new TP_header();
+			header.mLength = h.mLength;
+			header.mTransID = h.mTransID;
+			header.mType = h.mType;
+			arg1 = a1;
+			arg2 = a2;
+			arg3 = a3;
+		}
+
+		public byte[] getByteArray()
+		{
+			byte[] headerBytes = header.getByteArray();
+			byte[] arr = new byte[CT_LENGTH_MSG_COMMAND];
+			int i = 0;
+
+			for (i = 0; i < headerBytes.length; i++)
+				arr[i] = headerBytes[i];
+
+			arr[i] = (byte) ((arg1 >> 0) & 0xff);
+			arr[i + 1] = (byte) ((arg1 >> 8) & 0xff);
+			arr[i + 2] = (byte) ((arg1 >> 16) & 0xff);
+			arr[i + 3] = (byte) ((arg1 >> 24) & 0xff);
+			arr[i + 4] = (byte) ((arg2 >> 0) & 0xff);
+			arr[i + 5] = (byte) ((arg2 >> 8) & 0xff);
+			arr[i + 6] = (byte) ((arg2 >> 16) & 0xff);
+			arr[i + 7] = (byte) ((arg2 >> 24) & 0xff);
+			arr[i + 8] = (byte) ((arg3 >> 0) & 0xff);
+			arr[i + 9] = (byte) ((arg3 >> 8) & 0xff);
+			arr[i + 10] = (byte) ((arg3 >> 16) & 0xff);
+			arr[i + 11] = (byte) ((arg3 >> 24) & 0xff);
+
+			int sum = 0;
+			for (int j = 0; j < CT_LENGTH_MSG_COMMAND - 1; j++)
+				sum += (int) byteToInteger(arr[j]);
+
+			checksum = arr[i + 12] = (byte) (sum & 0xff); // checksum
 			return arr;
 		}
 	}
@@ -555,7 +625,7 @@ public class hardwareFacade
 		public void run()
 		{
 			Log.i(TAG, "BEGIN mConnectedThread");
-			byte[] buffer = new byte[1024];
+			byte[] buffer = new byte[4096];
 			int byteCount = 0;
 			int iState = CT_STATE_GETTING_MSG_HEADER;
 			int iRemainingtoGet = CT_LENGTH_MSG_HEADER;
@@ -567,18 +637,19 @@ public class hardwareFacade
 			{
 				try
 				{
-					// byteCount = mmInStream.read(buffer);
 					if (currentOffset < iRemainingtoGet)
 						byteCount = mmInStream.read(buffer, currentOffset, buffer.length - currentOffset);
-					else byteCount = 0;
+					else
+						byteCount = 0;
 
 					// ====== DEBUG - write the header to the logger
 					String logged = "Trans Read Header: ";
-					for (int i = 0; i < byteCount; i++)
+					for (int i = currentOffset; i < (currentOffset+byteCount); i++)
 					{
 						logged += String.format("%x ", buffer[i]);
 					}
-					Log.d(TAG, logged);
+					if (byteCount > 0)
+						Log.d(TAG, logged);
 					// ====== DEBUG - write the header to the logger
 
 					// if we just got just enough bytes
