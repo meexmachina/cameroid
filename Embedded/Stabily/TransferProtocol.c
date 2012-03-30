@@ -73,8 +73,24 @@ uint8_t TP_GetIncomingCommand ( void )
 }
 
 //------------------------------------------------------------------------------
-uint8_t TP_SendEvent (TP_Outgoing_Event_ST* event)
+uint8_t TP_SendEvent (void)
 {
+	if (g_iEventQueueSize==0)
+		return 0;
+	
+	TP_Outgoing_Event_ST* event = TP_PopEvent();
+	
+	if (event==NULL) 
+		return 1;
+		
+	TP_SendHeader(&event->header);
+	
+	char* tempPos = (char*)((void*)(&event->arg1));
+	uart_putc(tempPos[0], stdout);		// msb
+	uart_putc(tempPos[1], stdout);
+	uart_putc(tempPos[2], stdout);
+	uart_putc(tempPos[3], stdout);
+	
 	return 0;
 }
 
@@ -188,12 +204,12 @@ void TP_SendHeader(TP_Header_ST *header)
 	
 	while (length--)
 	{
-		uart_putc( pt++, stdout);
+		uart_putc( *pt++, stdout);
 	}
 }
 
 //------------------------------------------------------------------------------
-uint8_t TP_PushEvent(TP_Outgoing_Event_ST *event)
+uint8_t TP_PushEvent(TP_Outgoing_Event_ST *ev)
 {
 	// if queue is full return error
 	if ( g_iEventQueueSize == TP_EVENT_QUEUE_SIZE )
@@ -202,10 +218,10 @@ uint8_t TP_PushEvent(TP_Outgoing_Event_ST *event)
 	
 	TP_Outgoing_Event_ST *newEvent = &g_stOutgoingEventQueue[g_iEventQueueStart];
 	
-	newEvent->header.length=event->header.length;
-	newEvent->header.type=event->header.type;
+	newEvent->header.length=ev->header.length;
+	newEvent->header.type=ev->header.type;
 	newEvent->header.transID=g_iEventID++;
-	newEvent->arg1 = event->arg1;
+	newEvent->arg1 = ev->arg1;
 	
 	g_iEventQueueSize ++;
 	g_iEventQueueStart ++;
