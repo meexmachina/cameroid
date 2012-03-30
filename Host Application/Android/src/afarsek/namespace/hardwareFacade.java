@@ -284,8 +284,8 @@ public class hardwareFacade
 	{
 		public void run()
 		{
-			//mCurrentMessageTag = MessageElement.MessageTags.ME_NO_MSG;
-			//release_from_queue();
+			// mCurrentMessageTag = MessageElement.MessageTags.ME_NO_MSG;
+			// release_from_queue();
 		}
 	}
 
@@ -557,59 +557,87 @@ public class hardwareFacade
 			Log.i(TAG, "BEGIN mConnectedThread");
 			byte[] buffer = new byte[1024];
 			int byteCount = 0;
+			int iState = CT_STATE_GETTING_MSG_HEADER;
+			int iRemainingtoGet = CT_LENGTH_MSG_HEADER;
+			int currentOffset = 0;
+			TP_header header = new TP_header();
 
 			// Keep listening to the InputStream while connected
 			while (true)
 			{
 				try
 				{
-					byteCount = mmInStream.read(buffer, 0, CT_LENGTH_MSG_HEADER);
-					
-					// write the header to the logger
+					// byteCount = mmInStream.read(buffer);
+					if (currentOffset < iRemainingtoGet)
+						byteCount = mmInStream.read(buffer, currentOffset, buffer.length - currentOffset);
+					else byteCount = 0;
+
+					// ====== DEBUG - write the header to the logger
 					String logged = "Trans Read Header: ";
 					for (int i = 0; i < byteCount; i++)
 					{
 						logged += String.format("%x ", buffer[i]);
 					}
 					Log.d(TAG, logged);
+					// ====== DEBUG - write the header to the logger
 
-					// if we just got the 5 bytes analyze them
-					if (byteCount != 5)
+					// if we just got just enough bytes
+					if (currentOffset + byteCount >= iRemainingtoGet)
 					{
-						// error
-						continue;
-					}
+						int oldRemainingToGet = iRemainingtoGet;
 
-					TP_header header = new TP_header(buffer);
+						// Analyze
+						if (iState == CT_STATE_GETTING_MSG_HEADER)
+						{
+							header = new TP_header(buffer);
 
-					// if its an event
-					if (header.mType > MessageElement.TP_EVENT_START && header.mType < MessageElement.TP_EVENT_END)
+							// if its an event
+							if (header.mType > MessageElement.TP_EVENT_START && header.mType < MessageElement.TP_EVENT_END)
+							{
+								iState = CT_STATE_GETTING_MSG_EVENT;
+								iRemainingtoGet = header.mLength;
+							} else if (header.mType > MessageElement.TP_DATA_START && header.mType < MessageElement.TP_DATA_END)
+							{
+								iState = CT_STATE_GETTING_MSG_DATA;
+								iRemainingtoGet = header.mLength;
+							}
+						} else if (iState == CT_STATE_GETTING_MSG_EVENT)
+						{
+							// if we just got the bytes
+							int arg1 = ((int) buffer[0]) | (((int) buffer[1]) << 8) | (((int) buffer[2]) << 16) | (((int) buffer[3]) << 24);
+
+							// send the info to camera-control class
+							Message msg = mHandler.obtainMessage(messageDefinitions.MESSAGE_READ, header.mType, arg1);
+							Bundle bundle = new Bundle();
+							bundle.putInt("TransactionID", header.mTransID);
+							msg.setData(bundle);
+							mHandler.sendMessage(msg);
+
+							iState = CT_STATE_GETTING_MSG_HEADER;
+							iRemainingtoGet = CT_LENGTH_MSG_HEADER;
+						} else if (iState == CT_STATE_GETTING_MSG_DATA)
+						{
+							// send the info to camera-control class
+							Message msg = mHandler.obtainMessage(messageDefinitions.MESSAGE_READ, header.mType, header.mLength);
+							Bundle bundle = new Bundle();
+							bundle.putInt("TransactionID", header.mTransID);
+							bundle.putByteArray("GottenData", buffer.clone());
+							msg.setData(bundle);
+							mHandler.sendMessage(msg);
+
+							iState = CT_STATE_GETTING_MSG_HEADER;
+							iRemainingtoGet = CT_LENGTH_MSG_HEADER;
+						}
+
+						// arrange stuff
+						for (int ii = 0; ii < (currentOffset + byteCount - oldRemainingToGet); ii++)
+						{
+							buffer[ii] = buffer[oldRemainingToGet + ii];
+						}
+						currentOffset = currentOffset + byteCount - oldRemainingToGet;
+					} else
 					{
-						byteCount = mmInStream.read(buffer, 0, header.mLength);
-
-						// if we just got the bytes
-						int arg1 = ((int) buffer[0]) | (((int) buffer[1]) << 8) | (((int) buffer[2]) << 16) | (((int) buffer[3]) << 24);
-
-						// send the info to camera-control class
-						Message msg = mHandler.obtainMessage(messageDefinitions.MESSAGE_READ, header.mType, arg1);
-						Bundle bundle = new Bundle();
-						bundle.putInt("TransactionID", header.mTransID);
-						msg.setData(bundle);
-						mHandler.sendMessage(msg);
-					} else if (header.mType > MessageElement.TP_DATA_START && header.mType < MessageElement.TP_DATA_END)
-					{
-						int remainingBytesToRead = header.mLength;
-						byte[] data = new byte[remainingBytesToRead];
-
-						byteCount = mmInStream.read(data, 0, remainingBytesToRead);
-
-						// send the info to camera-control class
-						Message msg = mHandler.obtainMessage(messageDefinitions.MESSAGE_READ, header.mType, header.mLength);
-						Bundle bundle = new Bundle();
-						bundle.putInt("TransactionID", header.mTransID);
-						bundle.putByteArray("GottenData", data.clone());
-						msg.setData(bundle);
-						mHandler.sendMessage(msg);
+						currentOffset += byteCount;
 					}
 
 				} catch (IOException e)
