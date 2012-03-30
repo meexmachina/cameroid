@@ -40,7 +40,9 @@ int main(void)
 
 	for (;;)
 	{
-		Stabily_ShellRX ( );
+		//Stabily_ShellRX ( );
+		TP_GetIncomingCommand (  );
+		TP_SendEvent (  );
 
 		//CameraControl_DeviceEvents_PollEvents(&DigitalCamera_SI_Interface);
 		SI_Host_USBTask(&DigitalCamera_SI_Interface);

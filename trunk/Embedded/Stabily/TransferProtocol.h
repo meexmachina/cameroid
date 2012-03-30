@@ -80,8 +80,11 @@ typedef struct
  * Function Definitions
  */
 uint8_t TP_GetIncomingCommand ( void );
-uint8_t TP_SendEvent (TP_Outgoing_Event_ST* event);
+uint8_t TP_SendEvent (void);
 uint8_t TP_RespondTo (TP_Incoming_Command_ST* command);
 void TP_SendHeader(TP_Header_ST *header);
+uint8_t TP_PushEvent(TP_Outgoing_Event_ST *event);
+TP_Outgoing_Event_ST* TP_TopEvent(void);
+TP_Outgoing_Event_ST* TP_PopEvent(void);
 
 #endif /* TRANSFERPROTOCOL_H_ */
