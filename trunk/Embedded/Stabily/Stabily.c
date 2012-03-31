@@ -34,13 +34,14 @@ int main(void)
 
 	for (;;)
 	{
+		TP_SendEvent (  );
 		//Stabily_ShellRX ( );
 		TP_GetIncomingCommand (  );		
 		
 		//CameraControl_DeviceEvents_PollEvents(&DigitalCamera_SI_Interface);
 		SI_Host_USBTask(&DigitalCamera_SI_Interface);
 		USB_USBTask();
-		TP_SendEvent (  );
+		TP_CollectEvents (  );
 	}
 }
 

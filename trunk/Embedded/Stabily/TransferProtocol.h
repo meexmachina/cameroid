@@ -22,12 +22,14 @@
 #include "TransferProtocolDefinitions.h"
 #include "CameraControl_DeviceOperation.h"
 #include "CameraControl_DeviceInfo.h"
+#include "Stabily.h"
 
 
 /*------------------------------------------------------------------------------
  * Function Definitions
  */
 uint8_t TP_GetIncomingCommand ( void );
+void TP_CollectEvents ( void );
 uint8_t TP_SendEvent ( void );
 void TP_RespondTo ( volatile TP_Incoming_Command_ST* command );
 void TP_SendHeader(volatile TP_Header_ST *header);

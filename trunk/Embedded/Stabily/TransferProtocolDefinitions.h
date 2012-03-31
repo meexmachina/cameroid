@@ -47,6 +47,10 @@
 #define TP_DATA_PROP_VAL				0xAA
 #define TP_DATA_IDN						0xAB
 
+#define TP_USB_EVENT_DEVICE_ATTACHED	0x01
+#define TP_USB_EVENT_DEVICE_DETTACHED	0x02
+#define TP_USB_EVENT_ERROR				0x04
+
 /*------------------------------------------------------------------------------
  * Message Definitions
  */
