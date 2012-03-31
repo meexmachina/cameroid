@@ -45,5 +45,14 @@ uint8_t CameraControl_GetResponseAndCheck (	USB_ClassInfo_SI_Host_t* SIInterface
 uint8_t CameraControl_OpenSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
 uint8_t CameraControl_CloseSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
 uint8_t CameraControl_CameraConnected ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo );
+uint8_t CameraControl_GeneralStream_Bin (	USB_ClassInfo_SI_Host_t* SIInterfaceInfo, 
+											uint16_t operation,
+											uint32_t p1,
+											uint32_t p2,
+											uint32_t p3, 
+											uint8_t numParams,
+											uint8_t headerType,
+											uint16_t transID );
+
 
 #endif //_CAMERA_CONTROL_GENERAL_H_

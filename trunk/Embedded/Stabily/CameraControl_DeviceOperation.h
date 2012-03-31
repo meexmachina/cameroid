@@ -3,7 +3,7 @@
 
 #include "CameraControl_General.h"
 #include "CameraControl_StorageInfo.h"
-#include "Stabily_Shell.h"
+#include "TransferProtocolDefinitions.h"
 #include "CameraControl_PTPDefinitions.h"
 
 //uint16_t CameraControl_DeviceOperation_GetStorageIDs (PTPParams* params, PTPStorageIDs* storageids);

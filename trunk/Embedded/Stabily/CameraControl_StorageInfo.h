@@ -2,7 +2,7 @@
 #define _CAMERA_CONTROL_STORAGE_INFO_H_
 
 #include "CameraControl_General.h"
-#include "Stabily_Shell.h"
+#include "TransferProtocolDefinitions.h"
 #include "CameraControl_PTPDefinitions.h"
 
 /* Macros: */

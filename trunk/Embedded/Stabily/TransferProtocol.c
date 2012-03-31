@@ -1,33 +1,128 @@
-/*
- * TransferProtocol.c
- *
- * Created: 3/28/2012 10:57:10 PM
- *  Author: david
- */ 
-
 #include <stdio.h>
 #include "TransferProtocol.h"
 #include "ISRUart.h"
 #include "CameraControl_General.h"
 #include "CameraControl_StorageInfo.h"
+#include "CameraControl_DeviceInfo.h"
+#include "CameraControl_DeviceOperation.h"
 
 /*------------------------------------------------------------------------------
  * Global / Extern Variables
  */
 volatile uint32_t					g_iEventID = 0;
 volatile uint32_t					g_iCommandID = 0;
-TP_Incoming_Command_ST				g_stCurrentCommand;
+volatile TP_Incoming_Command_ST		g_stCurrentCommand;
 volatile uint8_t					g_iInCommandPos = 0;
 volatile uint8_t					g_iCurrentCheckSum = 0;
-
-extern USB_ClassInfo_SI_Host_t		DigitalCamera_SI_Interface;
-extern volatile uint32_t			g_aiStorageIDs[MAX_NUM_STORAGES];
-extern volatile uint8_t				g_iNumOfStorages;
-
-TP_Outgoing_Event_ST				g_stOutgoingEventQueue[TP_EVENT_QUEUE_SIZE];
+volatile TP_Outgoing_Event_ST		g_stOutgoingEventQueue[TP_EVENT_QUEUE_SIZE];
 volatile uint8_t					g_iEventQueueStart = 0;
 volatile uint8_t					g_iEventQueueEnd = 0;
 volatile uint8_t					g_iEventQueueSize = 0;
+
+
+//------------------------------------------------------------------------------
+void TP_RespondTo (volatile TP_Incoming_Command_ST* command)
+{
+	TP_Header_ST	header;
+	
+	header.transID = command->header.transID;
+	
+	switch (command->header.type)
+	{
+		case TP_COMMAND_IDN:
+			header.length = 3;
+			header.type = TP_DATA_IDN;
+			
+			TP_SendHeader (&header);
+			uart_putc(1, stdout);		// version
+			uart_putc(0, stdout);		// sub-version
+			uart_putc(16, stdout);		// clock-speed
+		break;	
+				
+		case TP_COMMAND_GET_CAMERA_STATUS:
+			header.length = 1;
+			header.type = TP_DATA_CAMERA_STATUS;
+			TP_SendHeader (&header);
+			uart_putc (g_bCameraConnected, stdout);			
+		break;
+		
+		case TP_COMMAND_GET_CAMERA_INFO:
+			// if not connected
+			if (g_bCameraConnected == 0)
+			{
+				header.length = 0;
+				header.type = TP_DATA_CAMERA_INFO;
+				TP_SendHeader (&header);
+			}
+			else
+			{
+				CameraControl_DeviceInfo_Bin ( &DigitalCamera_SI_Interface, header.transID );
+			}
+			
+		break;
+		
+		case TP_COMMAND_GET_STORAGE_IDS:	
+			CameraControl_OpenSession( &DigitalCamera_SI_Interface );
+			CameraControl_GetStorageIDs ( &DigitalCamera_SI_Interface );
+			CameraControl_CloseSession( &DigitalCamera_SI_Interface );
+			header.length = g_iNumOfStorages*4;
+			header.type = TP_DATA_STORAGE_IDS;
+			TP_SendHeader(&header);
+			
+			// write the data
+			for ( uint8_t i=0; i<g_iNumOfStorages; i++ )
+			{
+				char* tempPos = (char*)((void*)(&g_aiStorageIDs[i]));
+				uart_putc(tempPos[0], stdout);		// MSB
+				uart_putc(tempPos[1], stdout);
+				uart_putc(tempPos[2], stdout);
+				uart_putc(tempPos[3], stdout);
+			}
+		
+		break;
+		
+		case TP_COMMAND_GET_STORAGE_INFO:
+			CameraControl_OpenSession( &DigitalCamera_SI_Interface );
+			CameraControl_GetStorageIDs ( &DigitalCamera_SI_Interface );
+			CameraControl_StorageInfo_Bin ( &DigitalCamera_SI_Interface, command->arg1, header.transID );
+			CameraControl_CloseSession( &DigitalCamera_SI_Interface );
+		break;
+		
+		case TP_COMMAND_GET_SYSTEM_STATUS:
+		break;
+		
+		case TP_COMMAND_GET_OBJECT_INFO:
+		break;
+		
+		case TP_COMMAND_GET_OBJECT:	
+		break;
+		
+		case TP_COMMAND_GET_THUMB:	
+		break;
+		
+		case TP_COMMAND_CAPTURE:			
+		break;
+		
+		case TP_COMMAND_GET_PROP_DESC:		
+			CameraControl_OpenSession( &DigitalCamera_SI_Interface );
+			CameraControl_DeviceOperation_GetPropertyDescBin ( &DigitalCamera_SI_Interface,	command->arg1, header.transID );
+			CameraControl_CloseSession( &DigitalCamera_SI_Interface );
+		break;
+		
+		case TP_COMMAND_GET_PROP_VAL:
+			CameraControl_OpenSession( &DigitalCamera_SI_Interface );
+			CameraControl_DeviceOperation_GetPropertyValBin ( &DigitalCamera_SI_Interface,	command->arg1, header.transID );
+			CameraControl_CloseSession( &DigitalCamera_SI_Interface );
+		break;
+		
+		case TP_COMMAND_SET_PROP_VAL:	
+			
+		break;
+		
+		default:
+		break;
+	}
+}
 
 /*------------------------------------------------------------------------------
  * Function Implementation
@@ -35,7 +130,7 @@ volatile uint8_t					g_iEventQueueSize = 0;
 uint8_t TP_GetIncomingCommand ( void )
 {
 	char *iInCommand = (char*)((void*)(&g_stCurrentCommand));
-	uint8_t iError = 0;
+	//uint8_t iError = 0;
 	
 	while (uart_rx_ready( ))
 	{
@@ -60,13 +155,7 @@ uint8_t TP_GetIncomingCommand ( void )
 			// assume that the message is OK
 			g_iCurrentCheckSum = 0;
 			g_iInCommandPos = 0;
-			iError = TP_RespondTo (&g_stCurrentCommand);
-			
-			if (iError != 0)
-			{
-				// sending error
-				return 2;
-			}
+			TP_RespondTo ( &g_stCurrentCommand );
 		}
 	}	
 	
@@ -74,12 +163,12 @@ uint8_t TP_GetIncomingCommand ( void )
 }
 
 //------------------------------------------------------------------------------
-uint8_t TP_SendEvent (void)
+uint8_t TP_SendEvent ( void )
 {
 	if (g_iEventQueueSize==0)
 		return 0;
 	
-	TP_Outgoing_Event_ST* event = TP_PopEvent();
+	volatile TP_Outgoing_Event_ST* event = TP_PopEvent();
 	
 	if (event==NULL) 
 		return 1;
@@ -95,110 +184,10 @@ uint8_t TP_SendEvent (void)
 	return 0;
 }
 
-//------------------------------------------------------------------------------
-uint8_t TP_RespondTo (TP_Incoming_Command_ST* command)
-{
-	TP_Header_ST	header;
-	
-	header.transID = command->header.transID;
-	
-	switch (command->header.type)
-	{
-		case TP_COMMAND_IDN:
-			header.length = 3;
-			header.type = TP_DATA_IDN;
-			
-			TP_SendHeader (&header);
-			uart_putc(1, stdout);		// version
-			uart_putc(0, stdout);		// sub-version
-			uart_putc(16, stdout);		// clock-speed
-		break;	
-				
-		case TP_COMMAND_GET_CAMERA_STATUS:
-			header.length = 1;
-			header.type = TP_DATA_CAMERA_STATUS;
-			TP_SendHeader (&header);
-			uart_putc (CameraControl_CameraConnected(&DigitalCamera_SI_Interface), stdout);			
-		break;
-		
-		case TP_COMMAND_GET_CAMERA_INFO:
-			// if not connected
-			if (CameraControl_CameraConnected(&DigitalCamera_SI_Interface)==0)
-			{
-				header.length = 0;
-				header.type = TP_DATA_CAMERA_INFO;
-				TP_SendHeader (&header);
-			}
-			else
-			{
-				CameraControl_DeviceInfo_Bin ( DigitalCamera_SI_Interface, command->header.transID );
-			}
-			
-		break;
-		
-		case TP_COMMAND_GET_STORAGE_IDS:	
-			CameraControl_OpenSession( &DigitalCamera_SI_Interface );
-			CameraControl_GetStorageIDs ( &DigitalCamera_SI_Interface );
-			CameraControl_CloseSession( &DigitalCamera_SI_Interface );
-			header.length = g_iNumOfStorages*4;
-			header.type = TP_DATA_STORAGE_IDS;
-			TP_SendHeader(&header);
-			
-			// write the data
-			for ( uint8_t i=0; i<g_iNumOfStorages; i++ )
-			{
-				char* tempPos = (char*)((void*)(&g_aiStorageIDs[i]));
-				uart_putc(tempPos[0], stdout);		// MSB
-				uart_putc(tempPos[1], stdout);
-				uart_putc(tempPos[2], stdout);
-				uart_putc(tempPos[3], stdout);
-			}
-			
-		break;
-		
-		case TP_COMMAND_GET_STORAGE_INFO:
-			CameraControl_OpenSession( &DigitalCamera_SI_Interface );
-			CameraControl_GetStorageIDs ( &DigitalCamera_SI_Interface );
-			CameraControl_StorageInfo_Bin ( &DigitalCamera_SI_Interface, command->arg1, command->header.transID );
-			CameraControl_CloseSession( &DigitalCamera_SI_Interface );
-		break;
-		
-		case TP_COMMAND_GET_SYSTEM_STATUS:
-		break;
-		
-		case TP_COMMAND_GET_OBJECT_INFO:
-		break;
-		
-		case TP_COMMAND_GET_OBJECT:	
-		break;
-		
-		case TP_COMMAND_GET_THUMB:	
-		break;
-		
-		case TP_COMMAND_CAPTURE:			
-		break;
-		
-		case TP_COMMAND_GET_PROP_DESC:		
-			CameraControl_DeviceOperation_GetPropertyDescBin ( &DigitalCamera_SI_Interface,	command->arg1, command->header.transID );
-		break;
-		
-		case TP_COMMAND_GET_PROP_VAL:	
-			CameraControl_DeviceOperation_GetPropertyValBin ( &DigitalCamera_SI_Interface,	command->arg1, command->header.transID );
-		break;
-		
-		case TP_COMMAND_SET_PROP_VAL:	
-			
-		break;
-		
-		default:
-		break;
-	}
-	
-	return 0;
-}
+
 
 //------------------------------------------------------------------------------
-void TP_SendHeader(TP_Header_ST *header)
+void TP_SendHeader(volatile TP_Header_ST *header)
 {
 	char *pt = (char*)((void*)(header));
 	uint8_t length = TP_HEADER_SIZE;
@@ -210,14 +199,14 @@ void TP_SendHeader(TP_Header_ST *header)
 }
 
 //------------------------------------------------------------------------------
-uint8_t TP_PushEvent(TP_Outgoing_Event_ST *ev)
+uint8_t TP_PushEvent(volatile TP_Outgoing_Event_ST *ev)
 {
 	// if queue is full return error
 	if ( g_iEventQueueSize == TP_EVENT_QUEUE_SIZE )
 		return 1;
 		
 	
-	TP_Outgoing_Event_ST *newEvent = &g_stOutgoingEventQueue[g_iEventQueueStart];
+	volatile TP_Outgoing_Event_ST *newEvent = &g_stOutgoingEventQueue[g_iEventQueueStart];
 	
 	newEvent->header.length=ev->header.length;
 	newEvent->header.type=ev->header.type;
@@ -234,7 +223,7 @@ uint8_t TP_PushEvent(TP_Outgoing_Event_ST *ev)
 }
 
 //------------------------------------------------------------------------------
-TP_Outgoing_Event_ST* TP_TopEvent(void)
+volatile TP_Outgoing_Event_ST* TP_TopEvent(void)
 {
 	// if queue is full return error
 	if ( g_iEventQueueSize == 0 )
@@ -244,7 +233,7 @@ TP_Outgoing_Event_ST* TP_TopEvent(void)
 }
 
 //------------------------------------------------------------------------------
-TP_Outgoing_Event_ST* TP_PopEvent(void)
+volatile TP_Outgoing_Event_ST* TP_PopEvent(void)
 {
 	uint8_t cur_end = g_iEventQueueEnd;
 	
@@ -260,3 +249,4 @@ TP_Outgoing_Event_ST* TP_PopEvent(void)
 	
 	return &g_stOutgoingEventQueue[cur_end];
 }
+

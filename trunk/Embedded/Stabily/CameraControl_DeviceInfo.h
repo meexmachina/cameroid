@@ -2,7 +2,7 @@
 #define _CAMERA_CONTROL_DEVICE_INFO_H_
 
 #include "CameraControl_General.h"
-#include "Stabily_Shell.h"	
+#include "TransferProtocolDefinitions.h"	
 	
 /* Macros: */
 #define 		DEVINFO_MAX_STRING_SIZE		20

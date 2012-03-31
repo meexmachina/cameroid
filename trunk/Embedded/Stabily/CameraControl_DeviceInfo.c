@@ -187,7 +187,7 @@ void CameraControl_DeviceInfo_Parse(uint16_t len, uint8_t *pbuf)
  */
 uint8_t CameraControl_DeviceInfo_GetInfo ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo )
 {
-	uint16_t DeviceInfoSize;
+/*	uint16_t DeviceInfoSize;
 	uint8_t ErrorCode;
 
 	CHECK_CAMERA_CONNECTION;
@@ -228,7 +228,8 @@ uint8_t CameraControl_DeviceInfo_GetInfo ( USB_ClassInfo_SI_Host_t* SIInterfaceI
 	g_iDataIsValid = 1;
 	
 	// Receive the final response block from the device 
-	return CameraControl_GetResponseAndCheck (SIInterfaceInfo, &PIMABlock);
+	return CameraControl_GetResponseAndCheck (SIInterfaceInfo, &PIMABlock);*/ 
+	return 0;
 }
 
 /*------------------------------------------------------------------------------
@@ -275,48 +276,12 @@ uint8_t CameraControl_DeviceInfo_Printout ( USB_ClassInfo_SI_Host_t* SIInterface
  */
 uint8_t CameraControl_DeviceInfo_Bin ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t transID )
 {
-	uint16_t 	DeviceInfoSize;
-	uint8_t 	ErrorCode = 0;
-	uint16_t	i;
-
-	CHECK_CAMERA_CONNECTION;
-	
-	SIInterfaceInfo->State.TransactionID = 0;
-
-	// Create PIMA message block
-	PIMA_Container_t PIMABlock = (PIMA_Container_t)
-		{
-			.DataLength    = CPU_TO_LE32(PIMA_COMMAND_SIZE(0)),
-			.Type          = CPU_TO_LE16(PIMA_CONTAINER_CommandBlock),
-			.Code          = CPU_TO_LE16(PTP_OC_GetDeviceInfo),
-			.TransactionID = CPU_TO_LE32(0x00000000),
-			.Params        = {},
-		};
-
-	ErrorCode = CameraControl_InitiateTransaction ( SIInterfaceInfo, &PIMABlock );
-
-	// Get the size (in bytes) of the device info structure
-	DeviceInfoSize = (PIMABlock.DataLength - PIMA_COMMAND_SIZE(0));
-	
-	// Create a buffer large enough to hold the entire device info
-	uint8_t DeviceInfo[DeviceInfoSize];
-
-	// Read in the data block data (containing device info)
-	SI_Host_ReadData(SIInterfaceInfo, DeviceInfo, DeviceInfoSize);
-
-	// Once all the data has been read, the pipe must be cleared before the response can be sent
-	Pipe_ClearIN();
-
-	TP_Header_ST header;
-	header.length = DeviceInfoSize;
-	header.transID = transID;
-	header.type = TP_DATA_CAMERA_INFO;
-	TP_SendHeader(&header);
-	for (i=0; i<DeviceInfoSize; i++)
-		uart_putc(DeviceInfo[i], stdout);
-
-	// Receive the final response block from the device 
-	CameraControl_GetResponseAndCheck (SIInterfaceInfo, &PIMABlock);
-
-	return 0;
+	return CameraControl_GeneralStream_Bin (SIInterfaceInfo, 
+											PTP_OC_GetDeviceInfo,
+											0,
+											0,
+											0, 
+											0,
+											TP_DATA_CAMERA_INFO,
+											transID );
 }
