@@ -2,8 +2,8 @@
 #define _CAMERA_CONTROL_DEVICE_INFO_H_
 
 #include "CameraControl_General.h"
-
-
+#include "Stabily_Shell.h"	
+	
 /* Macros: */
 #define 		DEVINFO_MAX_STRING_SIZE		20
 #define			OPERATION_SUPPORT_BASE		PTP_OC_Undefined
@@ -41,6 +41,10 @@ typedef struct {
 	char				SerialNumber[DEVINFO_MAX_STRING_SIZE];
 } CameraControl_DeviceInfo_ST;
 
+/* Externals: */
+extern volatile 	uint8_t					g_nStage;
+extern volatile		uint8_t					g_iDataIsValid;
+extern CameraControl_DeviceInfo_ST			g_stDeviceInfo;
 
 /* Functions: */
 bool CameraControl_DeviceInfo_PrintString(uint8_t **pp, uint16_t *count);

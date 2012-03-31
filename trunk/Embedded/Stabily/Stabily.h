@@ -1,5 +1,5 @@
-#ifndef _STILL_IMAGE_HOST_H_
-#define _STILL_IMAGE_HOST_H_
+#ifndef _STABILY_H_
+#define _STABILY_H_
 
 /* Includes: */
 #include <avr/io.h>
@@ -9,12 +9,16 @@
 #include <avr/interrupt.h>
 #include <stdio.h>
 #include <stdlib.h>
-//#include <LUFA/Drivers/Peripheral/Serial.h>
+
 #include "CameraControl_General.h"
 #include "ISRUart.h"
+#include "Stabily_Shell.h"
 
-/* Macros: */
 
+/* Externals: */
+extern USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface;
+extern volatile uint8_t g_bQuiteMode;
+extern volatile uint8_t g_bCameraConnected;
 
 /* Function Prototypes: */
 void Stabily_SetupHardware(void);

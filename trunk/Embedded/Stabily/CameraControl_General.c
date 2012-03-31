@@ -1,7 +1,5 @@
 #include "CameraControl_General.h"
 
-volatile uint8_t	g_bQuiteMode = 1;
-
 /*------------------------------------------------------------------------------
  * CameraControl_PTPErrorDescription
  */
@@ -223,6 +221,6 @@ uint8_t CameraControl_CloseSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
  */
 uint8_t CameraControl_CameraConnected ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo )
 {
-	if (CAMERA_CONTROL_NOT_CONNECTED) return 0;
-	return 1;
+	//if (CAMERA_CONTROL_NOT_CONNECTED) return 0;
+	return g_bCameraConnected;
 }

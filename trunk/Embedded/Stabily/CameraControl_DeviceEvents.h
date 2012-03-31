@@ -12,6 +12,7 @@ typedef struct
 	uint8_t last_error;
 } DevEventHandler_t;
 
+extern DevEventHandler_t event_hander_tbl[];
 
 /*------------------------------------------------------------------------------
  * CameraControl_DeviceEvents_PollEvents

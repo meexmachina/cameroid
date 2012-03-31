@@ -11,17 +11,19 @@
 
 #include <LUFA/Version.h>
 #include <LUFA/Drivers/Misc/TerminalCodes.h>
-#include <LUFA/Drivers/Peripheral/Serial.h>
 #include <LUFA/Drivers/Board/LEDs.h>
 #include <LUFA/Drivers/USB/USB.h>
 
+#include "Stabily.h"
 #include "CameraControl_PTPDefinitions.h"
 #include "ISRUart.h"
-extern volatile uint8_t	g_bQuiteMode;
+
+
 
 /* Macros: */
 #define COMMAND_DATA_TIMEOUT_MS        	10000
-#define CAMERA_CONTROL_NOT_CONNECTED	(((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive)))
+//#define CAMERA_CONTROL_NOT_CONNECTED	((/*(USB_HostState != HOST_STATE_Configured) || */!(SIInterfaceInfo->State.IsActive)))
+#define CAMERA_CONTROL_NOT_CONNECTED	!(SIInterfaceInfo->State.IsActive)
 #define CHECK_CAMERA_CONNECTION			{if (CAMERA_CONTROL_NOT_CONNECTED) { if (!g_bQuiteMode) printf_P(PSTR("Device not connected.\r\n")); return 0; }}
 
 #define RET_CODE_DEV_INFO		1
@@ -29,7 +31,7 @@ extern volatile uint8_t	g_bQuiteMode;
 #define RET_CODE_PROP_DESC		3
 
 /* External Variables: */
-extern volatile	uint8_t	g_iDataIsValid;
+//extern volatile	uint8_t	g_iDataIsValid;
 
 
 /* Functions: */

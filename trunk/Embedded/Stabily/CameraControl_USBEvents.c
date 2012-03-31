@@ -1,8 +1,7 @@
 #include "CameraControl_General.h"
-#include "TransferProtocol.h"
-
-extern USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface;
-extern volatile uint8_t	g_bQuiteMode;
+#include "Stabily.h"
+#include "Stabily_Shell.h"
+#include "CameraControl_DeviceInfo.h"
 
 
 /*********************************************************************************************************************
@@ -12,6 +11,7 @@ extern volatile uint8_t	g_bQuiteMode;
 void EVENT_USB_Host_DeviceAttached(void)
 {
 	TP_Outgoing_Event_ST ev;
+	g_bCameraConnected = 1;
 	g_iDataIsValid = 0;
 	
 	ev.header.type = TP_EVENT_CAMERA_CONNECTED;
@@ -31,6 +31,7 @@ void EVENT_USB_Host_DeviceAttached(void)
 void EVENT_USB_Host_DeviceUnattached(void)
 {
 	TP_Outgoing_Event_ST ev;
+	g_bCameraConnected = 0;
 	g_iDataIsValid = 0;
 	
 	ev.header.type = TP_EVENT_CAMERA_DISCONNECTED;
