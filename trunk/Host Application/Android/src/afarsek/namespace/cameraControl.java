@@ -208,6 +208,7 @@ public class cameraControl
 					if (mHardwareFacade.getState() == hardwareFacade.STATE_CONNECTED)
 					{
 						getID();
+						getStatus();
 					}
 				}
 			case messageDefinitions.MESSAGE_DEVICE_NAME:
@@ -232,8 +233,8 @@ public class cameraControl
 				case MessageElement.TP_EVENT_CAMERA_CONNECTED:
 					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_EVENT_CAMERA_CONNECTED EVENT was accepted.");
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE, 1, -1).sendToTarget();
-					getDeviceInfo();
-					mCameraAttached = 1;
+					getStatus();
+					//mCameraAttached = 1;
 					break;
 
 				// ===============================================
@@ -241,7 +242,8 @@ public class cameraControl
 				case MessageElement.TP_EVENT_CAMERA_DISCONNECTED:
 					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_EVENT_CAMERA_DISCONNECTED EVENT was accepted.");
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE, 0, -1).sendToTarget();
-					mCameraAttached = 0;
+					getStatus();
+					//mCameraAttached = 0;
 					break;
 
 				// ===============================================
@@ -310,6 +312,11 @@ public class cameraControl
 				// DATA: Camera Status
 				case MessageElement.TP_DATA_CAMERA_STATUS:
 					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_DATA_CAMERA_STATUS was accepted.");
+					data = msg.getData().getByteArray("GottenData");
+					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE, data[0], -1).sendToTarget();
+					if (data[0] == 1)
+						getDeviceInfo();
+					mCameraAttached = data[0];
 					break;
 
 				// ===============================================
