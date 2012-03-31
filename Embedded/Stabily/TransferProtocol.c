@@ -244,3 +244,27 @@ volatile TP_Outgoing_Event_ST* TP_PopEvent(void)
 	return &g_stOutgoingEventQueue[cur_end];
 }
 
+//------------------------------------------------------------------------------
+void TP_CollectEvents ( void )
+{
+	if (g_USBEventBitmap==0) return;
+	
+	uint8_t temp = g_USBEventBitmap;
+	TP_Outgoing_Event_ST ev;	
+	ev.header.length = 4;
+	ev.arg1 = 0;
+	
+	if (temp&TP_USB_EVENT_DEVICE_ATTACHED)
+	{	
+		ev.header.type = TP_EVENT_CAMERA_CONNECTED;
+		g_USBEventBitmap &= ~TP_USB_EVENT_DEVICE_ATTACHED;
+		TP_PushEvent (&ev);
+	}
+
+	if (temp&TP_USB_EVENT_DEVICE_DETTACHED)
+	{	
+		ev.header.type = TP_EVENT_CAMERA_DISCONNECTED;
+		g_USBEventBitmap &= ~TP_USB_EVENT_DEVICE_DETTACHED;
+		TP_PushEvent (&ev);
+	}	
+}

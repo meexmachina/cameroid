@@ -19,6 +19,7 @@
 extern USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface;
 extern volatile uint8_t g_bQuiteMode;
 extern volatile uint8_t g_bCameraConnected;
+extern volatile uint8_t g_USBEventBitmap;
 
 /* Function Prototypes: */
 void Stabily_SetupHardware(void);
