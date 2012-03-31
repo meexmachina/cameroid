@@ -1,10 +1,4 @@
-#include <stdio.h>
 #include "TransferProtocol.h"
-#include "ISRUart.h"
-#include "CameraControl_General.h"
-#include "CameraControl_StorageInfo.h"
-#include "CameraControl_DeviceInfo.h"
-#include "CameraControl_DeviceOperation.h"
 
 /*------------------------------------------------------------------------------
  * Global / Extern Variables

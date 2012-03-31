@@ -18,7 +18,10 @@
 #include "ISRUart.h"
 
 #include "CameraControl_General.h"
+#include "CameraControl_StorageInfo.h"
 #include "TransferProtocolDefinitions.h"
+#include "CameraControl_DeviceOperation.h"
+#include "CameraControl_DeviceInfo.h"
 
 
 /*------------------------------------------------------------------------------
