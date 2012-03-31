@@ -224,3 +224,69 @@ uint8_t CameraControl_CameraConnected ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo
 	//if (CAMERA_CONTROL_NOT_CONNECTED) return 0;
 	return g_bCameraConnected;
 }
+
+/*------------------------------------------------------------------------------
+ * CameraControl_GeneralStream_Bin
+ */
+uint8_t CameraControl_GeneralStream_Bin (	USB_ClassInfo_SI_Host_t* SIInterfaceInfo, 
+											uint16_t operation,
+											uint32_t p1,
+											uint32_t p2,
+											uint32_t p3, 
+											uint8_t numParams,
+											uint8_t headerType,
+											uint16_t transID )										
+{
+	uint16_t 	ReturnedDataSize;
+	uint8_t 	ErrorCode = 0;
+	uint16_t	i;
+	TP_Header_ST header;
+	uint8_t		sentData[32];
+	uint16_t	remainingToSend = 0;
+
+
+	CHECK_CAMERA_CONNECTION;
+	
+	SIInterfaceInfo->State.TransactionID = 0;
+
+	// Create PIMA message block
+	PIMA_Container_t PIMABlock = (PIMA_Container_t)
+		{
+			.DataLength    = CPU_TO_LE32(PIMA_COMMAND_SIZE(numParams)),
+			.Type          = CPU_TO_LE16(PIMA_CONTAINER_CommandBlock),
+			.Code          = CPU_TO_LE16(operation),
+			.TransactionID = CPU_TO_LE32(0x00000000),
+			.Params        = {p1, p2, p3},
+		};
+
+	ErrorCode = CameraControl_InitiateTransaction ( SIInterfaceInfo, &PIMABlock );
+
+	// Get the size (in bytes) of the device info structure
+	remainingToSend = ReturnedDataSize = (PIMABlock.DataLength - PIMA_COMMAND_SIZE(0));
+
+	// create the data header
+	header.length = ReturnedDataSize;
+	header.transID = transID;
+	header.type = headerType;
+	TP_SendHeader(&header);
+
+	while (remainingToSend)
+	{
+		uint16_t currentChunkSize =  (remainingToSend>32)?32:remainingToSend;
+		// Read in the data block data (containing device info)
+		SI_Host_ReadData(SIInterfaceInfo, sentData, currentChunkSize);
+		
+		for (i=0; i<currentChunkSize; i++)
+			uart_putc(sentData[i], stdout);
+
+		remainingToSend -= currentChunkSize;
+	}
+
+	// Once all the data has been read, the pipe must be cleared before the response can be sent
+	Pipe_ClearIN();
+
+	// Receive the final response block from the device 
+	CameraControl_GetResponseAndCheck (SIInterfaceInfo, &PIMABlock);
+
+	return 0;										
+}

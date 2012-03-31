@@ -79,7 +79,7 @@ SRC = $(TARGET).c                                               \
 	  CameraControl_StorageInfo.c								\
 	  CameraControl_DeviceOperation.c							\
 	  CameraControl_DeviceEvents.c								\
-	  Stabily_Shell.c											\
+	  TransferProtocol.c										\
 	  ISRUart.c												
 
 
