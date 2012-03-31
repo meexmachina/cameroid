@@ -2,6 +2,9 @@
 #define _CAMERA_CONTROL_DEVICE_OPERATION_H_
 
 #include "CameraControl_General.h"
+#include "CameraControl_StorageInfo.h"
+#include "Stabily_Shell.h"
+#include "CameraControl_PTPDefinitions.h"
 
 //uint16_t CameraControl_DeviceOperation_GetStorageIDs (PTPParams* params, PTPStorageIDs* storageids);
 //uint16_t CameraControl_DeviceOperation_GetStorageInfo (PTPParams* params, uint32_t storageid, PTPStorageInfo* storageinfo);

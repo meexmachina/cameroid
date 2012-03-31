@@ -1,13 +1,4 @@
 #include "Stabily.h"
-#include "CameraControl_DeviceInfo.h"
-#include "Stabily_Shell.h"
-#include "CameraControl_DeviceEvents.h"
-#include "CameraControl_DeviceInfo.h"
-#include "CameraControl_DeviceOperation.h"
-#include "CameraControl_General.h"
-#include "ISRUart.h"
-//#include "CameraControl_StorageInfo.h"
-#include <stdlib.h>
 
 /** LUFA Still Image Class driver interface configuration and state information. This structure is
  *  passed to all Still Image Class driver functions, so that multiple instances of the same class
@@ -27,6 +18,9 @@ USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface =
 				.EventsPipeDoubleBank   = false,
 			},
 	};
+
+volatile uint8_t g_bQuiteMode = 1;
+volatile uint8_t g_bCameraConnected = 0;
 	
 /*********************************************************************************************************************
  *  Main program entry point. This routine configures the hardware required by the application, then
@@ -34,19 +28,19 @@ USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface =
  */
 int main(void)
 {
-	Stabily_SetupHardware();
+	Stabily_SetupHardware(  );
 	
 	sei();
 
 	for (;;)
 	{
 		//Stabily_ShellRX ( );
-		TP_GetIncomingCommand (  );
-		TP_SendEvent (  );
-
+		TP_GetIncomingCommand (  );		
+		
 		//CameraControl_DeviceEvents_PollEvents(&DigitalCamera_SI_Interface);
 		SI_Host_USBTask(&DigitalCamera_SI_Interface);
 		USB_USBTask();
+		TP_SendEvent (  );
 	}
 }
 
@@ -61,15 +55,10 @@ void Stabily_SetupHardware(void)
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
 
-	/* Uart Initialization */
+	/* UART Initialization */
 	uart_init(UART_BAUD_SELECT(115200,F_CPU));
 	
-	//Serial_Init(9600, false);
 	LEDs_Init();
 	USB_Init();
-
-	/* Create a stdio stream for the serial port for stdin and stdout */
-	//Serial_CreateStream(NULL);
 }
-
 

@@ -2,6 +2,8 @@
 #define _CAMERA_CONTROL_STORAGE_INFO_H_
 
 #include "CameraControl_General.h"
+#include "Stabily_Shell.h"
+#include "CameraControl_PTPDefinitions.h"
 
 /* Macros: */
 #define			MAX_NUM_STORAGES			4
@@ -18,6 +20,11 @@ typedef struct {
 	char		sDescription [STORAGE_MAX_STRING_SIZE];
 	char		sVolumeLabel [STORAGE_MAX_STRING_SIZE];
 } CameraControl_StorageInfo_ST;
+
+/* Externals: */
+extern volatile uint32_t						g_aiStorageIDs[MAX_NUM_STORAGES];
+extern volatile CameraControl_StorageInfo_ST	g_astStorageInfo[MAX_NUM_STORAGES];
+extern volatile uint8_t							g_iNumOfStorages;
 
 /* Functions: */
 uint8_t CameraControl_GetStorageID 			( PTP_STORETYPE_EN enStorageType, uint32_t* iStorageID );

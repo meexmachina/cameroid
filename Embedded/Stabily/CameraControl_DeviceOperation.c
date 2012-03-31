@@ -1,6 +1,4 @@
 #include "CameraControl_DeviceOperation.h"
-#include "CameraControl_StorageInfo.h"
-#include "TransferProtocol.h"
 
 /*------------------------------------------------------------------------------
  * CameraControl_DeviceOperation_Capture

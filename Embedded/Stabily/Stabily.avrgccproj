@@ -53,9 +53,6 @@
     <Compile Include="Stabily.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ptp.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="CameraControl_DeviceInfo.h">
       <SubType>compile</SubType>
     </Compile>
@@ -99,12 +96,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="CameraControl_DeviceEvents.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TransferProtocol.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TransferProtocol.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

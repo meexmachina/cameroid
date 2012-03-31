@@ -4,7 +4,7 @@
 /*------------------------------------------------------------------------------
  * DevEventHandler_t - event handler list
  */
-static DevEventHandler_t event_hander_tbl[] = 
+DevEventHandler_t event_hander_tbl[] = 
 {
 	{NULL,	0},
 	{NULL,	0},

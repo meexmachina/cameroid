@@ -1,7 +1,4 @@
 #include "CameraControl_DeviceInfo.h"
-#include "CameraControl_General.h"
-#include "TransferProtocol.h"
-
 
 //==============================================================================
 // 			V A R I A B L E S 
@@ -283,7 +280,7 @@ uint8_t CameraControl_DeviceInfo_Bin ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
 	uint16_t	i;
 
 	CHECK_CAMERA_CONNECTION;
-
+	
 	SIInterfaceInfo->State.TransactionID = 0;
 
 	// Create PIMA message block
