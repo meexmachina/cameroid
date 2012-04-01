@@ -41,8 +41,6 @@ public class mainPanelActivity extends TabActivity
 	private Timer mStatusTimer;
 	private LocalActivityManager mLocalActivityManager = null;
 
-	private int mCurrentlyUpdatingProperty = 0;
-
 	// Constants
 	public static final String EXTRA_DEVICE_ADDRESS = "device_address";
 	public static final String DEVICE_NAME = "device_name";
@@ -188,6 +186,9 @@ public class mainPanelActivity extends TabActivity
 		// get the current general panel reference
 		generalTabPanelActivity tempActivity = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity()));
 		tempActivity.setWidgetState(availableProperties, activeProperties, availablePropertyCount);
+		
+		ArrayList<controlType> list = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).getCurrentActiveProperties();
+		mCameraControl.setActivePropertyEvents(list);
 	}
 
 	@Override

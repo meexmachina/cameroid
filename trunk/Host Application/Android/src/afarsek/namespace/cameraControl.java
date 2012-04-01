@@ -13,8 +13,6 @@ import ptp.DevicePropDesc;
 import ptp.NameFactory;
 import ptp.StorageInfo;
 import widget.CameraControlData.controlType;
-
-import afarsek.namespace.hardwareFacade.TP_header;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.os.Handler;
@@ -116,7 +114,7 @@ public class cameraControl
 
 	private void getStorageInfo()
 	{
-		Log.d("Camera Control Class", "getStorageInfo - enqueuing 'get_storage_info_bin 0:' command.");
+		Log.d("Camera Control Class", "getStorageInfo - enqueuing 'get_storage_info_bin' command.");
 		hardwareFacade.TP_header header = new hardwareFacade.TP_header();
 		header.mType = MessageElement.TP_COMMAND_GET_STORAGE_INFO;
 		header.mLength = 13;
@@ -129,7 +127,30 @@ public class cameraControl
 	
 	public void setActivePropertyEvents (ArrayList<controlType> list)
 	{
+		int propEventVector = 0;
+		int propDescEventVector = 0;
+		int propEventFastMode = 0;
 		
+		for (int i=0; i<mEventDataPropCodes.length; i++)
+		{
+			for (int j=0; j<list.size(); j++)
+			{
+				if (list.get(j).getCode()==mEventDataPropCodes[i])
+				{
+					propEventVector |= (0x1<<i);
+					propEventFastMode |= (0x1<<i);
+					break;
+				}
+			}
+		}
+		
+		hardwareFacade.TP_header header = new hardwareFacade.TP_header();
+		header.mType = MessageElement.TP_COMMAND_SET_PROP_UPDATE;
+		header.mLength = 13;
+		header.mTransID = mTransactionID++;
+		
+		hardwareFacade.TP_command cmd = new hardwareFacade.TP_command(header, propEventVector, propDescEventVector, propEventFastMode);
+		mHardwareFacade.write(cmd.getByteArray());
 	}
 
 	public int getPropertiesDescriptions(int propCode)

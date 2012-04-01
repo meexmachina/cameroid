@@ -5,9 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.LinkedList;
-import java.util.NoSuchElementException;
-import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,7 +28,6 @@ public class hardwareFacade
 	private final Handler mHandler;
 	private ConnectThread mConnectThread;
 	private ConnectedThread mConnectedThread;
-	private MessageElement.MessageTags mCurrentMessageTag = MessageElement.MessageTags.ME_NO_MSG;
 	private int mTransactionID = 0;
 	private int mState;
 

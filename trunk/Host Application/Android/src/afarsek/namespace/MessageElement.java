@@ -34,6 +34,7 @@ public class MessageElement
 	public static final int TP_COMMAND_GET_PROP_DESC = (int) 0x0B;
 	public static final int TP_COMMAND_GET_PROP_VAL = (int) 0x0C;
 	public static final int TP_COMMAND_SET_PROP_VAL = (int) 0x0D;
+	public static final int TP_COMMAND_SET_PROP_UPDATE	= (int)	0x0E;
 	
 	public static final int TP_COMMAND_END = (int) 0x30;
 	public static final int TP_EVENT_START = (int) 0x30;
