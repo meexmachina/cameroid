@@ -4,6 +4,7 @@
 #include "CameraControl_DeviceInfo.h"
 
 volatile uint8_t g_USBEventBitmap = 0;
+volatile uint32_t g_USBEventArgument[8] = {0};
 
 /*********************************************************************************************************************
  *  Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and

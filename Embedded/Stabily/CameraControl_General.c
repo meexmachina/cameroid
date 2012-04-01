@@ -264,12 +264,16 @@ uint8_t CameraControl_GeneralStream_Bin (	USB_ClassInfo_SI_Host_t* SIInterfaceIn
 	// Get the size (in bytes) of the device info structure
 	remainingToSend = ReturnedDataSize = (PIMABlock.DataLength - PIMA_COMMAND_SIZE(0));
 
-	// create the data header
-	header.length = ReturnedDataSize;
-	header.transID = transID;
-	header.type = headerType;
-	TP_SendHeader(&header);
-
+	// if we need all the message
+	if (headerType != 0)
+	{
+		// create the data header
+		header.length = ReturnedDataSize;
+		header.transID = transID;
+		header.type = headerType;
+		TP_SendHeader(&header);
+	}
+	
 	while (remainingToSend)
 	{
 		uint16_t currentChunkSize =  (remainingToSend>32)?32:remainingToSend;

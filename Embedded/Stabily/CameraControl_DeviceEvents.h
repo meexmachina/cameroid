@@ -2,6 +2,7 @@
 #define _CAMERA_CONTROL_DEVICE_EVENTS_H_
 
 #include "CameraControl_General.h"
+#include "Stabily.h"
 
 /*------------------------------------------------------------------------------
  * DevEventHandler_t - event handler structure
