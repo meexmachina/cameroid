@@ -259,7 +259,11 @@ public class CameraControlData
 			{
 				DecimalFormat zeroDForm = new DecimalFormat("#");
 				double fScaled = val;
-				Double closeVal = Double.valueOf(zeroDForm.format(10000.0 / fScaled));
+				Double closeVal;
+				if (fScaled!=0)
+					closeVal = Double.valueOf(zeroDForm.format(10000.0 / fScaled));
+				else
+					closeVal = 0.0;
 				int iCloseVal = closeVal.intValue();
 				mActualText = "1/" + String.valueOf(iCloseVal);
 			}
