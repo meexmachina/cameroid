@@ -13,6 +13,7 @@
 #include "CameraControl_General.h"
 #include "ISRUart.h"
 #include "TransferProtocol.h"
+#include "CameraControl_DeviceEvents.h"
 
 
 /* Externals: */
@@ -20,6 +21,7 @@ extern USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface;
 extern volatile uint8_t g_bQuiteMode;
 extern volatile uint8_t g_bCameraConnected;
 extern volatile uint8_t g_USBEventBitmap;
+extern volatile uint32_t g_USBEventArgument[8];
 
 /* Function Prototypes: */
 void Stabily_SetupHardware(void);

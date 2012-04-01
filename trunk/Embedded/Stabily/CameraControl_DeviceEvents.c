@@ -4,7 +4,7 @@
 /*------------------------------------------------------------------------------
  * DevEventHandler_t - event handler list
  */
-DevEventHandler_t event_hander_tbl[] = 
+/*DevEventHandler_t event_hander_tbl[] = 
 {
 	{NULL,	0},
 	{NULL,	0},
@@ -27,7 +27,7 @@ DevEventHandler_t event_hander_tbl[] =
 	{NULL,	0},
 	{NULL,	0}
 };
-
+*/
 
 /*------------------------------------------------------------------------------
  * CameraControl_DeviceEvents_PollEvents
@@ -37,7 +37,7 @@ uint8_t CameraControl_DeviceEvents_PollEvents( USB_ClassInfo_SI_Host_t* SIInterf
 	uint8_t iError = 0;
 	PIMA_Container_t PIMABlock;
 
-	if (CAMERA_CONTROL_NOT_CONNECTED) return 0;
+	if (SIInterfaceInfo->State.IsActive==0) return 0;
 	
 	// Check if a message is waiting
 	if ( !SI_Host_IsEventReceived ( SIInterfaceInfo ) )
@@ -45,6 +45,7 @@ uint8_t CameraControl_DeviceEvents_PollEvents( USB_ClassInfo_SI_Host_t* SIInterf
 		return 0;
 	}
 	
+	//uart_putc('A', stdout);
 	//printf(PSTR("\r\nNew event:"));
 		
 	// Get the event data
@@ -69,46 +70,49 @@ uint8_t CameraControl_DeviceEvents_PollEvents( USB_ClassInfo_SI_Host_t* SIInterf
 	
 	// Print out the transaction ID and event message
 	// printf_P(PSTR("\r\nNew event:"));
-	
+
+
 	// Get the response code
 	switch ( PIMABlock.Code )
 	{
 		//===================================================================
 		case PTP_EC_Undefined:
 			{	
-				if ( event_hander_tbl[0].func_event_hander != NULL )
+				/*if ( event_hander_tbl[0].func_event_hander != NULL )
 				{
 					// 
 					break;
-				}
+				}*/
 				
-				printf_P(PSTR("EVENT: Undefined.\r\n"));
+				//printf_P(PSTR("EVENT: Undefined.\r\n"));
 			}
 			break;
 
 		//===================================================================
 		case PTP_EC_CancelTransaction:					
 			{	
-				if ( event_hander_tbl[1].func_event_hander != NULL )
+				/*if ( event_hander_tbl[1].func_event_hander != NULL )
 				{
 					// 
 					break;
-				}
+				}*/
 				
-				printf_P(PSTR("EVENT: Cancel transaction.\r\n"));
+				//printf_P(PSTR("EVENT: Cancel transaction.\r\n"));
 			}
 			break;
 
 		//===================================================================
 		case PTP_EC_ObjectAdded:						
 			{	
-				if ( event_hander_tbl[2].func_event_hander != NULL )
+				/*if ( event_hander_tbl[2].func_event_hander != NULL )
 				{
-					// 
 					break;
-				}
+				}*/
 				
-				printf_P(PSTR("EVENT: Object added ID: 0x%x.\r\n"), PIMABlock.Params[0]);
+				g_USBEventBitmap |= TP_USB_EVENT_OBJECT_WRITTEN;
+				g_USBEventArgument[TP_USB_EVENT_OBJECT_WRITTEN_N] = PIMABlock.Params[0];
+				
+				//printf("EVENT: Object added ID: 0x%x.\r\n", PIMABlock.Params[0]);
 			}	
 			// param1 = objectHandle
 			break;
@@ -116,13 +120,13 @@ uint8_t CameraControl_DeviceEvents_PollEvents( USB_ClassInfo_SI_Host_t* SIInterf
 		//===================================================================
 		case PTP_EC_ObjectRemoved:						
 			{	
-				if ( event_hander_tbl[3].func_event_hander != NULL )
+				/*if ( event_hander_tbl[3].func_event_hander != NULL )
 				{
 					// 
 					break;
-				}
+				}*/
 				
-				printf_P(PSTR("EVENT: Object removed ID: 0x%x.\r\n"), PIMABlock.Params[0]);
+				//printf_P(PSTR("EVENT: Object removed ID: 0x%x.\r\n"), PIMABlock.Params[0]);
 			}	
 			// param1 = objectHandle
 			break;
@@ -130,13 +134,13 @@ uint8_t CameraControl_DeviceEvents_PollEvents( USB_ClassInfo_SI_Host_t* SIInterf
 		//===================================================================
 		case PTP_EC_StoreAdded:				
 			{	
-				if ( event_hander_tbl[4].func_event_hander != NULL )
+				/*if ( event_hander_tbl[4].func_event_hander != NULL )
 				{
 					// 
 					break;
-				}
+				}*/
 				
-				printf_P(PSTR("EVENT: Storage added ID: 0x%x.\r\n"), PIMABlock.Params[0]);
+				//printf_P(PSTR("EVENT: Storage added ID: 0x%x.\r\n"), PIMABlock.Params[0]);
 			}	
 			//	param1 = storageId
 			//	check if already in list, else re-arange		
@@ -145,13 +149,13 @@ uint8_t CameraControl_DeviceEvents_PollEvents( USB_ClassInfo_SI_Host_t* SIInterf
 		//===================================================================
 		case PTP_EC_StoreRemoved:				
 			{	
-				if ( event_hander_tbl[5].func_event_hander != NULL )
+				/*if ( event_hander_tbl[5].func_event_hander != NULL )
 				{
 					// 
 					break;
-				}
+				}*/
 				
-				printf_P(PSTR("EVENT: Object removed ID: 0x%x.\r\n"), PIMABlock.Params[0]);
+				//printf_P(PSTR("EVENT: Object removed ID: 0x%x.\r\n"), PIMABlock.Params[0]);
 			}	
 			// param1 = storageId
 			// rearange
@@ -160,13 +164,16 @@ uint8_t CameraControl_DeviceEvents_PollEvents( USB_ClassInfo_SI_Host_t* SIInterf
 		//===================================================================
 		case PTP_EC_DevicePropChanged:				
 			{	
-				if ( event_hander_tbl[6].func_event_hander != NULL )
+				/*if ( event_hander_tbl[6].func_event_hander != NULL )
 				{
-					// 
+					 
 					break;
-				}
+				}*/
 				
-				printf_P(PSTR("EVENT: Property changed CODE: 0x%x.\r\n"), PIMABlock.Params[0]);
+				g_USBEventBitmap |= TP_USB_EVENT_PROPERTY_CHANGED;
+				g_USBEventArgument[TP_USB_EVENT_PROPERTY_CHANGED_N] = PIMABlock.Params[0];
+				
+				//printf("EVENT: Property changed CODE: 0x%x.\r\n", PIMABlock.Params[0]);
 			}		
 			// param1 = devicePropCode
 			break;
@@ -174,13 +181,13 @@ uint8_t CameraControl_DeviceEvents_PollEvents( USB_ClassInfo_SI_Host_t* SIInterf
 		//===================================================================
 		case PTP_EC_ObjectInfoChanged:
 			{	
-				if ( event_hander_tbl[7].func_event_hander != NULL )
+				/*if ( event_hander_tbl[7].func_event_hander != NULL )
 				{
 					// 
 					break;
-				}
+				}*/
 				
-				printf_P(PSTR("EVENT: Object info changed ID: 0x%x.\r\n"), PIMABlock.Params[0]);
+				//printf_P(PSTR("EVENT: Object info changed ID: 0x%x.\r\n"), PIMABlock.Params[0]);
 			}	
 			// param1 = objectHandle		
 			break;
@@ -188,13 +195,13 @@ uint8_t CameraControl_DeviceEvents_PollEvents( USB_ClassInfo_SI_Host_t* SIInterf
 		//===================================================================
 		case PTP_EC_DeviceInfoChanged:
 			{	
-				if ( event_hander_tbl[8].func_event_hander != NULL )
+				/*if ( event_hander_tbl[8].func_event_hander != NULL )
 				{
 					// 
 					break;
-				}
+				}*/
 				
-				printf_P(PSTR("EVENT: Dev info changed.\r\n"));
+				//printf_P(PSTR("EVENT: Dev info changed.\r\n"));
 			}	
 			//	get new info	
 			break;
@@ -207,13 +214,13 @@ uint8_t CameraControl_DeviceEvents_PollEvents( USB_ClassInfo_SI_Host_t* SIInterf
 		//===================================================================
 		case PTP_EC_StoreFull:							
 			{	
-				if ( event_hander_tbl[10].func_event_hander != NULL )
+				/*if ( event_hander_tbl[10].func_event_hander != NULL )
 				{
 					// 
 					break;
 				}
-				
-				printf_P(PSTR("EVENT: Storage full ID: 0x%x.\r\n"), PIMABlock.Params[0]);
+				*/
+				//printf_P(PSTR("EVENT: Storage full ID: 0x%x.\r\n"), PIMABlock.Params[0]);
 			}	
 			// param1 = storageId
 			break;
@@ -225,13 +232,13 @@ uint8_t CameraControl_DeviceEvents_PollEvents( USB_ClassInfo_SI_Host_t* SIInterf
 		//===================================================================
 		case PTP_EC_StorageInfoChanged:			
 			{	
-				if ( event_hander_tbl[12].func_event_hander != NULL )
+				/*if ( event_hander_tbl[12].func_event_hander != NULL )
 				{
 					// 
 					break;
-				}
+				}*/
 				
-				printf_P(PSTR("EVENT: Storage info changed ID: 0x%x.\r\n"), PIMABlock.Params[0]);
+				//printf_P(PSTR("EVENT: Storage info changed ID: 0x%x.\r\n"), PIMABlock.Params[0]);
 			}			
 			// param1 = storageId
 			break;
@@ -239,13 +246,16 @@ uint8_t CameraControl_DeviceEvents_PollEvents( USB_ClassInfo_SI_Host_t* SIInterf
 		//===================================================================
 		case PTP_EC_CaptureComplete:					
 			{	
-				if ( event_hander_tbl[13].func_event_hander != NULL )
+				/*if ( event_hander_tbl[13].func_event_hander != NULL )
 				{
-					// 
+					
 					break;
-				}
+				}*/
 				
-				printf_P(PSTR("EVENT: Capture complete TransID: 0x%x.\r\n"), PIMABlock.Params[0]);
+				g_USBEventBitmap |= TP_USB_EVENT_CAPTURE_FINISHED;
+				g_USBEventArgument[TP_USB_EVENT_CAPTURE_FINISHED_N] = PIMABlock.Params[0];
+				
+				//printf("EVENT: Capture complete TransID: 0x%x.\r\n", PIMABlock.Params[0]);
 			}		
 			// param1 = transactionId of the capture request
 			break;
@@ -271,25 +281,25 @@ uint8_t CameraControl_DeviceEvents_PollEvents( USB_ClassInfo_SI_Host_t* SIInterf
 		//===================================================================
 		case PTP_EC_NIKON_ObjectReady:					
 			{	
-				if ( event_hander_tbl[18].func_event_hander != NULL )
+				/*if ( event_hander_tbl[18].func_event_hander != NULL )
 				{
 					// 
 					break;
-				}
+				}*/
 				
-				printf_P(PSTR("EVENT [NIKON]: Object ready ID: 0x%x.\r\n"), PIMABlock.Params[0]);
+				//printf("EVENT [NIKON]: Object ready ID: 0x%x.\r\n", PIMABlock.Params[0]);
 			}	
 			break;
 		//===================================================================
 		case PTP_EC_NIKON_CaptureOverflow:				
 			{	
-				if ( event_hander_tbl[19].func_event_hander != NULL )
+				/*if ( event_hander_tbl[19].func_event_hander != NULL )
 				{
 					// 
 					break;
-				}
+				}*/
 				
-				printf_P(PSTR("EVENT [NIKON]: Capture overflow ID: 0x%x.\r\n"), PIMABlock.Params[0]);
+				//printf("EVENT [NIKON]: Capture overflow ID: 0x%x.\r\n", PIMABlock.Params[0]);
 			}	
 			break;
 			
