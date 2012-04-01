@@ -1,0 +1,965 @@
+   1               		.file	"AudioClassHost.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.DCOMP_Audio_Host_NextAudioControlInterface,"ax",@progbits
+  18               	DCOMP_Audio_Host_NextAudioControlInterface:
+  19               	.LFB130:
+  20               	.LSM0:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	/* stack size = 0 */
+  25               	.L__stack_usage = 0
+  26 0000 FC01      		movw r30,r24
+  27               	.LVL1:
+  28               	.LSM1:
+  29 0002 8181      		ldd r24,Z+1
+  30               	.LVL2:
+  31 0004 8430      		cpi r24,lo8(4)
+  32 0006 01F0      		breq .L8
+  33               	.L5:
+  34               	.LBB12:
+  35               	.LSM2:
+  36 0008 82E0      		ldi r24,lo8(2)
+  37 000a 0895      		ret
+  38               	.L8:
+  39               	.LVL3:
+  40               	.LSM3:
+  41 000c 8581      		ldd r24,Z+5
+  42 000e 8130      		cpi r24,lo8(1)
+  43 0010 01F4      		brne .L5
+  44               	.LSM4:
+  45 0012 8681      		ldd r24,Z+6
+  46 0014 8130      		cpi r24,lo8(1)
+  47 0016 01F4      		brne .L5
+  48               	.LSM5:
+  49 0018 8781      		ldd r24,Z+7
+  50 001a 8823      		tst r24
+  51 001c 01F4      		brne .L5
+  52               	.LSM6:
+  53 001e 80E0      		ldi r24,lo8(0)
+  54               	.LBE12:
+  55               	.LSM7:
+  56 0020 0895      		ret
+  57               	.LFE130:
+  59               		.section	.text.DCOMP_Audio_Host_NextAudioStreamInterface,"ax",@progbits
+  61               	DCOMP_Audio_Host_NextAudioStreamInterface:
+  62               	.LFB131:
+  63               	.LSM8:
+  64               	.LVL4:
+  65               	/* prologue: function */
+  66               	/* frame size = 0 */
+  67               	/* stack size = 0 */
+  68               	.L__stack_usage = 0
+  69 0000 FC01      		movw r30,r24
+  70               	.LVL5:
+  71               	.LSM9:
+  72 0002 8181      		ldd r24,Z+1
+  73               	.LVL6:
+  74 0004 8430      		cpi r24,lo8(4)
+  75 0006 01F0      		breq .L15
+  76               	.LVL7:
+  77               	.L13:
+  78               	.LBB13:
+  79               	.LSM10:
+  80 0008 82E0      		ldi r24,lo8(2)
+  81 000a 0895      		ret
+  82               	.LVL8:
+  83               	.L15:
+  84               	.LSM11:
+  85 000c 8581      		ldd r24,Z+5
+  86 000e 8130      		cpi r24,lo8(1)
+  87 0010 01F4      		brne .L13
+  88               	.LSM12:
+  89 0012 8681      		ldd r24,Z+6
+  90 0014 8230      		cpi r24,lo8(2)
+  91 0016 01F4      		brne .L13
+  92               	.LSM13:
+  93 0018 8781      		ldd r24,Z+7
+  94 001a 8823      		tst r24
+  95 001c 01F4      		brne .L13
+  96               	.LSM14:
+  97 001e 80E0      		ldi r24,lo8(0)
+  98               	.LBE13:
+  99               	.LSM15:
+ 100 0020 0895      		ret
+ 101               	.LFE131:
+ 103               		.section	.text.DCOMP_Audio_Host_NextAudioInterfaceDataEndpoint,"ax",@progbits
+ 105               	DCOMP_Audio_Host_NextAudioInterfaceDataEndpoint:
+ 106               	.LFB132:
+ 107               	.LSM16:
+ 108               	.LVL9:
+ 109               	/* prologue: function */
+ 110               	/* frame size = 0 */
+ 111               	/* stack size = 0 */
+ 112               	.L__stack_usage = 0
+ 113 0000 FC01      		movw r30,r24
+ 114               	.LVL10:
+ 115               	.LSM17:
+ 116 0002 8181      		ldd r24,Z+1
+ 117               	.LVL11:
+ 118 0004 8530      		cpi r24,lo8(5)
+ 119 0006 01F0      		breq .L22
+ 120               	.LSM18:
+ 121 0008 8430      		cpi r24,lo8(4)
+ 122 000a 01F0      		breq .L20
+ 123               	.L21:
+ 124               	.LSM19:
+ 125 000c 82E0      		ldi r24,lo8(2)
+ 126 000e 0895      		ret
+ 127               	.L22:
+ 128               	.LVL12:
+ 129               	.LBB14:
+ 130               	.LSM20:
+ 131 0010 8381      		ldd r24,Z+3
+ 132 0012 8370      		andi r24,lo8(3)
+ 133 0014 8130      		cpi r24,lo8(1)
+ 134 0016 01F4      		brne .L21
+ 135               	.LSM21:
+ 136 0018 80E0      		ldi r24,lo8(0)
+ 137 001a 0895      		ret
+ 138               	.LVL13:
+ 139               	.L20:
+ 140               	.LBE14:
+ 141               	.LSM22:
+ 142 001c 81E0      		ldi r24,lo8(1)
+ 143               	.LSM23:
+ 144 001e 0895      		ret
+ 145               	.LFE132:
+ 147               		.section	.text.Audio_Host_ConfigurePipes,"ax",@progbits
+ 148               	.global	Audio_Host_ConfigurePipes
+ 150               	Audio_Host_ConfigurePipes:
+ 151               	.LFB129:
+ 152               	.LSM24:
+ 153               	.LVL14:
+ 154 0000 4F92      		push r4
+ 155 0002 5F92      		push r5
+ 156 0004 6F92      		push r6
+ 157 0006 7F92      		push r7
+ 158 0008 8F92      		push r8
+ 159 000a 9F92      		push r9
+ 160 000c AF92      		push r10
+ 161 000e BF92      		push r11
+ 162 0010 CF92      		push r12
+ 163 0012 DF92      		push r13
+ 164 0014 EF92      		push r14
+ 165 0016 FF92      		push r15
+ 166 0018 0F93      		push r16
+ 167 001a 1F93      		push r17
+ 168 001c DF93      		push r29
+ 169 001e CF93      		push r28
+ 170 0020 00D0      		rcall .
+ 171 0022 00D0      		rcall .
+ 172 0024 CDB7      		in r28,__SP_L__
+ 173 0026 DEB7      		in r29,__SP_H__
+ 174               	/* prologue: function */
+ 175               	/* frame size = 4 */
+ 176               	/* stack size = 20 */
+ 177               	.L__stack_usage = 20
+ 178 0028 6C01      		movw r12,r24
+ 179 002a 7A83      		std Y+2,r23
+ 180 002c 6983      		std Y+1,r22
+ 181 002e 5C83      		std Y+4,r21
+ 182 0030 4B83      		std Y+3,r20
+ 183               	.LVL15:
+ 184               	.LSM25:
+ 185 0032 0296      		adiw r24,2
+ 186               	.LVL16:
+ 187 0034 FC01      		movw r30,r24
+ 188 0036 88E0      		ldi r24,lo8(8)
+ 189 0038 DF01      		movw r26,r30
+ 190 003a 1D92      		st X+,__zero_reg__
+ 191 003c 8A95      	        dec r24
+ 192 003e 01F4      		brne .-6
+ 193               	.LSM26:
+ 194 0040 EB81      		ldd r30,Y+3
+ 195 0042 FC81      		ldd r31,Y+4
+ 196 0044 8181      		ldd r24,Z+1
+ 197 0046 8230      		cpi r24,lo8(2)
+ 198 0048 01F0      		breq .L78
+ 199               	.LSM27:
+ 200 004a 81E0      		ldi r24,lo8(1)
+ 201               	.LVL17:
+ 202               	.L24:
+ 203               	/* epilogue start */
+ 204               	.LSM28:
+ 205 004c 0F90      		pop __tmp_reg__
+ 206 004e 0F90      		pop __tmp_reg__
+ 207 0050 0F90      		pop __tmp_reg__
+ 208 0052 0F90      		pop __tmp_reg__
+ 209 0054 CF91      		pop r28
+ 210 0056 DF91      		pop r29
+ 211 0058 1F91      		pop r17
+ 212 005a 0F91      		pop r16
+ 213 005c FF90      		pop r15
+ 214 005e EF90      		pop r14
+ 215 0060 DF90      		pop r13
+ 216 0062 CF90      		pop r12
+ 217               	.LVL18:
+ 218 0064 BF90      		pop r11
+ 219 0066 AF90      		pop r10
+ 220 0068 9F90      		pop r9
+ 221 006a 8F90      		pop r8
+ 222 006c 7F90      		pop r7
+ 223 006e 6F90      		pop r6
+ 224 0070 5F90      		pop r5
+ 225 0072 4F90      		pop r4
+ 226 0074 0895      		ret
+ 227               	.LVL19:
+ 228               	.L78:
+ 229               	.LSM29:
+ 230 0076 4424      		clr r4
+ 231 0078 5524      		clr r5
+ 232 007a 8824      		clr r8
+ 233 007c 9924      		clr r9
+ 234 007e AA24      		clr r10
+ 235 0080 BB24      		clr r11
+ 236 0082 6624      		clr r6
+ 237 0084 7724      		clr r7
+ 238               	.LBB15:
+ 239               	.LSM30:
+ 240 0086 A3E0      		ldi r26,lo8(3)
+ 241 0088 EA2E      		mov r14,r26
+ 242 008a F12C      		mov r15,__zero_reg__
+ 243 008c EC0E      		add r14,r28
+ 244 008e FD1E      		adc r15,r29
+ 245 0090 8E01      		movw r16,r28
+ 246 0092 0F5F      		subi r16,lo8(-(1))
+ 247 0094 1F4F      		sbci r17,hi8(-(1))
+ 248               	.LVL20:
+ 249               	.L70:
+ 250               	.LBE15:
+ 251               	.LSM31:
+ 252 0096 F601      		movw r30,r12
+ 253 0098 8081      		ld r24,Z
+ 254 009a 8823      		tst r24
+ 255 009c 01F0      		breq .L30
+ 256               	.L80:
+ 257               	.LSM32:
+ 258 009e 6114      		cp r6,__zero_reg__
+ 259 00a0 7104      		cpc r7,__zero_reg__
+ 260 00a2 01F0      		breq .L31
+ 261               	.L30:
+ 262               	.LSM33:
+ 263 00a4 D601      		movw r26,r12
+ 264 00a6 1196      		adiw r26,1
+ 265 00a8 9C91      		ld r25,X
+ 266 00aa 1197      		sbiw r26,1
+ 267               	.LSM34:
+ 268 00ac 9923      		tst r25
+ 269 00ae 01F4      		brne .+2
+ 270 00b0 00C0      		rjmp .L55
+ 271               	.LSM35:
+ 272 00b2 A114      		cp r10,__zero_reg__
+ 273 00b4 B104      		cpc r11,__zero_reg__
+ 274 00b6 01F4      		brne .L55
+ 275               	.L31:
+ 276               	.LBB16:
+ 277               	.LSM36:
+ 278 00b8 8114      		cp r8,__zero_reg__
+ 279 00ba 9104      		cpc r9,__zero_reg__
+ 280 00bc 01F0      		breq .L26
+ 281               	.LSM37:
+ 282 00be C801      		movw r24,r16
+ 283 00c0 B701      		movw r22,r14
+ 284               	.LVL21:
+ 285 00c2 40E0      		ldi r20,lo8(gs(DCOMP_Audio_Host_NextAudioInterfaceDataEndpoint))
+ 286 00c4 50E0      		ldi r21,hi8(gs(DCOMP_Audio_Host_NextAudioInterfaceDataEndpoint))
+ 287 00c6 0E94 0000 		call USB_GetNextDescriptorComp
+ 288               	.LSM38:
+ 289 00ca 8823      		tst r24
+ 290 00cc 01F0      		breq .L79
+ 291               	.LSM39:
+ 292 00ce C801      		movw r24,r16
+ 293 00d0 B701      		movw r22,r14
+ 294 00d2 40E0      		ldi r20,lo8(gs(DCOMP_Audio_Host_NextAudioStreamInterface))
+ 295 00d4 50E0      		ldi r21,hi8(gs(DCOMP_Audio_Host_NextAudioStreamInterface))
+ 296 00d6 0E94 0000 		call USB_GetNextDescriptorComp
+ 297               	.LSM40:
+ 298 00da 8823      		tst r24
+ 299 00dc 01F0      		breq .L58
+ 300               	.L26:
+ 301               	.LSM41:
+ 302 00de C801      		movw r24,r16
+ 303 00e0 B701      		movw r22,r14
+ 304 00e2 40E0      		ldi r20,lo8(gs(DCOMP_Audio_Host_NextAudioControlInterface))
+ 305 00e4 50E0      		ldi r21,hi8(gs(DCOMP_Audio_Host_NextAudioControlInterface))
+ 306 00e6 0E94 0000 		call USB_GetNextDescriptorComp
+ 307 00ea 8823      		tst r24
+ 308 00ec 01F4      		brne .L61
+ 309               	.LSM42:
+ 310 00ee 8B80      		ldd r8,Y+3
+ 311               	.LVL22:
+ 312 00f0 AC80      		ldd r10,Y+4
+ 313               	.LVL23:
+ 314               	.LSM43:
+ 315 00f2 C801      		movw r24,r16
+ 316 00f4 B701      		movw r22,r14
+ 317 00f6 40E0      		ldi r20,lo8(gs(DCOMP_Audio_Host_NextAudioStreamInterface))
+ 318 00f8 50E0      		ldi r21,hi8(gs(DCOMP_Audio_Host_NextAudioStreamInterface))
+ 319 00fa 0E94 0000 		call USB_GetNextDescriptorComp
+ 320               	.LVL24:
+ 321 00fe 8823      		tst r24
+ 322 0100 01F4      		brne .L61
+ 323               	.LSM44:
+ 324 0102 9A2C      		mov r9,r10
+ 325               	.LVL25:
+ 326               	.L58:
+ 327               	.LSM45:
+ 328 0104 4B80      		ldd r4,Y+3
+ 329 0106 5C80      		ldd r5,Y+4
+ 330               	.LVL26:
+ 331               	.LSM46:
+ 332 0108 AA24      		clr r10
+ 333 010a BB24      		clr r11
+ 334               	.LSM47:
+ 335 010c 6624      		clr r6
+ 336 010e 7724      		clr r7
+ 337               	.LVL27:
+ 338               	.LBE16:
+ 339               	.LSM48:
+ 340 0110 F601      		movw r30,r12
+ 341 0112 8081      		ld r24,Z
+ 342 0114 8823      		tst r24
+ 343 0116 01F0      		breq .L30
+ 344 0118 00C0      		rjmp .L80
+ 345               	.LVL28:
+ 346               	.L79:
+ 347               	.LBB17:
+ 348               	.LSM49:
+ 349 011a EB81      		ldd r30,Y+3
+ 350 011c FC81      		ldd r31,Y+4
+ 351               	.LVL29:
+ 352               	.LSM50:
+ 353 011e 8281      		ldd r24,Z+2
+ 354 0120 87FD      		sbrc r24,7
+ 355 0122 00C0      		rjmp .L81
+ 356               	.LSM51:
+ 357 0124 5F01      		movw r10,r30
+ 358               	.LVL30:
+ 359 0126 00C0      		rjmp .L70
+ 360               	.LVL31:
+ 361               	.L61:
+ 362               	.LSM52:
+ 363 0128 82E0      		ldi r24,lo8(2)
+ 364 012a 00C0      		rjmp .L24
+ 365               	.LVL32:
+ 366               	.L81:
+ 367               	.LSM53:
+ 368 012c 3F01      		movw r6,r30
+ 369               	.LVL33:
+ 370 012e 00C0      		rjmp .L70
+ 371               	.LVL34:
+ 372               	.L55:
+ 373               	.LBE17:
+ 374               	.LBB18:
+ 375               	.LBB19:
+ 376               	.LSM54:
+ 377 0130 8130      		cpi r24,lo8(1)
+ 378 0132 01F4      		brne .+2
+ 379 0134 00C0      		rjmp .L82
+ 380               	.LSM55:
+ 381 0136 9130      		cpi r25,lo8(1)
+ 382 0138 01F4      		brne .+2
+ 383 013a 00C0      		rjmp .L83
+ 384               	.L35:
+ 385               	.LVL35:
+ 386               	.LSM56:
+ 387 013c 8230      		cpi r24,lo8(2)
+ 388 013e 01F4      		brne .+2
+ 389 0140 00C0      		rjmp .L84
+ 390               	.LSM57:
+ 391 0142 F601      		movw r30,r12
+ 392 0144 9181      		ldd r25,Z+1
+ 393 0146 9230      		cpi r25,lo8(2)
+ 394 0148 01F4      		brne .+2
+ 395 014a 00C0      		rjmp .L85
+ 396               	.L39:
+ 397               	.LVL36:
+ 398               	.LSM58:
+ 399 014c 8330      		cpi r24,lo8(3)
+ 400 014e 01F4      		brne .+2
+ 401 0150 00C0      		rjmp .L86
+ 402               	.LSM59:
+ 403 0152 D601      		movw r26,r12
+ 404 0154 1196      		adiw r26,1
+ 405 0156 9C91      		ld r25,X
+ 406 0158 1197      		sbiw r26,1
+ 407 015a 9330      		cpi r25,lo8(3)
+ 408 015c 01F4      		brne .+2
+ 409 015e 00C0      		rjmp .L87
+ 410               	.L43:
+ 411               	.LVL37:
+ 412               	.LSM60:
+ 413 0160 8430      		cpi r24,lo8(4)
+ 414 0162 01F4      		brne .+2
+ 415 0164 00C0      		rjmp .L88
+ 416               	.LSM61:
+ 417 0166 F601      		movw r30,r12
+ 418 0168 9181      		ldd r25,Z+1
+ 419 016a 9430      		cpi r25,lo8(4)
+ 420 016c 01F4      		brne .+2
+ 421 016e 00C0      		rjmp .L89
+ 422               	.L47:
+ 423               	.LVL38:
+ 424               	.LSM62:
+ 425 0170 8530      		cpi r24,lo8(5)
+ 426 0172 01F4      		brne .+2
+ 427 0174 00C0      		rjmp .L90
+ 428               	.LSM63:
+ 429 0176 D601      		movw r26,r12
+ 430 0178 1196      		adiw r26,1
+ 431 017a 9C91      		ld r25,X
+ 432 017c 1197      		sbiw r26,1
+ 433 017e 9530      		cpi r25,lo8(5)
+ 434 0180 01F4      		brne .+2
+ 435 0182 00C0      		rjmp .L91
+ 436               	.L51:
+ 437               	.LVL39:
+ 438               	.LSM64:
+ 439 0184 8630      		cpi r24,lo8(6)
+ 440 0186 01F4      		brne .+2
+ 441 0188 00C0      		rjmp .L92
+ 442               	.LSM65:
+ 443 018a D601      		movw r26,r12
+ 444 018c 1196      		adiw r26,1
+ 445 018e 8C91      		ld r24,X
+ 446 0190 1197      		sbiw r26,1
+ 447 0192 8630      		cpi r24,lo8(6)
+ 448 0194 01F4      		brne .+2
+ 449 0196 00C0      		rjmp .L93
+ 450               	.L57:
+ 451               	.LVL40:
+ 452               	.LBE19:
+ 453               	.LBE18:
+ 454               	.LSM66:
+ 455 0198 D401      		movw r26,r8
+ 456 019a 1296      		adiw r26,2
+ 457 019c 8C91      		ld r24,X
+ 458 019e F601      		movw r30,r12
+ 459 01a0 8383      		std Z+3,r24
+ 460               	.LSM67:
+ 461 01a2 D201      		movw r26,r4
+ 462 01a4 1296      		adiw r26,2
+ 463 01a6 8C91      		ld r24,X
+ 464 01a8 1297      		sbiw r26,2
+ 465 01aa 8483      		std Z+4,r24
+ 466               	.LSM68:
+ 467 01ac 1396      		adiw r26,3
+ 468 01ae 8C91      		ld r24,X
+ 469 01b0 1397      		sbiw r26,3
+ 470 01b2 8583      		std Z+5,r24
+ 471               	.LSM69:
+ 472 01b4 81E0      		ldi r24,lo8(1)
+ 473 01b6 8283      		std Z+2,r24
+ 474               	.LSM70:
+ 475 01b8 80E0      		ldi r24,lo8(0)
+ 476 01ba 00C0      		rjmp .L24
+ 477               	.LVL41:
+ 478               	.L82:
+ 479               	.LBB21:
+ 480               	.LBB20:
+ 481               	.LSM71:
+ 482 01bc D301      		movw r26,r6
+ 483 01be 1496      		adiw r26,4
+ 484 01c0 0D91      		ld r16,X+
+ 485 01c2 1C91      		ld r17,X
+ 486 01c4 1597      		sbiw r26,4+1
+ 487               	.LVL42:
+ 488               	.LSM72:
+ 489 01c6 1296      		adiw r26,2
+ 490 01c8 2C91      		ld r18,X
+ 491               	.LVL43:
+ 492               	.LSM73:
+ 493 01ca F601      		movw r30,r12
+ 494 01cc 1783      		std Z+7,r17
+ 495 01ce 0683      		std Z+6,r16
+ 496               	.LSM74:
+ 497 01d0 40E1      		ldi r20,lo8(16)
+ 498               	.LVL44:
+ 499               	.L36:
+ 500               	.LSM75:
+ 501 01d2 81E0      		ldi r24,lo8(1)
+ 502 01d4 61E0      		ldi r22,lo8(1)
+ 503 01d6 F4E0      		ldi r31,lo8(4)
+ 504 01d8 EF2E      		mov r14,r31
+ 505 01da 0E94 0000 		call Pipe_ConfigurePipe
+ 506               	.LVL45:
+ 507 01de 8823      		tst r24
+ 508 01e0 01F4      		brne .+2
+ 509 01e2 00C0      		rjmp .L68
+ 510 01e4 F601      		movw r30,r12
+ 511 01e6 8081      		ld r24,Z
+ 512 01e8 00C0      		rjmp .L35
+ 513               	.LVL46:
+ 514               	.L84:
+ 515               	.LSM76:
+ 516 01ea F301      		movw r30,r6
+ 517 01ec 0481      		ldd r16,Z+4
+ 518 01ee 1581      		ldd r17,Z+5
+ 519               	.LVL47:
+ 520               	.LSM77:
+ 521 01f0 2281      		ldd r18,Z+2
+ 522               	.LVL48:
+ 523               	.LSM78:
+ 524 01f2 D601      		movw r26,r12
+ 525 01f4 1796      		adiw r26,6+1
+ 526 01f6 1C93      		st X,r17
+ 527 01f8 0E93      		st -X,r16
+ 528 01fa 1697      		sbiw r26,6
+ 529               	.LSM79:
+ 530 01fc 40E1      		ldi r20,lo8(16)
+ 531               	.LVL49:
+ 532               	.L40:
+ 533               	.LSM80:
+ 534 01fe 82E0      		ldi r24,lo8(2)
+ 535 0200 61E0      		ldi r22,lo8(1)
+ 536 0202 E4E0      		ldi r30,lo8(4)
+ 537 0204 EE2E      		mov r14,r30
+ 538 0206 0E94 0000 		call Pipe_ConfigurePipe
+ 539               	.LVL50:
+ 540 020a 8823      		tst r24
+ 541 020c 01F4      		brne .+2
+ 542 020e 00C0      		rjmp .L68
+ 543 0210 D601      		movw r26,r12
+ 544 0212 8C91      		ld r24,X
+ 545 0214 00C0      		rjmp .L39
+ 546               	.LVL51:
+ 547               	.L86:
+ 548               	.LSM81:
+ 549 0216 D301      		movw r26,r6
+ 550 0218 1496      		adiw r26,4
+ 551 021a 0D91      		ld r16,X+
+ 552 021c 1C91      		ld r17,X
+ 553 021e 1597      		sbiw r26,4+1
+ 554               	.LVL52:
+ 555               	.LSM82:
+ 556 0220 1296      		adiw r26,2
+ 557 0222 2C91      		ld r18,X
+ 558               	.LVL53:
+ 559               	.LSM83:
+ 560 0224 F601      		movw r30,r12
+ 561 0226 1783      		std Z+7,r17
+ 562 0228 0683      		std Z+6,r16
+ 563               	.LSM84:
+ 564 022a 40E1      		ldi r20,lo8(16)
+ 565               	.LVL54:
+ 566               	.L44:
+ 567               	.LSM85:
+ 568 022c 83E0      		ldi r24,lo8(3)
+ 569 022e 61E0      		ldi r22,lo8(1)
+ 570 0230 74E0      		ldi r23,lo8(4)
+ 571 0232 E72E      		mov r14,r23
+ 572 0234 0E94 0000 		call Pipe_ConfigurePipe
+ 573               	.LVL55:
+ 574 0238 8823      		tst r24
+ 575 023a 01F4      		brne .+2
+ 576 023c 00C0      		rjmp .L68
+ 577 023e F601      		movw r30,r12
+ 578 0240 8081      		ld r24,Z
+ 579 0242 00C0      		rjmp .L43
+ 580               	.LVL56:
+ 581               	.L88:
+ 582               	.LSM86:
+ 583 0244 F301      		movw r30,r6
+ 584 0246 0481      		ldd r16,Z+4
+ 585 0248 1581      		ldd r17,Z+5
+ 586               	.LVL57:
+ 587               	.LSM87:
+ 588 024a 2281      		ldd r18,Z+2
+ 589               	.LVL58:
+ 590               	.LSM88:
+ 591 024c D601      		movw r26,r12
+ 592 024e 1796      		adiw r26,6+1
+ 593 0250 1C93      		st X,r17
+ 594 0252 0E93      		st -X,r16
+ 595 0254 1697      		sbiw r26,6
+ 596               	.LSM89:
+ 597 0256 40E1      		ldi r20,lo8(16)
+ 598               	.LVL59:
+ 599               	.L48:
+ 600               	.LSM90:
+ 601 0258 84E0      		ldi r24,lo8(4)
+ 602 025a 61E0      		ldi r22,lo8(1)
+ 603 025c 54E0      		ldi r21,lo8(4)
+ 604 025e E52E      		mov r14,r21
+ 605 0260 0E94 0000 		call Pipe_ConfigurePipe
+ 606               	.LVL60:
+ 607 0264 8823      		tst r24
+ 608 0266 01F0      		breq .L68
+ 609 0268 D601      		movw r26,r12
+ 610 026a 8C91      		ld r24,X
+ 611 026c 00C0      		rjmp .L47
+ 612               	.LVL61:
+ 613               	.L90:
+ 614               	.LSM91:
+ 615 026e D301      		movw r26,r6
+ 616 0270 1496      		adiw r26,4
+ 617 0272 0D91      		ld r16,X+
+ 618 0274 1C91      		ld r17,X
+ 619 0276 1597      		sbiw r26,4+1
+ 620               	.LVL62:
+ 621               	.LSM92:
+ 622 0278 1296      		adiw r26,2
+ 623 027a 2C91      		ld r18,X
+ 624               	.LVL63:
+ 625               	.LSM93:
+ 626 027c F601      		movw r30,r12
+ 627 027e 1783      		std Z+7,r17
+ 628 0280 0683      		std Z+6,r16
+ 629               	.LSM94:
+ 630 0282 40E1      		ldi r20,lo8(16)
+ 631               	.LVL64:
+ 632               	.L52:
+ 633               	.LSM95:
+ 634 0284 85E0      		ldi r24,lo8(5)
+ 635 0286 61E0      		ldi r22,lo8(1)
+ 636 0288 34E0      		ldi r19,lo8(4)
+ 637 028a E32E      		mov r14,r19
+ 638 028c 0E94 0000 		call Pipe_ConfigurePipe
+ 639               	.LVL65:
+ 640 0290 8823      		tst r24
+ 641 0292 01F0      		breq .L68
+ 642 0294 F601      		movw r30,r12
+ 643 0296 8081      		ld r24,Z
+ 644 0298 00C0      		rjmp .L51
+ 645               	.LVL66:
+ 646               	.L92:
+ 647               	.LSM96:
+ 648 029a D301      		movw r26,r6
+ 649 029c 1496      		adiw r26,4
+ 650 029e 0D91      		ld r16,X+
+ 651 02a0 1C91      		ld r17,X
+ 652 02a2 1597      		sbiw r26,4+1
+ 653               	.LVL67:
+ 654               	.LSM97:
+ 655 02a4 1296      		adiw r26,2
+ 656 02a6 2C91      		ld r18,X
+ 657               	.LVL68:
+ 658               	.LSM98:
+ 659 02a8 F601      		movw r30,r12
+ 660 02aa 1783      		std Z+7,r17
+ 661 02ac 0683      		std Z+6,r16
+ 662               	.LSM99:
+ 663 02ae 40E1      		ldi r20,lo8(16)
+ 664               	.LVL69:
+ 665               	.L56:
+ 666               	.LSM100:
+ 667 02b0 86E0      		ldi r24,lo8(6)
+ 668 02b2 61E0      		ldi r22,lo8(1)
+ 669 02b4 94E0      		ldi r25,lo8(4)
+ 670 02b6 E92E      		mov r14,r25
+ 671 02b8 0E94 0000 		call Pipe_ConfigurePipe
+ 672               	.LVL70:
+ 673 02bc 8823      		tst r24
+ 674 02be 01F0      		breq .+2
+ 675 02c0 00C0      		rjmp .L57
+ 676               	.LVL71:
+ 677               	.L68:
+ 678               	.LSM101:
+ 679 02c2 83E0      		ldi r24,lo8(3)
+ 680 02c4 00C0      		rjmp .L24
+ 681               	.LVL72:
+ 682               	.L83:
+ 683               	.LSM102:
+ 684 02c6 D501      		movw r26,r10
+ 685 02c8 1496      		adiw r26,4
+ 686 02ca 0D91      		ld r16,X+
+ 687 02cc 1C91      		ld r17,X
+ 688 02ce 1597      		sbiw r26,4+1
+ 689               	.LVL73:
+ 690               	.LSM103:
+ 691 02d0 1296      		adiw r26,2
+ 692 02d2 2C91      		ld r18,X
+ 693 02d4 1297      		sbiw r26,2
+ 694               	.LVL74:
+ 695               	.LSM104:
+ 696 02d6 F601      		movw r30,r12
+ 697 02d8 1187      		std Z+9,r17
+ 698 02da 0087      		std Z+8,r16
+ 699               	.LSM105:
+ 700 02dc 40E2      		ldi r20,lo8(32)
+ 701 02de 00C0      		rjmp .L36
+ 702               	.LVL75:
+ 703               	.L85:
+ 704               	.LSM106:
+ 705 02e0 D501      		movw r26,r10
+ 706 02e2 1496      		adiw r26,4
+ 707 02e4 0D91      		ld r16,X+
+ 708 02e6 1C91      		ld r17,X
+ 709 02e8 1597      		sbiw r26,4+1
+ 710               	.LVL76:
+ 711               	.LSM107:
+ 712 02ea 1296      		adiw r26,2
+ 713 02ec 2C91      		ld r18,X
+ 714 02ee 1297      		sbiw r26,2
+ 715               	.LVL77:
+ 716               	.LSM108:
+ 717 02f0 1187      		std Z+9,r17
+ 718 02f2 0087      		std Z+8,r16
+ 719               	.LSM109:
+ 720 02f4 40E2      		ldi r20,lo8(32)
+ 721 02f6 00C0      		rjmp .L40
+ 722               	.LVL78:
+ 723               	.L87:
+ 724               	.LSM110:
+ 725 02f8 F501      		movw r30,r10
+ 726 02fa 0481      		ldd r16,Z+4
+ 727 02fc 1581      		ldd r17,Z+5
+ 728               	.LVL79:
+ 729               	.LSM111:
+ 730 02fe 2281      		ldd r18,Z+2
+ 731               	.LVL80:
+ 732               	.LSM112:
+ 733 0300 1996      		adiw r26,8+1
+ 734 0302 1C93      		st X,r17
+ 735 0304 0E93      		st -X,r16
+ 736 0306 1897      		sbiw r26,8
+ 737               	.LSM113:
+ 738 0308 40E2      		ldi r20,lo8(32)
+ 739 030a 00C0      		rjmp .L44
+ 740               	.LVL81:
+ 741               	.L89:
+ 742               	.LSM114:
+ 743 030c D501      		movw r26,r10
+ 744 030e 1496      		adiw r26,4
+ 745 0310 0D91      		ld r16,X+
+ 746 0312 1C91      		ld r17,X
+ 747 0314 1597      		sbiw r26,4+1
+ 748               	.LVL82:
+ 749               	.LSM115:
+ 750 0316 1296      		adiw r26,2
+ 751 0318 2C91      		ld r18,X
+ 752 031a 1297      		sbiw r26,2
+ 753               	.LVL83:
+ 754               	.LSM116:
+ 755 031c 1187      		std Z+9,r17
+ 756 031e 0087      		std Z+8,r16
+ 757               	.LSM117:
+ 758 0320 40E2      		ldi r20,lo8(32)
+ 759 0322 00C0      		rjmp .L48
+ 760               	.LVL84:
+ 761               	.L91:
+ 762               	.LSM118:
+ 763 0324 F501      		movw r30,r10
+ 764 0326 0481      		ldd r16,Z+4
+ 765 0328 1581      		ldd r17,Z+5
+ 766               	.LVL85:
+ 767               	.LSM119:
+ 768 032a 2281      		ldd r18,Z+2
+ 769               	.LVL86:
+ 770               	.LSM120:
+ 771 032c 1996      		adiw r26,8+1
+ 772 032e 1C93      		st X,r17
+ 773 0330 0E93      		st -X,r16
+ 774 0332 1897      		sbiw r26,8
+ 775               	.LSM121:
+ 776 0334 40E2      		ldi r20,lo8(32)
+ 777 0336 00C0      		rjmp .L52
+ 778               	.LVL87:
+ 779               	.L93:
+ 780               	.LSM122:
+ 781 0338 F501      		movw r30,r10
+ 782 033a 0481      		ldd r16,Z+4
+ 783 033c 1581      		ldd r17,Z+5
+ 784               	.LVL88:
+ 785               	.LSM123:
+ 786 033e 2281      		ldd r18,Z+2
+ 787               	.LVL89:
+ 788               	.LSM124:
+ 789 0340 1996      		adiw r26,8+1
+ 790 0342 1C93      		st X,r17
+ 791 0344 0E93      		st -X,r16
+ 792 0346 1897      		sbiw r26,8
+ 793               	.LSM125:
+ 794 0348 40E2      		ldi r20,lo8(32)
+ 795 034a 00C0      		rjmp .L56
+ 796               	.LBE20:
+ 797               	.LBE21:
+ 798               	.LFE129:
+ 800               		.section	.text.Audio_Host_StartStopStreaming,"ax",@progbits
+ 801               	.global	Audio_Host_StartStopStreaming
+ 803               	Audio_Host_StartStopStreaming:
+ 804               	.LFB133:
+ 805               	.LSM126:
+ 806               	.LVL90:
+ 807               	/* prologue: function */
+ 808               	/* frame size = 0 */
+ 809               	/* stack size = 0 */
+ 810               	.L__stack_usage = 0
+ 811 0000 FC01      		movw r30,r24
+ 812               	.LSM127:
+ 813 0002 8281      		ldd r24,Z+2
+ 814               	.LVL91:
+ 815 0004 8823      		tst r24
+ 816 0006 01F0      		breq .L97
+ 817               	.LSM128:
+ 818 0008 8481      		ldd r24,Z+4
+ 819 000a 6623      		tst r22
+ 820 000c 01F4      		brne .L99
+ 821 000e 60E0      		ldi r22,lo8(0)
+ 822               	.LVL92:
+ 823 0010 0E94 0000 		call USB_Host_SetInterfaceAltSetting
+ 824               	.LVL93:
+ 825 0014 0895      		ret
+ 826               	.LVL94:
+ 827               	.L99:
+ 828               	.LSM129:
+ 829 0016 6581      		ldd r22,Z+5
+ 830               	.LVL95:
+ 831 0018 0E94 0000 		call USB_Host_SetInterfaceAltSetting
+ 832               	.LVL96:
+ 833 001c 0895      		ret
+ 834               	.LVL97:
+ 835               	.L97:
+ 836               	.LSM130:
+ 837 001e 81E0      		ldi r24,lo8(1)
+ 838               	.LSM131:
+ 839 0020 0895      		ret
+ 840               	.LFE133:
+ 842               		.section	.text.Audio_Host_GetSetEndpointProperty,"ax",@progbits
+ 843               	.global	Audio_Host_GetSetEndpointProperty
+ 845               	Audio_Host_GetSetEndpointProperty:
+ 846               	.LFB134:
+ 847               	.LSM132:
+ 848               	.LVL98:
+ 849 0000 EF92      		push r14
+ 850 0002 FF92      		push r15
+ 851 0004 0F93      		push r16
+ 852 0006 1F93      		push r17
+ 853               	/* prologue: function */
+ 854               	/* frame size = 0 */
+ 855               	/* stack size = 4 */
+ 856               	.L__stack_usage = 4
+ 857               	.LSM133:
+ 858 0008 FC01      		movw r30,r24
+ 859 000a 8281      		ldd r24,Z+2
+ 860               	.LVL99:
+ 861 000c 8823      		tst r24
+ 862 000e 01F0      		breq .L104
+ 863               	.LSM134:
+ 864 0010 47FD      		sbrc r20,7
+ 865 0012 00C0      		rjmp .L107
+ 866               	.LSM135:
+ 867 0014 32E2      		ldi r19,lo8(34)
+ 868               	.L102:
+ 869               	.LVL100:
+ 870               	.LBB22:
+ 871               	.LBB23:
+ 872               	.LSM136:
+ 873 0016 6093 A700 		sts 167,r22
+ 874               	.LBE23:
+ 875               	.LBE22:
+ 876               	.LBB24:
+ 877               	.LBB26:
+ 878               	.LSM137:
+ 879 001a 8091 AA00 		lds r24,170
+ 880 001e 8F70      		andi r24,lo8(15)
+ 881               	.LBB27:
+ 882               	.LBB28:
+ 883               	.LSM138:
+ 884 0020 9091 AA00 		lds r25,170
+ 885 0024 9073      		andi r25,lo8(48)
+ 886               	.LBE28:
+ 887               	.LBE27:
+ 888               	.LSM139:
+ 889 0026 9031      		cpi r25,lo8(16)
+ 890 0028 01F0      		breq .L108
+ 891 002a 90E0      		ldi r25,lo8(0)
+ 892               	.L103:
+ 893               	.LBE26:
+ 894               	.LBE24:
+ 895               	.LSM140:
+ 896 002c 3093 0000 		sts USB_ControlRequest,r19
+ 897 0030 4093 0000 		sts USB_ControlRequest+1,r20
+ 898 0034 E0E0      		ldi r30,lo8(USB_ControlRequest+2)
+ 899 0036 F0E0      		ldi r31,hi8(USB_ControlRequest+2)
+ 900               	.LVL101:
+ 901 0038 1092 0000 		sts USB_ControlRequest+2,__zero_reg__
+ 902 003c 2183      		std Z+1,r18
+ 903               	.LBB30:
+ 904               	.LBB25:
+ 905               	.LSM141:
+ 906 003e 892B      		or r24,r25
+ 907               	.LBE25:
+ 908               	.LBE30:
+ 909               	.LSM142:
+ 910 0040 8093 0000 		sts USB_ControlRequest+4,r24
+ 911 0044 1382      		std Z+3,__zero_reg__
+ 912 0046 1093 0000 		sts USB_ControlRequest+6+1,r17
+ 913 004a 0093 0000 		sts USB_ControlRequest+6,r16
+ 914               	.LVL102:
+ 915               	.LBB31:
+ 916               	.LBB32:
+ 917               	.LSM143:
+ 918 004e 1092 A700 		sts 167,__zero_reg__
+ 919               	.LBE32:
+ 920               	.LBE31:
+ 921               	.LSM144:
+ 922 0052 C701      		movw r24,r14
+ 923 0054 0E94 0000 		call USB_Host_SendControlRequest
+ 924               	.LVL103:
+ 925               	/* epilogue start */
+ 926               	.LSM145:
+ 927 0058 1F91      		pop r17
+ 928 005a 0F91      		pop r16
+ 929               	.LVL104:
+ 930 005c FF90      		pop r15
+ 931 005e EF90      		pop r14
+ 932               	.LVL105:
+ 933 0060 0895      		ret
+ 934               	.LVL106:
+ 935               	.L104:
+ 936               	.LSM146:
+ 937 0062 81E0      		ldi r24,lo8(1)
+ 938               	/* epilogue start */
+ 939               	.LSM147:
+ 940 0064 1F91      		pop r17
+ 941 0066 0F91      		pop r16
+ 942               	.LVL107:
+ 943 0068 FF90      		pop r15
+ 944 006a EF90      		pop r14
+ 945               	.LVL108:
+ 946 006c 0895      		ret
+ 947               	.LVL109:
+ 948               	.L107:
+ 949               	.LSM148:
+ 950 006e 32EA      		ldi r19,lo8(-94)
+ 951 0070 00C0      		rjmp .L102
+ 952               	.LVL110:
+ 953               	.L108:
+ 954               	.LBB33:
+ 955               	.LBB29:
+ 956               	.LSM149:
+ 957 0072 90E8      		ldi r25,lo8(-128)
+ 958 0074 00C0      		rjmp .L103
+ 959               	.LBE29:
+ 960               	.LBE33:
+ 961               	.LFE134:
+ 1027               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 AudioClassHost.c
+C:\Users\david\AppData\Local\Temp\ccSxpx8e.s:2      *ABS*:0000003f __SREG__
+C:\Users\david\AppData\Local\Temp\ccSxpx8e.s:3      *ABS*:0000003e __SP_H__
+C:\Users\david\AppData\Local\Temp\ccSxpx8e.s:4      *ABS*:0000003d __SP_L__
+C:\Users\david\AppData\Local\Temp\ccSxpx8e.s:5      *ABS*:00000034 __CCP__
+C:\Users\david\AppData\Local\Temp\ccSxpx8e.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\david\AppData\Local\Temp\ccSxpx8e.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\david\AppData\Local\Temp\ccSxpx8e.s:18     .text.DCOMP_Audio_Host_NextAudioControlInterface:00000000 DCOMP_Audio_Host_NextAudioControlInterface
+C:\Users\david\AppData\Local\Temp\ccSxpx8e.s:61     .text.DCOMP_Audio_Host_NextAudioStreamInterface:00000000 DCOMP_Audio_Host_NextAudioStreamInterface
+C:\Users\david\AppData\Local\Temp\ccSxpx8e.s:105    .text.DCOMP_Audio_Host_NextAudioInterfaceDataEndpoint:00000000 DCOMP_Audio_Host_NextAudioInterfaceDataEndpoint
+C:\Users\david\AppData\Local\Temp\ccSxpx8e.s:150    .text.Audio_Host_ConfigurePipes:00000000 Audio_Host_ConfigurePipes
+C:\Users\david\AppData\Local\Temp\ccSxpx8e.s:803    .text.Audio_Host_StartStopStreaming:00000000 Audio_Host_StartStopStreaming
+C:\Users\david\AppData\Local\Temp\ccSxpx8e.s:845    .text.Audio_Host_GetSetEndpointProperty:00000000 Audio_Host_GetSetEndpointProperty
+
+UNDEFINED SYMBOLS
+USB_GetNextDescriptorComp
+Pipe_ConfigurePipe
+USB_Host_SetInterfaceAltSetting
+USB_ControlRequest
+USB_Host_SendControlRequest
