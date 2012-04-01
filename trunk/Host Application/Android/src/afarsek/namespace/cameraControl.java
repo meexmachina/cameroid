@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import ptp.Buffer;
 import ptp.DeviceInfo;
 import ptp.DevicePropDesc;
 import ptp.NameFactory;
 import ptp.StorageInfo;
+import widget.CameraControlData.controlType;
 
 import afarsek.namespace.hardwareFacade.TP_header;
 import android.bluetooth.BluetoothAdapter;
@@ -32,6 +34,11 @@ public class cameraControl
 	private NameFactory mNameFactory = new NameFactory();
 	private int mTransactionID = 0;
 	private Timer timer;
+	private int[] mEventDataPropCodes =
+	{ DevicePropDesc.BatteryLevel, DevicePropDesc.FunctionalMode, DevicePropDesc.WhiteBalance, DevicePropDesc.FStop,
+			DevicePropDesc.FocalLength, DevicePropDesc.FocusDistance, DevicePropDesc.FocusMode, DevicePropDesc.ExposureMeteringMode,
+			DevicePropDesc.FlashMode, DevicePropDesc.ExposureTime, DevicePropDesc.ExposureProgramMode, DevicePropDesc.ExposureIndex,
+			DevicePropDesc.ExposureBiasCompensation, 0, 0, 0 };
 
 	private String mConnectedDeviceName = null; // Name of the connected device
 
@@ -119,30 +126,66 @@ public class cameraControl
 		mHardwareFacade.write(cmd.getByteArray());
 		// mHardwareFacade.write_queue("get_storage_info_bin 0:".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
 	}
+	
+	public void setActivePropertyEvents (ArrayList<controlType> list)
+	{
+		
+	}
 
 	public int getPropertiesDescriptions(int propCode)
 	{
-		/*
-		 * Log.d("Camera Control Class", "getPropertiesDescriptions - trying to get property info: " + Integer.toHexString(propCode)); if
-		 * (mCameraAttached == 0) { Log.d("Camera Control Class", "getPropertiesDescriptions - camera is not attached yet."); return -1; }
-		 * 
-		 * if (mDeviceInfo == null) { Log.d("Camera Control Class", "getPropertiesDescriptions - DeviceInfo was not initialized yet.");
-		 * return -2; }
-		 * 
-		 * if (mDeviceInfo.propertiesSupported.length == 0) { Log.d("Camera Control Class",
-		 * "getPropertiesDescriptions - DeviceInfo.propertiesSupported was not initialized yet or empty."); return -3; }
-		 * 
-		 * int[] props = mDeviceInfo.propertiesSupported; boolean found = false;
-		 * 
-		 * for (int i = 0; i < props.length; i++) { if (props[i] == propCode) { found = true; break; } }
-		 * 
-		 * if (found == false) { Log.d("Camera Control Class", "getPropertiesDescriptions - propCode " + Integer.toHexString(propCode) +
-		 * "was not foound in the supported properties."); return -4; }
-		 * 
-		 * Log.d("Camera Control Class", "getPropertiesDescriptions - enqueuing 'get_prop_desc_bin propCode:' command.");
-		 * mHardwareFacade.write_queue(("prop_desc_bin " + String.valueOf(propCode) + ":").getBytes(),
-		 * MessageElement.MessageTags.ME_PROPERTY_DESC);
-		 */
+
+		Log.d("Camera Control Class", "getPropertiesDescriptions - trying to get property info: " + Integer.toHexString(propCode));
+
+		if (mCameraAttached == 0)
+		{
+			Log.d("Camera Control Class", "getPropertiesDescriptions - camera is not attached yet.");
+			return -1;
+		}
+
+		if (mDeviceInfo == null)
+		{
+			Log.d("Camera Control Class", "getPropertiesDescriptions - DeviceInfo was not initialized yet.");
+			return -2;
+		}
+
+		if (mDeviceInfo.propertiesSupported.length == 0)
+		{
+			Log.d("Camera Control Class", "getPropertiesDescriptions - DeviceInfo.propertiesSupported was not initialized yet or empty.");
+			return -3;
+		}
+
+		int[] props = mDeviceInfo.propertiesSupported;
+		boolean found = false;
+
+		for (int i = 0; i < props.length; i++)
+		{
+			if (props[i] == propCode)
+			{
+				found = true;
+				break;
+			}
+		}
+
+		if (found == false)
+		{
+			Log.d("Camera Control Class", "getPropertiesDescriptions - propCode " + Integer.toHexString(propCode)
+					+ "was not foound in the supported properties.");
+			return -4;
+		}
+
+		Log.d("Camera Control Class", "getPropertiesDescriptions - enqueuing 'get_prop_desc_bin propCode:' command.");
+
+		hardwareFacade.TP_header header = new hardwareFacade.TP_header();
+		header.mType = MessageElement.TP_COMMAND_GET_PROP_DESC;
+		header.mLength = 13;
+		header.mTransID = mTransactionID++;
+
+		hardwareFacade.TP_command cmd = new hardwareFacade.TP_command(header, propCode, 0, 0);
+		mHardwareFacade.write(cmd.getByteArray());
+
+		// mHardwareFacade.write(("prop_desc_bin " + String.valueOf(propCode) + ":").getBytes(),
+		// MessageElement.MessageTags.ME_PROPERTY_DESC);
 
 		return 0;
 	}
@@ -234,7 +277,7 @@ public class cameraControl
 					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_EVENT_CAMERA_CONNECTED EVENT was accepted.");
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE, 1, -1).sendToTarget();
 					getStatus();
-					//mCameraAttached = 1;
+					// mCameraAttached = 1;
 					break;
 
 				// ===============================================
@@ -243,7 +286,7 @@ public class cameraControl
 					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_EVENT_CAMERA_DISCONNECTED EVENT was accepted.");
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE, 0, -1).sendToTarget();
 					getStatus();
-					//mCameraAttached = 0;
+					// mCameraAttached = 0;
 					break;
 
 				// ===============================================
@@ -274,6 +317,12 @@ public class cameraControl
 				// EVENT: Communication Framing Error
 				case MessageElement.TP_EVENT_FRAMING_ERROR:
 					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_EVENT_FRAMING_ERROR EVENT was accepted.");
+					break;
+
+				// ===============================================
+				// EVENT: Device property changed
+				case MessageElement.TP_EVENT_PROPERTY_CHANGED:
+					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_EVENT_PROPERTY_CHANGED EVENT was accepted.");
 					break;
 
 				// ===============================================
@@ -370,6 +419,34 @@ public class cameraControl
 				// DATA: Afarsek Identification
 				case MessageElement.TP_DATA_IDN:
 					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_DATA_IDN was accepted.");
+					break;
+
+				// ===============================================
+				// DATA: Property change event information
+				case MessageElement.TP_DATA_PROPERTY_EVENT:
+					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_DATA_PROPERTY_EVENT was accepted.");
+					data = msg.getData().getByteArray("GottenData");
+
+					Buffer buf = new Buffer(data);
+
+					int participateProperties = buf.nextU32Pub();
+
+					for (int i = 0; i < 16; i++)
+					{
+						if ((participateProperties & (1<<i))==0)
+							continue;
+						
+						int currentPropCode = mEventDataPropCodes[i];
+						int iVal = buf.nextU32Pub();
+						int propPos = findProperty(currentPropCode);
+						if (propPos != -1)
+						{
+							mPropertyArray.get(propPos).currentValue = iVal;
+						}
+						
+						mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_PROPERTY_VAL, currentPropCode, iVal).sendToTarget();
+					}
+
 					break;
 
 				default:

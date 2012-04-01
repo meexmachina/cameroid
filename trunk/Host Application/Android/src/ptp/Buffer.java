@@ -19,7 +19,7 @@ public class Buffer
 	protected int offset;
 
 	// package private
-	Buffer(byte buf[])
+	public Buffer(byte buf[])
 	{
 		this(buf, buf.length);
 	}
@@ -136,6 +136,14 @@ public class Buffer
 	{
 		int retval = getU16(offset);
 		offset += 2;
+		return retval;
+	}
+	
+	/** Unmarshals the next signed 32 bit integer public */
+	public final int nextU32Pub()
+	{
+		int retval = getS32(offset);
+		offset += 4;
 		return retval;
 	}
 

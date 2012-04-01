@@ -1,5 +1,6 @@
 package afarsek.namespace;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -40,7 +41,7 @@ public class mainPanelActivity extends TabActivity
 	private Timer mStatusTimer;
 	private LocalActivityManager mLocalActivityManager = null;
 
-	// private int mCurrentlyUpdatingProperty = 0;
+	private int mCurrentlyUpdatingProperty = 0;
 
 	// Constants
 	public static final String EXTRA_DEVICE_ADDRESS = "device_address";
@@ -85,6 +86,7 @@ public class mainPanelActivity extends TabActivity
 				startActivity(aboutCameraIntent);
 			}
 		});
+		
 		mActionBar.addAction(new preferencesAction());
 
 		setTabs();
@@ -107,20 +109,18 @@ public class mainPanelActivity extends TabActivity
 	{
 		public void run()
 		{
-			// if (mCameraControl == null)
-			// return;
-			//
-			// if (mCameraControl.mCameraAttached == 0)
-			// return;
-
-			/*
-			 * if (mUsedProperties == null) return;
-			 * 
-			 * if (mUsedProperties.length == 0) return;
-			 * 
-			 * mCurrentlyUpdatingProperty = (mCurrentlyUpdatingProperty + 1) % mUsedProperties.length;
-			 * mCameraControl.getPropertiesDescriptions(mUsedProperties[mCurrentlyUpdatingProperty]);
-			 */
+			if (mCameraControl == null)
+				return;
+			
+			if (mCameraControl.mCameraAttached == 0)
+				return;
+			
+			//if (mTabHost.getCurrentTab() == 1)		// if we are in the general tab
+			//{
+			//	ArrayList<controlType> list = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).getCurrentActiveProperties();
+			//	mCurrentlyUpdatingProperty = (mCurrentlyUpdatingProperty+1) % list.size();
+			//	mCameraControl.getPropertiesDescriptions(list.get(mCurrentlyUpdatingProperty).getCode());
+			//}
 		}
 	}
 
@@ -134,8 +134,9 @@ public class mainPanelActivity extends TabActivity
 
 		// Attempt to connect to the device
 		mCameraControl.connect();
+		
 		mStatusTimer = new Timer();
-		mStatusTimer.scheduleAtFixedRate(new StatusTask(), 1000, 2000);
+		mStatusTimer.scheduleAtFixedRate(new StatusTask(), 1000, 10000);
 	}
 
 	@Override
@@ -149,6 +150,14 @@ public class mainPanelActivity extends TabActivity
 
 		super.onStop();
 	};
+	
+	@Override
+	protected void onPause()
+	{
+		if (mStatusTimer!=null)
+			mStatusTimer.cancel();
+		super.onPause();
+	}
 
 	@Override
 	public void onBackPressed()
@@ -208,8 +217,10 @@ public class mainPanelActivity extends TabActivity
 		addTab("Capture", R.drawable.tab_capture, generalTabPanelActivity.class);
 		addTab("Advanced", R.drawable.tab_advanced, advancedTabPanelActivity.class);
 
+		
 		mTabHost.setCurrentTab(mCurrentTab);
-
+		((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).setMainClassHandlerObject(mGeneralTabHandler);
+		
 		mTabHost.setOnTabChangedListener(new OnTabChangeListener()
 		{
 			public void onTabChanged(String tabId)
@@ -251,6 +262,28 @@ public class mainPanelActivity extends TabActivity
 		spec.setContent(intent);
 		mTabHost.addTab(spec);
 	}
+	
+	// The Handler that gets information back from the hardwareFacade
+	private final Handler mGeneralTabHandler = new Handler()
+	{
+		@Override
+		public void handleMessage(Message msg)
+		{
+			//((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(controlType.getTypeFromCode(propCode1), propVal1);
+			switch (msg.what)
+			{
+			case messageDefinitions.PROPERTY_CHOISE_WAS_CHANGED:
+				ArrayList<controlType> list = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).getCurrentActiveProperties();
+				mCameraControl.setActivePropertyEvents(list);
+				break;
+
+			case messageDefinitions.PROPERTY_VAL_WAS_CHANGED:
+				// set the new value to the hardware
+				break;
+			}
+		}
+	};
+		
 
 	// The Handler that gets information back from the hardwareFacade
 	private final Handler mHandler = new Handler()
@@ -290,6 +323,8 @@ public class mainPanelActivity extends TabActivity
 				if (mCameraControl.cameraAttached() == 1)
 				{
 					mActionBar.setTitle("Connected: " + mCameraControl.mDeviceInfo.manufacturer + " " + mCameraControl.mDeviceInfo.model);
+					ArrayList<controlType> list = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).getCurrentActiveProperties();
+					mCameraControl.setActivePropertyEvents(list);
 				} else
 				{
 					mActionBar.setTitle("Camera is disconnected.");
@@ -316,9 +351,16 @@ public class mainPanelActivity extends TabActivity
 				DevicePropDesc prop = mCameraControl.mPropertyArray.get(propIndex);
 				controlType type = controlType.getTypeFromCode(propCode);
 
-				// ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(type, prop);
+				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(type, prop);
 				break;
 
+			// CAMERA PROPERTY VALUE
+			case messageDefinitions.MESSAGE_CAMERA_PROPERTY_VAL:
+				int propCode1 = msg.arg1;
+				int propVal1 = msg.arg2;
+				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(controlType.getTypeFromCode(propCode1), propVal1);
+				break;
+				
 			// DEVICE NAME MESSAGE WAS RECEIVED
 			case messageDefinitions.MESSAGE_DEVICE_NAME:
 				// save the connected device's name

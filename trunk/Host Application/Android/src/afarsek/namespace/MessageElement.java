@@ -44,6 +44,7 @@ public class MessageElement
 	public static final int TP_EVENT_IN_SLEEP_MODE = (int) 0x35;
 	public static final int TP_EVENT_WAKING_UP = (int) 0x36;
 	public static final int TP_EVENT_FRAMING_ERROR = (int) 0x37;
+	public static final int TP_EVENT_PROPERTY_CHANGED = (int) 0x38;
 
 	public static final int TP_EVENT_END = (int) 0xA0;
 	public static final int TP_DATA_START = (int) 0xA0;
@@ -58,6 +59,7 @@ public class MessageElement
 	public static final int TP_DATA_PROP_DESC = (int) 0xA9;
 	public static final int TP_DATA_PROP_VAL = (int) 0xAA;
 	public static final int TP_DATA_IDN = (int) 0xAB;
+	public static final int TP_DATA_PROPERTY_EVENT = (int) 0xAC;
 	
 	public static final int TP_DATA_END = (int) 0xFF;
 

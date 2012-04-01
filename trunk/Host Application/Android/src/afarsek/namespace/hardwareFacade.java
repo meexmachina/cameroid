@@ -31,7 +31,6 @@ public class hardwareFacade
 	private final Handler mHandler;
 	private ConnectThread mConnectThread;
 	private ConnectedThread mConnectedThread;
-	private Queue<MessageElement> mToSendQueue = new LinkedList<MessageElement>();
 	private MessageElement.MessageTags mCurrentMessageTag = MessageElement.MessageTags.ME_NO_MSG;
 	private int mTransactionID = 0;
 	private int mState;
@@ -203,89 +202,22 @@ public class hardwareFacade
 		setState(STATE_NONE);
 	}
 
-	/**
-	 * Push to the message queue
-	 * 
-	 * @param out
-	 *            The string to write
-	 * @param tag
-	 *            The message type tag
-	 * @see ConnectedThread#write(byte[])
-	 */
-	public void write_queue(String out, MessageElement.MessageTags tag)
+	private byte[] mDataToWrite;
+
+	public void write_delayed(byte[] out)
 	{
-		Log.d(TAG, "write_queue - enqueuing '" + out + "' with tag " + Integer.toString(tag.getIndex()));
-		write_queue(out.getBytes(), tag);
+		mDataToWrite = out;
+		Timer timer = new Timer();
+		timer.schedule(new myTimer(), 10);
 	}
 
-	/**
-	 * Push to the message queue
-	 * 
-	 * @param out
-	 *            The byte array to write
-	 * @param tag
-	 *            The message type tag
-	 * @see ConnectedThread#write(byte[])
-	 */
-	public void write_queue(byte[] out, MessageElement.MessageTags tag)
+	class myTimer extends TimerTask
 	{
-		// if nothing is queued
-		Log.d(TAG, "write_queue (byte[]) - enqueuing '" + (new String(out)) + "' with tag " + Integer.toString(tag.getIndex()));
-
-		if (mCurrentMessageTag == MessageElement.MessageTags.ME_NO_MSG)
-		{
-			Log.d(TAG, "write_queue (byte[]) - Nothing in the queue so sending.");
-			write(out);
-			mCurrentMessageTag = tag;
-			Timer timeoutTimer = new Timer();
-			timeoutTimer.schedule(new TimeoutTask(), 200); // set a timer of 200 ms
-			return;
-		}
-
-		// do not allow more then 20
-		if (mToSendQueue.size() > 20)
-		{
-			Log.d(TAG, "write_queue (byte[]) - the write queue is bigger then 20. returning");
-			return;
-		}
-
-		Log.d(TAG, "write_queue (byte[]) - Adding the new element to the queue");
-		MessageElement me = new MessageElement(out, tag, mTransactionID++);
-		mToSendQueue.add(me);
-	}
-
-	/**
-	 * Write to the ConnectedThread through a queue
-	 * 
-	 * @see ConnectedThread#write(byte[])
-	 */
-	public void release_from_queue()
-	{
-		MessageElement me;
-		try
-		{
-			me = mToSendQueue.remove();
-		} catch (NoSuchElementException e)
-		{
-			mCurrentMessageTag = MessageElement.MessageTags.ME_NO_MSG;
-			Log.d(TAG, "release_from_queue - currentTag = no_msg");
-			return;
-		}
-
-		Log.d(TAG, "release_from_queue - releasing currentTag changed");
-		mCurrentMessageTag = me.mTag;
-		write(me.mData);
-
-		Timer timeoutTimer = new Timer();
-		timeoutTimer.schedule(new TimeoutTask(), 200); // set a timer of 200 ms
-	}
-
-	class TimeoutTask extends TimerTask
-	{
+		@Override
 		public void run()
 		{
-			// mCurrentMessageTag = MessageElement.MessageTags.ME_NO_MSG;
-			// release_from_queue();
+			if (mDataToWrite != null)
+				write(mDataToWrite);
 		}
 	}
 
@@ -482,10 +414,10 @@ public class hardwareFacade
 
 	public static final int CT_LENGTH_MSG_HEADER = 5; // 5 bytes
 	public static final int CT_LENGTH_MSG_EVENT = 9; // 9 bytes
-	
-	public static int byteToInteger (byte b)
+
+	public static int byteToInteger(byte b)
 	{
-		return (b<0)?(int)(256+b):(int)b;
+		return (b < 0) ? (int) (256 + b) : (int) b;
 	}
 
 	/**
@@ -644,7 +576,7 @@ public class hardwareFacade
 
 					// ====== DEBUG - write the header to the logger
 					String logged = "Trans Read Header: ";
-					for (int i = currentOffset; i < (currentOffset+byteCount); i++)
+					for (int i = currentOffset; i < (currentOffset + byteCount); i++)
 					{
 						logged += String.format("%x ", buffer[i]);
 					}
