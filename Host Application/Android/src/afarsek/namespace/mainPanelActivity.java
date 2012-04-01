@@ -152,6 +152,9 @@ public class mainPanelActivity extends TabActivity
 	@Override
 	protected void onPause()
 	{
+		ArrayList<controlType> list = new ArrayList<controlType>();
+		mCameraControl.setActivePropertyEvents(list);
+		
 		if (mStatusTimer!=null)
 			mStatusTimer.cancel();
 		super.onPause();
@@ -220,13 +223,14 @@ public class mainPanelActivity extends TabActivity
 
 		
 		mTabHost.setCurrentTab(mCurrentTab);
-		((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).setMainClassHandlerObject(mGeneralTabHandler);
 		
 		mTabHost.setOnTabChangedListener(new OnTabChangeListener()
 		{
 			public void onTabChanged(String tabId)
 			{
 				mCurrentTab = mTabHost.getCurrentTab();
+				if (mCurrentTab==1)
+					((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).setMainClassHandlerObject(mGeneralTabHandler);
 			}
 		});
 
