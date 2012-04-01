@@ -12,8 +12,13 @@ public class messageDefinitions
 	public static final int MESSAGE_CAMERA_DEVICE_INFO = 7;
 	public static final int MESSAGE_CAMERA_STORAGE_INFO = 8;
 	public static final int MESSAGE_CAMERA_PROPERTY_INFO = 9;
-
+	public static final int MESSAGE_CAMERA_PROPERTY_VAL = 10;
+	
+	public static final int PROPERTY_CHOISE_WAS_CHANGED = 11;
+	public static final int PROPERTY_VAL_WAS_CHANGED = 12;
+	
 	public static final String MESSAGE_READ_LENGTH = "READ_LENGTH";
 	public static final String MESSAGE_READ_DATA_BYTES = "READ_DATA_BYTES";
 	public static final String MESSAGE_READ_TAG = "READ_DATA_TAG";
+	
 }

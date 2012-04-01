@@ -1,6 +1,8 @@
 package afarsek.namespace;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 import ptp.DeviceInfo;
 import ptp.DevicePropDesc;
@@ -11,6 +13,7 @@ import widget.CameraControlData.controlType;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +31,7 @@ public class generalTabPanelActivity extends Activity
 	 * Class Properties
 	 */
 	private GridView mControlGridView;
+	private Handler mMainPanelHandler;
 	private CameraControlAdapter mCameraControlAdapter;
 	private ArrayList<CameraControlData> mControledList;
 
@@ -37,6 +41,7 @@ public class generalTabPanelActivity extends Activity
 	private boolean[] mActivated = new boolean[controlType.values().length];
 	private boolean[] mAvailable = new boolean[controlType.values().length];
 	private DevicePropDesc.Range[] mRanges = new DevicePropDesc.Range[controlType.values().length];
+	//private Vector<Object>[] mEnumerations = new Vector<Object>[controlType.values().length];
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -227,10 +232,14 @@ public class generalTabPanelActivity extends Activity
 			if (mTypes[i] == type)
 			{
 				found = true;
-				mCurrentValues[i] = (Integer) prop.getValue();
+				
+				mCurrentValues[i] = Integer.parseInt(prop.getValue().toString());
 				mReadOnly[i] = !prop.writable;
-				mRanges[i] = prop.getRange();
 				value = mCurrentValues[i];
+				mRanges[i] = prop.getRange();
+				
+//				if (mRanges[i]==null)
+	//				Vector
 			}
 		}
 		
@@ -251,6 +260,20 @@ public class generalTabPanelActivity extends Activity
 	public CameraControlAdapter getListAdapter()
 	{
 		return mCameraControlAdapter;
+	}
+	
+	public ArrayList<controlType> getCurrentActiveProperties ()
+	{
+		ArrayList<controlType> list = new ArrayList<controlType>();
+		
+		for (int i=0; i<mTypes.length; i++)
+		{
+			if (getActivated(mTypes[i]) && getAvailable(mTypes[i]) )
+			{
+				list.add(mTypes[i]);
+			}
+		}
+		return list;	
 	}
 
 	public void setWidgetState(int[] availableProperties, boolean[] activeProperties, int availablePropertyCount)
@@ -329,6 +352,11 @@ public class generalTabPanelActivity extends Activity
 				mActivated[i] = false;
 			}
 		}
+	}
+	
+	public void setMainClassHandlerObject (Handler handler)
+	{
+		mMainPanelHandler = handler;
 	}
 
 }
