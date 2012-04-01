@@ -21,6 +21,8 @@ USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface =
 
 volatile uint8_t g_bQuiteMode = 1;
 volatile uint8_t g_bCameraConnected = 0;
+volatile uint8_t g_iSlowEventCount = 0;
+volatile uint16_t g_iEventCurrentCount = 0;	
 	
 /*********************************************************************************************************************
  *  Main program entry point. This routine configures the hardware required by the application, then
@@ -34,14 +36,38 @@ int main(void)
 
 	for (;;)
 	{
+		// Event timing counters
+		g_iEventCurrentCount++;
+		if (g_iEventCurrentCount&((((uint16_t)(1))<<9)))		// every 512 counts
+		{
+			g_iSlowEventCount++;
+			if (g_iSlowEventCount==3)
+			{
+				g_iSlowEventCount=0;
+				// perform slow update which contains also the fast updates
+				g_iCurrentPropEventVector = g_iPropEventVector;
+				
+			}
+			else
+			{
+				g_iCurrentPropEventVector = g_iPropEventFastMode;
+				// perform only the fast updates
+			}
+		}
+		else
+		{
+			g_iCurrentPropEventVector = 0;
+		}
+		
 		TP_SendEvent (  );
 		//Stabily_ShellRX ( );
 		TP_GetIncomingCommand (  );		
 		
 		CameraControl_DeviceEvents_PollEvents(&DigitalCamera_SI_Interface);
 		SI_Host_USBTask(&DigitalCamera_SI_Interface);
-		USB_USBTask();
+		USB_USBTask(  );
 		TP_CollectEvents (  );
+		TP_CheckPropertyEvents (  );
 	}
 }
 

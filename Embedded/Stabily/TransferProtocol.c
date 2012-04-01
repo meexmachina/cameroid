@@ -121,7 +121,12 @@ void TP_RespondTo (volatile TP_Incoming_Command_ST* command)
 			// this command sets an automatic update pattern which will send events to the host device
 			g_iPropEventVector = command->arg1;
 			g_iPropDescEventVector = command->arg2;
-			g_iPropEventFastMode = command->arg3;			
+			g_iPropEventFastMode = command->arg3;
+			
+			// initialize the values
+			uint8_t i;
+			for (i=0; i<16; i++)
+				g_iCurrentPropValuesVector[i]=0;			
 		break;
 		
 		default:
@@ -309,7 +314,7 @@ void TP_CheckPropertyEvents ( void )
 		
 	uint16_t iCurrentPropVector = g_iCurrentPropEventVector;
 	uint8_t iMessageLength = 0;	
-	uint16_t iChangedPropVector;
+	uint16_t iChangedPropVector = 0;
 	uint32_t iTempPropVal = 0;
 		
 	// Check which of those properties have changed
@@ -472,8 +477,17 @@ void TP_CheckPropertyEvents ( void )
 	
 	eventData.header.type = TP_DATA_PROPERTY_EVENT;
 	eventData.header.transID = g_iEventID++;
-	eventData.header.length = ((uint16_t)(iMessageLength)) * 4;	// every property is a 32 bit
+	eventData.header.length = ((uint16_t)(iMessageLength)) * 4 + 4;		// every property is a 32 bit and and additional arg of 32 bits
+	
+	TP_SendHeader(&eventData.header);
+	
 	eventData.arg1 = iChangedPropVector;
+	
+	char* tempPos = (char*)((void*)(&eventData.arg1));
+	uart_putc(tempPos[0], stdout);		// LSB
+	uart_putc(tempPos[1], stdout);
+	uart_putc(tempPos[2], stdout);
+	uart_putc(tempPos[3], stdout);
 	
 	uint8_t i=0;
 	for (i=0; i<16; i++)

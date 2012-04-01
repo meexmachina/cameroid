@@ -174,7 +174,7 @@ uint16_t CameraControl_GetPropertyVal32Bit	( USB_ClassInfo_SI_Host_t* SIInterfac
 {
 	uint16_t 	ReturnedDataSize;
 	uint8_t 	ErrorCode = 0;
-	uint8_t		RecData[16];
+	uint8_t		RecData[16] = {0};
 
 	CHECK_CAMERA_CONNECTION;
 	
