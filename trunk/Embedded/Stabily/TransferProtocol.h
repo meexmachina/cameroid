@@ -36,6 +36,7 @@ void TP_SendHeader(volatile TP_Header_ST *header);
 uint8_t TP_PushEvent(volatile TP_Outgoing_Event_ST *event);
 volatile TP_Outgoing_Event_ST* TP_TopEvent(void);
 volatile TP_Outgoing_Event_ST* TP_PopEvent(void);
+void TP_CheckPropertyEvents ( void );
 
 
 
@@ -53,5 +54,11 @@ extern volatile TP_Outgoing_Event_ST	g_stOutgoingEventQueue[TP_EVENT_QUEUE_SIZE]
 extern volatile uint8_t					g_iEventQueueStart;
 extern volatile uint8_t					g_iEventQueueEnd;
 extern volatile uint8_t					g_iEventQueueSize;
+
+extern volatile uint16_t				g_iPropEventVector;
+extern volatile uint16_t				g_iPropDescEventVector;
+extern volatile uint16_t				g_iPropEventFastMode;
+extern volatile uint16_t				g_iCurrentPropEventVector;
+extern volatile uint32_t				g_iCurrentPropValuesVector[16];
 
 #endif /* TRANSFERPROTOCOL_H_ */
