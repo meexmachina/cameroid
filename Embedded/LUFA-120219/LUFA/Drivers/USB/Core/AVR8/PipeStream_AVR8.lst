@@ -1,0 +1,2400 @@
+   1               		.file	"PipeStream_AVR8.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.Pipe_Discard_Stream,"ax",@progbits
+  17               	.global	Pipe_Discard_Stream
+  19               	Pipe_Discard_Stream:
+  20               	.LFB114:
+  21               	.LSM0:
+  22               	.LVL0:
+  23 0000 FF92      		push r15
+  24 0002 0F93      		push r16
+  25 0004 1F93      		push r17
+  26 0006 CF93      		push r28
+  27 0008 DF93      		push r29
+  28               	/* prologue: function */
+  29               	/* frame size = 0 */
+  30               	/* stack size = 5 */
+  31               	.L__stack_usage = 5
+  32 000a EC01      		movw r28,r24
+  33 000c 8B01      		movw r16,r22
+  34               	.LVL1:
+  35               	.LBB100:
+  36               	.LBB101:
+  37               	.LSM1:
+  38 000e 8091 AA00 		lds r24,170
+  39               	.LVL2:
+  40 0012 8F7C      		andi r24,lo8(-49)
+  41 0014 8061      		ori r24,lo8(16)
+  42 0016 8093 AA00 		sts 170,r24
+  43               	.LBE101:
+  44               	.LBE100:
+  45               	.LSM2:
+  46 001a 0E94 0000 		call Pipe_WaitUntilReady
+  47               	.LVL3:
+  48 001e F82E      		mov r15,r24
+  49               	.LVL4:
+  50 0020 8823      		tst r24
+  51 0022 01F4      		brne .L2
+  52               	.LSM3:
+  53 0024 0115      		cp r16,__zero_reg__
+  54 0026 1105      		cpc r17,__zero_reg__
+  55 0028 01F0      		breq .L3
+  56               	.LSM4:
+  57 002a F801      		movw r30,r16
+  58 002c 2081      		ld r18,Z
+  59 002e 3181      		ldd r19,Z+1
+  60 0030 C21B      		sub r28,r18
+  61 0032 D30B      		sbc r29,r19
+  62               	.LVL5:
+  63               	.L3:
+  64               	.LSM5:
+  65 0034 2097      		sbiw r28,0
+  66 0036 01F0      		breq .L2
+  67               	.LSM6:
+  68 0038 0115      		cp r16,__zero_reg__
+  69 003a 1105      		cpc r17,__zero_reg__
+  70 003c 01F0      		breq .L11
+  71 003e 00C0      		rjmp .L16
+  72               	.LVL6:
+  73               	.L15:
+  74               	.LBB102:
+  75               	.LBB103:
+  76               	.LSM7:
+  77 0040 8091 AF00 		lds r24,175
+  78               	.LBE103:
+  79               	.LBE102:
+  80               	.LSM8:
+  81 0044 2197      		sbiw r28,1
+  82               	.LVL7:
+  83               	.L6:
+  84               	.LSM9:
+  85 0046 2097      		sbiw r28,0
+  86 0048 01F0      		breq .L2
+  87               	.L11:
+  88               	.LBB105:
+  89               	.LBB106:
+  90               	.LSM10:
+  91 004a 8091 A600 		lds r24,166
+  92               	.LBE106:
+  93               	.LBE105:
+  94               	.LSM11:
+  95 004e 85FD      		sbrc r24,5
+  96 0050 00C0      		rjmp .L15
+  97               	.LBB108:
+  98               	.LBB109:
+  99               	.LSM12:
+ 100 0052 8091 A600 		lds r24,166
+ 101 0056 8E77      		andi r24,lo8(126)
+ 102 0058 8093 A600 		sts 166,r24
+ 103               	.LBE109:
+ 104               	.LBE108:
+ 105               	.LSM13:
+ 106 005c 0E94 0000 		call Pipe_WaitUntilReady
+ 107               	.LVL8:
+ 108 0060 8823      		tst r24
+ 109 0062 01F0      		breq .L6
+ 110 0064 F82E      		mov r15,r24
+ 111               	.LVL9:
+ 112               	.L2:
+ 113               	.LSM14:
+ 114 0066 8F2D      		mov r24,r15
+ 115               	/* epilogue start */
+ 116 0068 DF91      		pop r29
+ 117 006a CF91      		pop r28
+ 118 006c 1F91      		pop r17
+ 119 006e 0F91      		pop r16
+ 120               	.LVL10:
+ 121 0070 FF90      		pop r15
+ 122 0072 0895      		ret
+ 123               	.LVL11:
+ 124               	.L16:
+ 125               	.LSM15:
+ 126 0074 20E0      		ldi r18,lo8(0)
+ 127 0076 30E0      		ldi r19,hi8(0)
+ 128               	.LVL12:
+ 129               	.L9:
+ 130               	.LBB111:
+ 131               	.LBB107:
+ 132               	.LSM16:
+ 133 0078 8091 A600 		lds r24,166
+ 134               	.LBE107:
+ 135               	.LBE111:
+ 136               	.LSM17:
+ 137 007c 85FD      		sbrc r24,5
+ 138 007e 00C0      		rjmp .L8
+ 139               	.LBB112:
+ 140               	.LBB110:
+ 141               	.LSM18:
+ 142 0080 8091 A600 		lds r24,166
+ 143 0084 8E77      		andi r24,lo8(126)
+ 144 0086 8093 A600 		sts 166,r24
+ 145               	.LBE110:
+ 146               	.LBE112:
+ 147               	.LSM19:
+ 148 008a F801      		movw r30,r16
+ 149 008c 8081      		ld r24,Z
+ 150 008e 9181      		ldd r25,Z+1
+ 151 0090 820F      		add r24,r18
+ 152 0092 931F      		adc r25,r19
+ 153 0094 9183      		std Z+1,r25
+ 154 0096 8083      		st Z,r24
+ 155               	.LSM20:
+ 156 0098 84E0      		ldi r24,lo8(4)
+ 157 009a F82E      		mov r15,r24
+ 158               	.LVL13:
+ 159               	.LSM21:
+ 160 009c 8F2D      		mov r24,r15
+ 161               	/* epilogue start */
+ 162 009e DF91      		pop r29
+ 163 00a0 CF91      		pop r28
+ 164 00a2 1F91      		pop r17
+ 165 00a4 0F91      		pop r16
+ 166               	.LVL14:
+ 167 00a6 FF90      		pop r15
+ 168 00a8 0895      		ret
+ 169               	.LVL15:
+ 170               	.L8:
+ 171               	.LBB113:
+ 172               	.LBB104:
+ 173               	.LSM22:
+ 174 00aa 8091 AF00 		lds r24,175
+ 175               	.LBE104:
+ 176               	.LBE113:
+ 177               	.LSM23:
+ 178 00ae 2F5F      		subi r18,lo8(-(1))
+ 179 00b0 3F4F      		sbci r19,hi8(-(1))
+ 180               	.LVL16:
+ 181               	.LSM24:
+ 182 00b2 C217      		cp r28,r18
+ 183 00b4 D307      		cpc r29,r19
+ 184 00b6 01F4      		brne .L9
+ 185 00b8 00C0      		rjmp .L2
+ 186               	.LFE114:
+ 188               		.section	.text.Pipe_Null_Stream,"ax",@progbits
+ 189               	.global	Pipe_Null_Stream
+ 191               	Pipe_Null_Stream:
+ 192               	.LFB115:
+ 193               	.LSM25:
+ 194               	.LVL17:
+ 195 0000 FF92      		push r15
+ 196 0002 0F93      		push r16
+ 197 0004 1F93      		push r17
+ 198 0006 CF93      		push r28
+ 199 0008 DF93      		push r29
+ 200               	/* prologue: function */
+ 201               	/* frame size = 0 */
+ 202               	/* stack size = 5 */
+ 203               	.L__stack_usage = 5
+ 204 000a EC01      		movw r28,r24
+ 205 000c 8B01      		movw r16,r22
+ 206               	.LVL18:
+ 207               	.LBB114:
+ 208               	.LBB115:
+ 209               	.LSM26:
+ 210 000e 8091 AA00 		lds r24,170
+ 211               	.LVL19:
+ 212 0012 8F7C      		andi r24,lo8(-49)
+ 213 0014 8062      		ori r24,lo8(32)
+ 214 0016 8093 AA00 		sts 170,r24
+ 215               	.LBE115:
+ 216               	.LBE114:
+ 217               	.LSM27:
+ 218 001a 0E94 0000 		call Pipe_WaitUntilReady
+ 219               	.LVL20:
+ 220 001e F82E      		mov r15,r24
+ 221               	.LVL21:
+ 222 0020 8823      		tst r24
+ 223 0022 01F4      		brne .L18
+ 224               	.LSM28:
+ 225 0024 0115      		cp r16,__zero_reg__
+ 226 0026 1105      		cpc r17,__zero_reg__
+ 227 0028 01F0      		breq .L19
+ 228               	.LSM29:
+ 229 002a F801      		movw r30,r16
+ 230 002c 2081      		ld r18,Z
+ 231 002e 3181      		ldd r19,Z+1
+ 232 0030 C21B      		sub r28,r18
+ 233 0032 D30B      		sbc r29,r19
+ 234               	.LVL22:
+ 235               	.L19:
+ 236               	.LSM30:
+ 237 0034 2097      		sbiw r28,0
+ 238 0036 01F0      		breq .L18
+ 239               	.LSM31:
+ 240 0038 0115      		cp r16,__zero_reg__
+ 241 003a 1105      		cpc r17,__zero_reg__
+ 242 003c 01F0      		breq .L27
+ 243 003e 00C0      		rjmp .L31
+ 244               	.LVL23:
+ 245               	.L30:
+ 246               	.LBB116:
+ 247               	.LBB117:
+ 248               	.LSM32:
+ 249 0040 1092 AF00 		sts 175,__zero_reg__
+ 250               	.LBE117:
+ 251               	.LBE116:
+ 252               	.LSM33:
+ 253 0044 2197      		sbiw r28,1
+ 254               	.LVL24:
+ 255               	.L22:
+ 256               	.LSM34:
+ 257 0046 2097      		sbiw r28,0
+ 258 0048 01F0      		breq .L18
+ 259               	.L27:
+ 260               	.LBB119:
+ 261               	.LBB120:
+ 262               	.LSM35:
+ 263 004a 8091 A600 		lds r24,166
+ 264               	.LBE120:
+ 265               	.LBE119:
+ 266               	.LSM36:
+ 267 004e 85FD      		sbrc r24,5
+ 268 0050 00C0      		rjmp .L30
+ 269               	.LBB122:
+ 270               	.LBB123:
+ 271               	.LSM37:
+ 272 0052 8091 A600 		lds r24,166
+ 273 0056 8B77      		andi r24,lo8(123)
+ 274 0058 8093 A600 		sts 166,r24
+ 275               	.LBE123:
+ 276               	.LBE122:
+ 277               	.LSM38:
+ 278 005c 0E94 0000 		call USB_USBTask
+ 279               	.LSM39:
+ 280 0060 0E94 0000 		call Pipe_WaitUntilReady
+ 281               	.LVL25:
+ 282 0064 8823      		tst r24
+ 283 0066 01F0      		breq .L22
+ 284 0068 F82E      		mov r15,r24
+ 285               	.LVL26:
+ 286               	.L18:
+ 287               	.LSM40:
+ 288 006a 8F2D      		mov r24,r15
+ 289               	/* epilogue start */
+ 290 006c DF91      		pop r29
+ 291 006e CF91      		pop r28
+ 292 0070 1F91      		pop r17
+ 293 0072 0F91      		pop r16
+ 294               	.LVL27:
+ 295 0074 FF90      		pop r15
+ 296 0076 0895      		ret
+ 297               	.LVL28:
+ 298               	.L31:
+ 299               	.LSM41:
+ 300 0078 20E0      		ldi r18,lo8(0)
+ 301 007a 30E0      		ldi r19,hi8(0)
+ 302               	.LVL29:
+ 303               	.L25:
+ 304               	.LBB125:
+ 305               	.LBB121:
+ 306               	.LSM42:
+ 307 007c 8091 A600 		lds r24,166
+ 308               	.LBE121:
+ 309               	.LBE125:
+ 310               	.LSM43:
+ 311 0080 85FD      		sbrc r24,5
+ 312 0082 00C0      		rjmp .L24
+ 313               	.LBB126:
+ 314               	.LBB124:
+ 315               	.LSM44:
+ 316 0084 8091 A600 		lds r24,166
+ 317 0088 8B77      		andi r24,lo8(123)
+ 318 008a 8093 A600 		sts 166,r24
+ 319               	.LBE124:
+ 320               	.LBE126:
+ 321               	.LSM45:
+ 322 008e F801      		movw r30,r16
+ 323 0090 8081      		ld r24,Z
+ 324 0092 9181      		ldd r25,Z+1
+ 325 0094 820F      		add r24,r18
+ 326 0096 931F      		adc r25,r19
+ 327 0098 9183      		std Z+1,r25
+ 328 009a 8083      		st Z,r24
+ 329               	.LSM46:
+ 330 009c 94E0      		ldi r25,lo8(4)
+ 331 009e F92E      		mov r15,r25
+ 332               	.LVL30:
+ 333               	.LSM47:
+ 334 00a0 8F2D      		mov r24,r15
+ 335               	/* epilogue start */
+ 336 00a2 DF91      		pop r29
+ 337 00a4 CF91      		pop r28
+ 338 00a6 1F91      		pop r17
+ 339 00a8 0F91      		pop r16
+ 340               	.LVL31:
+ 341 00aa FF90      		pop r15
+ 342 00ac 0895      		ret
+ 343               	.LVL32:
+ 344               	.L24:
+ 345               	.LBB127:
+ 346               	.LBB118:
+ 347               	.LSM48:
+ 348 00ae 1092 AF00 		sts 175,__zero_reg__
+ 349               	.LBE118:
+ 350               	.LBE127:
+ 351               	.LSM49:
+ 352 00b2 2F5F      		subi r18,lo8(-(1))
+ 353 00b4 3F4F      		sbci r19,hi8(-(1))
+ 354               	.LVL33:
+ 355               	.LSM50:
+ 356 00b6 C217      		cp r28,r18
+ 357 00b8 D307      		cpc r29,r19
+ 358 00ba 01F4      		brne .L25
+ 359 00bc 00C0      		rjmp .L18
+ 360               	.LFE115:
+ 362               		.section	.text.Pipe_Write_Stream_LE,"ax",@progbits
+ 363               	.global	Pipe_Write_Stream_LE
+ 365               	Pipe_Write_Stream_LE:
+ 366               	.LFB116:
+ 367               	.LSM51:
+ 368               	.LVL34:
+ 369 0000 AF92      		push r10
+ 370 0002 BF92      		push r11
+ 371 0004 DF92      		push r13
+ 372 0006 EF92      		push r14
+ 373 0008 FF92      		push r15
+ 374 000a 0F93      		push r16
+ 375 000c 1F93      		push r17
+ 376 000e DF93      		push r29
+ 377 0010 CF93      		push r28
+ 378 0012 0F92      		push __tmp_reg__
+ 379 0014 CDB7      		in r28,__SP_L__
+ 380 0016 DEB7      		in r29,__SP_H__
+ 381               	/* prologue: function */
+ 382               	/* frame size = 1 */
+ 383               	/* stack size = 10 */
+ 384               	.L__stack_usage = 10
+ 385 0018 082F      		mov r16,r24
+ 386 001a 5B01      		movw r10,r22
+ 387 001c 7A01      		movw r14,r20
+ 388               	.LVL35:
+ 389               	.LBB128:
+ 390               	.LBB129:
+ 391               	.LSM52:
+ 392 001e 8091 AA00 		lds r24,170
+ 393               	.LVL36:
+ 394 0022 8F7C      		andi r24,lo8(-49)
+ 395 0024 8062      		ori r24,lo8(32)
+ 396 0026 8093 AA00 		sts 170,r24
+ 397               	.LBE129:
+ 398               	.LBE128:
+ 399               	.LSM53:
+ 400 002a 9983      		std Y+1,r25
+ 401 002c 0E94 0000 		call Pipe_WaitUntilReady
+ 402               	.LVL37:
+ 403 0030 D82E      		mov r13,r24
+ 404               	.LVL38:
+ 405 0032 9981      		ldd r25,Y+1
+ 406 0034 8823      		tst r24
+ 407 0036 01F4      		brne .L33
+ 408               	.LSM54:
+ 409 0038 192F      		mov r17,r25
+ 410               	.LSM55:
+ 411 003a E114      		cp r14,__zero_reg__
+ 412 003c F104      		cpc r15,__zero_reg__
+ 413 003e 01F0      		breq .L34
+ 414               	.LSM56:
+ 415 0040 F701      		movw r30,r14
+ 416 0042 2081      		ld r18,Z
+ 417 0044 3181      		ldd r19,Z+1
+ 418 0046 A21A      		sub r10,r18
+ 419 0048 B30A      		sbc r11,r19
+ 420               	.LVL39:
+ 421               	.LSM57:
+ 422 004a 020F      		add r16,r18
+ 423 004c 131F      		adc r17,r19
+ 424               	.LVL40:
+ 425               	.L34:
+ 426               	.LSM58:
+ 427 004e A114      		cp r10,__zero_reg__
+ 428 0050 B104      		cpc r11,__zero_reg__
+ 429 0052 01F0      		breq .L33
+ 430               	.LSM59:
+ 431 0054 E114      		cp r14,__zero_reg__
+ 432 0056 F104      		cpc r15,__zero_reg__
+ 433 0058 01F0      		breq .L42
+ 434 005a 00C0      		rjmp .L46
+ 435               	.LVL41:
+ 436               	.L45:
+ 437               	.LSM60:
+ 438 005c F801      		movw r30,r16
+ 439 005e 8191      		ld r24,Z+
+ 440 0060 8F01      		movw r16,r30
+ 441               	.LVL42:
+ 442               	.LBB130:
+ 443               	.LBB131:
+ 444               	.LSM61:
+ 445 0062 8093 AF00 		sts 175,r24
+ 446               	.LVL43:
+ 447               	.LBE131:
+ 448               	.LBE130:
+ 449               	.LSM62:
+ 450 0066 0894      		sec
+ 451 0068 A108      		sbc r10,__zero_reg__
+ 452 006a B108      		sbc r11,__zero_reg__
+ 453               	.LVL44:
+ 454               	.L37:
+ 455               	.LSM63:
+ 456 006c A114      		cp r10,__zero_reg__
+ 457 006e B104      		cpc r11,__zero_reg__
+ 458 0070 01F0      		breq .L33
+ 459               	.L42:
+ 460               	.LBB133:
+ 461               	.LBB134:
+ 462               	.LSM64:
+ 463 0072 8091 A600 		lds r24,166
+ 464               	.LBE134:
+ 465               	.LBE133:
+ 466               	.LSM65:
+ 467 0076 85FD      		sbrc r24,5
+ 468 0078 00C0      		rjmp .L45
+ 469               	.LBB136:
+ 470               	.LBB137:
+ 471               	.LSM66:
+ 472 007a 8091 A600 		lds r24,166
+ 473 007e 8B77      		andi r24,lo8(123)
+ 474 0080 8093 A600 		sts 166,r24
+ 475               	.LBE137:
+ 476               	.LBE136:
+ 477               	.LSM67:
+ 478 0084 0E94 0000 		call Pipe_WaitUntilReady
+ 479               	.LVL45:
+ 480 0088 8823      		tst r24
+ 481 008a 01F0      		breq .L37
+ 482 008c D82E      		mov r13,r24
+ 483               	.LVL46:
+ 484               	.L33:
+ 485               	.LSM68:
+ 486 008e 8D2D      		mov r24,r13
+ 487               	/* epilogue start */
+ 488 0090 0F90      		pop __tmp_reg__
+ 489 0092 CF91      		pop r28
+ 490 0094 DF91      		pop r29
+ 491 0096 1F91      		pop r17
+ 492 0098 0F91      		pop r16
+ 493 009a FF90      		pop r15
+ 494 009c EF90      		pop r14
+ 495               	.LVL47:
+ 496 009e DF90      		pop r13
+ 497 00a0 BF90      		pop r11
+ 498 00a2 AF90      		pop r10
+ 499 00a4 0895      		ret
+ 500               	.LVL48:
+ 501               	.L46:
+ 502               	.LSM69:
+ 503 00a6 20E0      		ldi r18,lo8(0)
+ 504 00a8 30E0      		ldi r19,hi8(0)
+ 505               	.LVL49:
+ 506               	.L40:
+ 507               	.LBB139:
+ 508               	.LBB135:
+ 509               	.LSM70:
+ 510 00aa 8091 A600 		lds r24,166
+ 511               	.LBE135:
+ 512               	.LBE139:
+ 513               	.LSM71:
+ 514 00ae 85FD      		sbrc r24,5
+ 515 00b0 00C0      		rjmp .L39
+ 516               	.LBB140:
+ 517               	.LBB138:
+ 518               	.LSM72:
+ 519 00b2 8091 A600 		lds r24,166
+ 520 00b6 8B77      		andi r24,lo8(123)
+ 521 00b8 8093 A600 		sts 166,r24
+ 522               	.LBE138:
+ 523               	.LBE140:
+ 524               	.LSM73:
+ 525 00bc F701      		movw r30,r14
+ 526 00be 8081      		ld r24,Z
+ 527 00c0 9181      		ldd r25,Z+1
+ 528 00c2 820F      		add r24,r18
+ 529 00c4 931F      		adc r25,r19
+ 530 00c6 9183      		std Z+1,r25
+ 531 00c8 8083      		st Z,r24
+ 532               	.LSM74:
+ 533 00ca 24E0      		ldi r18,lo8(4)
+ 534 00cc D22E      		mov r13,r18
+ 535               	.LVL50:
+ 536 00ce 00C0      		rjmp .L33
+ 537               	.LVL51:
+ 538               	.L39:
+ 539               	.LSM75:
+ 540 00d0 F801      		movw r30,r16
+ 541 00d2 8191      		ld r24,Z+
+ 542 00d4 8F01      		movw r16,r30
+ 543               	.LVL52:
+ 544               	.LBB141:
+ 545               	.LBB132:
+ 546               	.LSM76:
+ 547 00d6 8093 AF00 		sts 175,r24
+ 548               	.LVL53:
+ 549               	.LBE132:
+ 550               	.LBE141:
+ 551               	.LSM77:
+ 552 00da 2F5F      		subi r18,lo8(-(1))
+ 553 00dc 3F4F      		sbci r19,hi8(-(1))
+ 554               	.LVL54:
+ 555               	.LSM78:
+ 556 00de A216      		cp r10,r18
+ 557 00e0 B306      		cpc r11,r19
+ 558 00e2 01F4      		brne .L40
+ 559 00e4 00C0      		rjmp .L33
+ 560               	.LFE116:
+ 562               		.section	.text.Pipe_Write_Stream_BE,"ax",@progbits
+ 563               	.global	Pipe_Write_Stream_BE
+ 565               	Pipe_Write_Stream_BE:
+ 566               	.LFB117:
+ 567               	.LSM79:
+ 568               	.LVL55:
+ 569 0000 BF92      		push r11
+ 570 0002 CF92      		push r12
+ 571 0004 DF92      		push r13
+ 572 0006 EF92      		push r14
+ 573 0008 FF92      		push r15
+ 574 000a 0F93      		push r16
+ 575 000c 1F93      		push r17
+ 576 000e CF93      		push r28
+ 577 0010 DF93      		push r29
+ 578               	/* prologue: function */
+ 579               	/* frame size = 0 */
+ 580               	/* stack size = 9 */
+ 581               	.L__stack_usage = 9
+ 582 0012 6C01      		movw r12,r24
+ 583 0014 EB01      		movw r28,r22
+ 584 0016 7A01      		movw r14,r20
+ 585               	.LVL56:
+ 586               	.LBB142:
+ 587               	.LBB143:
+ 588               	.LSM80:
+ 589 0018 8091 AA00 		lds r24,170
+ 590               	.LVL57:
+ 591 001c 8F7C      		andi r24,lo8(-49)
+ 592 001e 8062      		ori r24,lo8(32)
+ 593 0020 8093 AA00 		sts 170,r24
+ 594               	.LBE143:
+ 595               	.LBE142:
+ 596               	.LSM81:
+ 597 0024 0E94 0000 		call Pipe_WaitUntilReady
+ 598               	.LVL58:
+ 599 0028 B82E      		mov r11,r24
+ 600               	.LVL59:
+ 601 002a 8823      		tst r24
+ 602 002c 01F4      		brne .L48
+ 603               	.LSM82:
+ 604 002e 8E01      		movw r16,r28
+ 605 0030 0150      		subi r16,lo8(-(-1))
+ 606 0032 1040      		sbci r17,hi8(-(-1))
+ 607 0034 0C0D      		add r16,r12
+ 608 0036 1D1D      		adc r17,r13
+ 609               	.LSM83:
+ 610 0038 E114      		cp r14,__zero_reg__
+ 611 003a F104      		cpc r15,__zero_reg__
+ 612 003c 01F0      		breq .L49
+ 613               	.LSM84:
+ 614 003e F701      		movw r30,r14
+ 615 0040 2081      		ld r18,Z
+ 616 0042 3181      		ldd r19,Z+1
+ 617 0044 C21B      		sub r28,r18
+ 618 0046 D30B      		sbc r29,r19
+ 619               	.LVL60:
+ 620               	.LSM85:
+ 621 0048 021B      		sub r16,r18
+ 622 004a 130B      		sbc r17,r19
+ 623               	.LVL61:
+ 624               	.L49:
+ 625               	.LSM86:
+ 626 004c 2097      		sbiw r28,0
+ 627 004e 01F0      		breq .L48
+ 628               	.LSM87:
+ 629 0050 E114      		cp r14,__zero_reg__
+ 630 0052 F104      		cpc r15,__zero_reg__
+ 631 0054 01F0      		breq .L57
+ 632 0056 00C0      		rjmp .L61
+ 633               	.LVL62:
+ 634               	.L60:
+ 635               	.LSM88:
+ 636 0058 F801      		movw r30,r16
+ 637 005a 8081      		ld r24,Z
+ 638               	.LVL63:
+ 639               	.LBB144:
+ 640               	.LBB145:
+ 641               	.LSM89:
+ 642 005c 8093 AF00 		sts 175,r24
+ 643               	.LBE145:
+ 644               	.LBE144:
+ 645               	.LSM90:
+ 646 0060 0150      		subi r16,lo8(-(-1))
+ 647 0062 1040      		sbci r17,hi8(-(-1))
+ 648               	.LVL64:
+ 649               	.LSM91:
+ 650 0064 2197      		sbiw r28,1
+ 651               	.LVL65:
+ 652               	.L52:
+ 653               	.LSM92:
+ 654 0066 2097      		sbiw r28,0
+ 655 0068 01F0      		breq .L48
+ 656               	.L57:
+ 657               	.LBB147:
+ 658               	.LBB148:
+ 659               	.LSM93:
+ 660 006a 8091 A600 		lds r24,166
+ 661               	.LBE148:
+ 662               	.LBE147:
+ 663               	.LSM94:
+ 664 006e 85FD      		sbrc r24,5
+ 665 0070 00C0      		rjmp .L60
+ 666               	.LBB150:
+ 667               	.LBB151:
+ 668               	.LSM95:
+ 669 0072 8091 A600 		lds r24,166
+ 670 0076 8B77      		andi r24,lo8(123)
+ 671 0078 8093 A600 		sts 166,r24
+ 672               	.LBE151:
+ 673               	.LBE150:
+ 674               	.LSM96:
+ 675 007c 0E94 0000 		call Pipe_WaitUntilReady
+ 676               	.LVL66:
+ 677 0080 8823      		tst r24
+ 678 0082 01F0      		breq .L52
+ 679 0084 B82E      		mov r11,r24
+ 680               	.LVL67:
+ 681               	.L48:
+ 682               	.LSM97:
+ 683 0086 8B2D      		mov r24,r11
+ 684               	/* epilogue start */
+ 685 0088 DF91      		pop r29
+ 686 008a CF91      		pop r28
+ 687 008c 1F91      		pop r17
+ 688 008e 0F91      		pop r16
+ 689 0090 FF90      		pop r15
+ 690 0092 EF90      		pop r14
+ 691               	.LVL68:
+ 692 0094 DF90      		pop r13
+ 693 0096 CF90      		pop r12
+ 694               	.LVL69:
+ 695 0098 BF90      		pop r11
+ 696 009a 0895      		ret
+ 697               	.LVL70:
+ 698               	.L61:
+ 699               	.LSM98:
+ 700 009c F801      		movw r30,r16
+ 701 009e 3196      		adiw r30,1
+ 702 00a0 20E0      		ldi r18,lo8(0)
+ 703 00a2 30E0      		ldi r19,hi8(0)
+ 704               	.LVL71:
+ 705               	.L55:
+ 706               	.LBB153:
+ 707               	.LBB149:
+ 708               	.LSM99:
+ 709 00a4 8091 A600 		lds r24,166
+ 710               	.LBE149:
+ 711               	.LBE153:
+ 712               	.LSM100:
+ 713 00a8 85FD      		sbrc r24,5
+ 714 00aa 00C0      		rjmp .L54
+ 715               	.LBB154:
+ 716               	.LBB152:
+ 717               	.LSM101:
+ 718 00ac 8091 A600 		lds r24,166
+ 719 00b0 8B77      		andi r24,lo8(123)
+ 720 00b2 8093 A600 		sts 166,r24
+ 721               	.LBE152:
+ 722               	.LBE154:
+ 723               	.LSM102:
+ 724 00b6 F701      		movw r30,r14
+ 725 00b8 8081      		ld r24,Z
+ 726 00ba 9181      		ldd r25,Z+1
+ 727 00bc 820F      		add r24,r18
+ 728 00be 931F      		adc r25,r19
+ 729 00c0 9183      		std Z+1,r25
+ 730 00c2 8083      		st Z,r24
+ 731               	.LSM103:
+ 732 00c4 34E0      		ldi r19,lo8(4)
+ 733 00c6 B32E      		mov r11,r19
+ 734               	.LVL72:
+ 735 00c8 00C0      		rjmp .L48
+ 736               	.LVL73:
+ 737               	.L54:
+ 738               	.LSM104:
+ 739 00ca 8291      		ld r24,-Z
+ 740               	.LVL74:
+ 741               	.LBB155:
+ 742               	.LBB146:
+ 743               	.LSM105:
+ 744 00cc 8093 AF00 		sts 175,r24
+ 745               	.LBE146:
+ 746               	.LBE155:
+ 747               	.LSM106:
+ 748 00d0 2F5F      		subi r18,lo8(-(1))
+ 749 00d2 3F4F      		sbci r19,hi8(-(1))
+ 750               	.LVL75:
+ 751               	.LSM107:
+ 752 00d4 C217      		cp r28,r18
+ 753 00d6 D307      		cpc r29,r19
+ 754 00d8 01F4      		brne .L55
+ 755 00da 00C0      		rjmp .L48
+ 756               	.LFE117:
+ 758               		.section	.text.Pipe_Read_Stream_LE,"ax",@progbits
+ 759               	.global	Pipe_Read_Stream_LE
+ 761               	Pipe_Read_Stream_LE:
+ 762               	.LFB118:
+ 763               	.LSM108:
+ 764               	.LVL76:
+ 765 0000 AF92      		push r10
+ 766 0002 BF92      		push r11
+ 767 0004 DF92      		push r13
+ 768 0006 EF92      		push r14
+ 769 0008 FF92      		push r15
+ 770 000a 0F93      		push r16
+ 771 000c 1F93      		push r17
+ 772 000e DF93      		push r29
+ 773 0010 CF93      		push r28
+ 774 0012 0F92      		push __tmp_reg__
+ 775 0014 CDB7      		in r28,__SP_L__
+ 776 0016 DEB7      		in r29,__SP_H__
+ 777               	/* prologue: function */
+ 778               	/* frame size = 1 */
+ 779               	/* stack size = 10 */
+ 780               	.L__stack_usage = 10
+ 781 0018 082F      		mov r16,r24
+ 782 001a 5B01      		movw r10,r22
+ 783 001c 7A01      		movw r14,r20
+ 784               	.LVL77:
+ 785               	.LBB156:
+ 786               	.LBB157:
+ 787               	.LSM109:
+ 788 001e 8091 AA00 		lds r24,170
+ 789               	.LVL78:
+ 790 0022 8F7C      		andi r24,lo8(-49)
+ 791 0024 8061      		ori r24,lo8(16)
+ 792 0026 8093 AA00 		sts 170,r24
+ 793               	.LBE157:
+ 794               	.LBE156:
+ 795               	.LSM110:
+ 796 002a 9983      		std Y+1,r25
+ 797 002c 0E94 0000 		call Pipe_WaitUntilReady
+ 798               	.LVL79:
+ 799 0030 D82E      		mov r13,r24
+ 800               	.LVL80:
+ 801 0032 9981      		ldd r25,Y+1
+ 802 0034 8823      		tst r24
+ 803 0036 01F4      		brne .L63
+ 804               	.LSM111:
+ 805 0038 192F      		mov r17,r25
+ 806               	.LSM112:
+ 807 003a E114      		cp r14,__zero_reg__
+ 808 003c F104      		cpc r15,__zero_reg__
+ 809 003e 01F0      		breq .L64
+ 810               	.LSM113:
+ 811 0040 F701      		movw r30,r14
+ 812 0042 2081      		ld r18,Z
+ 813 0044 3181      		ldd r19,Z+1
+ 814 0046 A21A      		sub r10,r18
+ 815 0048 B30A      		sbc r11,r19
+ 816               	.LVL81:
+ 817               	.LSM114:
+ 818 004a 020F      		add r16,r18
+ 819 004c 131F      		adc r17,r19
+ 820               	.LVL82:
+ 821               	.L64:
+ 822               	.LSM115:
+ 823 004e A114      		cp r10,__zero_reg__
+ 824 0050 B104      		cpc r11,__zero_reg__
+ 825 0052 01F0      		breq .L63
+ 826               	.LSM116:
+ 827 0054 E114      		cp r14,__zero_reg__
+ 828 0056 F104      		cpc r15,__zero_reg__
+ 829 0058 01F0      		breq .L72
+ 830 005a 00C0      		rjmp .L76
+ 831               	.LVL83:
+ 832               	.L75:
+ 833               	.LBB158:
+ 834               	.LBB159:
+ 835               	.LSM117:
+ 836 005c 8091 AF00 		lds r24,175
+ 837               	.LBE159:
+ 838               	.LBE158:
+ 839               	.LSM118:
+ 840 0060 F801      		movw r30,r16
+ 841 0062 8193      		st Z+,r24
+ 842 0064 8F01      		movw r16,r30
+ 843               	.LVL84:
+ 844               	.LSM119:
+ 845 0066 0894      		sec
+ 846 0068 A108      		sbc r10,__zero_reg__
+ 847 006a B108      		sbc r11,__zero_reg__
+ 848               	.LVL85:
+ 849               	.L67:
+ 850               	.LSM120:
+ 851 006c A114      		cp r10,__zero_reg__
+ 852 006e B104      		cpc r11,__zero_reg__
+ 853 0070 01F0      		breq .L63
+ 854               	.L72:
+ 855               	.LBB161:
+ 856               	.LBB162:
+ 857               	.LSM121:
+ 858 0072 8091 A600 		lds r24,166
+ 859               	.LBE162:
+ 860               	.LBE161:
+ 861               	.LSM122:
+ 862 0076 85FD      		sbrc r24,5
+ 863 0078 00C0      		rjmp .L75
+ 864               	.LBB164:
+ 865               	.LBB165:
+ 866               	.LSM123:
+ 867 007a 8091 A600 		lds r24,166
+ 868 007e 8E77      		andi r24,lo8(126)
+ 869 0080 8093 A600 		sts 166,r24
+ 870               	.LBE165:
+ 871               	.LBE164:
+ 872               	.LSM124:
+ 873 0084 0E94 0000 		call Pipe_WaitUntilReady
+ 874               	.LVL86:
+ 875 0088 8823      		tst r24
+ 876 008a 01F0      		breq .L67
+ 877 008c D82E      		mov r13,r24
+ 878               	.LVL87:
+ 879               	.L63:
+ 880               	.LSM125:
+ 881 008e 8D2D      		mov r24,r13
+ 882               	/* epilogue start */
+ 883 0090 0F90      		pop __tmp_reg__
+ 884 0092 CF91      		pop r28
+ 885 0094 DF91      		pop r29
+ 886 0096 1F91      		pop r17
+ 887 0098 0F91      		pop r16
+ 888 009a FF90      		pop r15
+ 889 009c EF90      		pop r14
+ 890               	.LVL88:
+ 891 009e DF90      		pop r13
+ 892 00a0 BF90      		pop r11
+ 893 00a2 AF90      		pop r10
+ 894 00a4 0895      		ret
+ 895               	.LVL89:
+ 896               	.L76:
+ 897               	.LSM126:
+ 898 00a6 20E0      		ldi r18,lo8(0)
+ 899 00a8 30E0      		ldi r19,hi8(0)
+ 900               	.LVL90:
+ 901               	.L70:
+ 902               	.LBB167:
+ 903               	.LBB163:
+ 904               	.LSM127:
+ 905 00aa 8091 A600 		lds r24,166
+ 906               	.LBE163:
+ 907               	.LBE167:
+ 908               	.LSM128:
+ 909 00ae 85FD      		sbrc r24,5
+ 910 00b0 00C0      		rjmp .L69
+ 911               	.LBB168:
+ 912               	.LBB166:
+ 913               	.LSM129:
+ 914 00b2 8091 A600 		lds r24,166
+ 915 00b6 8E77      		andi r24,lo8(126)
+ 916 00b8 8093 A600 		sts 166,r24
+ 917               	.LBE166:
+ 918               	.LBE168:
+ 919               	.LSM130:
+ 920 00bc F701      		movw r30,r14
+ 921 00be 8081      		ld r24,Z
+ 922 00c0 9181      		ldd r25,Z+1
+ 923 00c2 820F      		add r24,r18
+ 924 00c4 931F      		adc r25,r19
+ 925 00c6 9183      		std Z+1,r25
+ 926 00c8 8083      		st Z,r24
+ 927               	.LSM131:
+ 928 00ca 44E0      		ldi r20,lo8(4)
+ 929 00cc D42E      		mov r13,r20
+ 930               	.LVL91:
+ 931 00ce 00C0      		rjmp .L63
+ 932               	.LVL92:
+ 933               	.L69:
+ 934               	.LBB169:
+ 935               	.LBB160:
+ 936               	.LSM132:
+ 937 00d0 8091 AF00 		lds r24,175
+ 938               	.LBE160:
+ 939               	.LBE169:
+ 940               	.LSM133:
+ 941 00d4 F801      		movw r30,r16
+ 942 00d6 8193      		st Z+,r24
+ 943 00d8 8F01      		movw r16,r30
+ 944               	.LVL93:
+ 945               	.LSM134:
+ 946 00da 2F5F      		subi r18,lo8(-(1))
+ 947 00dc 3F4F      		sbci r19,hi8(-(1))
+ 948               	.LVL94:
+ 949               	.LSM135:
+ 950 00de A216      		cp r10,r18
+ 951 00e0 B306      		cpc r11,r19
+ 952 00e2 01F4      		brne .L70
+ 953 00e4 00C0      		rjmp .L63
+ 954               	.LFE118:
+ 956               		.section	.text.Pipe_Read_Stream_BE,"ax",@progbits
+ 957               	.global	Pipe_Read_Stream_BE
+ 959               	Pipe_Read_Stream_BE:
+ 960               	.LFB119:
+ 961               	.LSM136:
+ 962               	.LVL95:
+ 963 0000 BF92      		push r11
+ 964 0002 CF92      		push r12
+ 965 0004 DF92      		push r13
+ 966 0006 EF92      		push r14
+ 967 0008 FF92      		push r15
+ 968 000a 0F93      		push r16
+ 969 000c 1F93      		push r17
+ 970 000e CF93      		push r28
+ 971 0010 DF93      		push r29
+ 972               	/* prologue: function */
+ 973               	/* frame size = 0 */
+ 974               	/* stack size = 9 */
+ 975               	.L__stack_usage = 9
+ 976 0012 6C01      		movw r12,r24
+ 977 0014 EB01      		movw r28,r22
+ 978 0016 7A01      		movw r14,r20
+ 979               	.LVL96:
+ 980               	.LBB170:
+ 981               	.LBB171:
+ 982               	.LSM137:
+ 983 0018 8091 AA00 		lds r24,170
+ 984               	.LVL97:
+ 985 001c 8F7C      		andi r24,lo8(-49)
+ 986 001e 8061      		ori r24,lo8(16)
+ 987 0020 8093 AA00 		sts 170,r24
+ 988               	.LBE171:
+ 989               	.LBE170:
+ 990               	.LSM138:
+ 991 0024 0E94 0000 		call Pipe_WaitUntilReady
+ 992               	.LVL98:
+ 993 0028 B82E      		mov r11,r24
+ 994               	.LVL99:
+ 995 002a 8823      		tst r24
+ 996 002c 01F4      		brne .L78
+ 997               	.LSM139:
+ 998 002e 8E01      		movw r16,r28
+ 999 0030 0150      		subi r16,lo8(-(-1))
+ 1000 0032 1040      		sbci r17,hi8(-(-1))
+ 1001 0034 0C0D      		add r16,r12
+ 1002 0036 1D1D      		adc r17,r13
+ 1003               	.LSM140:
+ 1004 0038 E114      		cp r14,__zero_reg__
+ 1005 003a F104      		cpc r15,__zero_reg__
+ 1006 003c 01F0      		breq .L79
+ 1007               	.LSM141:
+ 1008 003e F701      		movw r30,r14
+ 1009 0040 2081      		ld r18,Z
+ 1010 0042 3181      		ldd r19,Z+1
+ 1011 0044 C21B      		sub r28,r18
+ 1012 0046 D30B      		sbc r29,r19
+ 1013               	.LVL100:
+ 1014               	.LSM142:
+ 1015 0048 021B      		sub r16,r18
+ 1016 004a 130B      		sbc r17,r19
+ 1017               	.LVL101:
+ 1018               	.L79:
+ 1019               	.LSM143:
+ 1020 004c 2097      		sbiw r28,0
+ 1021 004e 01F0      		breq .L78
+ 1022               	.LSM144:
+ 1023 0050 E114      		cp r14,__zero_reg__
+ 1024 0052 F104      		cpc r15,__zero_reg__
+ 1025 0054 01F0      		breq .L87
+ 1026 0056 00C0      		rjmp .L91
+ 1027               	.LVL102:
+ 1028               	.L90:
+ 1029               	.LBB172:
+ 1030               	.LBB173:
+ 1031               	.LSM145:
+ 1032 0058 8091 AF00 		lds r24,175
+ 1033               	.LBE173:
+ 1034               	.LBE172:
+ 1035               	.LSM146:
+ 1036 005c F801      		movw r30,r16
+ 1037 005e 8083      		st Z,r24
+ 1038               	.LSM147:
+ 1039 0060 0150      		subi r16,lo8(-(-1))
+ 1040 0062 1040      		sbci r17,hi8(-(-1))
+ 1041               	.LVL103:
+ 1042               	.LSM148:
+ 1043 0064 2197      		sbiw r28,1
+ 1044               	.LVL104:
+ 1045               	.L82:
+ 1046               	.LSM149:
+ 1047 0066 2097      		sbiw r28,0
+ 1048 0068 01F0      		breq .L78
+ 1049               	.L87:
+ 1050               	.LBB175:
+ 1051               	.LBB176:
+ 1052               	.LSM150:
+ 1053 006a 8091 A600 		lds r24,166
+ 1054               	.LBE176:
+ 1055               	.LBE175:
+ 1056               	.LSM151:
+ 1057 006e 85FD      		sbrc r24,5
+ 1058 0070 00C0      		rjmp .L90
+ 1059               	.LBB178:
+ 1060               	.LBB179:
+ 1061               	.LSM152:
+ 1062 0072 8091 A600 		lds r24,166
+ 1063 0076 8E77      		andi r24,lo8(126)
+ 1064 0078 8093 A600 		sts 166,r24
+ 1065               	.LBE179:
+ 1066               	.LBE178:
+ 1067               	.LSM153:
+ 1068 007c 0E94 0000 		call Pipe_WaitUntilReady
+ 1069               	.LVL105:
+ 1070 0080 8823      		tst r24
+ 1071 0082 01F0      		breq .L82
+ 1072 0084 B82E      		mov r11,r24
+ 1073               	.LVL106:
+ 1074               	.L78:
+ 1075               	.LSM154:
+ 1076 0086 8B2D      		mov r24,r11
+ 1077               	/* epilogue start */
+ 1078 0088 DF91      		pop r29
+ 1079 008a CF91      		pop r28
+ 1080 008c 1F91      		pop r17
+ 1081 008e 0F91      		pop r16
+ 1082 0090 FF90      		pop r15
+ 1083 0092 EF90      		pop r14
+ 1084               	.LVL107:
+ 1085 0094 DF90      		pop r13
+ 1086 0096 CF90      		pop r12
+ 1087               	.LVL108:
+ 1088 0098 BF90      		pop r11
+ 1089 009a 0895      		ret
+ 1090               	.LVL109:
+ 1091               	.L91:
+ 1092               	.LSM155:
+ 1093 009c F801      		movw r30,r16
+ 1094 009e 3196      		adiw r30,1
+ 1095 00a0 20E0      		ldi r18,lo8(0)
+ 1096 00a2 30E0      		ldi r19,hi8(0)
+ 1097               	.LVL110:
+ 1098               	.L85:
+ 1099               	.LBB181:
+ 1100               	.LBB177:
+ 1101               	.LSM156:
+ 1102 00a4 8091 A600 		lds r24,166
+ 1103               	.LBE177:
+ 1104               	.LBE181:
+ 1105               	.LSM157:
+ 1106 00a8 85FD      		sbrc r24,5
+ 1107 00aa 00C0      		rjmp .L84
+ 1108               	.LBB182:
+ 1109               	.LBB180:
+ 1110               	.LSM158:
+ 1111 00ac 8091 A600 		lds r24,166
+ 1112 00b0 8E77      		andi r24,lo8(126)
+ 1113 00b2 8093 A600 		sts 166,r24
+ 1114               	.LBE180:
+ 1115               	.LBE182:
+ 1116               	.LSM159:
+ 1117 00b6 F701      		movw r30,r14
+ 1118 00b8 8081      		ld r24,Z
+ 1119 00ba 9181      		ldd r25,Z+1
+ 1120 00bc 820F      		add r24,r18
+ 1121 00be 931F      		adc r25,r19
+ 1122 00c0 9183      		std Z+1,r25
+ 1123 00c2 8083      		st Z,r24
+ 1124               	.LSM160:
+ 1125 00c4 54E0      		ldi r21,lo8(4)
+ 1126 00c6 B52E      		mov r11,r21
+ 1127               	.LVL111:
+ 1128 00c8 00C0      		rjmp .L78
+ 1129               	.LVL112:
+ 1130               	.L84:
+ 1131               	.LBB183:
+ 1132               	.LBB174:
+ 1133               	.LSM161:
+ 1134 00ca 8091 AF00 		lds r24,175
+ 1135               	.LBE174:
+ 1136               	.LBE183:
+ 1137               	.LSM162:
+ 1138 00ce 8293      		st -Z,r24
+ 1139               	.LSM163:
+ 1140 00d0 2F5F      		subi r18,lo8(-(1))
+ 1141 00d2 3F4F      		sbci r19,hi8(-(1))
+ 1142               	.LVL113:
+ 1143               	.LSM164:
+ 1144 00d4 C217      		cp r28,r18
+ 1145 00d6 D307      		cpc r29,r19
+ 1146 00d8 01F4      		brne .L85
+ 1147 00da 00C0      		rjmp .L78
+ 1148               	.LFE119:
+ 1150               		.section	.text.Pipe_Write_PStream_LE,"ax",@progbits
+ 1151               	.global	Pipe_Write_PStream_LE
+ 1153               	Pipe_Write_PStream_LE:
+ 1154               	.LFB120:
+ 1155               	.LSM165:
+ 1156               	.LVL114:
+ 1157 0000 AF92      		push r10
+ 1158 0002 BF92      		push r11
+ 1159 0004 DF92      		push r13
+ 1160 0006 EF92      		push r14
+ 1161 0008 FF92      		push r15
+ 1162 000a 0F93      		push r16
+ 1163 000c 1F93      		push r17
+ 1164 000e DF93      		push r29
+ 1165 0010 CF93      		push r28
+ 1166 0012 0F92      		push __tmp_reg__
+ 1167 0014 CDB7      		in r28,__SP_L__
+ 1168 0016 DEB7      		in r29,__SP_H__
+ 1169               	/* prologue: function */
+ 1170               	/* frame size = 1 */
+ 1171               	/* stack size = 10 */
+ 1172               	.L__stack_usage = 10
+ 1173 0018 082F      		mov r16,r24
+ 1174 001a 5B01      		movw r10,r22
+ 1175 001c 7A01      		movw r14,r20
+ 1176               	.LVL115:
+ 1177               	.LBB184:
+ 1178               	.LBB185:
+ 1179               	.LSM166:
+ 1180 001e 8091 AA00 		lds r24,170
+ 1181               	.LVL116:
+ 1182 0022 8F7C      		andi r24,lo8(-49)
+ 1183 0024 8062      		ori r24,lo8(32)
+ 1184 0026 8093 AA00 		sts 170,r24
+ 1185               	.LBE185:
+ 1186               	.LBE184:
+ 1187               	.LSM167:
+ 1188 002a 9983      		std Y+1,r25
+ 1189 002c 0E94 0000 		call Pipe_WaitUntilReady
+ 1190               	.LVL117:
+ 1191 0030 D82E      		mov r13,r24
+ 1192               	.LVL118:
+ 1193 0032 9981      		ldd r25,Y+1
+ 1194 0034 8823      		tst r24
+ 1195 0036 01F4      		brne .L93
+ 1196               	.LSM168:
+ 1197 0038 192F      		mov r17,r25
+ 1198               	.LSM169:
+ 1199 003a E114      		cp r14,__zero_reg__
+ 1200 003c F104      		cpc r15,__zero_reg__
+ 1201 003e 01F0      		breq .L94
+ 1202               	.LSM170:
+ 1203 0040 F701      		movw r30,r14
+ 1204 0042 2081      		ld r18,Z
+ 1205 0044 3181      		ldd r19,Z+1
+ 1206 0046 A21A      		sub r10,r18
+ 1207 0048 B30A      		sbc r11,r19
+ 1208               	.LVL119:
+ 1209               	.LSM171:
+ 1210 004a 020F      		add r16,r18
+ 1211 004c 131F      		adc r17,r19
+ 1212               	.LVL120:
+ 1213               	.L94:
+ 1214               	.LSM172:
+ 1215 004e A114      		cp r10,__zero_reg__
+ 1216 0050 B104      		cpc r11,__zero_reg__
+ 1217 0052 01F0      		breq .L93
+ 1218               	.LSM173:
+ 1219 0054 E114      		cp r14,__zero_reg__
+ 1220 0056 F104      		cpc r15,__zero_reg__
+ 1221 0058 01F0      		breq .L102
+ 1222 005a 00C0      		rjmp .L106
+ 1223               	.LVL121:
+ 1224               	.L105:
+ 1225               	.LBB186:
+ 1226               	.LSM174:
+ 1227 005c F801      		movw r30,r16
+ 1228               	/* #APP */
+ 1229               	 ;  69 "../LUFA-120219/LUFA/Drivers/USB/Core/AVR8/Template/Template_Pipe_RW.c" 1
+ 1230 005e 8491      		lpm r24, Z
+ 1231               		
+ 1232               	 ;  0 "" 2
+ 1233               	.LVL122:
+ 1234               	/* #NOAPP */
+ 1235               	.LBE186:
+ 1236               	.LBB187:
+ 1237               	.LBB188:
+ 1238               	.LSM175:
+ 1239 0060 8093 AF00 		sts 175,r24
+ 1240               	.LBE188:
+ 1241               	.LBE187:
+ 1242               	.LSM176:
+ 1243 0064 0F5F      		subi r16,lo8(-(1))
+ 1244 0066 1F4F      		sbci r17,hi8(-(1))
+ 1245               	.LVL123:
+ 1246               	.LSM177:
+ 1247 0068 0894      		sec
+ 1248 006a A108      		sbc r10,__zero_reg__
+ 1249 006c B108      		sbc r11,__zero_reg__
+ 1250               	.LVL124:
+ 1251               	.L97:
+ 1252               	.LSM178:
+ 1253 006e A114      		cp r10,__zero_reg__
+ 1254 0070 B104      		cpc r11,__zero_reg__
+ 1255 0072 01F0      		breq .L93
+ 1256               	.L102:
+ 1257               	.LBB190:
+ 1258               	.LBB191:
+ 1259               	.LSM179:
+ 1260 0074 8091 A600 		lds r24,166
+ 1261               	.LBE191:
+ 1262               	.LBE190:
+ 1263               	.LSM180:
+ 1264 0078 85FD      		sbrc r24,5
+ 1265 007a 00C0      		rjmp .L105
+ 1266               	.LBB193:
+ 1267               	.LBB194:
+ 1268               	.LSM181:
+ 1269 007c 8091 A600 		lds r24,166
+ 1270 0080 8B77      		andi r24,lo8(123)
+ 1271 0082 8093 A600 		sts 166,r24
+ 1272               	.LBE194:
+ 1273               	.LBE193:
+ 1274               	.LSM182:
+ 1275 0086 0E94 0000 		call Pipe_WaitUntilReady
+ 1276               	.LVL125:
+ 1277 008a 8823      		tst r24
+ 1278 008c 01F0      		breq .L97
+ 1279 008e D82E      		mov r13,r24
+ 1280               	.LVL126:
+ 1281               	.L93:
+ 1282               	.LSM183:
+ 1283 0090 8D2D      		mov r24,r13
+ 1284               	/* epilogue start */
+ 1285 0092 0F90      		pop __tmp_reg__
+ 1286 0094 CF91      		pop r28
+ 1287 0096 DF91      		pop r29
+ 1288 0098 1F91      		pop r17
+ 1289 009a 0F91      		pop r16
+ 1290 009c FF90      		pop r15
+ 1291 009e EF90      		pop r14
+ 1292               	.LVL127:
+ 1293 00a0 DF90      		pop r13
+ 1294 00a2 BF90      		pop r11
+ 1295 00a4 AF90      		pop r10
+ 1296 00a6 0895      		ret
+ 1297               	.LVL128:
+ 1298               	.L106:
+ 1299               	.LSM184:
+ 1300 00a8 20E0      		ldi r18,lo8(0)
+ 1301 00aa 30E0      		ldi r19,hi8(0)
+ 1302               	.LVL129:
+ 1303               	.L100:
+ 1304               	.LBB196:
+ 1305               	.LBB192:
+ 1306               	.LSM185:
+ 1307 00ac 8091 A600 		lds r24,166
+ 1308               	.LBE192:
+ 1309               	.LBE196:
+ 1310               	.LSM186:
+ 1311 00b0 85FD      		sbrc r24,5
+ 1312 00b2 00C0      		rjmp .L99
+ 1313               	.LBB197:
+ 1314               	.LBB195:
+ 1315               	.LSM187:
+ 1316 00b4 8091 A600 		lds r24,166
+ 1317 00b8 8B77      		andi r24,lo8(123)
+ 1318 00ba 8093 A600 		sts 166,r24
+ 1319               	.LBE195:
+ 1320               	.LBE197:
+ 1321               	.LSM188:
+ 1322 00be F701      		movw r30,r14
+ 1323 00c0 8081      		ld r24,Z
+ 1324 00c2 9181      		ldd r25,Z+1
+ 1325 00c4 820F      		add r24,r18
+ 1326 00c6 931F      		adc r25,r19
+ 1327 00c8 9183      		std Z+1,r25
+ 1328 00ca 8083      		st Z,r24
+ 1329               	.LSM189:
+ 1330 00cc 64E0      		ldi r22,lo8(4)
+ 1331 00ce D62E      		mov r13,r22
+ 1332               	.LVL130:
+ 1333 00d0 00C0      		rjmp .L93
+ 1334               	.LVL131:
+ 1335               	.L99:
+ 1336               	.LBB198:
+ 1337               	.LSM190:
+ 1338 00d2 F801      		movw r30,r16
+ 1339 00d4 E20F      		add r30,r18
+ 1340 00d6 F31F      		adc r31,r19
+ 1341               	/* #APP */
+ 1342               	 ;  69 "../LUFA-120219/LUFA/Drivers/USB/Core/AVR8/Template/Template_Pipe_RW.c" 1
+ 1343 00d8 E491      		lpm r30, Z
+ 1344               		
+ 1345               	 ;  0 "" 2
+ 1346               	.LVL132:
+ 1347               	/* #NOAPP */
+ 1348               	.LBE198:
+ 1349               	.LBB199:
+ 1350               	.LBB189:
+ 1351               	.LSM191:
+ 1352 00da E093 AF00 		sts 175,r30
+ 1353               	.LBE189:
+ 1354               	.LBE199:
+ 1355               	.LSM192:
+ 1356 00de 2F5F      		subi r18,lo8(-(1))
+ 1357 00e0 3F4F      		sbci r19,hi8(-(1))
+ 1358               	.LVL133:
+ 1359               	.LSM193:
+ 1360 00e2 A216      		cp r10,r18
+ 1361 00e4 B306      		cpc r11,r19
+ 1362 00e6 01F4      		brne .L100
+ 1363 00e8 00C0      		rjmp .L93
+ 1364               	.LFE120:
+ 1366               		.section	.text.Pipe_Write_PStream_BE,"ax",@progbits
+ 1367               	.global	Pipe_Write_PStream_BE
+ 1369               	Pipe_Write_PStream_BE:
+ 1370               	.LFB121:
+ 1371               	.LSM194:
+ 1372               	.LVL134:
+ 1373 0000 BF92      		push r11
+ 1374 0002 CF92      		push r12
+ 1375 0004 DF92      		push r13
+ 1376 0006 EF92      		push r14
+ 1377 0008 FF92      		push r15
+ 1378 000a 0F93      		push r16
+ 1379 000c 1F93      		push r17
+ 1380 000e CF93      		push r28
+ 1381 0010 DF93      		push r29
+ 1382               	/* prologue: function */
+ 1383               	/* frame size = 0 */
+ 1384               	/* stack size = 9 */
+ 1385               	.L__stack_usage = 9
+ 1386 0012 6C01      		movw r12,r24
+ 1387 0014 EB01      		movw r28,r22
+ 1388 0016 7A01      		movw r14,r20
+ 1389               	.LVL135:
+ 1390               	.LBB200:
+ 1391               	.LBB201:
+ 1392               	.LSM195:
+ 1393 0018 8091 AA00 		lds r24,170
+ 1394               	.LVL136:
+ 1395 001c 8F7C      		andi r24,lo8(-49)
+ 1396 001e 8062      		ori r24,lo8(32)
+ 1397 0020 8093 AA00 		sts 170,r24
+ 1398               	.LBE201:
+ 1399               	.LBE200:
+ 1400               	.LSM196:
+ 1401 0024 0E94 0000 		call Pipe_WaitUntilReady
+ 1402               	.LVL137:
+ 1403 0028 B82E      		mov r11,r24
+ 1404               	.LVL138:
+ 1405 002a 8823      		tst r24
+ 1406 002c 01F4      		brne .L108
+ 1407               	.LSM197:
+ 1408 002e 8E01      		movw r16,r28
+ 1409 0030 0150      		subi r16,lo8(-(-1))
+ 1410 0032 1040      		sbci r17,hi8(-(-1))
+ 1411 0034 0C0D      		add r16,r12
+ 1412 0036 1D1D      		adc r17,r13
+ 1413               	.LSM198:
+ 1414 0038 E114      		cp r14,__zero_reg__
+ 1415 003a F104      		cpc r15,__zero_reg__
+ 1416 003c 01F0      		breq .L109
+ 1417               	.LSM199:
+ 1418 003e F701      		movw r30,r14
+ 1419 0040 2081      		ld r18,Z
+ 1420 0042 3181      		ldd r19,Z+1
+ 1421 0044 C21B      		sub r28,r18
+ 1422 0046 D30B      		sbc r29,r19
+ 1423               	.LVL139:
+ 1424               	.LSM200:
+ 1425 0048 021B      		sub r16,r18
+ 1426 004a 130B      		sbc r17,r19
+ 1427               	.LVL140:
+ 1428               	.L109:
+ 1429               	.LSM201:
+ 1430 004c 2097      		sbiw r28,0
+ 1431 004e 01F0      		breq .L108
+ 1432               	.LSM202:
+ 1433 0050 E114      		cp r14,__zero_reg__
+ 1434 0052 F104      		cpc r15,__zero_reg__
+ 1435 0054 01F0      		breq .L117
+ 1436 0056 00C0      		rjmp .L121
+ 1437               	.LVL141:
+ 1438               	.L120:
+ 1439               	.LBB202:
+ 1440               	.LSM203:
+ 1441 0058 F801      		movw r30,r16
+ 1442               	/* #APP */
+ 1443               	 ;  69 "../LUFA-120219/LUFA/Drivers/USB/Core/AVR8/Template/Template_Pipe_RW.c" 1
+ 1444 005a 8491      		lpm r24, Z
+ 1445               		
+ 1446               	 ;  0 "" 2
+ 1447               	.LVL142:
+ 1448               	/* #NOAPP */
+ 1449               	.LBE202:
+ 1450               	.LBB203:
+ 1451               	.LBB204:
+ 1452               	.LSM204:
+ 1453 005c 8093 AF00 		sts 175,r24
+ 1454               	.LBE204:
+ 1455               	.LBE203:
+ 1456               	.LSM205:
+ 1457 0060 0150      		subi r16,lo8(-(-1))
+ 1458 0062 1040      		sbci r17,hi8(-(-1))
+ 1459               	.LVL143:
+ 1460               	.LSM206:
+ 1461 0064 2197      		sbiw r28,1
+ 1462               	.LVL144:
+ 1463               	.L112:
+ 1464               	.LSM207:
+ 1465 0066 2097      		sbiw r28,0
+ 1466 0068 01F0      		breq .L108
+ 1467               	.L117:
+ 1468               	.LBB206:
+ 1469               	.LBB207:
+ 1470               	.LSM208:
+ 1471 006a 8091 A600 		lds r24,166
+ 1472               	.LBE207:
+ 1473               	.LBE206:
+ 1474               	.LSM209:
+ 1475 006e 85FD      		sbrc r24,5
+ 1476 0070 00C0      		rjmp .L120
+ 1477               	.LBB209:
+ 1478               	.LBB210:
+ 1479               	.LSM210:
+ 1480 0072 8091 A600 		lds r24,166
+ 1481 0076 8B77      		andi r24,lo8(123)
+ 1482 0078 8093 A600 		sts 166,r24
+ 1483               	.LBE210:
+ 1484               	.LBE209:
+ 1485               	.LSM211:
+ 1486 007c 0E94 0000 		call Pipe_WaitUntilReady
+ 1487               	.LVL145:
+ 1488 0080 8823      		tst r24
+ 1489 0082 01F0      		breq .L112
+ 1490 0084 B82E      		mov r11,r24
+ 1491               	.LVL146:
+ 1492               	.L108:
+ 1493               	.LSM212:
+ 1494 0086 8B2D      		mov r24,r11
+ 1495               	/* epilogue start */
+ 1496 0088 DF91      		pop r29
+ 1497 008a CF91      		pop r28
+ 1498 008c 1F91      		pop r17
+ 1499 008e 0F91      		pop r16
+ 1500 0090 FF90      		pop r15
+ 1501 0092 EF90      		pop r14
+ 1502               	.LVL147:
+ 1503 0094 DF90      		pop r13
+ 1504 0096 CF90      		pop r12
+ 1505               	.LVL148:
+ 1506 0098 BF90      		pop r11
+ 1507 009a 0895      		ret
+ 1508               	.LVL149:
+ 1509               	.L121:
+ 1510               	.LSM213:
+ 1511 009c 20E0      		ldi r18,lo8(0)
+ 1512 009e 30E0      		ldi r19,hi8(0)
+ 1513               	.LVL150:
+ 1514               	.L115:
+ 1515               	.LBB212:
+ 1516               	.LBB208:
+ 1517               	.LSM214:
+ 1518 00a0 8091 A600 		lds r24,166
+ 1519               	.LBE208:
+ 1520               	.LBE212:
+ 1521               	.LSM215:
+ 1522 00a4 85FD      		sbrc r24,5
+ 1523 00a6 00C0      		rjmp .L114
+ 1524               	.LBB213:
+ 1525               	.LBB211:
+ 1526               	.LSM216:
+ 1527 00a8 8091 A600 		lds r24,166
+ 1528 00ac 8B77      		andi r24,lo8(123)
+ 1529 00ae 8093 A600 		sts 166,r24
+ 1530               	.LBE211:
+ 1531               	.LBE213:
+ 1532               	.LSM217:
+ 1533 00b2 F701      		movw r30,r14
+ 1534 00b4 8081      		ld r24,Z
+ 1535 00b6 9181      		ldd r25,Z+1
+ 1536 00b8 820F      		add r24,r18
+ 1537 00ba 931F      		adc r25,r19
+ 1538 00bc 9183      		std Z+1,r25
+ 1539 00be 8083      		st Z,r24
+ 1540               	.LSM218:
+ 1541 00c0 74E0      		ldi r23,lo8(4)
+ 1542 00c2 B72E      		mov r11,r23
+ 1543               	.LVL151:
+ 1544 00c4 00C0      		rjmp .L108
+ 1545               	.LVL152:
+ 1546               	.L114:
+ 1547               	.LBB214:
+ 1548               	.LSM219:
+ 1549 00c6 F801      		movw r30,r16
+ 1550 00c8 E21B      		sub r30,r18
+ 1551 00ca F30B      		sbc r31,r19
+ 1552               	/* #APP */
+ 1553               	 ;  69 "../LUFA-120219/LUFA/Drivers/USB/Core/AVR8/Template/Template_Pipe_RW.c" 1
+ 1554 00cc E491      		lpm r30, Z
+ 1555               		
+ 1556               	 ;  0 "" 2
+ 1557               	.LVL153:
+ 1558               	/* #NOAPP */
+ 1559               	.LBE214:
+ 1560               	.LBB215:
+ 1561               	.LBB205:
+ 1562               	.LSM220:
+ 1563 00ce E093 AF00 		sts 175,r30
+ 1564               	.LBE205:
+ 1565               	.LBE215:
+ 1566               	.LSM221:
+ 1567 00d2 2F5F      		subi r18,lo8(-(1))
+ 1568 00d4 3F4F      		sbci r19,hi8(-(1))
+ 1569               	.LVL154:
+ 1570               	.LSM222:
+ 1571 00d6 C217      		cp r28,r18
+ 1572 00d8 D307      		cpc r29,r19
+ 1573 00da 01F4      		brne .L115
+ 1574 00dc 00C0      		rjmp .L108
+ 1575               	.LFE121:
+ 1577               		.section	.text.Pipe_Write_EStream_LE,"ax",@progbits
+ 1578               	.global	Pipe_Write_EStream_LE
+ 1580               	Pipe_Write_EStream_LE:
+ 1581               	.LFB122:
+ 1582               	.LSM223:
+ 1583               	.LVL155:
+ 1584 0000 8F92      		push r8
+ 1585 0002 9F92      		push r9
+ 1586 0004 BF92      		push r11
+ 1587 0006 CF92      		push r12
+ 1588 0008 DF92      		push r13
+ 1589 000a EF92      		push r14
+ 1590 000c FF92      		push r15
+ 1591 000e 0F93      		push r16
+ 1592 0010 1F93      		push r17
+ 1593 0012 DF93      		push r29
+ 1594 0014 CF93      		push r28
+ 1595 0016 0F92      		push __tmp_reg__
+ 1596 0018 CDB7      		in r28,__SP_L__
+ 1597 001a DEB7      		in r29,__SP_H__
+ 1598               	/* prologue: function */
+ 1599               	/* frame size = 1 */
+ 1600               	/* stack size = 12 */
+ 1601               	.L__stack_usage = 12
+ 1602 001c 082F      		mov r16,r24
+ 1603 001e 4B01      		movw r8,r22
+ 1604 0020 7A01      		movw r14,r20
+ 1605               	.LVL156:
+ 1606               	.LBB216:
+ 1607               	.LBB217:
+ 1608               	.LSM224:
+ 1609 0022 8091 AA00 		lds r24,170
+ 1610               	.LVL157:
+ 1611 0026 8F7C      		andi r24,lo8(-49)
+ 1612 0028 8062      		ori r24,lo8(32)
+ 1613 002a 8093 AA00 		sts 170,r24
+ 1614               	.LBE217:
+ 1615               	.LBE216:
+ 1616               	.LSM225:
+ 1617 002e 9983      		std Y+1,r25
+ 1618 0030 0E94 0000 		call Pipe_WaitUntilReady
+ 1619               	.LVL158:
+ 1620 0034 B82E      		mov r11,r24
+ 1621               	.LVL159:
+ 1622 0036 9981      		ldd r25,Y+1
+ 1623 0038 8823      		tst r24
+ 1624 003a 01F4      		brne .L123
+ 1625               	.LSM226:
+ 1626 003c 192F      		mov r17,r25
+ 1627               	.LSM227:
+ 1628 003e E114      		cp r14,__zero_reg__
+ 1629 0040 F104      		cpc r15,__zero_reg__
+ 1630 0042 01F0      		breq .L124
+ 1631               	.LSM228:
+ 1632 0044 F701      		movw r30,r14
+ 1633 0046 2081      		ld r18,Z
+ 1634 0048 3181      		ldd r19,Z+1
+ 1635 004a 821A      		sub r8,r18
+ 1636 004c 930A      		sbc r9,r19
+ 1637               	.LVL160:
+ 1638               	.LSM229:
+ 1639 004e 020F      		add r16,r18
+ 1640 0050 131F      		adc r17,r19
+ 1641               	.LVL161:
+ 1642               	.L124:
+ 1643               	.LSM230:
+ 1644 0052 8114      		cp r8,__zero_reg__
+ 1645 0054 9104      		cpc r9,__zero_reg__
+ 1646 0056 01F0      		breq .L123
+ 1647               	.LSM231:
+ 1648 0058 E114      		cp r14,__zero_reg__
+ 1649 005a F104      		cpc r15,__zero_reg__
+ 1650 005c 01F0      		breq .L132
+ 1651 005e 00C0      		rjmp .L136
+ 1652               	.LVL162:
+ 1653               	.L135:
+ 1654               	.LSM232:
+ 1655 0060 C801      		movw r24,r16
+ 1656 0062 0E94 0000 		call __eerd_byte_usb1287
+ 1657               	.LVL163:
+ 1658               	.LBB218:
+ 1659               	.LBB219:
+ 1660               	.LSM233:
+ 1661 0066 8093 AF00 		sts 175,r24
+ 1662               	.LBE219:
+ 1663               	.LBE218:
+ 1664               	.LSM234:
+ 1665 006a 0F5F      		subi r16,lo8(-(1))
+ 1666 006c 1F4F      		sbci r17,hi8(-(1))
+ 1667               	.LVL164:
+ 1668               	.LSM235:
+ 1669 006e 0894      		sec
+ 1670 0070 8108      		sbc r8,__zero_reg__
+ 1671 0072 9108      		sbc r9,__zero_reg__
+ 1672               	.LVL165:
+ 1673               	.L127:
+ 1674               	.LSM236:
+ 1675 0074 8114      		cp r8,__zero_reg__
+ 1676 0076 9104      		cpc r9,__zero_reg__
+ 1677 0078 01F0      		breq .L123
+ 1678               	.L132:
+ 1679               	.LBB221:
+ 1680               	.LBB222:
+ 1681               	.LSM237:
+ 1682 007a 8091 A600 		lds r24,166
+ 1683               	.LBE222:
+ 1684               	.LBE221:
+ 1685               	.LSM238:
+ 1686 007e 85FD      		sbrc r24,5
+ 1687 0080 00C0      		rjmp .L135
+ 1688               	.LBB224:
+ 1689               	.LBB225:
+ 1690               	.LSM239:
+ 1691 0082 8091 A600 		lds r24,166
+ 1692 0086 8B77      		andi r24,lo8(123)
+ 1693 0088 8093 A600 		sts 166,r24
+ 1694               	.LBE225:
+ 1695               	.LBE224:
+ 1696               	.LSM240:
+ 1697 008c 0E94 0000 		call Pipe_WaitUntilReady
+ 1698               	.LVL166:
+ 1699 0090 8823      		tst r24
+ 1700 0092 01F0      		breq .L127
+ 1701 0094 B82E      		mov r11,r24
+ 1702               	.LVL167:
+ 1703               	.L123:
+ 1704               	.LSM241:
+ 1705 0096 8B2D      		mov r24,r11
+ 1706               	/* epilogue start */
+ 1707 0098 0F90      		pop __tmp_reg__
+ 1708 009a CF91      		pop r28
+ 1709 009c DF91      		pop r29
+ 1710 009e 1F91      		pop r17
+ 1711 00a0 0F91      		pop r16
+ 1712 00a2 FF90      		pop r15
+ 1713 00a4 EF90      		pop r14
+ 1714               	.LVL168:
+ 1715 00a6 DF90      		pop r13
+ 1716 00a8 CF90      		pop r12
+ 1717 00aa BF90      		pop r11
+ 1718 00ac 9F90      		pop r9
+ 1719 00ae 8F90      		pop r8
+ 1720 00b0 0895      		ret
+ 1721               	.LVL169:
+ 1722               	.L136:
+ 1723               	.LSM242:
+ 1724 00b2 CC24      		clr r12
+ 1725 00b4 DD24      		clr r13
+ 1726               	.LVL170:
+ 1727               	.L130:
+ 1728               	.LSM243:
+ 1729 00b6 9801      		movw r18,r16
+ 1730 00b8 2C0D      		add r18,r12
+ 1731 00ba 3D1D      		adc r19,r13
+ 1732               	.LBB227:
+ 1733               	.LBB223:
+ 1734               	.LSM244:
+ 1735 00bc 8091 A600 		lds r24,166
+ 1736               	.LBE223:
+ 1737               	.LBE227:
+ 1738               	.LSM245:
+ 1739 00c0 85FD      		sbrc r24,5
+ 1740 00c2 00C0      		rjmp .L129
+ 1741               	.LBB228:
+ 1742               	.LBB226:
+ 1743               	.LSM246:
+ 1744 00c4 8091 A600 		lds r24,166
+ 1745 00c8 8B77      		andi r24,lo8(123)
+ 1746 00ca 8093 A600 		sts 166,r24
+ 1747               	.LBE226:
+ 1748               	.LBE228:
+ 1749               	.LSM247:
+ 1750 00ce F701      		movw r30,r14
+ 1751 00d0 8081      		ld r24,Z
+ 1752 00d2 9181      		ldd r25,Z+1
+ 1753 00d4 8C0D      		add r24,r12
+ 1754 00d6 9D1D      		adc r25,r13
+ 1755 00d8 9183      		std Z+1,r25
+ 1756 00da 8083      		st Z,r24
+ 1757               	.LSM248:
+ 1758 00dc E4E0      		ldi r30,lo8(4)
+ 1759 00de BE2E      		mov r11,r30
+ 1760               	.LVL171:
+ 1761 00e0 00C0      		rjmp .L123
+ 1762               	.LVL172:
+ 1763               	.L129:
+ 1764               	.LSM249:
+ 1765 00e2 C901      		movw r24,r18
+ 1766 00e4 0E94 0000 		call __eerd_byte_usb1287
+ 1767               	.LVL173:
+ 1768               	.LBB229:
+ 1769               	.LBB220:
+ 1770               	.LSM250:
+ 1771 00e8 8093 AF00 		sts 175,r24
+ 1772               	.LBE220:
+ 1773               	.LBE229:
+ 1774               	.LSM251:
+ 1775 00ec 0894      		sec
+ 1776 00ee C11C      		adc r12,__zero_reg__
+ 1777 00f0 D11C      		adc r13,__zero_reg__
+ 1778               	.LVL174:
+ 1779               	.LSM252:
+ 1780 00f2 8C14      		cp r8,r12
+ 1781 00f4 9D04      		cpc r9,r13
+ 1782 00f6 01F4      		brne .L130
+ 1783 00f8 00C0      		rjmp .L123
+ 1784               	.LFE122:
+ 1786               		.section	.text.Pipe_Write_EStream_BE,"ax",@progbits
+ 1787               	.global	Pipe_Write_EStream_BE
+ 1789               	Pipe_Write_EStream_BE:
+ 1790               	.LFB123:
+ 1791               	.LSM253:
+ 1792               	.LVL175:
+ 1793 0000 BF92      		push r11
+ 1794 0002 CF92      		push r12
+ 1795 0004 DF92      		push r13
+ 1796 0006 EF92      		push r14
+ 1797 0008 FF92      		push r15
+ 1798 000a 0F93      		push r16
+ 1799 000c 1F93      		push r17
+ 1800 000e CF93      		push r28
+ 1801 0010 DF93      		push r29
+ 1802               	/* prologue: function */
+ 1803               	/* frame size = 0 */
+ 1804               	/* stack size = 9 */
+ 1805               	.L__stack_usage = 9
+ 1806 0012 6C01      		movw r12,r24
+ 1807 0014 EB01      		movw r28,r22
+ 1808 0016 7A01      		movw r14,r20
+ 1809               	.LVL176:
+ 1810               	.LBB230:
+ 1811               	.LBB231:
+ 1812               	.LSM254:
+ 1813 0018 8091 AA00 		lds r24,170
+ 1814               	.LVL177:
+ 1815 001c 8F7C      		andi r24,lo8(-49)
+ 1816 001e 8062      		ori r24,lo8(32)
+ 1817 0020 8093 AA00 		sts 170,r24
+ 1818               	.LBE231:
+ 1819               	.LBE230:
+ 1820               	.LSM255:
+ 1821 0024 0E94 0000 		call Pipe_WaitUntilReady
+ 1822               	.LVL178:
+ 1823 0028 B82E      		mov r11,r24
+ 1824               	.LVL179:
+ 1825 002a 8823      		tst r24
+ 1826 002c 01F4      		brne .L138
+ 1827               	.LSM256:
+ 1828 002e 8E01      		movw r16,r28
+ 1829 0030 0150      		subi r16,lo8(-(-1))
+ 1830 0032 1040      		sbci r17,hi8(-(-1))
+ 1831 0034 0C0D      		add r16,r12
+ 1832 0036 1D1D      		adc r17,r13
+ 1833               	.LSM257:
+ 1834 0038 E114      		cp r14,__zero_reg__
+ 1835 003a F104      		cpc r15,__zero_reg__
+ 1836 003c 01F0      		breq .L139
+ 1837               	.LSM258:
+ 1838 003e F701      		movw r30,r14
+ 1839 0040 2081      		ld r18,Z
+ 1840 0042 3181      		ldd r19,Z+1
+ 1841 0044 C21B      		sub r28,r18
+ 1842 0046 D30B      		sbc r29,r19
+ 1843               	.LVL180:
+ 1844               	.LSM259:
+ 1845 0048 021B      		sub r16,r18
+ 1846 004a 130B      		sbc r17,r19
+ 1847               	.LVL181:
+ 1848               	.L139:
+ 1849               	.LSM260:
+ 1850 004c 2097      		sbiw r28,0
+ 1851 004e 01F0      		breq .L138
+ 1852               	.LSM261:
+ 1853 0050 E114      		cp r14,__zero_reg__
+ 1854 0052 F104      		cpc r15,__zero_reg__
+ 1855 0054 01F0      		breq .L147
+ 1856 0056 00C0      		rjmp .L151
+ 1857               	.LVL182:
+ 1858               	.L150:
+ 1859               	.LSM262:
+ 1860 0058 C801      		movw r24,r16
+ 1861 005a 0E94 0000 		call __eerd_byte_usb1287
+ 1862               	.LVL183:
+ 1863               	.LBB232:
+ 1864               	.LBB233:
+ 1865               	.LSM263:
+ 1866 005e 8093 AF00 		sts 175,r24
+ 1867               	.LBE233:
+ 1868               	.LBE232:
+ 1869               	.LSM264:
+ 1870 0062 0150      		subi r16,lo8(-(-1))
+ 1871 0064 1040      		sbci r17,hi8(-(-1))
+ 1872               	.LVL184:
+ 1873               	.LSM265:
+ 1874 0066 2197      		sbiw r28,1
+ 1875               	.LVL185:
+ 1876               	.L142:
+ 1877               	.LSM266:
+ 1878 0068 2097      		sbiw r28,0
+ 1879 006a 01F0      		breq .L138
+ 1880               	.L147:
+ 1881               	.LBB235:
+ 1882               	.LBB236:
+ 1883               	.LSM267:
+ 1884 006c 8091 A600 		lds r24,166
+ 1885               	.LBE236:
+ 1886               	.LBE235:
+ 1887               	.LSM268:
+ 1888 0070 85FD      		sbrc r24,5
+ 1889 0072 00C0      		rjmp .L150
+ 1890               	.LBB238:
+ 1891               	.LBB239:
+ 1892               	.LSM269:
+ 1893 0074 8091 A600 		lds r24,166
+ 1894 0078 8B77      		andi r24,lo8(123)
+ 1895 007a 8093 A600 		sts 166,r24
+ 1896               	.LBE239:
+ 1897               	.LBE238:
+ 1898               	.LSM270:
+ 1899 007e 0E94 0000 		call Pipe_WaitUntilReady
+ 1900               	.LVL186:
+ 1901 0082 8823      		tst r24
+ 1902 0084 01F0      		breq .L142
+ 1903 0086 B82E      		mov r11,r24
+ 1904               	.LVL187:
+ 1905               	.L138:
+ 1906               	.LSM271:
+ 1907 0088 8B2D      		mov r24,r11
+ 1908               	/* epilogue start */
+ 1909 008a DF91      		pop r29
+ 1910 008c CF91      		pop r28
+ 1911 008e 1F91      		pop r17
+ 1912 0090 0F91      		pop r16
+ 1913 0092 FF90      		pop r15
+ 1914 0094 EF90      		pop r14
+ 1915               	.LVL188:
+ 1916 0096 DF90      		pop r13
+ 1917 0098 CF90      		pop r12
+ 1918 009a BF90      		pop r11
+ 1919 009c 0895      		ret
+ 1920               	.LVL189:
+ 1921               	.L151:
+ 1922               	.LSM272:
+ 1923 009e CC24      		clr r12
+ 1924 00a0 DD24      		clr r13
+ 1925               	.LVL190:
+ 1926               	.L145:
+ 1927               	.LSM273:
+ 1928 00a2 9801      		movw r18,r16
+ 1929 00a4 2C19      		sub r18,r12
+ 1930 00a6 3D09      		sbc r19,r13
+ 1931               	.LBB241:
+ 1932               	.LBB237:
+ 1933               	.LSM274:
+ 1934 00a8 8091 A600 		lds r24,166
+ 1935               	.LBE237:
+ 1936               	.LBE241:
+ 1937               	.LSM275:
+ 1938 00ac 85FD      		sbrc r24,5
+ 1939 00ae 00C0      		rjmp .L144
+ 1940               	.LBB242:
+ 1941               	.LBB240:
+ 1942               	.LSM276:
+ 1943 00b0 8091 A600 		lds r24,166
+ 1944 00b4 8B77      		andi r24,lo8(123)
+ 1945 00b6 8093 A600 		sts 166,r24
+ 1946               	.LBE240:
+ 1947               	.LBE242:
+ 1948               	.LSM277:
+ 1949 00ba F701      		movw r30,r14
+ 1950 00bc 8081      		ld r24,Z
+ 1951 00be 9181      		ldd r25,Z+1
+ 1952 00c0 8C0D      		add r24,r12
+ 1953 00c2 9D1D      		adc r25,r13
+ 1954 00c4 9183      		std Z+1,r25
+ 1955 00c6 8083      		st Z,r24
+ 1956               	.LSM278:
+ 1957 00c8 F4E0      		ldi r31,lo8(4)
+ 1958 00ca BF2E      		mov r11,r31
+ 1959               	.LVL191:
+ 1960 00cc 00C0      		rjmp .L138
+ 1961               	.LVL192:
+ 1962               	.L144:
+ 1963               	.LSM279:
+ 1964 00ce C901      		movw r24,r18
+ 1965 00d0 0E94 0000 		call __eerd_byte_usb1287
+ 1966               	.LVL193:
+ 1967               	.LBB243:
+ 1968               	.LBB234:
+ 1969               	.LSM280:
+ 1970 00d4 8093 AF00 		sts 175,r24
+ 1971               	.LBE234:
+ 1972               	.LBE243:
+ 1973               	.LSM281:
+ 1974 00d8 0894      		sec
+ 1975 00da C11C      		adc r12,__zero_reg__
+ 1976 00dc D11C      		adc r13,__zero_reg__
+ 1977               	.LVL194:
+ 1978               	.LSM282:
+ 1979 00de CC15      		cp r28,r12
+ 1980 00e0 DD05      		cpc r29,r13
+ 1981 00e2 01F4      		brne .L145
+ 1982 00e4 00C0      		rjmp .L138
+ 1983               	.LFE123:
+ 1985               		.section	.text.Pipe_Read_EStream_LE,"ax",@progbits
+ 1986               	.global	Pipe_Read_EStream_LE
+ 1988               	Pipe_Read_EStream_LE:
+ 1989               	.LFB124:
+ 1990               	.LSM283:
+ 1991               	.LVL195:
+ 1992 0000 8F92      		push r8
+ 1993 0002 9F92      		push r9
+ 1994 0004 BF92      		push r11
+ 1995 0006 CF92      		push r12
+ 1996 0008 DF92      		push r13
+ 1997 000a EF92      		push r14
+ 1998 000c FF92      		push r15
+ 1999 000e 0F93      		push r16
+ 2000 0010 1F93      		push r17
+ 2001 0012 DF93      		push r29
+ 2002 0014 CF93      		push r28
+ 2003 0016 0F92      		push __tmp_reg__
+ 2004 0018 CDB7      		in r28,__SP_L__
+ 2005 001a DEB7      		in r29,__SP_H__
+ 2006               	/* prologue: function */
+ 2007               	/* frame size = 1 */
+ 2008               	/* stack size = 12 */
+ 2009               	.L__stack_usage = 12
+ 2010 001c 082F      		mov r16,r24
+ 2011 001e 4B01      		movw r8,r22
+ 2012 0020 7A01      		movw r14,r20
+ 2013               	.LVL196:
+ 2014               	.LBB244:
+ 2015               	.LBB245:
+ 2016               	.LSM284:
+ 2017 0022 8091 AA00 		lds r24,170
+ 2018               	.LVL197:
+ 2019 0026 8F7C      		andi r24,lo8(-49)
+ 2020 0028 8061      		ori r24,lo8(16)
+ 2021 002a 8093 AA00 		sts 170,r24
+ 2022               	.LBE245:
+ 2023               	.LBE244:
+ 2024               	.LSM285:
+ 2025 002e 9983      		std Y+1,r25
+ 2026 0030 0E94 0000 		call Pipe_WaitUntilReady
+ 2027               	.LVL198:
+ 2028 0034 B82E      		mov r11,r24
+ 2029               	.LVL199:
+ 2030 0036 9981      		ldd r25,Y+1
+ 2031 0038 8823      		tst r24
+ 2032 003a 01F4      		brne .L153
+ 2033               	.LSM286:
+ 2034 003c 192F      		mov r17,r25
+ 2035               	.LSM287:
+ 2036 003e E114      		cp r14,__zero_reg__
+ 2037 0040 F104      		cpc r15,__zero_reg__
+ 2038 0042 01F0      		breq .L154
+ 2039               	.LSM288:
+ 2040 0044 F701      		movw r30,r14
+ 2041 0046 8081      		ld r24,Z
+ 2042 0048 9181      		ldd r25,Z+1
+ 2043               	.LVL200:
+ 2044 004a 881A      		sub r8,r24
+ 2045 004c 990A      		sbc r9,r25
+ 2046               	.LVL201:
+ 2047               	.LSM289:
+ 2048 004e 080F      		add r16,r24
+ 2049 0050 191F      		adc r17,r25
+ 2050               	.LVL202:
+ 2051               	.L154:
+ 2052               	.LSM290:
+ 2053 0052 8114      		cp r8,__zero_reg__
+ 2054 0054 9104      		cpc r9,__zero_reg__
+ 2055 0056 01F0      		breq .L153
+ 2056               	.LSM291:
+ 2057 0058 E114      		cp r14,__zero_reg__
+ 2058 005a F104      		cpc r15,__zero_reg__
+ 2059 005c 01F0      		breq .L162
+ 2060 005e 00C0      		rjmp .L165
+ 2061               	.LVL203:
+ 2062               	.L156:
+ 2063               	.LBB246:
+ 2064               	.LBB247:
+ 2065               	.LSM292:
+ 2066 0060 8091 A600 		lds r24,166
+ 2067 0064 8E77      		andi r24,lo8(126)
+ 2068 0066 8093 A600 		sts 166,r24
+ 2069               	.LBE247:
+ 2070               	.LBE246:
+ 2071               	.LSM293:
+ 2072 006a 0E94 0000 		call Pipe_WaitUntilReady
+ 2073               	.LVL204:
+ 2074 006e 8823      		tst r24
+ 2075 0070 01F4      		brne .L161
+ 2076               	.LSM294:
+ 2077 0072 8114      		cp r8,__zero_reg__
+ 2078 0074 9104      		cpc r9,__zero_reg__
+ 2079 0076 01F0      		breq .L153
+ 2080               	.LVL205:
+ 2081               	.L162:
+ 2082               	.LBB249:
+ 2083               	.LBB250:
+ 2084               	.LSM295:
+ 2085 0078 8091 A600 		lds r24,166
+ 2086               	.LBE250:
+ 2087               	.LBE249:
+ 2088               	.LSM296:
+ 2089 007c 85FF      		sbrs r24,5
+ 2090 007e 00C0      		rjmp .L156
+ 2091               	.LBB252:
+ 2092               	.LBB253:
+ 2093               	.LSM297:
+ 2094 0080 6091 AF00 		lds r22,175
+ 2095               	.LBE253:
+ 2096               	.LBE252:
+ 2097               	.LSM298:
+ 2098 0084 C801      		movw r24,r16
+ 2099 0086 0E94 0000 		call __eeupd_byte_usb1287
+ 2100               	.LSM299:
+ 2101 008a 0F5F      		subi r16,lo8(-(1))
+ 2102 008c 1F4F      		sbci r17,hi8(-(1))
+ 2103               	.LVL206:
+ 2104               	.LSM300:
+ 2105 008e 0894      		sec
+ 2106 0090 8108      		sbc r8,__zero_reg__
+ 2107 0092 9108      		sbc r9,__zero_reg__
+ 2108               	.LVL207:
+ 2109               	.LSM301:
+ 2110 0094 8114      		cp r8,__zero_reg__
+ 2111 0096 9104      		cpc r9,__zero_reg__
+ 2112 0098 01F4      		brne .L162
+ 2113               	.LVL208:
+ 2114               	.L153:
+ 2115               	.LSM302:
+ 2116 009a 8B2D      		mov r24,r11
+ 2117               	/* epilogue start */
+ 2118 009c 0F90      		pop __tmp_reg__
+ 2119 009e CF91      		pop r28
+ 2120 00a0 DF91      		pop r29
+ 2121 00a2 1F91      		pop r17
+ 2122 00a4 0F91      		pop r16
+ 2123 00a6 FF90      		pop r15
+ 2124 00a8 EF90      		pop r14
+ 2125               	.LVL209:
+ 2126 00aa DF90      		pop r13
+ 2127 00ac CF90      		pop r12
+ 2128 00ae BF90      		pop r11
+ 2129 00b0 9F90      		pop r9
+ 2130 00b2 8F90      		pop r8
+ 2131 00b4 0895      		ret
+ 2132               	.LVL210:
+ 2133               	.L165:
+ 2134               	.LSM303:
+ 2135 00b6 CC24      		clr r12
+ 2136 00b8 DD24      		clr r13
+ 2137               	.LVL211:
+ 2138               	.L160:
+ 2139               	.LSM304:
+ 2140 00ba 9801      		movw r18,r16
+ 2141 00bc 2C0D      		add r18,r12
+ 2142 00be 3D1D      		adc r19,r13
+ 2143               	.LBB255:
+ 2144               	.LBB251:
+ 2145               	.LSM305:
+ 2146 00c0 8091 A600 		lds r24,166
+ 2147               	.LBE251:
+ 2148               	.LBE255:
+ 2149               	.LSM306:
+ 2150 00c4 85FD      		sbrc r24,5
+ 2151 00c6 00C0      		rjmp .L159
+ 2152               	.LBB256:
+ 2153               	.LBB248:
+ 2154               	.LSM307:
+ 2155 00c8 8091 A600 		lds r24,166
+ 2156 00cc 8E77      		andi r24,lo8(126)
+ 2157 00ce 8093 A600 		sts 166,r24
+ 2158               	.LBE248:
+ 2159               	.LBE256:
+ 2160               	.LSM308:
+ 2161 00d2 F701      		movw r30,r14
+ 2162 00d4 8081      		ld r24,Z
+ 2163 00d6 9181      		ldd r25,Z+1
+ 2164 00d8 8C0D      		add r24,r12
+ 2165 00da 9D1D      		adc r25,r13
+ 2166 00dc 9183      		std Z+1,r25
+ 2167 00de 8083      		st Z,r24
+ 2168               	.LSM309:
+ 2169 00e0 A4E0      		ldi r26,lo8(4)
+ 2170 00e2 BA2E      		mov r11,r26
+ 2171               	.LVL212:
+ 2172 00e4 00C0      		rjmp .L153
+ 2173               	.LVL213:
+ 2174               	.L161:
+ 2175               	.LSM310:
+ 2176 00e6 B82E      		mov r11,r24
+ 2177 00e8 00C0      		rjmp .L153
+ 2178               	.LVL214:
+ 2179               	.L159:
+ 2180               	.LBB257:
+ 2181               	.LBB254:
+ 2182               	.LSM311:
+ 2183 00ea 6091 AF00 		lds r22,175
+ 2184               	.LBE254:
+ 2185               	.LBE257:
+ 2186               	.LSM312:
+ 2187 00ee C901      		movw r24,r18
+ 2188 00f0 0E94 0000 		call __eeupd_byte_usb1287
+ 2189               	.LSM313:
+ 2190 00f4 0894      		sec
+ 2191 00f6 C11C      		adc r12,__zero_reg__
+ 2192 00f8 D11C      		adc r13,__zero_reg__
+ 2193               	.LVL215:
+ 2194               	.LSM314:
+ 2195 00fa 8C14      		cp r8,r12
+ 2196 00fc 9D04      		cpc r9,r13
+ 2197 00fe 01F4      		brne .L160
+ 2198 0100 00C0      		rjmp .L153
+ 2199               	.LFE124:
+ 2201               		.section	.text.Pipe_Read_EStream_BE,"ax",@progbits
+ 2202               	.global	Pipe_Read_EStream_BE
+ 2204               	Pipe_Read_EStream_BE:
+ 2205               	.LFB125:
+ 2206               	.LSM315:
+ 2207               	.LVL216:
+ 2208 0000 BF92      		push r11
+ 2209 0002 CF92      		push r12
+ 2210 0004 DF92      		push r13
+ 2211 0006 EF92      		push r14
+ 2212 0008 FF92      		push r15
+ 2213 000a 0F93      		push r16
+ 2214 000c 1F93      		push r17
+ 2215 000e CF93      		push r28
+ 2216 0010 DF93      		push r29
+ 2217               	/* prologue: function */
+ 2218               	/* frame size = 0 */
+ 2219               	/* stack size = 9 */
+ 2220               	.L__stack_usage = 9
+ 2221 0012 6C01      		movw r12,r24
+ 2222 0014 EB01      		movw r28,r22
+ 2223 0016 7A01      		movw r14,r20
+ 2224               	.LVL217:
+ 2225               	.LBB258:
+ 2226               	.LBB259:
+ 2227               	.LSM316:
+ 2228 0018 8091 AA00 		lds r24,170
+ 2229               	.LVL218:
+ 2230 001c 8F7C      		andi r24,lo8(-49)
+ 2231 001e 8061      		ori r24,lo8(16)
+ 2232 0020 8093 AA00 		sts 170,r24
+ 2233               	.LBE259:
+ 2234               	.LBE258:
+ 2235               	.LSM317:
+ 2236 0024 0E94 0000 		call Pipe_WaitUntilReady
+ 2237               	.LVL219:
+ 2238 0028 B82E      		mov r11,r24
+ 2239               	.LVL220:
+ 2240 002a 8823      		tst r24
+ 2241 002c 01F4      		brne .L167
+ 2242               	.LSM318:
+ 2243 002e 8E01      		movw r16,r28
+ 2244 0030 0150      		subi r16,lo8(-(-1))
+ 2245 0032 1040      		sbci r17,hi8(-(-1))
+ 2246 0034 0C0D      		add r16,r12
+ 2247 0036 1D1D      		adc r17,r13
+ 2248               	.LSM319:
+ 2249 0038 E114      		cp r14,__zero_reg__
+ 2250 003a F104      		cpc r15,__zero_reg__
+ 2251 003c 01F0      		breq .L168
+ 2252               	.LSM320:
+ 2253 003e F701      		movw r30,r14
+ 2254 0040 8081      		ld r24,Z
+ 2255 0042 9181      		ldd r25,Z+1
+ 2256               	.LVL221:
+ 2257 0044 C81B      		sub r28,r24
+ 2258 0046 D90B      		sbc r29,r25
+ 2259               	.LVL222:
+ 2260               	.LSM321:
+ 2261 0048 081B      		sub r16,r24
+ 2262 004a 190B      		sbc r17,r25
+ 2263               	.LVL223:
+ 2264               	.L168:
+ 2265               	.LSM322:
+ 2266 004c 2097      		sbiw r28,0
+ 2267 004e 01F0      		breq .L167
+ 2268               	.LSM323:
+ 2269 0050 E114      		cp r14,__zero_reg__
+ 2270 0052 F104      		cpc r15,__zero_reg__
+ 2271 0054 01F0      		breq .L176
+ 2272 0056 00C0      		rjmp .L179
+ 2273               	.LVL224:
+ 2274               	.L170:
+ 2275               	.LBB260:
+ 2276               	.LBB261:
+ 2277               	.LSM324:
+ 2278 0058 8091 A600 		lds r24,166
+ 2279 005c 8E77      		andi r24,lo8(126)
+ 2280 005e 8093 A600 		sts 166,r24
+ 2281               	.LBE261:
+ 2282               	.LBE260:
+ 2283               	.LSM325:
+ 2284 0062 0E94 0000 		call Pipe_WaitUntilReady
+ 2285               	.LVL225:
+ 2286 0066 8823      		tst r24
+ 2287 0068 01F4      		brne .L175
+ 2288               	.LSM326:
+ 2289 006a 2097      		sbiw r28,0
+ 2290 006c 01F0      		breq .L167
+ 2291               	.LVL226:
+ 2292               	.L176:
+ 2293               	.LBB263:
+ 2294               	.LBB264:
+ 2295               	.LSM327:
+ 2296 006e 8091 A600 		lds r24,166
+ 2297               	.LBE264:
+ 2298               	.LBE263:
+ 2299               	.LSM328:
+ 2300 0072 85FF      		sbrs r24,5
+ 2301 0074 00C0      		rjmp .L170
+ 2302               	.LBB266:
+ 2303               	.LBB267:
+ 2304               	.LSM329:
+ 2305 0076 6091 AF00 		lds r22,175
+ 2306               	.LBE267:
+ 2307               	.LBE266:
+ 2308               	.LSM330:
+ 2309 007a C801      		movw r24,r16
+ 2310 007c 0E94 0000 		call __eeupd_byte_usb1287
+ 2311               	.LSM331:
+ 2312 0080 0150      		subi r16,lo8(-(-1))
+ 2313 0082 1040      		sbci r17,hi8(-(-1))
+ 2314               	.LVL227:
+ 2315               	.LSM332:
+ 2316 0084 2197      		sbiw r28,1
+ 2317               	.LVL228:
+ 2318               	.LSM333:
+ 2319 0086 01F4      		brne .L176
+ 2320               	.LVL229:
+ 2321               	.L167:
+ 2322               	.LSM334:
+ 2323 0088 8B2D      		mov r24,r11
+ 2324               	/* epilogue start */
+ 2325 008a DF91      		pop r29
+ 2326 008c CF91      		pop r28
+ 2327 008e 1F91      		pop r17
+ 2328 0090 0F91      		pop r16
+ 2329 0092 FF90      		pop r15
+ 2330 0094 EF90      		pop r14
+ 2331               	.LVL230:
+ 2332 0096 DF90      		pop r13
+ 2333 0098 CF90      		pop r12
+ 2334 009a BF90      		pop r11
+ 2335 009c 0895      		ret
+ 2336               	.LVL231:
+ 2337               	.L179:
+ 2338               	.LSM335:
+ 2339 009e CC24      		clr r12
+ 2340 00a0 DD24      		clr r13
+ 2341               	.LVL232:
+ 2342               	.L174:
+ 2343               	.LSM336:
+ 2344 00a2 9801      		movw r18,r16
+ 2345 00a4 2C19      		sub r18,r12
+ 2346 00a6 3D09      		sbc r19,r13
+ 2347               	.LBB269:
+ 2348               	.LBB265:
+ 2349               	.LSM337:
+ 2350 00a8 8091 A600 		lds r24,166
+ 2351               	.LBE265:
+ 2352               	.LBE269:
+ 2353               	.LSM338:
+ 2354 00ac 85FD      		sbrc r24,5
+ 2355 00ae 00C0      		rjmp .L173
+ 2356               	.LBB270:
+ 2357               	.LBB262:
+ 2358               	.LSM339:
+ 2359 00b0 8091 A600 		lds r24,166
+ 2360 00b4 8E77      		andi r24,lo8(126)
+ 2361 00b6 8093 A600 		sts 166,r24
+ 2362               	.LBE262:
+ 2363               	.LBE270:
+ 2364               	.LSM340:
+ 2365 00ba F701      		movw r30,r14
+ 2366 00bc 8081      		ld r24,Z
+ 2367 00be 9181      		ldd r25,Z+1
+ 2368 00c0 8C0D      		add r24,r12
+ 2369 00c2 9D1D      		adc r25,r13
+ 2370 00c4 9183      		std Z+1,r25
+ 2371 00c6 8083      		st Z,r24
+ 2372               	.LSM341:
+ 2373 00c8 B4E0      		ldi r27,lo8(4)
+ 2374 00ca BB2E      		mov r11,r27
+ 2375               	.LVL233:
+ 2376 00cc 00C0      		rjmp .L167
+ 2377               	.LVL234:
+ 2378               	.L175:
+ 2379               	.LSM342:
+ 2380 00ce B82E      		mov r11,r24
+ 2381 00d0 00C0      		rjmp .L167
+ 2382               	.LVL235:
+ 2383               	.L173:
+ 2384               	.LBB271:
+ 2385               	.LBB268:
+ 2386               	.LSM343:
+ 2387 00d2 6091 AF00 		lds r22,175
+ 2388               	.LBE268:
+ 2389               	.LBE271:
+ 2390               	.LSM344:
+ 2391 00d6 C901      		movw r24,r18
+ 2392 00d8 0E94 0000 		call __eeupd_byte_usb1287
+ 2393               	.LSM345:
+ 2394 00dc 0894      		sec
+ 2395 00de C11C      		adc r12,__zero_reg__
+ 2396 00e0 D11C      		adc r13,__zero_reg__
+ 2397               	.LVL236:
+ 2398               	.LSM346:
+ 2399 00e2 CC15      		cp r28,r12
+ 2400 00e4 DD05      		cpc r29,r13
+ 2401 00e6 01F4      		brne .L174
+ 2402 00e8 00C0      		rjmp .L167
+ 2403               	.LFE125:
+ 2517               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 PipeStream_AVR8.c
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:2      *ABS*:0000003f __SREG__
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:3      *ABS*:0000003e __SP_H__
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:4      *ABS*:0000003d __SP_L__
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:5      *ABS*:00000034 __CCP__
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:19     .text.Pipe_Discard_Stream:00000000 Pipe_Discard_Stream
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:191    .text.Pipe_Null_Stream:00000000 Pipe_Null_Stream
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:365    .text.Pipe_Write_Stream_LE:00000000 Pipe_Write_Stream_LE
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:565    .text.Pipe_Write_Stream_BE:00000000 Pipe_Write_Stream_BE
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:761    .text.Pipe_Read_Stream_LE:00000000 Pipe_Read_Stream_LE
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:959    .text.Pipe_Read_Stream_BE:00000000 Pipe_Read_Stream_BE
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:1153   .text.Pipe_Write_PStream_LE:00000000 Pipe_Write_PStream_LE
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:1369   .text.Pipe_Write_PStream_BE:00000000 Pipe_Write_PStream_BE
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:1580   .text.Pipe_Write_EStream_LE:00000000 Pipe_Write_EStream_LE
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:1789   .text.Pipe_Write_EStream_BE:00000000 Pipe_Write_EStream_BE
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:1988   .text.Pipe_Read_EStream_LE:00000000 Pipe_Read_EStream_LE
+C:\Users\david\AppData\Local\Temp\cctnarmh.s:2204   .text.Pipe_Read_EStream_BE:00000000 Pipe_Read_EStream_BE
+
+UNDEFINED SYMBOLS
+Pipe_WaitUntilReady
+USB_USBTask
+__eerd_byte_usb1287
+__eeupd_byte_usb1287
