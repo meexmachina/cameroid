@@ -349,6 +349,7 @@ public class generalTabPanelActivity extends Activity
 				mActivated[i] = false;
 			}
 		}
+		updateControlWidgets();
 	}
 	
 	public void setMainClassHandlerObject (Handler handler)

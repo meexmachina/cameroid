@@ -330,6 +330,7 @@ public class mainPanelActivity extends TabActivity
 					mActionBar.setTitle("Connected: " + mCameraControl.mDeviceInfo.manufacturer + " " + mCameraControl.mDeviceInfo.model);
 					ArrayList<controlType> list = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).getCurrentActiveProperties();
 					mCameraControl.setActivePropertyEvents(list);
+					
 				} else
 				{
 					mActionBar.setTitle("Camera is disconnected.");
