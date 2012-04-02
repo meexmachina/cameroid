@@ -1,6 +1,8 @@
 package widget;
 
 import java.text.DecimalFormat;
+import java.util.Vector;
+
 import ptp.DevicePropDesc;
 import afarsek.namespace.R;
 import android.content.Context;
@@ -202,10 +204,34 @@ public class CameraControlData
 		return mAvailable;
 	}
 
+	public static String[] createProperyEnumList(controlType type, Vector<?> enumeration)
+	{
+		String[] st = new String[enumeration.size()];
+		for (int i = 0; i < enumeration.size(); i++)
+		{
+			int curVal = Integer.parseInt(enumeration.get(i).toString());
+			st[i] = convertRawValue(type, curVal);
+		}
+		return st;
+	}
+
+	public static String[] createPropertyRangeList(controlType type, DevicePropDesc.Range range)
+	{
+		int start = Integer.parseInt(range.getMinimum().toString());
+		int stop = Integer.parseInt(range.getMaximum().toString());
+		int step = Integer.parseInt(range.getMinimum().toString());
+		String[] st = new String[(stop - start) / step + 1];
+		for (int i = start; i <= stop; i += step)
+		{
+			st[i] = convertRawValue(type, i);
+		}
+		return st;
+	}
+
 	public static String convertRawValue(controlType type, int val)
 	{
 		String mActualText = "";
-		
+
 		if (val == -1) // N/A
 		{
 			mActualText = "N/A";
@@ -368,19 +394,19 @@ public class CameraControlData
 		{
 		// ISO SPEED
 		case controlType_ISO:
-		// BATTERY LEVEL
+			// BATTERY LEVEL
 		case controlType_Battery:
-		// FOCUS MODE
+			// FOCUS MODE
 		case controlType_FocusMode:
-		// FOCAL LENGTH
+			// FOCAL LENGTH
 		case controlType_FocalLength:
-		// APERTURE
+			// APERTURE
 		case controlType_Aperture:
-		// SHUTTER SPEED
+			// SHUTTER SPEED
 		case controlType_Shutter:
-		// FOCUS DISTANCE
+			// FOCUS DISTANCE
 		case controlType_FocusDistance:
-			mActualText=convertRawValue(mType, val);
+			mActualText = convertRawValue(mType, val);
 			break;
 
 		// WHITE BALANCE
