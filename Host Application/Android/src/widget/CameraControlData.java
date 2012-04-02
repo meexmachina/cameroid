@@ -75,31 +75,31 @@ public class CameraControlData
 				initReadOnly = false;
 				break;
 			}
-			
+
 			initAvailable = true;
 			initActive = true;
 		}
-		
-		public int getInitialValue ()
+
+		public int getInitialValue()
 		{
 			return initValue;
 		}
 
-		public boolean getInitialReadOnly ()
+		public boolean getInitialReadOnly()
 		{
 			return initReadOnly;
 		}
-		
-		public boolean getInitialAvailable ()
+
+		public boolean getInitialAvailable()
 		{
 			return initAvailable;
 		}
 
-		public boolean getInitialActive ()
+		public boolean getInitialActive()
 		{
 			return initActive;
 		}
-		
+
 		public int getCode()
 		{
 			return propCode;
@@ -202,21 +202,17 @@ public class CameraControlData
 		return mAvailable;
 	}
 
-	/**************************************************************************************************
-	 * setControlValue - This method gets the value in terms of the controlled camera and translates its value to understandable
-	 * representation. Then fills in the appropriate variables (icon and text ans stuff)
-	 */
-	public void setControlValue(int val)
+	public static String convertRawValue(controlType type, int val)
 	{
-		mVal = val;
-
+		String mActualText = "";
+		
 		if (val == -1) // N/A
 		{
 			mActualText = "N/A";
-			return;
+			return mActualText;
 		}
 
-		switch (mType)
+		switch (type)
 		{
 
 		// FOCUS MODE
@@ -260,7 +256,7 @@ public class CameraControlData
 				DecimalFormat zeroDForm = new DecimalFormat("#");
 				double fScaled = val;
 				Double closeVal;
-				if (fScaled!=0)
+				if (fScaled != 0)
 					closeVal = Double.valueOf(zeroDForm.format(10000.0 / fScaled));
 				else
 					closeVal = 0.0;
@@ -272,6 +268,119 @@ public class CameraControlData
 		// FOCUS DISTANCE
 		case controlType_FocusDistance:
 			mActualText = String.valueOf(val);
+			break;
+
+		// WHITE BALANCE
+		case controlType_WB:
+			mActualText = "";
+			switch (val)
+			{
+			case 0x0001: // manual K
+				mActualText = "Manual K";
+				break;
+			case 0x0002: // Auto
+				mActualText = "Auto WB";
+				break;
+			case 0x0003: // One-Push auto
+				mActualText = "Single Auto WB";
+				break;
+			case 0x0004: // Daylight
+				mActualText = "Daylight";
+				break;
+			case 0x0005: // Fluorescent
+				mActualText = "Fluorescence";
+				break;
+			case 0x0006: // Tungsten
+				mActualText = "Tungsten";
+				break;
+			case 0x0007: // Flash
+				mActualText = "Flash";
+				break;
+			default:
+				mActualText = "Auto WB";
+			}
+			break;
+
+		// ISO SPEED
+		case controlType_ISO:
+			if (val == 0xFFFF)
+			{
+				mActualText = "AUTO";
+			} else
+			{
+				mActualText = String.valueOf(val);
+			}
+			break;
+
+		// BATTERY LEVEL
+		case controlType_Battery:
+			mActualText = String.valueOf(val);
+			break;
+
+		// FLASH MODE
+		case controlType_Flash:
+			mActualText = "";
+			switch (val)
+			{
+			case 0x0001: // auto flash
+				mActualText = "Auto Flash";
+				break;
+			case 0x0002: // Flash off
+				mActualText = "Flash Off";
+				break;
+			case 0x0003: // Fill flash
+				mActualText = "Fill Flash";
+				break;
+			case 0x0004: // Red eye auto
+				mActualText = "Red-Eye Auto";
+				break;
+			case 0x0005: // Red eye fill
+				mActualText = "Red-Eye Fill";
+				break;
+			case 0x0006: // External Sync
+				mActualText = "External Sync";
+				break;
+			default:
+				mActualText = "Auto Flash";
+			}
+			break;
+
+		default:
+		}
+		return mActualText;
+	}
+
+	/**************************************************************************************************
+	 * setControlValue - This method gets the value in terms of the controlled camera and translates its value to understandable
+	 * representation. Then fills in the appropriate variables (icon and text ans stuff)
+	 */
+	public void setControlValue(int val)
+	{
+		mVal = val;
+
+		if (val == -1) // N/A
+		{
+			mActualText = "N/A";
+			return;
+		}
+
+		switch (mType)
+		{
+		// ISO SPEED
+		case controlType_ISO:
+		// BATTERY LEVEL
+		case controlType_Battery:
+		// FOCUS MODE
+		case controlType_FocusMode:
+		// FOCAL LENGTH
+		case controlType_FocalLength:
+		// APERTURE
+		case controlType_Aperture:
+		// SHUTTER SPEED
+		case controlType_Shutter:
+		// FOCUS DISTANCE
+		case controlType_FocusDistance:
+			mActualText=convertRawValue(mType, val);
 			break;
 
 		// WHITE BALANCE
@@ -303,22 +412,6 @@ public class CameraControlData
 			default:
 				mValueBackground = mContext.getResources().getDrawable(R.drawable.ic_widget_wb_auto);
 			}
-			break;
-
-		// ISO SPEED
-		case controlType_ISO:
-			if (val == 0xFFFF)
-			{
-				mActualText = "AUTO";
-			} else
-			{
-				mActualText = String.valueOf(val);
-			}
-			break;
-
-		// BATTERY LEVEL
-		case controlType_Battery:
-			mActualText = String.valueOf(val);
 			break;
 
 		// FLASH MODE

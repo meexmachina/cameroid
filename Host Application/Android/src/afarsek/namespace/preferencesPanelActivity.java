@@ -35,6 +35,13 @@ public class preferencesPanelActivity extends Activity
 		mAvailablePropertyCount = recBundle.getInt("AvailablePropertiesCount");
 		String[] mItemStrings = new String[mAvailablePropertyCount];
 
+		if (mAvailablePropertyCount == 0)
+		{
+			mItemStrings[0] = "No properties are available!";
+			mListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mItemStrings);
+			return;
+		}
+		
 		mListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, mItemStrings);
 
 		// Set option as Multiple Choice. So that user can able to select more the one option from list
@@ -47,6 +54,7 @@ public class preferencesPanelActivity extends Activity
 			mItemStrings[i] = type.toString();
 			mListView.setItemChecked(i, mActiveProperties[i]);
 		}
+		
 
 		// When item is tapped, toggle checked properties of CheckBox
 		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
