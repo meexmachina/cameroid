@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ public class preferencesPanelActivity extends Activity
 	public void onCreate(Bundle icicle)
 	{
 		super.onCreate(icicle);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.preferences_panel);
 		mLayout = (LinearLayout) findViewById(R.id.preferences_panel_layout);
 		mListView = (ListView) mLayout.findViewById(R.id.property_list_view);
