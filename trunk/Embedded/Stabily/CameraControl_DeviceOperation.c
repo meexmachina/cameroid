@@ -249,5 +249,5 @@ uint16_t CameraControl_DeviceOperation_SetPropertyValBin ( USB_ClassInfo_SI_Host
 	// Receive the final response block from the device 
 	CameraControl_GetResponseAndCheck (SIInterfaceInfo, &PIMABlock);
 
-	return 0;			
-}														
+	return 0;
+}
