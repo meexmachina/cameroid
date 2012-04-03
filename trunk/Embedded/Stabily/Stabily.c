@@ -35,30 +35,7 @@ int main(void)
 	sei();
 
 	for (;;)
-	{
-		// Event timing counters
-		g_iEventCurrentCount++;
-		if (g_iEventCurrentCount&((((uint16_t)(1))<<9)))		// every 512 counts
-		{
-			g_iSlowEventCount++;
-			if (g_iSlowEventCount==3)
-			{
-				g_iSlowEventCount=0;
-				// perform slow update which contains also the fast updates
-				g_iCurrentPropEventVector = g_iPropEventVector;
-				
-			}
-			else
-			{
-				g_iCurrentPropEventVector = g_iPropEventFastMode;
-				// perform only the fast updates
-			}
-		}
-		else
-		{
-			g_iCurrentPropEventVector = 0;
-		}
-		
+	{		
 		TP_SendEvent (  );
 		//Stabily_ShellRX ( );
 		TP_GetIncomingCommand (  );		
@@ -67,12 +44,13 @@ int main(void)
 		SI_Host_USBTask(&DigitalCamera_SI_Interface);
 		USB_USBTask(  );
 		TP_CollectEvents (  );
-		TP_CheckPropertyEvents (  );
+		Stabily_PropertyValueEvent (  );
 	}
 }
 
 /*********************************************************************************************************************
- *  Configures the board hardware and chip peripherals for the demo's functionality. */
+ *  Configures the board hardware and chip peripherals for the demo's functionality.
+ */
 void Stabily_SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
@@ -89,3 +67,33 @@ void Stabily_SetupHardware(void)
 	USB_Init();
 }
 
+/*********************************************************************************************************************
+ * Check property value updating timing 
+ */
+void Stabily_PropertyValueEvent ( void )
+{
+	// Event timing counters
+	g_iEventCurrentCount++;
+	if (g_iEventCurrentCount&((((uint16_t)(1))<<9)))		// every 512 counts
+	{
+		g_iSlowEventCount++;
+		if (g_iSlowEventCount==3)
+		{
+			g_iSlowEventCount=0;
+			// perform slow update which contains also the fast updates
+			g_iCurrentPropEventVector = g_iPropEventVector;
+			TP_CheckPropertyEvents (  );				
+		}
+		else
+		{
+			g_iCurrentPropEventVector = g_iPropEventFastMode;
+			// perform only the fast updates
+			TP_CheckPropertyEvents (  );
+		}
+	}
+	else
+	{
+		g_iCurrentPropEventVector = 0;
+	}
+
+}

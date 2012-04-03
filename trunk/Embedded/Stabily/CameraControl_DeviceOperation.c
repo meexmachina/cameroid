@@ -212,3 +212,42 @@ uint16_t CameraControl_GetPropertyVal32Bit	( USB_ClassInfo_SI_Host_t* SIInterfac
 
 	return 0;								
 }
+
+/*------------------------------------------------------------------------------
+ * CameraControl_DeviceOperation_SetPropertyValBin
+ */
+uint16_t CameraControl_DeviceOperation_SetPropertyValBin ( USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
+												 		   PTP_DEVPROPERTY_EN enPropertyType, uint32_t val )
+{
+	uint16_t 	SentDataSize;
+	uint8_t 	ErrorCode = 0;
+	uint8_t		*SentData = ((uint8_t*)((void*)(&val)));
+
+	CHECK_CAMERA_CONNECTION;
+	
+	SIInterfaceInfo->State.TransactionID = 0;
+
+	// Set the size (in bytes) of the device property val
+	if (enPropertyType==TP_PROPERTY_EVENT_ExposureTime||enPropertyType==TP_PROPERTY_EVENT_FocalLength)	// 32bit
+		SentDataSize = 4;
+	else SentDataSize = 2;		// 16 bits
+
+
+	// Create PIMA message block
+	PIMA_Container_t PIMABlock = (PIMA_Container_t)
+		{
+			.DataLength    = CPU_TO_LE32(PIMA_COMMAND_SIZE(1)+SentDataSize),
+			.Type          = CPU_TO_LE16(PIMA_CONTAINER_CommandBlock),
+			.Code          = CPU_TO_LE16(PTP_OC_SetDevicePropValue),
+			.TransactionID = CPU_TO_LE32(0x00000000),
+			.Params        = {enPropertyType},
+		};
+
+	ErrorCode = CameraControl_InitiateTransaction ( SIInterfaceInfo, &PIMABlock );
+	SI_Host_ReadData(SIInterfaceInfo, SentData, SentDataSize);
+
+	// Receive the final response block from the device 
+	CameraControl_GetResponseAndCheck (SIInterfaceInfo, &PIMABlock);
+
+	return 0;			
+}														

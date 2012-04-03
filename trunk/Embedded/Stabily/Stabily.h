@@ -26,6 +26,7 @@ extern volatile uint32_t g_USBEventArgument[8];
 /* Function Prototypes: */
 void Stabily_SetupHardware(void);
 void Stabily_Task(void);
+void Stabily_PropertyValueEvent ( void );
 
 void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 void EVENT_USB_Host_DeviceAttached(void);
