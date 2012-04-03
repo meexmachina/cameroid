@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/camera_control_item_layout"
-    android:layout_width="wrap_content"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="#ffffffff"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
     <ImageView
-        android:id="@+id/control_symbol"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center|clip_horizontal"
-        android:src="@drawable/ic_widget_aperture" />
+            android:id="@+id/control_symbol"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/ic_widget_aperture" />
 
     <RelativeLayout
         android:id="@+id/value_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_widget_bottom"
         android:gravity="center|clip_horizontal"
         android:orientation="vertical" >
 
+        <ImageView
+            android:id="@+id/control_value_background"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/ic_widget_bottom" />
+        
         <TextView
             android:id="@+id/control_value"
             android:layout_width="fill_parent"

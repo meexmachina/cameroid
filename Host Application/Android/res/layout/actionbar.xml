@@ -98,7 +98,8 @@
             <widget.ScrollingTextView
                 android:id="@+id/actionbar_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@id/actionbar_progress"
                 android:ellipsize="marquee"
@@ -108,7 +109,7 @@
                 android:paddingRight="10dip"
                 android:scrollHorizontally="true"
                 android:textColor="@color/actionbar_title"
-                android:textSize="16dip"
+                android:textSize="20dip"
                 android:textStyle="bold" />
         </RelativeLayout>
     </RelativeLayout>

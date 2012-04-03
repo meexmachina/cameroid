@@ -62,8 +62,9 @@ public class CameraControlAdapter extends BaseAdapter
 		RelativeLayout secLayout = (RelativeLayout) gridView.findViewById(R.id.value_layout);
 		TextView textView = (TextView) secLayout.findViewById(R.id.control_value);
 		textView.setText(mControledList.get(position).getText());
-
-		secLayout.setBackgroundDrawable(mControledList.get(position).getValueBackground());
+		
+		ImageView mValueBottomView = (ImageView) secLayout.findViewById(R.id.control_value_background);
+		mValueBottomView.setImageDrawable (mControledList.get(position).getValueBackground());
 
 		return gridView;
 	}

@@ -109,6 +109,19 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name=".propertyValueSelectionActivity"
+            android:configChanges="orientation"
+            android:label="@string/no_title"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="afarsek.namespace.PROPERTYVALUESELECTIONACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
     </application>
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
