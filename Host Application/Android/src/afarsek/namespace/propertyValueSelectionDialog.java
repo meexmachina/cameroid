@@ -7,19 +7,23 @@ import widget.CameraControlData;
 import widget.CameraControlData.controlType;
 import afarsek.namespace.aboutCameraActivity.CameraPropertyArrayAdapter;
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class propertyValueSelectionActivity extends Activity
+public class propertyValueSelectionDialog extends Dialog implements android.view.View.OnClickListener
 {
 	private Handler mGeneralPanelHandler;
 	private DevicePropDesc mProp;
@@ -32,6 +36,7 @@ public class propertyValueSelectionActivity extends Activity
 	private TextView mCurrentValue;
 	private TextView mPropertyName;
 	private ImageView mPropertyIcon;
+	private LinearLayout mTouchPad;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -53,16 +58,28 @@ public class propertyValueSelectionActivity extends Activity
 		mCurrentValue = (TextView) findViewById(R.id.property_cur_value);
 		mPropertyName = (TextView) findViewById(R.id.property_text);
 		mPropertyIcon = (ImageView) findViewById(R.id.property_icon);
+		mTouchPad = (LinearLayout) findViewById(R.id.property_value_touchpad);
 		mPropertyName.setText(mType.toString());
 
 		
 		if (mRange != null)
 		{
 			mListView.setVisibility(View.GONE);
+			mTouchPad.setVisibility(View.VISIBLE);
 			DisplayMetrics metrics = new DisplayMetrics();
 			getWindowManager().getDefaultDisplay().getMetrics(metrics);
-			int height = metrics.heightPixels;
+			int height = metrics.heightPixels/2;
+			mTouchPad.setLayoutParams(new ViewGroup.LayoutParams(-1, height) );
 			
+			mTouchPad.setOnTouchListener(new View.OnTouchListener()
+			{
+				public boolean onTouch(View v, MotionEvent event)
+				{
+					
+					// TODO Auto-generated method stub
+					return false;
+				}
+			});
 			
 		} else if (mEnumeration != null)
 		{
@@ -71,6 +88,7 @@ public class propertyValueSelectionActivity extends Activity
 			mListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mListItems);
 			mListView.setAdapter(mListAdapter);
 			mListView.setVisibility(View.VISIBLE);
+			mTouchPad.setVisibility(View.GONE);
 			
 			// When item is tapped, toggle checked properties of CheckBox
 			mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()

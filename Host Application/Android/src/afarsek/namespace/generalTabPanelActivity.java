@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.Toast;
 import android.view.ContextMenu;
@@ -38,7 +39,7 @@ public class generalTabPanelActivity extends Activity
 	private boolean[] mReadOnly = new boolean[controlType.values().length];
 	private boolean[] mActivated = new boolean[controlType.values().length];
 	private boolean[] mAvailable = new boolean[controlType.values().length];
-	private DevicePropDesc.Range[] mRanges = new DevicePropDesc.Range[controlType.values().length];
+	private DevicePropDesc[] mPropertyDescs = new DevicePropDesc[mTypes.length];
 
 	// private Vector<Object>[] mEnumerations = new Vector<Object>[controlType.values().length];
 
@@ -59,6 +60,7 @@ public class generalTabPanelActivity extends Activity
 			mReadOnly[i] = mTypes[i].getInitialReadOnly();
 			mActivated[i] = mTypes[i].getInitialActive();
 			mAvailable[i] = mTypes[i].getInitialAvailable();
+			mPropertyDescs[i] = null;
 		}
 
 		mControledList = new ArrayList<CameraControlData>();
@@ -68,6 +70,15 @@ public class generalTabPanelActivity extends Activity
 		mControlGridView.setAdapter(mCameraControlAdapter);
 
 		registerForContextMenu(mControlGridView);
+		mControlGridView.setOnItemClickListener(new OnItemClickListener()
+		{
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+			{
+				Intent propertyValuePanel = new Intent("afarsek.namespace.PROPERTYVALUESELECTIONACTIVITY");
+				Bundle extras = new Bundle();
+				startActivityForResult(propertyValuePanel, 0);
+			}
+		});
 
 		updateControlWidgets();
 	}
@@ -235,8 +246,8 @@ public class generalTabPanelActivity extends Activity
 				mCurrentValues[i] = Integer.parseInt(prop.getValue().toString());
 				mReadOnly[i] = !prop.writable;
 				value = mCurrentValues[i];
-				mRanges[i] = prop.getRange();
-
+					
+				mPropertyDescs[type.ordinal()] = prop;
 				// if (mRanges[i]==null)
 				// Vector
 			}
@@ -320,11 +331,6 @@ public class generalTabPanelActivity extends Activity
 	public boolean getAvailable(controlType type)
 	{
 		return mAvailable[type.ordinal()];
-	}
-
-	public DevicePropDesc.Range getRange(controlType type)
-	{
-		return mRanges[type.ordinal()];
 	}
 
 	public void setDeviceInfo(DeviceInfo info)
