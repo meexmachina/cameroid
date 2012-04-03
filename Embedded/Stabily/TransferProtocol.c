@@ -114,7 +114,9 @@ void TP_RespondTo (volatile TP_Incoming_Command_ST* command)
 		break;
 		
 		case TP_COMMAND_SET_PROP_VAL:	
-			
+			CameraControl_OpenSession( &DigitalCamera_SI_Interface );
+			CameraControl_DeviceOperation_SetPropertyValBin (&DigitalCamera_SI_Interface, command->arg1, command->arg2 );
+			CameraControl_CloseSession( &DigitalCamera_SI_Interface );
 		break;
 		
 		case TP_COMMAND_SET_PROP_UPDATE:
