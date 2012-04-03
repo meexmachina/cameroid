@@ -16,9 +16,9 @@
 -->
 <resources>
 
-    <dimen name="actionbar_height">45dip</dimen>
-    <dimen name="actionbar_item_height">45dip</dimen>
-    <dimen name="actionbar_item_width">45dip</dimen>
+    <dimen name="actionbar_height">50dip</dimen>
+    <dimen name="actionbar_item_height">50dip</dimen>
+    <dimen name="actionbar_item_width">50dip</dimen>
     <dimen name="corner_radius">8dp</dimen>
     <dimen name="tab_space_top">4dp</dimen>
     <dimen name="tab_space">0dp</dimen>

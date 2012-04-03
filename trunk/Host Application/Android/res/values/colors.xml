@@ -22,8 +22,8 @@
     <color name="actionbar_background_end">#CDCDCD</color>
     <color name="actionbar_background_item_pressed_start">#FF7F7F</color>
     <color name="actionbar_background_item_pressed_end">#EEEEEE</color>
-    <color name="tabMedium">#2B2B2B</color>
-    <color name="tabDark">#000000</color>
+    <color name="tabMedium">#5B5B5B</color>
+    <color name="tabDark">#2B2B2B</color>
     <color name="tabTransparent">#10ffffff</color>
     <color name="widgetText">#ffffff</color>
 

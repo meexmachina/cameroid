@@ -18,15 +18,15 @@
 
     <style name="ActionBar">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">45dip</item>
+        <item name="android:layout_height">50dip</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:background">@drawable/actionbar_background</item>
     </style>
 
     <style name="ActionBarItem">
-        <item name="android:layout_width">45dip</item>
-        <item name="android:layout_height">45dip</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:layout_width">50dip</item>
+        <item name="android:layout_height">50dip</item>
+        <item name="android:padding">5dip</item>
         <item name="android:layout_marginLeft">1px</item>
     </style>
 
