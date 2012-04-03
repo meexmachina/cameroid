@@ -55,6 +55,7 @@
         </ListView>
 
         <LinearLayout
+            android:id="@+id/property_value_touchpad"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent" >
         </LinearLayout>
