@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,7 +39,8 @@ public class generalTabPanelActivity extends Activity
 	private boolean[] mActivated = new boolean[controlType.values().length];
 	private boolean[] mAvailable = new boolean[controlType.values().length];
 	private DevicePropDesc.Range[] mRanges = new DevicePropDesc.Range[controlType.values().length];
-	//private Vector<Object>[] mEnumerations = new Vector<Object>[controlType.values().length];
+
+	// private Vector<Object>[] mEnumerations = new Vector<Object>[controlType.values().length];
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -218,31 +220,31 @@ public class generalTabPanelActivity extends Activity
 			}
 		}
 	}
-	
+
 	public void updateControlWidgetData(controlType type, DevicePropDesc prop)
 	{
 		int value = 0;
 		boolean found = false;
-		
+
 		for (int i = 0; i < mTypes.length; i++)
 		{
 			if (mTypes[i] == type)
 			{
 				found = true;
-				
+
 				mCurrentValues[i] = Integer.parseInt(prop.getValue().toString());
 				mReadOnly[i] = !prop.writable;
 				value = mCurrentValues[i];
 				mRanges[i] = prop.getRange();
-				
-//				if (mRanges[i]==null)
-	//				Vector
+
+				// if (mRanges[i]==null)
+				// Vector
 			}
 		}
-		
+
 		if (found == false)
 			return;
-		
+
 		for (int i = 0; i < mControledList.size(); i++)
 		{
 			if (mControledList.get(i).getType() == type)
@@ -251,26 +253,26 @@ public class generalTabPanelActivity extends Activity
 				mCameraControlAdapter.notifyDataSetChanged();
 			}
 		}
-		
+
 	}
 
 	public CameraControlAdapter getListAdapter()
 	{
 		return mCameraControlAdapter;
 	}
-	
-	public ArrayList<controlType> getCurrentActiveProperties ()
+
+	public ArrayList<controlType> getCurrentActiveProperties()
 	{
 		ArrayList<controlType> list = new ArrayList<controlType>();
-		
-		for (int i=0; i<mTypes.length; i++)
+
+		for (int i = 0; i < mTypes.length; i++)
 		{
-			if (getActivated(mTypes[i]) && getAvailable(mTypes[i]) )
+			if (getActivated(mTypes[i]) && getAvailable(mTypes[i]))
 			{
 				list.add(mTypes[i]);
 			}
 		}
-		return list;	
+		return list;
 	}
 
 	public void setWidgetState(int[] availableProperties, boolean[] activeProperties, int availablePropertyCount)
@@ -351,10 +353,33 @@ public class generalTabPanelActivity extends Activity
 		}
 		updateControlWidgets();
 	}
-	
-	public void setMainClassHandlerObject (Handler handler)
+
+	public void setMainClassHandlerObject(Handler handler)
 	{
 		mMainPanelHandler = handler;
 	}
+
+	// The Handler that gets information back from the hardwareFacade
+	private final Handler mPropertyChangeHandler = new Handler()
+	{
+		@Override
+		public void handleMessage(Message msg)
+		{
+			switch (msg.what)
+			{
+
+			// THE STATE WAS CHANGED
+			case messageDefinitions.MESSAGE_STATE_CHANGE:
+				switch (msg.arg1)
+				{
+				case hardwareFacade.STATE_CONNECTED:
+					break;
+				case hardwareFacade.STATE_CONNECTING:
+					break;
+				}
+				break;
+			}
+		}
+	};
 
 }
