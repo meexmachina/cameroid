@@ -125,7 +125,7 @@ public class CameraControlData
 				}
 			}
 
-			return types[0];
+			return null;
 		}
 	};
 
@@ -209,7 +209,7 @@ public class CameraControlData
 		String[] st = new String[enumeration.size()];
 		for (int i = 0; i < enumeration.size(); i++)
 		{
-			int curVal = Integer.parseInt(enumeration.get(i).toString());
+			int curVal = Integer.valueOf(enumeration.get(i).toString());
 			st[i] = convertRawValue(type, curVal);
 		}
 		return st;

@@ -8,6 +8,7 @@ import widget.CameraControlData;
 import widget.CameraControlData.controlType;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,6 +34,7 @@ public class generalTabPanelActivity extends Activity
 	private Handler mMainPanelHandler;
 	private CameraControlAdapter mCameraControlAdapter;
 	private ArrayList<CameraControlData> mControledList;
+	private Context mContext;
 
 	private controlType[] mTypes = controlType.values();
 	private int[] mCurrentValues = new int[controlType.values().length];
@@ -49,6 +51,7 @@ public class generalTabPanelActivity extends Activity
 		Log.d("General Activity", "Created a new 'generalTabPanelActivity'");
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		mContext = this;
 
 		// Setup the window
 		setContentView(R.layout.general_tab_panel);
@@ -72,11 +75,19 @@ public class generalTabPanelActivity extends Activity
 		registerForContextMenu(mControlGridView);
 		mControlGridView.setOnItemClickListener(new OnItemClickListener()
 		{
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+			public void onItemClick(AdapterView<?> gridView, View view, int pos, long id)
 			{
-				Intent propertyValuePanel = new Intent("afarsek.namespace.PROPERTYVALUESELECTIONACTIVITY");
-				Bundle extras = new Bundle();
-				startActivityForResult(propertyValuePanel, 0);
+				if (mPropertyDescs[pos]==null)
+					return;
+				
+				if (mPropertyDescs[pos].writable==false)
+				{
+					Toast.makeText(getApplicationContext(), "This property '" + controlType.getTypeFromCode(mPropertyDescs[pos].propertyCode).toString() + "' is read-only.", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				
+				propertyValueSelectionDialog dialog = new propertyValueSelectionDialog(mContext, mPropertyDescs[pos], mPropertyChangeHandler, 160);
+				dialog.show();
 			}
 		});
 
