@@ -553,7 +553,7 @@ public class hardwareFacade
 		public void run()
 		{
 			Log.i(TAG, "BEGIN mConnectedThread");
-			byte[] buffer = new byte[4096];
+			byte[] buffer = new byte[8192];
 			int byteCount = 0;
 			int iState = CT_STATE_GETTING_MSG_HEADER;
 			int iRemainingtoGet = CT_LENGTH_MSG_HEADER;

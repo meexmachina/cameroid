@@ -40,6 +40,7 @@ public class mainPanelActivity extends TabActivity
 	private int mCurrentTab = 1;
 	private Timer mStatusTimer;
 	private LocalActivityManager mLocalActivityManager = null;
+	private int mCurrentUpdatingProperty = 0;
 
 	// Constants
 	public static final String EXTRA_DEVICE_ADDRESS = "device_address";
@@ -100,29 +101,6 @@ public class mainPanelActivity extends TabActivity
 
 	}
 
-	/**************************************************************************************************
-	 * Timer task which obtains the the current camera connection state
-	 */
-	class StatusTask extends TimerTask
-	{
-		public void run()
-		{
-			if (mCameraControl == null)
-				return;
-
-			if (mCameraControl.mCameraAttached == 0)
-				return;
-
-			// if (mTabHost.getCurrentTab() == 1) // if we are in the general tab
-			// {
-			// ArrayList<controlType> list = ((generalTabPanelActivity)
-			// (mLocalActivityManager.getCurrentActivity())).getCurrentActiveProperties();
-			// mCurrentlyUpdatingProperty = (mCurrentlyUpdatingProperty+1) % list.size();
-			// mCameraControl.getPropertiesDescriptions(list.get(mCurrentlyUpdatingProperty).getCode());
-			// }
-		}
-	}
-
 	@Override
 	protected void onStart()
 	{
@@ -133,15 +111,13 @@ public class mainPanelActivity extends TabActivity
 
 		// Attempt to connect to the device
 		mCameraControl.connect();
-
-		mStatusTimer = new Timer();
-		mStatusTimer.scheduleAtFixedRate(new StatusTask(), 1000, 10000);
 	}
 
 	@Override
 	protected void onStop()
 	{
-		mStatusTimer.cancel();
+		if (mStatusTimer != null)
+			mStatusTimer.cancel();
 
 		if (mCameraControl != null)
 			mCameraControl.disconnect();
@@ -293,10 +269,46 @@ public class mainPanelActivity extends TabActivity
 
 	private void updateAllRopertyDescs()
 	{
-		ArrayList<controlType> list = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).getCurrentActiveProperties();
-		for (int i = 0; i < list.size(); i++)
+		if (mStatusTimer != null)
+			mStatusTimer.cancel();
+
+		mStatusTimer = new Timer();
+		mStatusTimer.scheduleAtFixedRate(new StatusTask(), 0, 200);
+
+		mCurrentUpdatingProperty = 0;
+	}
+
+	/**************************************************************************************************
+	 * Timer task which obtains the the current camera connection state
+	 */
+	class StatusTask extends TimerTask
+	{
+		public void run()
 		{
-			mCameraControl.getPropertiesDescriptions(list.get(i).getCode());
+			if (mCameraControl == null)
+				return;
+
+			if (mCameraControl.mCameraAttached == 0)
+				return;
+
+			ArrayList<controlType> list = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity()))
+					.getCurrentActiveProperties();
+			if (list.size() == 0)
+			{
+				if (mStatusTimer != null)
+					mStatusTimer.cancel();
+			}
+
+			mCameraControl.getPropertiesDescriptions(list.get(mCurrentUpdatingProperty).getCode());
+
+			if (mCurrentUpdatingProperty == (list.size() - 1))
+			{
+				if (mStatusTimer != null)
+					mStatusTimer.cancel();
+			}
+
+			mCameraControl.getPropertiesDescriptions(list.get(mCurrentUpdatingProperty).getCode());
+			mCurrentUpdatingProperty++;
 		}
 	}
 
@@ -389,10 +401,10 @@ public class mainPanelActivity extends TabActivity
 
 			// MESSAGE AFARSEK ID
 			case messageDefinitions.MESSAGE_AFARSEK_ID:
-				
+
 				break;
 
-				// TOAST NEEDS TO BE SHOWN
+			// TOAST NEEDS TO BE SHOWN
 			case messageDefinitions.MESSAGE_TOAST:
 				Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST), Toast.LENGTH_SHORT).show();
 				break;

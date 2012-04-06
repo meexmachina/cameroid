@@ -356,6 +356,12 @@ public class cameraControl
 				case MessageElement.TP_EVENT_PROPERTY_CHANGED:
 					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_EVENT_PROPERTY_CHANGED EVENT was accepted.");
 					break;
+					
+				// ===============================================
+				// EVENT: Checksum error occured
+				case MessageElement.TP_EVENT_CHECKSUM_ERROR:
+					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_EVENT_CHECKSUM_ERROR EVENT was accepted.");
+					break;
 
 				// ===============================================
 				// DATA: Camera Info
@@ -454,12 +460,12 @@ public class cameraControl
 					data = msg.getData().getByteArray("GottenData");
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_AFARSEK_ID, data[0], data[1]).sendToTarget();
 					break;
-					
+
 				case MessageElement.TP_DATA_DEBUG_LOG:
 					data = msg.getData().getByteArray("GottenData");
 					int length = msg.getData().getInt("DataSize");
-					String str = new String(data,0, length);
-					
+					String str = new String(data, 0, length);
+
 					Log.i("DEVICE LOG", str);
 					break;
 
@@ -467,10 +473,10 @@ public class cameraControl
 				// DATA: Property change event information
 				case MessageElement.TP_DATA_PROPERTY_EVENT:
 					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_DATA_PROPERTY_EVENT was accepted.");
-					
+
 					if (mCameraAttached == 0)
 						getStatus();
-					
+
 					data = msg.getData().getByteArray("GottenData");
 
 					Buffer buf = new Buffer(data);
