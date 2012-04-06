@@ -61,6 +61,7 @@ public class MessageElement
 	public static final int TP_DATA_PROP_VAL = (int) 0xAA;
 	public static final int TP_DATA_IDN = (int) 0xAB;
 	public static final int TP_DATA_PROPERTY_EVENT = (int) 0xAC;
+	public static final int TP_DATA_DEBUG_LOG = (int) 0xAD;
 	
 	public static final int TP_DATA_END = (int) 0xFF;
 

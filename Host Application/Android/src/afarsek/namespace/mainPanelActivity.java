@@ -347,7 +347,7 @@ public class mainPanelActivity extends TabActivity
 					mActionBar.setTitle("Camera is disconnected.");
 				}
 				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).setDeviceInfo(mCameraControl.mDeviceInfo);
-				updateAllRopertyDescs ();
+				updateAllRopertyDescs();
 				break;
 
 			// STORAGE INFO MESSAGE WAS RECEIVED
@@ -387,7 +387,12 @@ public class mainPanelActivity extends TabActivity
 				Toast.makeText(getApplicationContext(), "Connected to " + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
 				break;
 
-			// TOAST NEEDS TO BE SHOWN
+			// MESSAGE AFARSEK ID
+			case messageDefinitions.MESSAGE_AFARSEK_ID:
+				
+				break;
+
+				// TOAST NEEDS TO BE SHOWN
 			case messageDefinitions.MESSAGE_TOAST:
 				Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST), Toast.LENGTH_SHORT).show();
 				break;

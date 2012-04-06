@@ -621,6 +621,7 @@ public class hardwareFacade
 							Bundle bundle = new Bundle();
 							bundle.putInt("TransactionID", header.mTransID);
 							bundle.putByteArray("GottenData", buffer.clone());
+							bundle.putInt("DataSize", header.mLength);
 							msg.setData(bundle);
 							mHandler.sendMessage(msg);
 

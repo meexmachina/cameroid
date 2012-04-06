@@ -21,6 +21,9 @@ import android.util.Log;
 
 public class cameraControl
 {
+	/****************************************************
+	 * cameraControl Properties
+	 */
 	private hardwareFacade mHardwareFacade = null;
 	private BluetoothAdapter mBluetoothAdapter;
 	private BluetoothDevice mBluetoothDevice;
@@ -37,9 +40,11 @@ public class cameraControl
 			DevicePropDesc.FocalLength, DevicePropDesc.FocusDistance, DevicePropDesc.FocusMode, DevicePropDesc.ExposureMeteringMode,
 			DevicePropDesc.FlashMode, DevicePropDesc.ExposureTime, DevicePropDesc.ExposureProgramMode, DevicePropDesc.ExposureIndex,
 			DevicePropDesc.ExposureBiasCompensation, 0, 0, 0 };
-
 	private String mConnectedDeviceName = null; // Name of the connected device
 
+	/****************************************************
+	 * cameraControl Methods
+	 */
 	public cameraControl(String devName, Handler handler)
 	{
 		super();
@@ -72,6 +77,9 @@ public class cameraControl
 		return -1;
 	}
 
+	/****************************************************
+	 * Command Methods to the hardware
+	 */
 	private void getID()
 	{
 		Log.d("Camera Control Class", "getID - enqueuing command.");
@@ -124,31 +132,31 @@ public class cameraControl
 		mHardwareFacade.write(cmd.getByteArray());
 		// mHardwareFacade.write_queue("get_storage_info_bin 0:".getBytes(), MessageElement.MessageTags.ME_DEVICE_INFO);
 	}
-	
-	public void setActivePropertyEvents (ArrayList<controlType> list)
+
+	public void setActivePropertyEvents(ArrayList<controlType> list)
 	{
 		int propEventVector = 0;
 		int propDescEventVector = 0;
 		int propEventFastMode = 0;
-		
-		for (int i=0; i<mEventDataPropCodes.length; i++)
+
+		for (int i = 0; i < mEventDataPropCodes.length; i++)
 		{
-			for (int j=0; j<list.size(); j++)
+			for (int j = 0; j < list.size(); j++)
 			{
-				if (list.get(j).getCode()==mEventDataPropCodes[i])
+				if (list.get(j).getCode() == mEventDataPropCodes[i])
 				{
-					propEventVector |= (0x1<<i);
-					propEventFastMode |= (0x1<<i);
+					propEventVector |= (0x1 << i);
+					propEventFastMode |= (0x1 << i);
 					break;
 				}
 			}
 		}
-		
+
 		hardwareFacade.TP_header header = new hardwareFacade.TP_header();
 		header.mType = MessageElement.TP_COMMAND_SET_PROP_UPDATE;
 		header.mLength = 13;
 		header.mTransID = mTransactionID++;
-		
+
 		hardwareFacade.TP_command cmd = new hardwareFacade.TP_command(header, propEventVector, propDescEventVector, propEventFastMode);
 		mHardwareFacade.write(cmd.getByteArray());
 	}
@@ -211,14 +219,23 @@ public class cameraControl
 		return 0;
 	}
 
+	public void capture()
+	{
+		// TODO Auto-generated method stub
+		Log.d("Camera Control Class", "capture - trying to send 'capture' command");
+	}
+
 	class StatusTask extends TimerTask
 	{
 		public void run()
 		{
-			// getStatus();
+
 		}
 	}
 
+	/****************************************************
+	 * cameraControl Low level methods
+	 */
 	public void connect()
 	{
 		if (mHardwareFacade == null)
@@ -242,12 +259,6 @@ public class cameraControl
 		Log.d("Camera Control Class", "disconnect - stopping and erasing mHardwareFacade.");
 		mHardwareFacade.stop();
 		mHardwareFacade = null;
-	}
-
-	public void capture()
-	{
-		// TODO Auto-generated method stub
-		Log.d("Camera Control Class", "capture - trying to send 'capture' command");
 	}
 
 	public int cameraAttached()
@@ -298,7 +309,7 @@ public class cameraControl
 					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_EVENT_CAMERA_CONNECTED EVENT was accepted.");
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE, 1, -1).sendToTarget();
 					getStatus();
-					// mCameraAttached = 1;
+					mCameraAttached = 1;
 					break;
 
 				// ===============================================
@@ -307,7 +318,7 @@ public class cameraControl
 					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_EVENT_CAMERA_DISCONNECTED EVENT was accepted.");
 					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_CONNECTION_STATE, 0, -1).sendToTarget();
 					getStatus();
-					// mCameraAttached = 0;
+					mCameraAttached = 0;
 					break;
 
 				// ===============================================
@@ -440,12 +451,26 @@ public class cameraControl
 				// DATA: Afarsek Identification
 				case MessageElement.TP_DATA_IDN:
 					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_DATA_IDN was accepted.");
+					data = msg.getData().getByteArray("GottenData");
+					mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_AFARSEK_ID, data[0], data[1]).sendToTarget();
+					break;
+					
+				case MessageElement.TP_DATA_DEBUG_LOG:
+					data = msg.getData().getByteArray("GottenData");
+					int length = msg.getData().getInt("DataSize");
+					String str = new String(data,0, length);
+					
+					Log.i("DEVICE LOG", str);
 					break;
 
 				// ===============================================
 				// DATA: Property change event information
 				case MessageElement.TP_DATA_PROPERTY_EVENT:
 					Log.d("Camera Control Class", "MSG HWFacade=>cameraControl - TP_DATA_PROPERTY_EVENT was accepted.");
+					
+					if (mCameraAttached == 0)
+						getStatus();
+					
 					data = msg.getData().getByteArray("GottenData");
 
 					Buffer buf = new Buffer(data);
@@ -454,9 +479,9 @@ public class cameraControl
 
 					for (int i = 0; i < 16; i++)
 					{
-						if ((participateProperties & (1<<i))==0)
+						if ((participateProperties & (1 << i)) == 0)
 							continue;
-						
+
 						int currentPropCode = mEventDataPropCodes[i];
 						int iVal = buf.nextU32Pub();
 						int propPos = findProperty(currentPropCode);
@@ -464,8 +489,9 @@ public class cameraControl
 						{
 							mPropertyArray.get(propPos).currentValue = iVal;
 						}
-						
-						mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_PROPERTY_VAL, currentPropCode, iVal).sendToTarget();
+
+						mMainPanelHandler.obtainMessage(messageDefinitions.MESSAGE_CAMERA_PROPERTY_VAL, currentPropCode, iVal)
+								.sendToTarget();
 					}
 
 					break;
