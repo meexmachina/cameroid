@@ -84,7 +84,7 @@ public class mainPanelActivity extends TabActivity
 				startActivity(aboutCameraIntent);
 			}
 		});
-		
+
 		mActionBar.addAction(new preferencesAction());
 
 		setTabs();
@@ -109,16 +109,17 @@ public class mainPanelActivity extends TabActivity
 		{
 			if (mCameraControl == null)
 				return;
-			
+
 			if (mCameraControl.mCameraAttached == 0)
 				return;
-			
-			//if (mTabHost.getCurrentTab() == 1)		// if we are in the general tab
-			//{
-			//	ArrayList<controlType> list = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).getCurrentActiveProperties();
-			//	mCurrentlyUpdatingProperty = (mCurrentlyUpdatingProperty+1) % list.size();
-			//	mCameraControl.getPropertiesDescriptions(list.get(mCurrentlyUpdatingProperty).getCode());
-			//}
+
+			// if (mTabHost.getCurrentTab() == 1) // if we are in the general tab
+			// {
+			// ArrayList<controlType> list = ((generalTabPanelActivity)
+			// (mLocalActivityManager.getCurrentActivity())).getCurrentActiveProperties();
+			// mCurrentlyUpdatingProperty = (mCurrentlyUpdatingProperty+1) % list.size();
+			// mCameraControl.getPropertiesDescriptions(list.get(mCurrentlyUpdatingProperty).getCode());
+			// }
 		}
 	}
 
@@ -132,7 +133,7 @@ public class mainPanelActivity extends TabActivity
 
 		// Attempt to connect to the device
 		mCameraControl.connect();
-		
+
 		mStatusTimer = new Timer();
 		mStatusTimer.scheduleAtFixedRate(new StatusTask(), 1000, 10000);
 	}
@@ -148,14 +149,14 @@ public class mainPanelActivity extends TabActivity
 
 		super.onStop();
 	};
-	
+
 	@Override
 	protected void onPause()
 	{
 		ArrayList<controlType> list = new ArrayList<controlType>();
 		mCameraControl.setActivePropertyEvents(list);
-		
-		if (mStatusTimer!=null)
+
+		if (mStatusTimer != null)
 			mStatusTimer.cancel();
 		super.onPause();
 	}
@@ -189,7 +190,7 @@ public class mainPanelActivity extends TabActivity
 		// get the current general panel reference
 		generalTabPanelActivity tempActivity = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity()));
 		tempActivity.setWidgetState(availableProperties, activeProperties, availablePropertyCount);
-		
+
 		ArrayList<controlType> list = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).getCurrentActiveProperties();
 		mCameraControl.setActivePropertyEvents(list);
 	}
@@ -221,15 +222,14 @@ public class mainPanelActivity extends TabActivity
 		addTab("Capture", R.drawable.tab_capture, generalTabPanelActivity.class);
 		addTab("Advanced", R.drawable.tab_advanced, advancedTabPanelActivity.class);
 
-		
 		mTabHost.setCurrentTab(mCurrentTab);
-		
+
 		mTabHost.setOnTabChangedListener(new OnTabChangeListener()
 		{
 			public void onTabChanged(String tabId)
 			{
 				mCurrentTab = mTabHost.getCurrentTab();
-				if (mCurrentTab==1)
+				if (mCurrentTab == 1)
 					((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).setMainClassHandlerObject(mGeneralTabHandler);
 			}
 		});
@@ -267,18 +267,20 @@ public class mainPanelActivity extends TabActivity
 		spec.setContent(intent);
 		mTabHost.addTab(spec);
 	}
-	
+
 	// The Handler that gets information back from the hardwareFacade
 	private final Handler mGeneralTabHandler = new Handler()
 	{
 		@Override
 		public void handleMessage(Message msg)
 		{
-			//((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(controlType.getTypeFromCode(propCode1), propVal1);
+			// ((generalTabPanelActivity)
+			// (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(controlType.getTypeFromCode(propCode1), propVal1);
 			switch (msg.what)
 			{
 			case messageDefinitions.PROPERTY_CHOISE_WAS_CHANGED:
-				ArrayList<controlType> list = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).getCurrentActiveProperties();
+				ArrayList<controlType> list = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity()))
+						.getCurrentActiveProperties();
 				mCameraControl.setActivePropertyEvents(list);
 				break;
 
@@ -288,7 +290,15 @@ public class mainPanelActivity extends TabActivity
 			}
 		}
 	};
-		
+
+	private void updateAllRopertyDescs()
+	{
+		ArrayList<controlType> list = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).getCurrentActiveProperties();
+		for (int i = 0; i < list.size(); i++)
+		{
+			mCameraControl.getPropertiesDescriptions(list.get(i).getCode());
+		}
+	}
 
 	// The Handler that gets information back from the hardwareFacade
 	private final Handler mHandler = new Handler()
@@ -328,14 +338,16 @@ public class mainPanelActivity extends TabActivity
 				if (mCameraControl.cameraAttached() == 1)
 				{
 					mActionBar.setTitle("Connected: " + mCameraControl.mDeviceInfo.manufacturer + " " + mCameraControl.mDeviceInfo.model);
-					ArrayList<controlType> list = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).getCurrentActiveProperties();
+					ArrayList<controlType> list = ((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity()))
+							.getCurrentActiveProperties();
 					mCameraControl.setActivePropertyEvents(list);
-					
+
 				} else
 				{
 					mActionBar.setTitle("Camera is disconnected.");
 				}
 				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).setDeviceInfo(mCameraControl.mDeviceInfo);
+				updateAllRopertyDescs ();
 				break;
 
 			// STORAGE INFO MESSAGE WAS RECEIVED
@@ -364,9 +376,10 @@ public class mainPanelActivity extends TabActivity
 			case messageDefinitions.MESSAGE_CAMERA_PROPERTY_VAL:
 				int propCode1 = msg.arg1;
 				int propVal1 = msg.arg2;
-				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(controlType.getTypeFromCode(propCode1), propVal1);
+				((generalTabPanelActivity) (mLocalActivityManager.getCurrentActivity())).updateControlWidgetData(
+						controlType.getTypeFromCode(propCode1), propVal1);
 				break;
-				
+
 			// DEVICE NAME MESSAGE WAS RECEIVED
 			case messageDefinitions.MESSAGE_DEVICE_NAME:
 				// save the connected device's name

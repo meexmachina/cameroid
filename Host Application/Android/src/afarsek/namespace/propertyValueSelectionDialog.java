@@ -5,55 +5,61 @@ import java.util.Vector;
 import ptp.DevicePropDesc;
 import widget.CameraControlData;
 import widget.CameraControlData.controlType;
-import afarsek.namespace.aboutCameraActivity.CameraPropertyArrayAdapter;
-import android.app.Activity;
 import android.app.Dialog;
-import android.os.Bundle;
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class propertyValueSelectionDialog extends Dialog implements android.view.View.OnClickListener
+public class propertyValueSelectionDialog extends Dialog
 {
 	private Handler mGeneralPanelHandler;
 	private DevicePropDesc mProp;
 	private DevicePropDesc.Range mRange;
 	private Vector<?> mEnumeration;
 	private controlType mType;
+
 	private String[] mListItems;
 	private ArrayAdapter<String> mListAdapter;
+
 	private ListView mListView;
 	private TextView mCurrentValue;
 	private TextView mPropertyName;
 	private ImageView mPropertyIcon;
 	private LinearLayout mTouchPad;
+	private Context mContext;
+	private int mHeight;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState)
+	public propertyValueSelectionDialog(Context context, DevicePropDesc prop, Handler handler, int height)
 	{
-		Log.d("Camera Property Value Selection", "Created a new 'propertyValueSelectionActivity'");
-		super.onCreate(savedInstanceState);
+		super(context);
+		this.mContext = context;
+
+		mProp = prop;
+		mGeneralPanelHandler = handler;
+		mHeight = height;
+
+		mRange = mProp.getRange();
+		mEnumeration = mProp.getEnumeration();
+
+		Log.d("Camera Property Value Selection", "Created a new 'propertyValueSelectionDialog'");
+
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		// Setup the window
 		setContentView(R.layout.camera_value_selection_panel);
 
-		Bundle extras = getIntent().getExtras();
-
-		mProp = (DevicePropDesc) extras.get("PROPERTY DESCRIPTION");
-		mGeneralPanelHandler = (Handler) extras.get("VALUE CHANGE HANDLER");
-		mRange = mProp.getRange();
-		mEnumeration = mProp.getEnumeration();
-		mType = controlType.getTypeFromCode(mProp.getCode());
+		mType = controlType.getTypeFromCode(mProp.propertyCode);
 		mListView = (ListView) findViewById(R.id.property_value_list);
 		mCurrentValue = (TextView) findViewById(R.id.property_cur_value);
 		mPropertyName = (TextView) findViewById(R.id.property_text);
@@ -61,35 +67,46 @@ public class propertyValueSelectionDialog extends Dialog implements android.view
 		mTouchPad = (LinearLayout) findViewById(R.id.property_value_touchpad);
 		mPropertyName.setText(mType.toString());
 
-		
+		mCurrentValue.setText(CameraControlData.convertRawValue(mType, Integer.valueOf(prop.currentValue.toString())));
+
 		if (mRange != null)
 		{
 			mListView.setVisibility(View.GONE);
 			mTouchPad.setVisibility(View.VISIBLE);
-			DisplayMetrics metrics = new DisplayMetrics();
-			getWindowManager().getDefaultDisplay().getMetrics(metrics);
-			int height = metrics.heightPixels/2;
-			mTouchPad.setLayoutParams(new ViewGroup.LayoutParams(-1, height) );
-			
+			mTouchPad.setLayoutParams(new ViewGroup.LayoutParams(-1, mHeight));
+
 			mTouchPad.setOnTouchListener(new View.OnTouchListener()
 			{
 				public boolean onTouch(View v, MotionEvent event)
 				{
-					
+
 					// TODO Auto-generated method stub
 					return false;
 				}
 			});
-			
+
 		} else if (mEnumeration != null)
 		{
 			mListItems = CameraControlData.createProperyEnumList(mType, mEnumeration);
-			
-			mListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mListItems);
+
+			ArrayAdapter<String> mListAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, mListItems)
+			{
+
+				@Override
+				public View getView(int position, View convertView, ViewGroup parent)
+				{
+					View view = super.getView(position, convertView, parent);
+					TextView textView = (TextView) view.findViewById(android.R.id.text1);
+					/* YOUR CHOICE OF COLOR */
+					textView.setTextColor(Color.BLACK);
+					return view;
+				}
+			};
+
 			mListView.setAdapter(mListAdapter);
 			mListView.setVisibility(View.VISIBLE);
 			mTouchPad.setVisibility(View.GONE);
-			
+
 			// When item is tapped, toggle checked properties of CheckBox
 			mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
 			{
@@ -97,7 +114,7 @@ public class propertyValueSelectionDialog extends Dialog implements android.view
 				{
 					mCurrentValue.setText(mListItems[position]);
 					mGeneralPanelHandler.obtainMessage(messageDefinitions.PROPERTY_SEL_VALUE_CHANGED,
-							Integer.getInteger(mEnumeration.get(position).toString()), 0);
+							Integer.valueOf(mEnumeration.get(position).toString()), 0).sendToTarget();
 				}
 			});
 		}
