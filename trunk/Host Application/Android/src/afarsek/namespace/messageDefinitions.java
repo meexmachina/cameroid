@@ -17,9 +17,11 @@ public class messageDefinitions
 	public static final int PROPERTY_CHOISE_WAS_CHANGED = 11;
 	public static final int PROPERTY_VAL_WAS_CHANGED = 12;
 	public static final int PROPERTY_SEL_VALUE_CHANGED = 13;
+	public static final int MESSAGE_AFARSEK_ID = 14;
 	
 	public static final String MESSAGE_READ_LENGTH = "READ_LENGTH";
 	public static final String MESSAGE_READ_DATA_BYTES = "READ_DATA_BYTES";
 	public static final String MESSAGE_READ_TAG = "READ_DATA_TAG";
+	
 	
 }
