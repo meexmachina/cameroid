@@ -228,7 +228,7 @@ uint16_t CameraControl_DeviceOperation_SetPropertyValBin ( USB_ClassInfo_SI_Host
 	SIInterfaceInfo->State.TransactionID = 0;
 
 	// Set the size (in bytes) of the device property val
-	if (enPropertyType==TP_PROPERTY_EVENT_ExposureTime||enPropertyType==TP_PROPERTY_EVENT_FocalLength)	// 32bit
+	if (enPropertyType==TP_PROPERTY_EVENT_ExposureTime||enPropertyType==TP_PROPERTY_EVENT_FocalLength)	// 32 bits
 		SentDataSize = 4;
 	else SentDataSize = 2;		// 16 bits
 

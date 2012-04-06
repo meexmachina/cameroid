@@ -28,6 +28,7 @@ void TP_RespondTo (volatile TP_Incoming_Command_ST* command)
 	switch (command->header.type)
 	{
 		case TP_COMMAND_IDN:
+			TP_SendDebugLog ( "TP_COMMAND_IDN" );
 			header.length = 3;
 			header.type = TP_DATA_IDN;
 			
@@ -38,6 +39,7 @@ void TP_RespondTo (volatile TP_Incoming_Command_ST* command)
 		break;	
 				
 		case TP_COMMAND_GET_CAMERA_STATUS:
+			TP_SendDebugLog ( "TP_COMMAND_GET_CAMERA_STATUS" );
 			header.length = 1;
 			header.type = TP_DATA_CAMERA_STATUS;
 			TP_SendHeader (&header);
@@ -45,15 +47,18 @@ void TP_RespondTo (volatile TP_Incoming_Command_ST* command)
 		break;
 		
 		case TP_COMMAND_GET_CAMERA_INFO:
+			TP_SendDebugLog ( "TP_COMMAND_GET_CAMERA_INFO" );
 			// if not connected
 			if (g_bCameraConnected == 0)
 			{
+				TP_SendDebugLog ( "-> Not connected" );
 				header.length = 0;
 				header.type = TP_DATA_CAMERA_INFO;
 				TP_SendHeader (&header);
 			}
 			else
 			{
+				TP_SendDebugLog ( "-> Connected" );
 				CameraControl_DeviceInfo_Bin ( &DigitalCamera_SI_Interface, header.transID );
 			}
 			
@@ -101,7 +106,8 @@ void TP_RespondTo (volatile TP_Incoming_Command_ST* command)
 		case TP_COMMAND_CAPTURE:			
 		break;
 		
-		case TP_COMMAND_GET_PROP_DESC:		
+		case TP_COMMAND_GET_PROP_DESC:	
+			TP_SendDebugLog ( "TP_COMMAND_GET_PROP_DESC" );	
 			CameraControl_OpenSession( &DigitalCamera_SI_Interface );
 			CameraControl_DeviceOperation_GetPropertyDescBin ( &DigitalCamera_SI_Interface,	command->arg1, header.transID );
 			CameraControl_CloseSession( &DigitalCamera_SI_Interface );
@@ -159,6 +165,7 @@ uint8_t TP_GetIncomingCommand ( void )
 			// check the checksum
 			if (g_stCurrentCommand.checksum != g_iCurrentCheckSum)
 			{
+				TP_SendDebugLog ( "Checksum error" );
 				// checksum error
 				// send framing error event
 				// flush all incoming buffers
@@ -504,4 +511,22 @@ void TP_CheckPropertyEvents ( void )
 		}
 		iChangedPropVector >>= 1;
 	}
+}
+
+//------------------------------------------------------------------------------
+void TP_SendDebugLog ( const char * str, ... )
+{
+	va_list args;
+    va_start(args, str);
+	
+	uint8_t len = strlen(str);
+	
+	TP_Header_ST	header;
+	header.length = len;
+	header.transID = 0;
+	header.type = TP_DATA_DEBUG_LOG;
+	
+	TP_SendHeader(&header);
+	
+	printf(str, args);
 }

@@ -35,14 +35,14 @@ int main(void)
 	sei();
 
 	for (;;)
-	{		
+	{	
+		SI_Host_USBTask(&DigitalCamera_SI_Interface);
+		USB_USBTask(  );	
+		
 		TP_SendEvent (  );
 		//Stabily_ShellRX ( );
 		TP_GetIncomingCommand (  );		
-		
 		CameraControl_DeviceEvents_PollEvents(&DigitalCamera_SI_Interface);
-		SI_Host_USBTask(&DigitalCamera_SI_Interface);
-		USB_USBTask(  );
 		TP_CollectEvents (  );
 		Stabily_PropertyValueEvent (  );
 	}
@@ -74,7 +74,7 @@ void Stabily_PropertyValueEvent ( void )
 {
 	// Event timing counters
 	g_iEventCurrentCount++;
-	if (g_iEventCurrentCount&((((uint16_t)(1))<<9)))		// every 512 counts
+	if (g_iEventCurrentCount&((((uint16_t)(1))<<10)))		// every 512 counts
 	{
 		g_iSlowEventCount++;
 		if (g_iSlowEventCount==3)
