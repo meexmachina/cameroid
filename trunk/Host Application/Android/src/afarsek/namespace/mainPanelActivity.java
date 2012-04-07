@@ -273,7 +273,7 @@ public class mainPanelActivity extends TabActivity
 			mStatusTimer.cancel();
 
 		mStatusTimer = new Timer();
-		mStatusTimer.scheduleAtFixedRate(new StatusTask(), 0, 200);
+		mStatusTimer.scheduleAtFixedRate(new StatusTask(), 0, 500);
 
 		mCurrentUpdatingProperty = 0;
 	}

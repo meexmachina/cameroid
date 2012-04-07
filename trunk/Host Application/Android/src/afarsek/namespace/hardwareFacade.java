@@ -569,7 +569,7 @@ public class hardwareFacade
 						byteCount = mmInStream.read(buffer, currentOffset, buffer.length - currentOffset);
 					else
 						byteCount = 0;
-
+					
 					// ====== DEBUG - write the header to the logger
 					String logged = "Trans Read Header: ";
 					for (int i = currentOffset; i < (currentOffset + byteCount); i++)
@@ -579,6 +579,15 @@ public class hardwareFacade
 					if (byteCount > 0)
 						Log.d(TAG, logged);
 					// ====== DEBUG - write the header to the logger
+					
+					//if ( iState == CT_STATE_GETTING_MSG_HEADER && currentOffset == 0 && )
+					/*if (byteCount == 1
+							&& iState == CT_STATE_GETTING_MSG_HEADER
+							&& currentOffset == 0
+							&& !((buffer[0] > MessageElement.TP_EVENT_START && buffer[0] < MessageElement.TP_EVENT_END) || (buffer[0] > MessageElement.TP_DATA_START && buffer[0] < MessageElement.TP_DATA_END)))
+						continue;*/
+
+
 
 					// if we just got just enough bytes
 					if (currentOffset + byteCount >= iRemainingtoGet)
