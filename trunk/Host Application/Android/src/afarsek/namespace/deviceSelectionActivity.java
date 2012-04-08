@@ -261,6 +261,9 @@ public class deviceSelectionActivity extends Activity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
+		if (mDevicesImageAdapter.getCount() == 0)
+			return false;
+
 		// Handle item selection
 		switch (item.getItemId())
 		{
