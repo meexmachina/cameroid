@@ -3,8 +3,8 @@ package afarsek.namespace;
 import java.util.Vector;
 
 import ptp.DevicePropDesc;
-import widget.CameraControlData;
-import widget.CameraControlData.controlType;
+import afarsek.widget.CameraControlData;
+import afarsek.widget.CameraControlData.controlType;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;

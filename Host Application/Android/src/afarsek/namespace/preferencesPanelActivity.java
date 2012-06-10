@@ -1,6 +1,6 @@
 package afarsek.namespace;
 
-import widget.CameraControlData.controlType;
+import afarsek.widget.CameraControlData.controlType;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

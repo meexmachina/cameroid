@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package widget;
+package afarsek.widget;
 
 import java.util.LinkedList;
 

@@ -5,10 +5,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import ptp.DevicePropDesc;
-import widget.ActionBar;
-import widget.ActionBar.AbstractAction;
-import widget.CameraControlData;
-import widget.CameraControlData.controlType;
+import afarsek.widget.ActionBar;
+import afarsek.widget.ActionBar.AbstractAction;
+import afarsek.widget.CameraControlData;
+import afarsek.widget.CameraControlData.controlType;
 import android.app.LocalActivityManager;
 import android.app.TabActivity;
 import android.content.Intent;

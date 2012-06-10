@@ -3,9 +3,9 @@ package afarsek.namespace;
 import java.util.ArrayList;
 import ptp.DeviceInfo;
 import ptp.DevicePropDesc;
-import widget.CameraControlAdapter;
-import widget.CameraControlData;
-import widget.CameraControlData.controlType;
+import afarsek.widget.CameraControlAdapter;
+import afarsek.widget.CameraControlData;
+import afarsek.widget.CameraControlData.controlType;
 
 import android.app.Activity;
 import android.content.Context;
