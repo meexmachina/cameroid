@@ -42,6 +42,7 @@ public class deviceSelectionActivity extends Activity
 	private static String mPreferencesActivityPath = null;
 	private static String mHelpActivityPath = null;
 	private static String mSelectedActivityPath = null;
+	private static int mDrawableID = 0;
 
 	// Intent request codes
 	private static final int REQUEST_ENABLE_BT = 2;
@@ -54,6 +55,7 @@ public class deviceSelectionActivity extends Activity
 	final public static String EXTRA_ABOUT_INTENT_NAME = "about_intent_name";
 	final public static String EXTRA_PREFERENCES_INTENT_NAME = "preferences_intent_name";
 	final public static String EXTRA_HELP_INTENT_NAME = "help_intent_name";
+	final public static String EXTRA_DRAWABLE_ID = "drawable_id";
 
 	/** Called when the activity is first created. */
 	@Override
@@ -70,6 +72,7 @@ public class deviceSelectionActivity extends Activity
 			mPreferencesActivityPath = extras.getString(EXTRA_PREFERENCES_INTENT_NAME);
 			mHelpActivityPath = extras.getString(EXTRA_HELP_INTENT_NAME);
 			mSelectedActivityPath = extras.getString(EXTRA_SELECTION_INTENT_NAME);
+			mDrawableID = extras.getInt(EXTRA_DRAWABLE_ID);
 		}
 		
 		// Setup the window
@@ -228,7 +231,7 @@ public class deviceSelectionActivity extends Activity
 				// image:itself
 				ImageView ivLogo = new ImageView(context);
 				// load image
-				ivLogo.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_camera));
+				ivLogo.setImageDrawable(context.getResources().getDrawable(mDrawableID));
 
 				// image:add
 				addView(ivLogo, Params);
