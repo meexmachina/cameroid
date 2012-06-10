@@ -1,4 +1,4 @@
-package widget;
+package afarsek.widget;
 
 import java.text.DecimalFormat;
 import java.util.Vector;

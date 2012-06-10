@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import widget.ActionBar;
-import widget.ActionBar.AbstractAction;
+import afarsek.widget.ActionBar;
+import afarsek.widget.ActionBar.AbstractAction;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;

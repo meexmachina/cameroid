@@ -12,7 +12,7 @@ import ptp.DeviceInfo;
 import ptp.DevicePropDesc;
 import ptp.NameFactory;
 import ptp.StorageInfo;
-import widget.CameraControlData.controlType;
+import afarsek.widget.CameraControlData.controlType;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.os.Handler;

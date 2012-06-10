@@ -1,8 +1,8 @@
-package widget;
+package afarsek.widget;
 
 import java.util.ArrayList;
 
-import widget.CameraControlData.controlType;
+import afarsek.widget.CameraControlData.controlType;
 
 import afarsek.namespace.R;
 import android.content.Context;

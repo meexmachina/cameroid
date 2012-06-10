@@ -1,4 +1,4 @@
-package widget;
+package afarsek.widget;
 
 import android.content.Context;
 import android.graphics.Rect;
