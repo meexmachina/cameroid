@@ -33,6 +33,7 @@ public class splash extends Activity
 					startProgram.putExtra(deviceSelectionActivity.EXTRA_ABOUT_INTENT_NAME, "afarsek.namespace.ABOUTPANELACTIVITY");
 					//startProgram.putExtra(deviceSelectionActivity.EXTRA_PREFERENCES_INTENT_NAME, "");
 					//startProgram.putExtra(deviceSelectionActivity.EXTRA_HELP_INTENT_NAME, "");
+					startProgram.putExtra(deviceSelectionActivity.EXTRA_DRAWABLE_ID, R.drawable.ic_camera);
 					startActivity(startProgram);
 				}
 			}
