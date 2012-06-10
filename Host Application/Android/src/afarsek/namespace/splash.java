@@ -29,6 +29,10 @@ public class splash extends Activity
 				} finally
 				{
 					Intent startProgram = new Intent("afarsek.namespace.DEVICESELECTIONACTIVITY");
+					startProgram.putExtra(deviceSelectionActivity.EXTRA_SELECTION_INTENT_NAME, "afarsek.namespace.MAINPANELACTIVITY");
+					startProgram.putExtra(deviceSelectionActivity.EXTRA_ABOUT_INTENT_NAME, "afarsek.namespace.ABOUTPANELACTIVITY");
+					//startProgram.putExtra(deviceSelectionActivity.EXTRA_PREFERENCES_INTENT_NAME, "");
+					//startProgram.putExtra(deviceSelectionActivity.EXTRA_HELP_INTENT_NAME, "");
 					startActivity(startProgram);
 				}
 			}

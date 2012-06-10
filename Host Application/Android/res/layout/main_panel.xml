@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <widget.ActionBar
+    <afarsek.widget.ActionBar
         android:id="@+id/actionbar_main"
         style="@style/ActionBar" />
 

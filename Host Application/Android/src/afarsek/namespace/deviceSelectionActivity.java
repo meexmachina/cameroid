@@ -38,12 +38,22 @@ public class deviceSelectionActivity extends Activity
 	private BluetoothAdapter mBtAdapter;
 	private ListView mDevicesListView;
 	private ImageAdapter mDevicesImageAdapter;
+	private static String mAboutActivityPath = null;
+	private static String mPreferencesActivityPath = null;
+	private static String mHelpActivityPath = null;
+	private static String mSelectedActivityPath = null;
 
 	// Intent request codes
 	private static final int REQUEST_ENABLE_BT = 2;
 
 	// Passing Intent extra
 	public static String EXTRA_DEVICE_ADDRESS = "device_address";
+
+	// Accepting Intent extra's
+	final public static String EXTRA_SELECTION_INTENT_NAME = "selected_intent_name";
+	final public static String EXTRA_ABOUT_INTENT_NAME = "about_intent_name";
+	final public static String EXTRA_PREFERENCES_INTENT_NAME = "preferences_intent_name";
+	final public static String EXTRA_HELP_INTENT_NAME = "help_intent_name";
 
 	/** Called when the activity is first created. */
 	@Override
@@ -52,6 +62,16 @@ public class deviceSelectionActivity extends Activity
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
+		// get extras
+		Bundle extras = getIntent().getExtras();
+		if (extras != null)
+		{
+			mAboutActivityPath = extras.getString(EXTRA_ABOUT_INTENT_NAME);
+			mPreferencesActivityPath = extras.getString(EXTRA_PREFERENCES_INTENT_NAME);
+			mHelpActivityPath = extras.getString(EXTRA_HELP_INTENT_NAME);
+			mSelectedActivityPath = extras.getString(EXTRA_SELECTION_INTENT_NAME);
+		}
+		
 		// Setup the window
 		setContentView(R.layout.device_selection);
 
@@ -268,12 +288,25 @@ public class deviceSelectionActivity extends Activity
 		switch (item.getItemId())
 		{
 		case R.id.preferences:
+			if (mPreferencesActivityPath != null)
+			{
+				Intent prefPanel = new Intent(mPreferencesActivityPath);
+				startActivity(prefPanel);
+			}
 			return super.onOptionsItemSelected(item);
 		case R.id.help:
+			if (mHelpActivityPath != null)
+			{
+				Intent helpPanel = new Intent(mHelpActivityPath);
+				startActivity(helpPanel);
+			}
 			return super.onOptionsItemSelected(item);
 		case R.id.about:
-			Intent aboutPanel = new Intent("afarsek.namespace.ABOUTPANELACTIVITY");
-			startActivity(aboutPanel);
+			if (mAboutActivityPath != null)
+			{
+				Intent aboutPanel = new Intent(mAboutActivityPath);
+				startActivity(aboutPanel);
+			}
 			return super.onOptionsItemSelected(item);
 		default:
 			return super.onOptionsItemSelected(item);
@@ -287,17 +320,6 @@ public class deviceSelectionActivity extends Activity
 		finish();
 	}
 
-	/*
-	 * private OnItemClickListener m_DeviceClickListener = new OnItemClickListener() { public void onItemClick(AdapterView<?> arg0, View
-	 * view, int arg2, long arg3) { // Cancel discovery because it's costly and we're about to connect mBtAdapter.cancelDiscovery();
-	 * 
-	 * // Get the device MAC address, which is the last 17 chars in the // View String info = ((TextView) view).getText().toString(); try {
-	 * // Attempt to extract a MAC address String address = info.substring(info.length() - 17);
-	 * 
-	 * // Create the result Intent and include the MAC address Intent startMainPanel = new Intent("afarsek.namespace.MAINPANELACTIVITY");
-	 * startMainPanel.putExtra(EXTRA_DEVICE_ADDRESS, address); startActivity(startMainPanel); finish(); } catch (IndexOutOfBoundsException
-	 * e) { // Extraction failed, set result and finish this Activity setResult(Activity.RESULT_CANCELED); finish(); } } };
-	 */
 	// The BroadcastReceiver that listens for discovered devices and
 	// changes the title when discovery is finished
 	private final BroadcastReceiver m_Receiver = new BroadcastReceiver()
@@ -343,9 +365,12 @@ public class deviceSelectionActivity extends Activity
 			try
 			{
 				// Create the result Intent and include the MAC address
-				Intent startMainPanel = new Intent("afarsek.namespace.MAINPANELACTIVITY");
-				startMainPanel.putExtra(EXTRA_DEVICE_ADDRESS, address);
-				startActivity(startMainPanel);
+				if (mSelectedActivityPath != null)
+				{
+					Intent startMainPanel = new Intent(mSelectedActivityPath);
+					startMainPanel.putExtra(EXTRA_DEVICE_ADDRESS, address);
+					startActivity(startMainPanel);
+				}
 				finish();
 			} catch (IndexOutOfBoundsException e)
 			{
