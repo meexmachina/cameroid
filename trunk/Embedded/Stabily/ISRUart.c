@@ -241,3 +241,27 @@ void uart_puts_p(const char *progmem_s )
       uart_putc(c,stdout);
 
 }/* uart_puts_p */
+
+/*************************************************************************
+Function: uart_flush_rx()
+Purpose:  deletes all information in the rx buffer
+Input:    none
+Returns:  none
+**************************************************************************/
+void uart_flush_rx (void)
+{
+	UART1_RxHead = UART1_RxTail = 0;
+	
+}/* uart_flush_rx */
+
+/*************************************************************************
+Function: uart_flush_tx()
+Purpose:  deletes all information in the tx buffer
+Input:    none
+Returns:  none
+**************************************************************************/
+void uart_flush_tx (void)
+{
+	UART1_TxHead = UART1_TxTail = 0;
+	
+}/* uart_flush_tx */

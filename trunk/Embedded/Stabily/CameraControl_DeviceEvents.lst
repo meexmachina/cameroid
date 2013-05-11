@@ -9,7 +9,7 @@
   16               		.section	.text.CameraControl_DeviceEvents_PollEvents,"ax",@progbits
   17               	.global	CameraControl_DeviceEvents_PollEvents
   19               	CameraControl_DeviceEvents_PollEvents:
-  20               	.LFB140:
+  20               	.LFB137:
   21               	.LSM0:
   22               	.LVL0:
   23 0000 0F93      		push r16
@@ -31,437 +31,146 @@
   39 0018 8C01      		movw r16,r24
   40               	.LVL1:
   41               	.LSM1:
-  42 001a 8091 0000 		lds r24,USB_HostState
-  43               	.LVL2:
-  44 001e 8B30      		cpi r24,lo8(11)
-  45 0020 01F0      		breq .+2
-  46 0022 00C0      		rjmp .L22
-  47               	.LSM2:
-  48 0024 F801      		movw r30,r16
-  49 0026 8681      		ldd r24,Z+6
-  50 0028 8823      		tst r24
-  51 002a 01F4      		brne .+2
-  52 002c 00C0      		rjmp .L22
+  42 001a FC01      		movw r30,r24
+  43 001c 8681      		ldd r24,Z+6
+  44               	.LVL2:
+  45 001e 8823      		tst r24
+  46 0020 01F4      		brne .L10
+  47               	.L7:
+  48               	.LSM2:
+  49 0022 80E0      		ldi r24,lo8(0)
+  50               	.LVL3:
+  51               	.L2:
+  52               	/* epilogue start */
   53               	.LSM3:
-  54 002e C801      		movw r24,r16
-  55 0030 0E94 0000 		call SI_Host_IsEventReceived
-  56 0034 8823      		tst r24
-  57 0036 01F4      		brne .+2
-  58 0038 00C0      		rjmp .L22
-  59               	.LSM4:
-  60 003a 00D0      		rcall .
-  61 003c 80E0      		ldi r24,lo8(__c.4414)
-  62 003e 90E0      		ldi r25,hi8(__c.4414)
-  63 0040 EDB7      		in r30,__SP_L__
-  64 0042 FEB7      		in r31,__SP_H__
-  65 0044 9283      		std Z+2,r25
-  66 0046 8183      		std Z+1,r24
-  67 0048 0E94 0000 		call printf_P
-  68               	.LSM5:
-  69 004c 0F90      		pop __tmp_reg__
-  70 004e 0F90      		pop __tmp_reg__
-  71 0050 C801      		movw r24,r16
-  72 0052 BE01      		movw r22,r28
-  73 0054 6F5F      		subi r22,lo8(-(1))
-  74 0056 7F4F      		sbci r23,hi8(-(1))
-  75 0058 0E94 0000 		call SI_Host_ReceiveEventHeader
-  76 005c 082F      		mov r16,r24
-  77               	.LVL3:
-  78               	.LSM6:
-  79 005e 8823      		tst r24
-  80 0060 01F0      		breq .+2
-  81 0062 00C0      		rjmp .L2
-  82               	.LSM7:
-  83 0064 8D81      		ldd r24,Y+5
-  84 0066 9E81      		ldd r25,Y+6
-  85               	.LVL4:
-  86 0068 8430      		cpi r24,4
-  87 006a 9105      		cpc r25,__zero_reg__
-  88 006c 01F0      		breq .+2
-  89 006e 00C0      		rjmp .L23
-  90               	.LSM8:
-  91 0070 8F81      		ldd r24,Y+7
-  92 0072 9885      		ldd r25,Y+8
-  93 0074 F0E4      		ldi r31,hi8(16390)
-  94 0076 8630      		cpi r24,lo8(16390)
-  95 0078 9F07      		cpc r25,r31
-  96 007a 01F4      		brne .+2
-  97 007c 00C0      		rjmp .L9
-  98 007e 20E4      		ldi r18,hi8(16391)
-  99 0080 8730      		cpi r24,lo8(16391)
- 100 0082 9207      		cpc r25,r18
- 101 0084 00F4      		brsh .L17
- 102 0086 E0E4      		ldi r30,hi8(16386)
- 103 0088 8230      		cpi r24,lo8(16386)
- 104 008a 9E07      		cpc r25,r30
- 105 008c 01F4      		brne .+2
- 106 008e 00C0      		rjmp .L5
- 107 0090 F0E4      		ldi r31,hi8(16387)
- 108 0092 8330      		cpi r24,lo8(16387)
- 109 0094 9F07      		cpc r25,r31
- 110 0096 00F4      		brsh .L18
- 111 0098 20E4      		ldi r18,hi8(16384)
- 112 009a 8030      		cpi r24,lo8(16384)
- 113 009c 9207      		cpc r25,r18
- 114 009e 01F0      		breq .L3
- 115 00a0 E0E4      		ldi r30,hi8(16385)
- 116 00a2 8130      		cpi r24,lo8(16385)
- 117 00a4 9E07      		cpc r25,r30
- 118 00a6 01F0      		breq .+2
- 119 00a8 00C0      		rjmp .L2
- 120 00aa 00C0      		rjmp .L30
- 121               	.L18:
- 122 00ac F0E4      		ldi r31,hi8(16388)
- 123 00ae 8430      		cpi r24,lo8(16388)
- 124 00b0 9F07      		cpc r25,r31
- 125 00b2 01F4      		brne .+2
- 126 00b4 00C0      		rjmp .L7
- 127 00b6 20E4      		ldi r18,hi8(16389)
- 128 00b8 8530      		cpi r24,lo8(16389)
- 129 00ba 9207      		cpc r25,r18
- 130 00bc 00F0      		brlo .+2
- 131 00be 00C0      		rjmp .L8
- 132 00c0 00C0      		rjmp .L31
- 133               	.L17:
- 134 00c2 E0E4      		ldi r30,hi8(16396)
- 135 00c4 8C30      		cpi r24,lo8(16396)
- 136 00c6 9E07      		cpc r25,r30
- 137 00c8 01F4      		brne .+2
- 138 00ca 00C0      		rjmp .L13
- 139 00cc F0E4      		ldi r31,hi8(16397)
- 140 00ce 8D30      		cpi r24,lo8(16397)
- 141 00d0 9F07      		cpc r25,r31
- 142 00d2 00F4      		brsh .L19
- 143 00d4 20E4      		ldi r18,hi8(16392)
- 144 00d6 8830      		cpi r24,lo8(16392)
- 145 00d8 9207      		cpc r25,r18
- 146 00da 01F4      		brne .+2
- 147 00dc 00C0      		rjmp .L11
- 148 00de E0E4      		ldi r30,hi8(16392)
- 149 00e0 8830      		cpi r24,lo8(16392)
- 150 00e2 9E07      		cpc r25,r30
- 151 00e4 00F4      		brsh .+2
- 152 00e6 00C0      		rjmp .L10
- 153 00e8 F0E4      		ldi r31,hi8(16394)
- 154 00ea 8A30      		cpi r24,lo8(16394)
- 155 00ec 9F07      		cpc r25,r31
- 156 00ee 01F0      		breq .+2
- 157 00f0 00C0      		rjmp .L2
- 158 00f2 00C0      		rjmp .L32
- 159               	.L19:
- 160 00f4 21EC      		ldi r18,hi8(-16127)
- 161 00f6 8130      		cpi r24,lo8(-16127)
- 162 00f8 9207      		cpc r25,r18
- 163 00fa 01F4      		brne .+2
- 164 00fc 00C0      		rjmp .L15
- 165 00fe E1EC      		ldi r30,hi8(-16126)
- 166 0100 8230      		cpi r24,lo8(-16126)
- 167 0102 9E07      		cpc r25,r30
- 168 0104 01F4      		brne .+2
- 169 0106 00C0      		rjmp .L16
- 170 0108 F0E4      		ldi r31,hi8(16397)
- 171 010a 8D30      		cpi r24,lo8(16397)
- 172 010c 9F07      		cpc r25,r31
- 173 010e 01F0      		breq .+2
- 174 0110 00C0      		rjmp .L2
- 175 0112 00C0      		rjmp .L33
- 176               	.L3:
- 177               	.LSM9:
- 178 0114 00D0      		rcall .
- 179 0116 80E0      		ldi r24,lo8(__c.4419)
- 180 0118 90E0      		ldi r25,hi8(__c.4419)
- 181 011a 00C0      		rjmp .L27
- 182               	.L30:
- 183               	.LSM10:
- 184 011c 00D0      		rcall .
- 185 011e 80E0      		ldi r24,lo8(__c.4422)
- 186 0120 90E0      		ldi r25,hi8(__c.4422)
- 187 0122 00C0      		rjmp .L27
- 188               	.L5:
- 189               	.LSM11:
- 190 0124 00D0      		rcall .
- 191 0126 00D0      		rcall .
- 192 0128 00D0      		rcall .
- 193 012a 80E0      		ldi r24,lo8(__c.4425)
- 194 012c 90E0      		ldi r25,hi8(__c.4425)
- 195 012e 00C0      		rjmp .L29
- 196               	.L31:
- 197               	.LSM12:
- 198 0130 00D0      		rcall .
- 199 0132 00D0      		rcall .
- 200 0134 00D0      		rcall .
- 201 0136 80E0      		ldi r24,lo8(__c.4428)
- 202 0138 90E0      		ldi r25,hi8(__c.4428)
- 203 013a 00C0      		rjmp .L29
- 204               	.L7:
- 205               	.LSM13:
- 206 013c 00D0      		rcall .
- 207 013e 00D0      		rcall .
- 208 0140 00D0      		rcall .
- 209 0142 80E0      		ldi r24,lo8(__c.4431)
- 210 0144 90E0      		ldi r25,hi8(__c.4431)
- 211               	.L29:
- 212 0146 EDB7      		in r30,__SP_L__
- 213 0148 FEB7      		in r31,__SP_H__
- 214 014a 9283      		std Z+2,r25
- 215 014c 8183      		std Z+1,r24
- 216 014e 8D85      		ldd r24,Y+13
- 217 0150 9E85      		ldd r25,Y+14
- 218 0152 AF85      		ldd r26,Y+15
- 219 0154 B889      		ldd r27,Y+16
- 220 0156 8383      		std Z+3,r24
- 221 0158 9483      		std Z+4,r25
- 222 015a A583      		std Z+5,r26
- 223 015c B683      		std Z+6,r27
- 224 015e 00C0      		rjmp .L26
- 225               	.L8:
- 226               	.LSM14:
- 227 0160 00D0      		rcall .
- 228 0162 00D0      		rcall .
- 229 0164 00D0      		rcall .
- 230 0166 80E0      		ldi r24,lo8(__c.4434)
- 231 0168 90E0      		ldi r25,hi8(__c.4434)
- 232 016a 00C0      		rjmp .L29
- 233               	.L9:
- 234               	.LSM15:
- 235 016c 00D0      		rcall .
- 236 016e 00D0      		rcall .
- 237 0170 00D0      		rcall .
- 238 0172 80E0      		ldi r24,lo8(__c.4437)
- 239 0174 90E0      		ldi r25,hi8(__c.4437)
- 240 0176 00C0      		rjmp .L29
- 241               	.L10:
- 242               	.LSM16:
- 243 0178 00D0      		rcall .
- 244 017a 00D0      		rcall .
- 245 017c 00D0      		rcall .
- 246 017e 80E0      		ldi r24,lo8(__c.4440)
- 247 0180 90E0      		ldi r25,hi8(__c.4440)
- 248 0182 00C0      		rjmp .L29
- 249               	.L11:
- 250               	.LSM17:
- 251 0184 00D0      		rcall .
- 252 0186 80E0      		ldi r24,lo8(__c.4443)
- 253 0188 90E0      		ldi r25,hi8(__c.4443)
- 254               	.L27:
- 255 018a EDB7      		in r30,__SP_L__
- 256 018c FEB7      		in r31,__SP_H__
- 257 018e 9283      		std Z+2,r25
- 258 0190 8183      		std Z+1,r24
- 259 0192 0E94 0000 		call printf_P
- 260               	.LSM18:
- 261 0196 0F90      		pop __tmp_reg__
- 262 0198 0F90      		pop __tmp_reg__
- 263 019a 00C0      		rjmp .L2
- 264               	.L32:
- 265               	.LSM19:
- 266 019c 00D0      		rcall .
- 267 019e 00D0      		rcall .
- 268 01a0 00D0      		rcall .
- 269 01a2 80E0      		ldi r24,lo8(__c.4447)
- 270 01a4 90E0      		ldi r25,hi8(__c.4447)
- 271 01a6 00C0      		rjmp .L29
- 272               	.L13:
- 273               	.LSM20:
- 274 01a8 00D0      		rcall .
- 275 01aa 00D0      		rcall .
- 276 01ac 00D0      		rcall .
- 277 01ae 80E0      		ldi r24,lo8(__c.4451)
- 278 01b0 90E0      		ldi r25,hi8(__c.4451)
- 279 01b2 00C0      		rjmp .L29
- 280               	.L33:
- 281               	.LSM21:
- 282 01b4 00D0      		rcall .
- 283 01b6 00D0      		rcall .
- 284 01b8 00D0      		rcall .
- 285 01ba 80E0      		ldi r24,lo8(__c.4454)
- 286 01bc 90E0      		ldi r25,hi8(__c.4454)
- 287 01be 00C0      		rjmp .L25
- 288               	.L15:
- 289               	.LSM22:
- 290 01c0 00D0      		rcall .
- 291 01c2 00D0      		rcall .
- 292 01c4 00D0      		rcall .
- 293 01c6 80E0      		ldi r24,lo8(__c.4461)
- 294 01c8 90E0      		ldi r25,hi8(__c.4461)
- 295 01ca 00C0      		rjmp .L25
- 296               	.L16:
- 297               	.LSM23:
- 298 01cc 00D0      		rcall .
- 299 01ce 00D0      		rcall .
- 300 01d0 00D0      		rcall .
- 301 01d2 80E0      		ldi r24,lo8(__c.4464)
- 302 01d4 90E0      		ldi r25,hi8(__c.4464)
- 303               	.L25:
- 304 01d6 EDB7      		in r30,__SP_L__
- 305 01d8 FEB7      		in r31,__SP_H__
- 306 01da 9283      		std Z+2,r25
- 307 01dc 8183      		std Z+1,r24
- 308 01de 2D85      		ldd r18,Y+13
- 309 01e0 3E85      		ldd r19,Y+14
- 310 01e2 4F85      		ldd r20,Y+15
- 311 01e4 5889      		ldd r21,Y+16
- 312 01e6 2383      		std Z+3,r18
- 313 01e8 3483      		std Z+4,r19
- 314 01ea 4583      		std Z+5,r20
- 315 01ec 5683      		std Z+6,r21
- 316               	.L26:
- 317 01ee 0E94 0000 		call printf_P
- 318               	.LSM24:
- 319 01f2 8DB7      		in r24,__SP_L__
- 320 01f4 9EB7      		in r25,__SP_H__
- 321 01f6 0696      		adiw r24,6
- 322 01f8 0FB6      		in __tmp_reg__,__SREG__
- 323 01fa F894      		cli
- 324 01fc 9EBF      		out __SP_H__,r25
- 325 01fe 0FBE      		out __SREG__,__tmp_reg__
- 326 0200 8DBF      		out __SP_L__,r24
- 327 0202 00C0      		rjmp .L2
- 328               	.LVL5:
- 329               	.L22:
- 330               	.LSM25:
- 331 0204 00E0      		ldi r16,lo8(0)
- 332               	.LVL6:
- 333 0206 00C0      		rjmp .L2
- 334               	.LVL7:
- 335               	.L23:
- 336               	.LSM26:
- 337 0208 0FEF      		ldi r16,lo8(-1)
- 338               	.LVL8:
- 339               	.L2:
- 340               	.LSM27:
- 341 020a 802F      		mov r24,r16
- 342               	/* epilogue start */
- 343 020c 6896      		adiw r28,24
- 344 020e 0FB6      		in __tmp_reg__,__SREG__
- 345 0210 F894      		cli
- 346 0212 DEBF      		out __SP_H__,r29
- 347 0214 0FBE      		out __SREG__,__tmp_reg__
- 348 0216 CDBF      		out __SP_L__,r28
- 349 0218 CF91      		pop r28
- 350 021a DF91      		pop r29
- 351 021c 1F91      		pop r17
- 352 021e 0F91      		pop r16
- 353 0220 0895      		ret
- 354               	.LFE140:
- 356               		.section	.progmem.data,"a",@progbits
- 359               	__c.4464:
- 360 0000 4556 454E 		.string	"EVENT [NIKON]: Capture overflow ID: 0x%x.\r\n"
- 360      5420 5B4E 
- 360      494B 4F4E 
- 360      5D3A 2043 
- 360      6170 7475 
- 363               	__c.4461:
- 364 002c 4556 454E 		.string	"EVENT [NIKON]: Object ready ID: 0x%x.\r\n"
- 364      5420 5B4E 
- 364      494B 4F4E 
- 364      5D3A 204F 
- 364      626A 6563 
- 367               	__c.4454:
- 368 0054 4556 454E 		.string	"EVENT: Capture complete TransID: 0x%x.\r\n"
- 368      543A 2043 
- 368      6170 7475 
- 368      7265 2063 
- 368      6F6D 706C 
- 371               	__c.4451:
- 372 007d 4556 454E 		.string	"EVENT: Storage info changed ID: 0x%x.\r\n"
- 372      543A 2053 
- 372      746F 7261 
- 372      6765 2069 
- 372      6E66 6F20 
- 375               	__c.4447:
- 376 00a5 4556 454E 		.string	"EVENT: Storage full ID: 0x%x.\r\n"
- 376      543A 2053 
- 376      746F 7261 
- 376      6765 2066 
- 376      756C 6C20 
- 379               	__c.4443:
- 380 00c5 4556 454E 		.string	"EVENT: Dev info changed.\r\n"
- 380      543A 2044 
- 380      6576 2069 
- 380      6E66 6F20 
- 380      6368 616E 
- 383               	__c.4440:
- 384 00e0 4556 454E 		.string	"EVENT: Object info changed ID: 0x%x.\r\n"
- 384      543A 204F 
- 384      626A 6563 
- 384      7420 696E 
- 384      666F 2063 
- 387               	__c.4437:
- 388 0107 4556 454E 		.string	"EVENT: Property changed CODE: 0x%x.\r\n"
- 388      543A 2050 
- 388      726F 7065 
- 388      7274 7920 
- 388      6368 616E 
- 391               	__c.4434:
- 392 012d 4556 454E 		.string	"EVENT: Object removed ID: 0x%x.\r\n"
- 392      543A 204F 
- 392      626A 6563 
- 392      7420 7265 
- 392      6D6F 7665 
- 395               	__c.4431:
- 396 014f 4556 454E 		.string	"EVENT: Storage added ID: 0x%x.\r\n"
- 396      543A 2053 
- 396      746F 7261 
- 396      6765 2061 
- 396      6464 6564 
- 399               	__c.4428:
- 400 0170 4556 454E 		.string	"EVENT: Object removed ID: 0x%x.\r\n"
- 400      543A 204F 
- 400      626A 6563 
- 400      7420 7265 
- 400      6D6F 7665 
- 403               	__c.4425:
- 404 0192 4556 454E 		.string	"EVENT: Object added ID: 0x%x.\r\n"
- 404      543A 204F 
- 404      626A 6563 
- 404      7420 6164 
- 404      6465 6420 
- 407               	__c.4422:
- 408 01b2 4556 454E 		.string	"EVENT: Cancel transaction.\r\n"
- 408      543A 2043 
- 408      616E 6365 
- 408      6C20 7472 
- 408      616E 7361 
- 411               	__c.4419:
- 412 01cf 4556 454E 		.string	"EVENT: Undefined.\r\n"
- 412      543A 2055 
- 412      6E64 6566 
- 412      696E 6564 
- 412      2E0D 0A00 
- 415               	__c.4414:
- 416 01e3 0D0A 4E65 		.string	"\r\nNew event:"
- 416      7720 6576 
- 416      656E 743A 
- 416      00
- 441               	.Letext0:
+  54 0024 6896      		adiw r28,24
+  55 0026 0FB6      		in __tmp_reg__,__SREG__
+  56 0028 F894      		cli
+  57 002a DEBF      		out __SP_H__,r29
+  58 002c 0FBE      		out __SREG__,__tmp_reg__
+  59 002e CDBF      		out __SP_L__,r28
+  60 0030 CF91      		pop r28
+  61 0032 DF91      		pop r29
+  62 0034 1F91      		pop r17
+  63 0036 0F91      		pop r16
+  64               	.LVL4:
+  65 0038 0895      		ret
+  66               	.LVL5:
+  67               	.L10:
+  68               	.LSM4:
+  69 003a C801      		movw r24,r16
+  70 003c 0E94 0000 		call SI_Host_IsEventReceived
+  71 0040 8823      		tst r24
+  72 0042 01F0      		breq .L7
+  73               	.LSM5:
+  74 0044 C801      		movw r24,r16
+  75 0046 BE01      		movw r22,r28
+  76 0048 6F5F      		subi r22,lo8(-(1))
+  77 004a 7F4F      		sbci r23,hi8(-(1))
+  78 004c 0E94 0000 		call SI_Host_ReceiveEventHeader
+  79               	.LVL6:
+  80               	.LSM6:
+  81 0050 8823      		tst r24
+  82 0052 01F4      		brne .L2
+  83               	.LSM7:
+  84 0054 2D81      		ldd r18,Y+5
+  85 0056 3E81      		ldd r19,Y+6
+  86 0058 2430      		cpi r18,4
+  87 005a 3105      		cpc r19,__zero_reg__
+  88 005c 01F0      		breq .L11
+  89               	.LSM8:
+  90 005e 8FEF      		ldi r24,lo8(-1)
+  91               	.LVL7:
+  92 0060 00C0      		rjmp .L2
+  93               	.LVL8:
+  94               	.L11:
+  95               	.LSM9:
+  96 0062 2F81      		ldd r18,Y+7
+  97 0064 3885      		ldd r19,Y+8
+  98 0066 F0E4      		ldi r31,hi8(16390)
+  99 0068 2630      		cpi r18,lo8(16390)
+ 100 006a 3F07      		cpc r19,r31
+ 101 006c 01F0      		breq .L4
+ 102 006e 90E4      		ldi r25,hi8(16397)
+ 103 0070 2D30      		cpi r18,lo8(16397)
+ 104 0072 3907      		cpc r19,r25
+ 105 0074 01F0      		breq .L5
+ 106 0076 E0E4      		ldi r30,hi8(16386)
+ 107 0078 2230      		cpi r18,lo8(16386)
+ 108 007a 3E07      		cpc r19,r30
+ 109 007c 01F4      		brne .L2
+ 110               	.LSM10:
+ 111 007e 9091 0000 		lds r25,g_USBEventBitmap
+ 112               	.LVL9:
+ 113 0082 9061      		ori r25,lo8(16)
+ 114               	.LVL10:
+ 115 0084 9093 0000 		sts g_USBEventBitmap,r25
+ 116               	.LVL11:
+ 117               	.LSM11:
+ 118 0088 2D85      		ldd r18,Y+13
+ 119 008a 3E85      		ldd r19,Y+14
+ 120 008c 4F85      		ldd r20,Y+15
+ 121 008e 5889      		ldd r21,Y+16
+ 122 0090 2093 0000 		sts g_USBEventArgument+16,r18
+ 123 0094 3093 0000 		sts g_USBEventArgument+16+1,r19
+ 124 0098 4093 0000 		sts g_USBEventArgument+16+2,r20
+ 125 009c 5093 0000 		sts g_USBEventArgument+16+3,r21
+ 126               	.LSM12:
+ 127 00a0 00C0      		rjmp .L2
+ 128               	.LVL12:
+ 129               	.L4:
+ 130               	.LSM13:
+ 131 00a2 9091 0000 		lds r25,g_USBEventBitmap
+ 132               	.LVL13:
+ 133 00a6 9062      		ori r25,lo8(32)
+ 134               	.LVL14:
+ 135 00a8 9093 0000 		sts g_USBEventBitmap,r25
+ 136               	.LVL15:
+ 137               	.LSM14:
+ 138 00ac 2D85      		ldd r18,Y+13
+ 139 00ae 3E85      		ldd r19,Y+14
+ 140 00b0 4F85      		ldd r20,Y+15
+ 141 00b2 5889      		ldd r21,Y+16
+ 142 00b4 2093 0000 		sts g_USBEventArgument+20,r18
+ 143 00b8 3093 0000 		sts g_USBEventArgument+20+1,r19
+ 144 00bc 4093 0000 		sts g_USBEventArgument+20+2,r20
+ 145 00c0 5093 0000 		sts g_USBEventArgument+20+3,r21
+ 146               	.LSM15:
+ 147 00c4 00C0      		rjmp .L2
+ 148               	.LVL16:
+ 149               	.L5:
+ 150               	.LSM16:
+ 151 00c6 9091 0000 		lds r25,g_USBEventBitmap
+ 152               	.LVL17:
+ 153 00ca 9860      		ori r25,lo8(8)
+ 154               	.LVL18:
+ 155 00cc 9093 0000 		sts g_USBEventBitmap,r25
+ 156               	.LVL19:
+ 157               	.LSM17:
+ 158 00d0 2D85      		ldd r18,Y+13
+ 159 00d2 3E85      		ldd r19,Y+14
+ 160 00d4 4F85      		ldd r20,Y+15
+ 161 00d6 5889      		ldd r21,Y+16
+ 162 00d8 2093 0000 		sts g_USBEventArgument+12,r18
+ 163 00dc 3093 0000 		sts g_USBEventArgument+12+1,r19
+ 164 00e0 4093 0000 		sts g_USBEventArgument+12+2,r20
+ 165 00e4 5093 0000 		sts g_USBEventArgument+12+3,r21
+ 166               	.LSM18:
+ 167 00e8 00C0      		rjmp .L2
+ 168               	.LFE137:
+ 194               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 CameraControl_DeviceEvents.c
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:2      *ABS*:0000003f __SREG__
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:3      *ABS*:0000003e __SP_H__
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:4      *ABS*:0000003d __SP_L__
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:5      *ABS*:00000034 __CCP__
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:19     .text.CameraControl_DeviceEvents_PollEvents:00000000 CameraControl_DeviceEvents_PollEvents
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:415    .progmem.data:000001e3 __c.4414
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:411    .progmem.data:000001cf __c.4419
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:407    .progmem.data:000001b2 __c.4422
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:403    .progmem.data:00000192 __c.4425
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:399    .progmem.data:00000170 __c.4428
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:395    .progmem.data:0000014f __c.4431
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:391    .progmem.data:0000012d __c.4434
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:387    .progmem.data:00000107 __c.4437
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:383    .progmem.data:000000e0 __c.4440
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:379    .progmem.data:000000c5 __c.4443
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:375    .progmem.data:000000a5 __c.4447
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:371    .progmem.data:0000007d __c.4451
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:367    .progmem.data:00000054 __c.4454
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:363    .progmem.data:0000002c __c.4461
-C:\Users\david\AppData\Local\Temp\cc9gih8F.s:359    .progmem.data:00000000 __c.4464
+C:\Users\david\AppData\Local\Temp\ccaBKScP.s:2      *ABS*:0000003f __SREG__
+C:\Users\david\AppData\Local\Temp\ccaBKScP.s:3      *ABS*:0000003e __SP_H__
+C:\Users\david\AppData\Local\Temp\ccaBKScP.s:4      *ABS*:0000003d __SP_L__
+C:\Users\david\AppData\Local\Temp\ccaBKScP.s:5      *ABS*:00000034 __CCP__
+C:\Users\david\AppData\Local\Temp\ccaBKScP.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\david\AppData\Local\Temp\ccaBKScP.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\david\AppData\Local\Temp\ccaBKScP.s:19     .text.CameraControl_DeviceEvents_PollEvents:00000000 CameraControl_DeviceEvents_PollEvents
 
 UNDEFINED SYMBOLS
-USB_HostState
 SI_Host_IsEventReceived
-printf_P
 SI_Host_ReceiveEventHeader
+g_USBEventBitmap
+g_USBEventArgument

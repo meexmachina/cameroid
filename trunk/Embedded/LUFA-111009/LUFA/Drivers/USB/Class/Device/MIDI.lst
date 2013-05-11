@@ -9,11 +9,11 @@
   16               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 MIDI.c
-C:\Users\david\AppData\Local\Temp\cct1fhtC.s:2      *ABS*:0000003f __SREG__
-C:\Users\david\AppData\Local\Temp\cct1fhtC.s:3      *ABS*:0000003e __SP_H__
-C:\Users\david\AppData\Local\Temp\cct1fhtC.s:4      *ABS*:0000003d __SP_L__
-C:\Users\david\AppData\Local\Temp\cct1fhtC.s:5      *ABS*:00000034 __CCP__
-C:\Users\david\AppData\Local\Temp\cct1fhtC.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\david\AppData\Local\Temp\cct1fhtC.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\david\AppData\Local\Temp\ccSQ2NYb.s:2      *ABS*:0000003f __SREG__
+C:\Users\david\AppData\Local\Temp\ccSQ2NYb.s:3      *ABS*:0000003e __SP_H__
+C:\Users\david\AppData\Local\Temp\ccSQ2NYb.s:4      *ABS*:0000003d __SP_L__
+C:\Users\david\AppData\Local\Temp\ccSQ2NYb.s:5      *ABS*:00000034 __CCP__
+C:\Users\david\AppData\Local\Temp\ccSQ2NYb.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\david\AppData\Local\Temp\ccSQ2NYb.s:7      *ABS*:00000001 __zero_reg__
 
 NO UNDEFINED SYMBOLS
