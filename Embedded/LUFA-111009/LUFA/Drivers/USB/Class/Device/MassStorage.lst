@@ -9,11 +9,11 @@
   16               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 MassStorage.c
-C:\Users\david\AppData\Local\Temp\ccBRCjat.s:2      *ABS*:0000003f __SREG__
-C:\Users\david\AppData\Local\Temp\ccBRCjat.s:3      *ABS*:0000003e __SP_H__
-C:\Users\david\AppData\Local\Temp\ccBRCjat.s:4      *ABS*:0000003d __SP_L__
-C:\Users\david\AppData\Local\Temp\ccBRCjat.s:5      *ABS*:00000034 __CCP__
-C:\Users\david\AppData\Local\Temp\ccBRCjat.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\david\AppData\Local\Temp\ccBRCjat.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\david\AppData\Local\Temp\ccAtzBW1.s:2      *ABS*:0000003f __SREG__
+C:\Users\david\AppData\Local\Temp\ccAtzBW1.s:3      *ABS*:0000003e __SP_H__
+C:\Users\david\AppData\Local\Temp\ccAtzBW1.s:4      *ABS*:0000003d __SP_L__
+C:\Users\david\AppData\Local\Temp\ccAtzBW1.s:5      *ABS*:00000034 __CCP__
+C:\Users\david\AppData\Local\Temp\ccAtzBW1.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\david\AppData\Local\Temp\ccAtzBW1.s:7      *ABS*:00000001 __zero_reg__
 
 NO UNDEFINED SYMBOLS

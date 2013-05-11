@@ -243,8 +243,6 @@ uint8_t CameraControl_GeneralStream_Bin (	USB_ClassInfo_SI_Host_t* SIInterfaceIn
 	TP_Header_ST header;
 	uint8_t		sentData[32];
 	uint16_t	remainingToSend = 0;
-	uint16_t	temptemp = 291;
-
 
 	CHECK_CAMERA_CONNECTION;
 	
@@ -265,7 +263,9 @@ uint8_t CameraControl_GeneralStream_Bin (	USB_ClassInfo_SI_Host_t* SIInterfaceIn
 	// Get the size (in bytes) of the device info structure
 	remainingToSend = ReturnedDataSize = (PIMABlock.DataLength - PIMA_COMMAND_SIZE(0));
 	
-	TP_SendDebugLog ( "Info size %lu", temptemp );
+	//char tmp_msg[64];
+	//sprintf(tmp_msg, "size %u", remainingToSend);
+	//TP_SendDebugLog ( tmp_msg );
 
 	// if we need all the message
 	if (headerType != 0)
@@ -289,7 +289,7 @@ uint8_t CameraControl_GeneralStream_Bin (	USB_ClassInfo_SI_Host_t* SIInterfaceIn
 		remainingToSend -= currentChunkSize;
 	}
 
-	TP_SendDebugLog ( "Finished" );
+	//TP_SendDebugLog ( "Finished" );
 	
 	// Once all the data has been read, the pipe must be cleared before the response can be sent
 	Pipe_ClearIN();

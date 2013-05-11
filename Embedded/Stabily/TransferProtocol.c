@@ -28,7 +28,7 @@ void TP_RespondTo (volatile TP_Incoming_Command_ST* command)
 	switch (command->header.type)
 	{
 		case TP_COMMAND_IDN:
-			TP_SendDebugLog ( "TP_COMMAND_IDN" );
+			TP_SendDebugLog ( "A" );
 			header.length = 3;
 			header.type = TP_DATA_IDN;
 			
@@ -39,7 +39,7 @@ void TP_RespondTo (volatile TP_Incoming_Command_ST* command)
 		break;	
 				
 		case TP_COMMAND_GET_CAMERA_STATUS:
-			TP_SendDebugLog ( "TP_COMMAND_GET_CAMERA_STATUS" );
+			TP_SendDebugLog ( "B" );
 			header.length = 1;
 			header.type = TP_DATA_CAMERA_STATUS;
 			TP_SendHeader (&header);
@@ -47,18 +47,18 @@ void TP_RespondTo (volatile TP_Incoming_Command_ST* command)
 		break;
 		
 		case TP_COMMAND_GET_CAMERA_INFO:
-			TP_SendDebugLog ( "TP_COMMAND_GET_CAMERA_INFO" );
+			TP_SendDebugLog ( "C" );
 			// if not connected
 			if (g_bCameraConnected == 0)
 			{
-				TP_SendDebugLog ( "-> Not connected" );
+				TP_SendDebugLog ( "-0" );
 				header.length = 0;
 				header.type = TP_DATA_CAMERA_INFO;
 				TP_SendHeader (&header);
 			}
 			else
 			{
-				TP_SendDebugLog ( "-> Connected" );
+				TP_SendDebugLog ( "-1" );
 				CameraControl_DeviceInfo_Bin ( &DigitalCamera_SI_Interface, header.transID );
 			}
 			
@@ -107,7 +107,7 @@ void TP_RespondTo (volatile TP_Incoming_Command_ST* command)
 		break;
 		
 		case TP_COMMAND_GET_PROP_DESC:	
-			TP_SendDebugLog ( "TP_COMMAND_GET_PROP_DESC" );	
+			TP_SendDebugLog ( "5" );	
 			CameraControl_OpenSession( &DigitalCamera_SI_Interface );
 			CameraControl_DeviceOperation_GetPropertyDescBin ( &DigitalCamera_SI_Interface,	command->arg1, header.transID );
 			CameraControl_CloseSession( &DigitalCamera_SI_Interface );
@@ -167,7 +167,8 @@ uint8_t TP_GetIncomingCommand ( void )
 			{
 				TP_SendDebugLog ( "Checksum error" );
 				// checksum error
-				// send framing error event
+				// send checksum error event
+				
 				// flush all incoming buffers
 				return 1;
 			}
@@ -514,19 +515,25 @@ void TP_CheckPropertyEvents ( void )
 }
 
 //------------------------------------------------------------------------------
-void TP_SendDebugLog ( const char * str, ... )
+void TP_SendDebugLog ( const char * str )
 {
-	va_list args;
-    va_start(args, str);
-	
-	uint8_t len = strlen(str);
-	
-	TP_Header_ST	header;
-	header.length = len;
+/*	TP_Header_ST	header;
+	header.length = strlen(str);
 	header.transID = 0;
 	header.type = TP_DATA_DEBUG_LOG;
 	
 	TP_SendHeader(&header);
 	
-	printf(str, args);
+	printf(str);*/
+}
+
+//------------------------------------------------------------------------------
+void TP_SendSyncWord ( void )
+{
+	uint8_t word[] = {0xde, 0xad,0xbe, 0xef};
+	for (int i=0; i<4; i++)
+		uart_putc(word[i], stdout);
+	
+//	for (int i=0; i<4; i++)
+	//	uart_putc(word[i]);
 }

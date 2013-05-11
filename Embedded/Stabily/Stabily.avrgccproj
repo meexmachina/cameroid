@@ -41,6 +41,13 @@
         <avrgcc.assembler.general.AssemblerFlags>-Wall -gdwarf-2 -std=gnu99 -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums</avrgcc.assembler.general.AssemblerFlags>
       </AvrGcc>
     </ToolchainSettings>
+    <MemorySettings>
+      <MemorySegments xmlns="">
+  <InitialStack IsEnabled="0">
+    <Address>0xfe00</Address>
+  </InitialStack>
+</MemorySegments>
+    </MemorySettings>
   </PropertyGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
   <ItemGroup>

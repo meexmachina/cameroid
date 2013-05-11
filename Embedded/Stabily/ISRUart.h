@@ -90,6 +90,8 @@ uint8_t uart_rx_ready(void);
 void uart_putc(char data, FILE *stream);
 void uart_puts(const char *s );
 void uart_puts_p(const char *s );
+void uart_flush_rx (void);
+void uart_flush_tx (void);
 
 /**
  * @brief    Macro to automatically put a string constant into program memory

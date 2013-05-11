@@ -22,7 +22,7 @@ USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface =
 volatile uint8_t g_bQuiteMode = 1;
 volatile uint8_t g_bCameraConnected = 0;
 volatile uint8_t g_iSlowEventCount = 0;
-volatile uint16_t g_iEventCurrentCount = 0;	
+volatile uint32_t g_iEventCurrentCount = 0;	
 	
 /*********************************************************************************************************************
  *  Main program entry point. This routine configures the hardware required by the application, then
@@ -65,6 +65,8 @@ void Stabily_SetupHardware(void)
 	
 	LEDs_Init();
 	USB_Init();
+	
+	g_iEventCurrentCount = 0;
 }
 
 /*********************************************************************************************************************
@@ -74,8 +76,10 @@ void Stabily_PropertyValueEvent ( void )
 {
 	// Event timing counters
 	g_iEventCurrentCount++;
-	if (g_iEventCurrentCount&((((uint16_t)(1))<<10)))		// every 512 counts
+	if (g_iEventCurrentCount==((uint32_t)(80000)))		// every xxx counts
 	{
+		TP_SendSyncWord ( );
+		g_iEventCurrentCount = 0;
 		g_iSlowEventCount++;
 		if (g_iSlowEventCount==3)
 		{

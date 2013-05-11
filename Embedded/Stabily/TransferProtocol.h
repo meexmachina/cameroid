@@ -15,6 +15,7 @@
 #include <avr/power.h>
 #include <avr/interrupt.h>
 #include <stdio.h>
+#include <stdarg.h>
 #include "ISRUart.h"
 
 #include "CameraControl_General.h"
@@ -37,7 +38,8 @@ uint8_t TP_PushEvent(volatile TP_Outgoing_Event_ST *event);
 volatile TP_Outgoing_Event_ST* TP_TopEvent(void);
 volatile TP_Outgoing_Event_ST* TP_PopEvent(void);
 void TP_CheckPropertyEvents ( void );
-void TP_SendDebugLog ( const char * str, ... );
+void TP_SendDebugLog ( const char * str );
+void TP_SendSyncWord ( void );
 
 
 

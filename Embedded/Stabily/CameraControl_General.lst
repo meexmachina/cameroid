@@ -9,7 +9,7 @@
   16               		.section	.text.CameraControl_PTPErrorDescription,"ax",@progbits
   17               	.global	CameraControl_PTPErrorDescription
   19               	CameraControl_PTPErrorDescription:
-  20               	.LFB140:
+  20               	.LFB137:
   21               	.LSM0:
   22               	.LVL0:
   23 0000 CF93      		push r28
@@ -23,1266 +23,1894 @@
   31 0006 8091 0000 		lds r24,g_bQuiteMode
   32               	.LVL1:
   33 000a 8823      		tst r24
-  34 000c 01F0      		breq .+2
-  35 000e 00C0      		rjmp .L1
-  36               	.LSM2:
-  37 0010 80E2      		ldi r24,hi8(8193)
-  38 0012 C130      		cpi r28,lo8(8193)
-  39 0014 D807      		cpc r29,r24
-  40 0016 01F4      		brne .L3
-  41               	.LSM3:
+  34 000c 01F4      		brne .L1
+  35               	.LSM2:
+  36 000e 80E2      		ldi r24,hi8(8193)
+  37 0010 C130      		cpi r28,lo8(8193)
+  38 0012 D807      		cpc r29,r24
+  39 0014 01F0      		breq .L39
+  40               	.LSM3:
+  41 0016 00D0      		rcall .
   42 0018 00D0      		rcall .
-  43 001a 00D0      		rcall .
-  44 001c 80E0      		ldi r24,lo8(__c.4405)
-  45 001e 90E0      		ldi r25,hi8(__c.4405)
-  46 0020 EDB7      		in r30,__SP_L__
-  47 0022 FEB7      		in r31,__SP_H__
-  48 0024 9283      		std Z+2,r25
-  49 0026 8183      		std Z+1,r24
-  50 0028 D483      		std Z+4,r29
-  51 002a C383      		std Z+3,r28
-  52 002c 0E94 0000 		call printf_P
-  53 0030 0F90      		pop __tmp_reg__
-  54 0032 0F90      		pop __tmp_reg__
-  55 0034 0F90      		pop __tmp_reg__
-  56 0036 0F90      		pop __tmp_reg__
-  57 0038 00C0      		rjmp .L4
-  58               	.L3:
-  59               	.LSM4:
-  60 003a 00D0      		rcall .
-  61 003c 00D0      		rcall .
-  62 003e 80E0      		ldi r24,lo8(__c.4407)
-  63 0040 90E0      		ldi r25,hi8(__c.4407)
-  64 0042 EDB7      		in r30,__SP_L__
-  65 0044 FEB7      		in r31,__SP_H__
-  66 0046 9283      		std Z+2,r25
-  67 0048 8183      		std Z+1,r24
-  68 004a D483      		std Z+4,r29
-  69 004c C383      		std Z+3,r28
-  70 004e 0E94 0000 		call printf_P
-  71               	.LSM5:
-  72 0052 0F90      		pop __tmp_reg__
-  73 0054 0F90      		pop __tmp_reg__
-  74 0056 0F90      		pop __tmp_reg__
-  75 0058 0F90      		pop __tmp_reg__
-  76 005a FE01      		movw r30,r28
-  77 005c E150      		subi r30,lo8(-(-8193))
-  78 005e F042      		sbci r31,hi8(-(-8193))
-  79 0060 E032      		cpi r30,32
-  80 0062 F105      		cpc r31,__zero_reg__
-  81 0064 00F0      		brlo .+2
-  82 0066 00C0      		rjmp .L5
-  83 0068 E050      		subi r30,lo8(-(gs(.L37)))
-  84 006a F040      		sbci r31,hi8(-(gs(.L37)))
-  85 006c EE0F      		lsl r30
-  86 006e FF1F      		rol r31
-  87 0070 0590      		lpm __tmp_reg__,Z+
-  88 0072 F491      		lpm r31,Z
-  89 0074 E02D      		mov r30,__tmp_reg__
-  90 0076 0994      		ijmp
-  91               		.data
-  92               		.section .progmem.gcc_sw_table, "a", @progbits
-  93               		.p2align 1
-  94               	.L37:
-  95               		.data
-  96               		.section .progmem.gcc_sw_table, "a", @progbits
-  97               		.p2align 1
-  98 0000 0000      		.word gs(.L4)
-  99 0002 0000      		.word gs(.L6)
- 100 0004 0000      		.word gs(.L7)
- 101 0006 0000      		.word gs(.L8)
- 102 0008 0000      		.word gs(.L9)
- 103 000a 0000      		.word gs(.L10)
- 104 000c 0000      		.word gs(.L11)
- 105 000e 0000      		.word gs(.L12)
- 106 0010 0000      		.word gs(.L13)
- 107 0012 0000      		.word gs(.L14)
- 108 0014 0000      		.word gs(.L15)
- 109 0016 0000      		.word gs(.L16)
- 110 0018 0000      		.word gs(.L17)
- 111 001a 0000      		.word gs(.L18)
- 112 001c 0000      		.word gs(.L19)
- 113 001e 0000      		.word gs(.L20)
- 114 0020 0000      		.word gs(.L21)
- 115 0022 0000      		.word gs(.L22)
- 116 0024 0000      		.word gs(.L23)
- 117 0026 0000      		.word gs(.L24)
- 118 0028 0000      		.word gs(.L25)
- 119 002a 0000      		.word gs(.L26)
- 120 002c 0000      		.word gs(.L27)
- 121 002e 0000      		.word gs(.L28)
- 122 0030 0000      		.word gs(.L29)
- 123 0032 0000      		.word gs(.L30)
- 124 0034 0000      		.word gs(.L31)
- 125 0036 0000      		.word gs(.L32)
- 126 0038 0000      		.word gs(.L33)
- 127 003a 0000      		.word gs(.L34)
- 128 003c 0000      		.word gs(.L35)
- 129 003e 0000      		.word gs(.L36)
- 130               		.section	.text.CameraControl_PTPErrorDescription
- 131               	.L4:
- 132               	.LSM6:
- 133 0078 00D0      		rcall .
- 134 007a 80E0      		ldi r24,lo8(__c.4410)
- 135 007c 90E0      		ldi r25,hi8(__c.4410)
- 136 007e 00C0      		rjmp .L38
- 137               	.L6:
- 138               	.LSM7:
- 139 0080 00D0      		rcall .
- 140 0082 80E0      		ldi r24,lo8(__c.4414)
- 141 0084 90E0      		ldi r25,hi8(__c.4414)
- 142 0086 00C0      		rjmp .L38
- 143               	.L7:
- 144               	.LSM8:
- 145 0088 00D0      		rcall .
- 146 008a 80E0      		ldi r24,lo8(__c.4417)
- 147 008c 90E0      		ldi r25,hi8(__c.4417)
- 148 008e 00C0      		rjmp .L38
- 149               	.L8:
- 150               	.LSM9:
- 151 0090 00D0      		rcall .
- 152 0092 80E0      		ldi r24,lo8(__c.4420)
- 153 0094 90E0      		ldi r25,hi8(__c.4420)
- 154 0096 00C0      		rjmp .L38
- 155               	.L9:
- 156               	.LSM10:
- 157 0098 00D0      		rcall .
- 158 009a 80E0      		ldi r24,lo8(__c.4423)
- 159 009c 90E0      		ldi r25,hi8(__c.4423)
- 160 009e 00C0      		rjmp .L38
- 161               	.L10:
- 162               	.LSM11:
- 163 00a0 00D0      		rcall .
- 164 00a2 80E0      		ldi r24,lo8(__c.4426)
- 165 00a4 90E0      		ldi r25,hi8(__c.4426)
- 166 00a6 00C0      		rjmp .L38
- 167               	.L11:
- 168               	.LSM12:
- 169 00a8 00D0      		rcall .
- 170 00aa 80E0      		ldi r24,lo8(__c.4429)
- 171 00ac 90E0      		ldi r25,hi8(__c.4429)
- 172 00ae 00C0      		rjmp .L38
- 173               	.L12:
- 174               	.LSM13:
- 175 00b0 00D0      		rcall .
- 176 00b2 80E0      		ldi r24,lo8(__c.4432)
- 177 00b4 90E0      		ldi r25,hi8(__c.4432)
- 178 00b6 00C0      		rjmp .L38
- 179               	.L13:
- 180               	.LSM14:
- 181 00b8 00D0      		rcall .
- 182 00ba 80E0      		ldi r24,lo8(__c.4435)
- 183 00bc 90E0      		ldi r25,hi8(__c.4435)
- 184 00be 00C0      		rjmp .L38
- 185               	.L14:
- 186               	.LSM15:
- 187 00c0 00D0      		rcall .
- 188 00c2 80E0      		ldi r24,lo8(__c.4438)
- 189 00c4 90E0      		ldi r25,hi8(__c.4438)
- 190 00c6 00C0      		rjmp .L38
- 191               	.L15:
- 192               	.LSM16:
- 193 00c8 00D0      		rcall .
- 194 00ca 80E0      		ldi r24,lo8(__c.4441)
- 195 00cc 90E0      		ldi r25,hi8(__c.4441)
- 196 00ce 00C0      		rjmp .L38
- 197               	.L16:
- 198               	.LSM17:
- 199 00d0 00D0      		rcall .
- 200 00d2 80E0      		ldi r24,lo8(__c.4444)
- 201 00d4 90E0      		ldi r25,hi8(__c.4444)
- 202 00d6 00C0      		rjmp .L38
- 203               	.L17:
- 204               	.LSM18:
- 205 00d8 00D0      		rcall .
- 206 00da 80E0      		ldi r24,lo8(__c.4447)
- 207 00dc 90E0      		ldi r25,hi8(__c.4447)
- 208 00de 00C0      		rjmp .L38
- 209               	.L18:
- 210               	.LSM19:
- 211 00e0 00D0      		rcall .
- 212 00e2 80E0      		ldi r24,lo8(__c.4450)
- 213 00e4 90E0      		ldi r25,hi8(__c.4450)
- 214 00e6 00C0      		rjmp .L38
- 215               	.L19:
- 216               	.LSM20:
- 217 00e8 00D0      		rcall .
- 218 00ea 80E0      		ldi r24,lo8(__c.4453)
- 219 00ec 90E0      		ldi r25,hi8(__c.4453)
- 220 00ee 00C0      		rjmp .L38
- 221               	.L20:
- 222               	.LSM21:
- 223 00f0 00D0      		rcall .
- 224 00f2 80E0      		ldi r24,lo8(__c.4456)
- 225 00f4 90E0      		ldi r25,hi8(__c.4456)
- 226 00f6 00C0      		rjmp .L38
- 227               	.L21:
- 228               	.LSM22:
- 229 00f8 00D0      		rcall .
- 230 00fa 80E0      		ldi r24,lo8(__c.4459)
- 231 00fc 90E0      		ldi r25,hi8(__c.4459)
- 232 00fe 00C0      		rjmp .L38
- 233               	.L22:
- 234               	.LSM23:
- 235 0100 00D0      		rcall .
- 236 0102 80E0      		ldi r24,lo8(__c.4462)
- 237 0104 90E0      		ldi r25,hi8(__c.4462)
- 238 0106 00C0      		rjmp .L38
- 239               	.L23:
- 240               	.LSM24:
- 241 0108 00D0      		rcall .
- 242 010a 80E0      		ldi r24,lo8(__c.4465)
- 243 010c 90E0      		ldi r25,hi8(__c.4465)
- 244 010e 00C0      		rjmp .L38
- 245               	.L24:
- 246               	.LSM25:
- 247 0110 00D0      		rcall .
- 248 0112 80E0      		ldi r24,lo8(__c.4468)
- 249 0114 90E0      		ldi r25,hi8(__c.4468)
- 250 0116 00C0      		rjmp .L38
- 251               	.L25:
- 252               	.LSM26:
- 253 0118 00D0      		rcall .
- 254 011a 80E0      		ldi r24,lo8(__c.4471)
- 255 011c 90E0      		ldi r25,hi8(__c.4471)
- 256 011e 00C0      		rjmp .L38
- 257               	.L26:
- 258               	.LSM27:
- 259 0120 00D0      		rcall .
- 260 0122 80E0      		ldi r24,lo8(__c.4474)
- 261 0124 90E0      		ldi r25,hi8(__c.4474)
- 262 0126 00C0      		rjmp .L38
- 263               	.L27:
- 264               	.LSM28:
- 265 0128 00D0      		rcall .
- 266 012a 80E0      		ldi r24,lo8(__c.4477)
- 267 012c 90E0      		ldi r25,hi8(__c.4477)
- 268 012e 00C0      		rjmp .L38
- 269               	.L28:
- 270               	.LSM29:
- 271 0130 00D0      		rcall .
- 272 0132 80E0      		ldi r24,lo8(__c.4480)
- 273 0134 90E0      		ldi r25,hi8(__c.4480)
- 274 0136 00C0      		rjmp .L38
- 275               	.L29:
- 276               	.LSM30:
- 277 0138 00D0      		rcall .
- 278 013a 80E0      		ldi r24,lo8(__c.4483)
- 279 013c 90E0      		ldi r25,hi8(__c.4483)
- 280 013e 00C0      		rjmp .L38
- 281               	.L30:
- 282               	.LSM31:
- 283 0140 00D0      		rcall .
- 284 0142 80E0      		ldi r24,lo8(__c.4486)
- 285 0144 90E0      		ldi r25,hi8(__c.4486)
- 286 0146 00C0      		rjmp .L38
- 287               	.L31:
- 288               	.LSM32:
- 289 0148 00D0      		rcall .
- 290 014a 80E0      		ldi r24,lo8(__c.4489)
- 291 014c 90E0      		ldi r25,hi8(__c.4489)
- 292 014e 00C0      		rjmp .L38
- 293               	.L32:
- 294               	.LSM33:
- 295 0150 00D0      		rcall .
- 296 0152 80E0      		ldi r24,lo8(__c.4492)
- 297 0154 90E0      		ldi r25,hi8(__c.4492)
- 298 0156 00C0      		rjmp .L38
- 299               	.L33:
- 300               	.LSM34:
- 301 0158 00D0      		rcall .
- 302 015a 80E0      		ldi r24,lo8(__c.4495)
- 303 015c 90E0      		ldi r25,hi8(__c.4495)
- 304 015e 00C0      		rjmp .L38
- 305               	.L34:
- 306               	.LSM35:
- 307 0160 00D0      		rcall .
- 308 0162 80E0      		ldi r24,lo8(__c.4498)
- 309 0164 90E0      		ldi r25,hi8(__c.4498)
- 310 0166 00C0      		rjmp .L38
- 311               	.L35:
- 312               	.LSM36:
- 313 0168 00D0      		rcall .
- 314 016a 80E0      		ldi r24,lo8(__c.4501)
- 315 016c 90E0      		ldi r25,hi8(__c.4501)
- 316 016e 00C0      		rjmp .L38
- 317               	.L36:
- 318               	.LSM37:
- 319 0170 00D0      		rcall .
- 320 0172 80E0      		ldi r24,lo8(__c.4504)
- 321 0174 90E0      		ldi r25,hi8(__c.4504)
- 322 0176 00C0      		rjmp .L38
- 323               	.L5:
- 324               	.LSM38:
- 325 0178 00D0      		rcall .
- 326 017a 80E0      		ldi r24,lo8(__c.4507)
- 327 017c 90E0      		ldi r25,hi8(__c.4507)
- 328               	.L38:
- 329 017e EDB7      		in r30,__SP_L__
- 330 0180 FEB7      		in r31,__SP_H__
- 331 0182 9283      		std Z+2,r25
- 332 0184 8183      		std Z+1,r24
- 333 0186 0E94 0000 		call printf_P
- 334 018a 0F90      		pop __tmp_reg__
- 335 018c 0F90      		pop __tmp_reg__
- 336               	.L1:
- 337               	/* epilogue start */
- 338               	.LSM39:
- 339 018e DF91      		pop r29
- 340 0190 CF91      		pop r28
- 341               	.LVL2:
- 342 0192 0895      		ret
- 343               	.LFE140:
- 345               		.section	.text.CameraControl_DescribePIPE_RWSTREAMError,"ax",@progbits
- 346               	.global	CameraControl_DescribePIPE_RWSTREAMError
- 348               	CameraControl_DescribePIPE_RWSTREAMError:
- 349               	.LFB141:
- 350               	.LSM40:
- 351               	.LVL3:
- 352 0000 1F93      		push r17
- 353               	/* prologue: function */
- 354               	/* frame size = 0 */
- 355               	/* stack size = 1 */
- 356               	.L__stack_usage = 1
- 357 0002 182F      		mov r17,r24
- 358               	.LSM41:
- 359 0004 8091 0000 		lds r24,g_bQuiteMode
- 360               	.LVL4:
- 361 0008 8823      		tst r24
- 362 000a 01F0      		breq .+2
- 363 000c 00C0      		rjmp .L39
- 364               	.LSM42:
- 365 000e 00D0      		rcall .
- 366 0010 00D0      		rcall .
- 367 0012 EDB7      		in r30,__SP_L__
- 368 0014 FEB7      		in r31,__SP_H__
- 369 0016 3196      		adiw r30,1
- 370 0018 20E0      		ldi r18,lo8(__c.4512)
- 371 001a 30E0      		ldi r19,hi8(__c.4512)
- 372 001c ADB7      		in r26,__SP_L__
- 373 001e BEB7      		in r27,__SP_H__
- 374 0020 1296      		adiw r26,1+1
- 375 0022 3C93      		st X,r19
- 376 0024 2E93      		st -X,r18
- 377 0026 1197      		sbiw r26,1
- 378 0028 1283      		std Z+2,r17
- 379 002a 1382      		std Z+3,__zero_reg__
- 380 002c 0E94 0000 		call printf_P
- 381               	.LSM43:
- 382 0030 0F90      		pop __tmp_reg__
- 383 0032 0F90      		pop __tmp_reg__
- 384 0034 0F90      		pop __tmp_reg__
- 385 0036 0F90      		pop __tmp_reg__
- 386 0038 1330      		cpi r17,lo8(3)
- 387 003a 01F0      		breq .L44
- 388 003c 1430      		cpi r17,lo8(4)
- 389 003e 00F4      		brsh .L47
- 390 0040 1130      		cpi r17,lo8(1)
- 391 0042 01F0      		breq .L42
- 392 0044 1230      		cpi r17,lo8(2)
- 393 0046 01F4      		brne .L41
- 394 0048 00C0      		rjmp .L51
- 395               	.L47:
- 396 004a 1430      		cpi r17,lo8(4)
- 397 004c 01F0      		breq .L45
- 398 004e 1038      		cpi r17,lo8(-128)
- 399 0050 01F4      		brne .L41
- 400 0052 00C0      		rjmp .L52
- 401               	.L42:
- 402               	.LSM44:
- 403 0054 00D0      		rcall .
- 404 0056 80E0      		ldi r24,lo8(__c.4515)
- 405 0058 90E0      		ldi r25,hi8(__c.4515)
- 406 005a 00C0      		rjmp .L50
- 407               	.L51:
- 408               	.LSM45:
- 409 005c 00D0      		rcall .
- 410 005e 80E0      		ldi r24,lo8(__c.4519)
- 411 0060 90E0      		ldi r25,hi8(__c.4519)
- 412 0062 00C0      		rjmp .L48
- 413               	.L44:
- 414               	.LSM46:
- 415 0064 00D0      		rcall .
- 416 0066 80E0      		ldi r24,lo8(__c.4522)
- 417 0068 90E0      		ldi r25,hi8(__c.4522)
- 418 006a 00C0      		rjmp .L50
- 419               	.L45:
- 420               	.LSM47:
- 421 006c 00D0      		rcall .
- 422 006e 80E0      		ldi r24,lo8(__c.4525)
- 423 0070 90E0      		ldi r25,hi8(__c.4525)
- 424 0072 00C0      		rjmp .L48
- 425               	.L52:
- 426               	.LSM48:
- 427 0074 00D0      		rcall .
- 428 0076 80E0      		ldi r24,lo8(__c.4528)
- 429 0078 90E0      		ldi r25,hi8(__c.4528)
- 430               	.L50:
- 431 007a EDB7      		in r30,__SP_L__
- 432 007c FEB7      		in r31,__SP_H__
- 433 007e 9283      		std Z+2,r25
- 434 0080 8183      		std Z+1,r24
- 435 0082 00C0      		rjmp .L49
- 436               	.L41:
- 437               	.LSM49:
- 438 0084 00D0      		rcall .
- 439 0086 80E0      		ldi r24,lo8(__c.4531)
- 440 0088 90E0      		ldi r25,hi8(__c.4531)
- 441               	.L48:
- 442 008a ADB7      		in r26,__SP_L__
- 443 008c BEB7      		in r27,__SP_H__
- 444 008e 1296      		adiw r26,1+1
- 445 0090 9C93      		st X,r25
- 446 0092 8E93      		st -X,r24
- 447 0094 1197      		sbiw r26,1
- 448               	.L49:
- 449 0096 0E94 0000 		call printf_P
- 450 009a 0F90      		pop __tmp_reg__
- 451 009c 0F90      		pop __tmp_reg__
- 452               	.L39:
- 453               	/* epilogue start */
- 454               	.LSM50:
- 455 009e 1F91      		pop r17
- 456               	.LVL5:
- 457 00a0 0895      		ret
- 458               	.LFE141:
- 460               		.section	.text.UnicodeToASCII,"ax",@progbits
- 461               	.global	UnicodeToASCII
- 463               	UnicodeToASCII:
- 464               	.LFB142:
- 465               	.LSM51:
- 466               	.LVL6:
- 467               	/* prologue: function */
- 468               	/* frame size = 0 */
- 469               	/* stack size = 0 */
- 470               	.L__stack_usage = 0
- 471               	.LSM52:
- 472 0000 DC01      		movw r26,r24
- 473 0002 3C91      		ld r19,X
- 474               	.LVL7:
- 475               	.LSM53:
- 476 0004 232F      		mov r18,r19
- 477 0006 FB01      		movw r30,r22
- 478 0008 00C0      		rjmp .L54
- 479               	.LVL8:
- 480               	.L55:
- 481               	.LSM54:
- 482 000a DC01      		movw r26,r24
- 483 000c 1196      		adiw r26,1
- 484 000e 4C91      		ld r20,X
- 485 0010 1197      		sbiw r26,1
- 486 0012 4193      		st Z+,r20
- 487               	.LVL9:
- 488 0014 2150      		subi r18,lo8(-(-1))
- 489 0016 0296      		adiw r24,2
- 490               	.L54:
- 491               	.LSM55:
- 492 0018 2223      		tst r18
- 493 001a 01F4      		brne .L55
- 494               	.LSM56:
- 495 001c 630F      		add r22,r19
- 496 001e 711D      		adc r23,__zero_reg__
- 497 0020 FB01      		movw r30,r22
- 498               	.LVL10:
- 499 0022 1082      		st Z,__zero_reg__
- 500               	/* epilogue start */
- 501               	.LSM57:
- 502 0024 0895      		ret
- 503               	.LFE142:
- 505               		.section	.text.CameraControl_GetResponseAndCheck,"ax",@progbits
- 506               	.global	CameraControl_GetResponseAndCheck
- 508               	CameraControl_GetResponseAndCheck:
- 509               	.LFB143:
- 510               	.LSM58:
- 511               	.LVL11:
- 512 0000 1F93      		push r17
- 513 0002 CF93      		push r28
- 514 0004 DF93      		push r29
- 515               	/* prologue: function */
- 516               	/* frame size = 0 */
- 517               	/* stack size = 3 */
- 518               	.L__stack_usage = 3
- 519 0006 EB01      		movw r28,r22
- 520               	.LSM59:
- 521 0008 2091 0000 		lds r18,USB_HostState
- 522 000c 2B30      		cpi r18,lo8(11)
- 523 000e 01F4      		brne .L57
- 524               	.LSM60:
- 525 0010 FC01      		movw r30,r24
- 526 0012 2681      		ldd r18,Z+6
- 527 0014 2223      		tst r18
- 528 0016 01F4      		brne .L58
- 529               	.L57:
- 530               	.LSM61:
- 531 0018 00D0      		rcall .
- 532 001a 80E0      		ldi r24,lo8(__c.4546)
- 533 001c 90E0      		ldi r25,hi8(__c.4546)
- 534               	.LVL12:
- 535 001e EDB7      		in r30,__SP_L__
- 536 0020 FEB7      		in r31,__SP_H__
- 537 0022 9283      		std Z+2,r25
- 538 0024 8183      		std Z+1,r24
- 539 0026 0E94 0000 		call printf_P
- 540               	.LVL13:
- 541 002a 0F90      		pop __tmp_reg__
- 542 002c 0F90      		pop __tmp_reg__
- 543 002e 00C0      		rjmp .L62
- 544               	.LVL14:
- 545               	.L58:
- 546               	.LSM62:
- 547 0030 0E94 0000 		call SI_Host_ReceiveBlockHeader
- 548               	.LVL15:
- 549 0034 182F      		mov r17,r24
- 550               	.LVL16:
- 551 0036 8823      		tst r24
- 552 0038 01F0      		breq .L60
- 553               	.LSM63:
- 554 003a 0E94 0000 		call CameraControl_DescribePIPE_RWSTREAMError
- 555               	.LVL17:
- 556               	.LSM64:
- 557 003e 1038      		cpi r17,lo8(-128)
- 558 0040 01F4      		brne .L59
- 559               	.L60:
- 560               	.LSM65:
- 561 0042 8C81      		ldd r24,Y+4
- 562 0044 9D81      		ldd r25,Y+5
- 563 0046 8330      		cpi r24,3
- 564 0048 9105      		cpc r25,__zero_reg__
- 565 004a 01F4      		brne .L61
- 566               	.LSM66:
- 567 004c 8E81      		ldd r24,Y+6
- 568 004e 9F81      		ldd r25,Y+7
- 569 0050 F0E2      		ldi r31,hi8(8193)
- 570 0052 8130      		cpi r24,lo8(8193)
- 571 0054 9F07      		cpc r25,r31
- 572 0056 01F0      		breq .L62
- 573               	.L61:
- 574               	.LSM67:
- 575 0058 8E81      		ldd r24,Y+6
- 576 005a 9F81      		ldd r25,Y+7
- 577 005c 0E94 0000 		call CameraControl_PTPErrorDescription
- 578               	.LSM68:
- 579 0060 10E8      		ldi r17,lo8(-128)
- 580               	.LVL18:
- 581 0062 00C0      		rjmp .L59
- 582               	.L62:
- 583               	.LSM69:
- 584 0064 10E0      		ldi r17,lo8(0)
- 585               	.L59:
- 586               	.LSM70:
- 587 0066 812F      		mov r24,r17
- 588               	/* epilogue start */
- 589 0068 DF91      		pop r29
- 590 006a CF91      		pop r28
- 591               	.LVL19:
- 592 006c 1F91      		pop r17
- 593 006e 0895      		ret
- 594               	.LFE143:
- 596               		.section	.text.CameraControl_InitiateTransaction,"ax",@progbits
- 597               	.global	CameraControl_InitiateTransaction
- 599               	CameraControl_InitiateTransaction:
- 600               	.LFB144:
- 601               	.LSM71:
- 602               	.LVL20:
- 603 0000 0F93      		push r16
- 604 0002 1F93      		push r17
- 605 0004 CF93      		push r28
- 606 0006 DF93      		push r29
- 607               	/* prologue: function */
- 608               	/* frame size = 0 */
- 609               	/* stack size = 4 */
- 610               	.L__stack_usage = 4
- 611 0008 EC01      		movw r28,r24
- 612 000a 8B01      		movw r16,r22
- 613               	.LSM72:
- 614 000c 8091 0000 		lds r24,USB_HostState
- 615               	.LVL21:
- 616 0010 8B30      		cpi r24,lo8(11)
- 617 0012 01F4      		brne .L64
- 618               	.LVL22:
- 619               	.LSM73:
- 620 0014 8E81      		ldd r24,Y+6
- 621 0016 8823      		tst r24
- 622 0018 01F4      		brne .L65
- 623               	.L64:
- 624               	.LSM74:
- 625 001a 00D0      		rcall .
- 626 001c 80E0      		ldi r24,lo8(__c.4553)
- 627 001e 90E0      		ldi r25,hi8(__c.4553)
- 628 0020 EDB7      		in r30,__SP_L__
- 629 0022 FEB7      		in r31,__SP_H__
- 630 0024 9283      		std Z+2,r25
- 631 0026 8183      		std Z+1,r24
- 632 0028 0E94 0000 		call printf_P
- 633 002c 0F90      		pop __tmp_reg__
- 634 002e 0F90      		pop __tmp_reg__
- 635 0030 00C0      		rjmp .L69
- 636               	.L65:
- 637               	.LSM75:
- 638 0032 8091 0000 		lds r24,USB_HostState
- 639 0036 8B30      		cpi r24,lo8(11)
- 640 0038 01F0      		breq .L67
- 641               	.LSM76:
- 642 003a 82E0      		ldi r24,lo8(2)
- 643 003c 0E94 0000 		call CameraControl_DescribePIPE_RWSTREAMError
- 644               	.LSM77:
- 645 0040 02E0      		ldi r16,lo8(2)
- 646               	.LVL23:
- 647 0042 00C0      		rjmp .L66
- 648               	.LVL24:
- 649               	.L67:
- 650               	.LSM78:
- 651 0044 CE01      		movw r24,r28
- 652 0046 0E94 0000 		call SI_Host_SendBlockHeader
- 653               	.LVL25:
- 654 004a 8823      		tst r24
- 655 004c 01F4      		brne .L68
- 656               	.LSM79:
- 657 004e CE01      		movw r24,r28
- 658               	.LVL26:
- 659 0050 B801      		movw r22,r16
- 660 0052 0E94 0000 		call SI_Host_ReceiveBlockHeader
- 661 0056 082F      		mov r16,r24
- 662               	.LVL27:
- 663 0058 8823      		tst r24
- 664 005a 01F0      		breq .L66
- 665               	.LSM80:
- 666 005c 0E94 0000 		call CameraControl_DescribePIPE_RWSTREAMError
- 667               	.LVL28:
- 668               	.LSM81:
- 669 0060 0038      		cpi r16,lo8(-128)
- 670 0062 01F4      		brne .L66
- 671               	.LVL29:
- 672               	.L69:
- 673               	.LSM82:
- 674 0064 00E0      		ldi r16,lo8(0)
- 675 0066 00C0      		rjmp .L66
- 676               	.LVL30:
- 677               	.L68:
- 678               	.LSM83:
- 679 0068 082F      		mov r16,r24
- 680               	.LVL31:
- 681               	.L66:
- 682               	.LSM84:
- 683 006a 802F      		mov r24,r16
- 684               	/* epilogue start */
- 685 006c DF91      		pop r29
- 686 006e CF91      		pop r28
- 687               	.LVL32:
- 688 0070 1F91      		pop r17
- 689 0072 0F91      		pop r16
- 690 0074 0895      		ret
- 691               	.LFE144:
- 693               		.section	.text.CameraControl_OpenSession,"ax",@progbits
- 694               	.global	CameraControl_OpenSession
- 696               	CameraControl_OpenSession:
- 697               	.LFB145:
- 698               	.LSM85:
- 699               	.LVL33:
- 700 0000 0F93      		push r16
- 701 0002 1F93      		push r17
- 702 0004 DF93      		push r29
- 703 0006 CF93      		push r28
- 704 0008 CDB7      		in r28,__SP_L__
- 705 000a DEB7      		in r29,__SP_H__
- 706 000c 6897      		sbiw r28,24
- 707 000e 0FB6      		in __tmp_reg__,__SREG__
- 708 0010 F894      		cli
- 709 0012 DEBF      		out __SP_H__,r29
- 710 0014 0FBE      		out __SREG__,__tmp_reg__
- 711 0016 CDBF      		out __SP_L__,r28
- 712               	/* prologue: function */
- 713               	/* frame size = 24 */
- 714               	/* stack size = 28 */
- 715               	.L__stack_usage = 28
- 716 0018 8C01      		movw r16,r24
- 717               	.LSM86:
- 718 001a 8091 0000 		lds r24,USB_HostState
- 719               	.LVL34:
- 720 001e 8B30      		cpi r24,lo8(11)
- 721 0020 01F4      		brne .L71
- 722               	.LSM87:
- 723 0022 F801      		movw r30,r16
- 724 0024 8681      		ldd r24,Z+6
- 725 0026 8823      		tst r24
- 726 0028 01F4      		brne .L72
- 727               	.L71:
- 728               	.LSM88:
- 729 002a 00D0      		rcall .
- 730 002c 80E0      		ldi r24,lo8(__c.4559)
- 731 002e 90E0      		ldi r25,hi8(__c.4559)
- 732 0030 EDB7      		in r30,__SP_L__
- 733 0032 FEB7      		in r31,__SP_H__
- 734 0034 9283      		std Z+2,r25
- 735 0036 8183      		std Z+1,r24
- 736 0038 0E94 0000 		call printf_P
- 737 003c 0F90      		pop __tmp_reg__
- 738 003e 0F90      		pop __tmp_reg__
- 739 0040 80E0      		ldi r24,lo8(0)
- 740 0042 00C0      		rjmp .L73
- 741               	.L72:
- 742               	.LSM89:
- 743 0044 F801      		movw r30,r16
- 744 0046 1786      		std Z+15,__zero_reg__
- 745 0048 108A      		std Z+16,__zero_reg__
- 746 004a 118A      		std Z+17,__zero_reg__
- 747 004c 128A      		std Z+18,__zero_reg__
- 748               	.LSM90:
- 749 004e 1686      		std Z+14,__zero_reg__
- 750               	.LSM91:
- 751 0050 BE01      		movw r22,r28
- 752 0052 6F5F      		subi r22,lo8(-(1))
- 753 0054 7F4F      		sbci r23,hi8(-(1))
- 754 0056 88E1      		ldi r24,lo8(24)
- 755 0058 FB01      		movw r30,r22
- 756 005a 1192      		st Z+,__zero_reg__
- 757 005c 8A95      	        dec r24
- 758 005e 01F4      		brne .-6
- 759 0060 80E1      		ldi r24,lo8(16)
- 760 0062 90E0      		ldi r25,hi8(16)
- 761 0064 A0E0      		ldi r26,hlo8(16)
- 762 0066 B0E0      		ldi r27,hhi8(16)
- 763 0068 8983      		std Y+1,r24
- 764 006a 9A83      		std Y+2,r25
- 765 006c AB83      		std Y+3,r26
- 766 006e BC83      		std Y+4,r27
- 767 0070 81E0      		ldi r24,lo8(1)
- 768 0072 90E0      		ldi r25,hi8(1)
- 769 0074 9E83      		std Y+6,r25
- 770 0076 8D83      		std Y+5,r24
- 771 0078 82E0      		ldi r24,lo8(4098)
- 772 007a 90E1      		ldi r25,hi8(4098)
- 773 007c 9887      		std Y+8,r25
- 774 007e 8F83      		std Y+7,r24
- 775 0080 81E0      		ldi r24,lo8(1)
- 776 0082 90E0      		ldi r25,hi8(1)
- 777 0084 A0E0      		ldi r26,hlo8(1)
- 778 0086 B0E0      		ldi r27,hhi8(1)
- 779 0088 8D87      		std Y+13,r24
- 780 008a 9E87      		std Y+14,r25
- 781 008c AF87      		std Y+15,r26
- 782 008e B88B      		std Y+16,r27
- 783               	.LSM92:
- 784 0090 C801      		movw r24,r16
- 785 0092 0E94 0000 		call CameraControl_InitiateTransaction
- 786               	.LVL35:
- 787               	.LSM93:
- 788 0096 8823      		tst r24
- 789 0098 01F4      		brne .L73
- 790               	.LSM94:
- 791 009a 91E0      		ldi r25,lo8(1)
- 792 009c F801      		movw r30,r16
- 793 009e 9687      		std Z+14,r25
- 794               	.LVL36:
- 795               	.L73:
- 796               	/* epilogue start */
- 797               	.LSM95:
- 798 00a0 6896      		adiw r28,24
- 799 00a2 0FB6      		in __tmp_reg__,__SREG__
- 800 00a4 F894      		cli
- 801 00a6 DEBF      		out __SP_H__,r29
- 802 00a8 0FBE      		out __SREG__,__tmp_reg__
- 803 00aa CDBF      		out __SP_L__,r28
- 804 00ac CF91      		pop r28
- 805 00ae DF91      		pop r29
- 806 00b0 1F91      		pop r17
- 807 00b2 0F91      		pop r16
- 808               	.LVL37:
- 809 00b4 0895      		ret
- 810               	.LFE145:
- 812               		.section	.text.CameraControl_CloseSession,"ax",@progbits
- 813               	.global	CameraControl_CloseSession
- 815               	CameraControl_CloseSession:
- 816               	.LFB146:
- 817               	.LSM96:
- 818               	.LVL38:
- 819 0000 0F93      		push r16
- 820 0002 1F93      		push r17
- 821 0004 DF93      		push r29
- 822 0006 CF93      		push r28
- 823 0008 CDB7      		in r28,__SP_L__
- 824 000a DEB7      		in r29,__SP_H__
- 825 000c 6897      		sbiw r28,24
- 826 000e 0FB6      		in __tmp_reg__,__SREG__
- 827 0010 F894      		cli
- 828 0012 DEBF      		out __SP_H__,r29
- 829 0014 0FBE      		out __SREG__,__tmp_reg__
- 830 0016 CDBF      		out __SP_L__,r28
- 831               	/* prologue: function */
- 832               	/* frame size = 24 */
- 833               	/* stack size = 28 */
- 834               	.L__stack_usage = 28
- 835 0018 8C01      		movw r16,r24
- 836               	.LSM97:
- 837 001a 8091 0000 		lds r24,USB_HostState
- 838               	.LVL39:
- 839 001e 8B30      		cpi r24,lo8(11)
- 840 0020 01F4      		brne .L75
- 841               	.LSM98:
- 842 0022 F801      		movw r30,r16
- 843 0024 8681      		ldd r24,Z+6
- 844 0026 8823      		tst r24
- 845 0028 01F4      		brne .L76
- 846               	.L75:
- 847               	.LSM99:
- 848 002a 00D0      		rcall .
- 849 002c 80E0      		ldi r24,lo8(__c.4567)
- 850 002e 90E0      		ldi r25,hi8(__c.4567)
- 851 0030 EDB7      		in r30,__SP_L__
- 852 0032 FEB7      		in r31,__SP_H__
- 853 0034 9283      		std Z+2,r25
- 854 0036 8183      		std Z+1,r24
- 855 0038 0E94 0000 		call printf_P
- 856 003c 0F90      		pop __tmp_reg__
- 857 003e 0F90      		pop __tmp_reg__
- 858 0040 80E0      		ldi r24,lo8(0)
- 859 0042 00C0      		rjmp .L77
- 860               	.L76:
- 861               	.LSM100:
- 862 0044 BE01      		movw r22,r28
- 863 0046 6F5F      		subi r22,lo8(-(1))
- 864 0048 7F4F      		sbci r23,hi8(-(1))
- 865 004a 88E1      		ldi r24,lo8(24)
- 866 004c FB01      		movw r30,r22
- 867 004e 1192      		st Z+,__zero_reg__
- 868 0050 8A95      	        dec r24
- 869 0052 01F4      		brne .-6
- 870 0054 8CE0      		ldi r24,lo8(12)
- 871 0056 90E0      		ldi r25,hi8(12)
- 872 0058 A0E0      		ldi r26,hlo8(12)
- 873 005a B0E0      		ldi r27,hhi8(12)
- 874 005c 8983      		std Y+1,r24
- 875 005e 9A83      		std Y+2,r25
- 876 0060 AB83      		std Y+3,r26
- 877 0062 BC83      		std Y+4,r27
- 878 0064 81E0      		ldi r24,lo8(1)
- 879 0066 90E0      		ldi r25,hi8(1)
- 880 0068 9E83      		std Y+6,r25
- 881 006a 8D83      		std Y+5,r24
- 882 006c 83E0      		ldi r24,lo8(4099)
- 883 006e 90E1      		ldi r25,hi8(4099)
- 884 0070 9887      		std Y+8,r25
- 885 0072 8F83      		std Y+7,r24
- 886               	.LSM101:
- 887 0074 C801      		movw r24,r16
- 888 0076 0E94 0000 		call CameraControl_InitiateTransaction
- 889               	.LVL40:
- 890               	.LSM102:
- 891 007a 8823      		tst r24
- 892 007c 01F4      		brne .L77
- 893               	.LSM103:
- 894 007e F801      		movw r30,r16
- 895 0080 1686      		std Z+14,__zero_reg__
- 896               	.LVL41:
- 897               	.L77:
- 898               	/* epilogue start */
- 899               	.LSM104:
- 900 0082 6896      		adiw r28,24
- 901 0084 0FB6      		in __tmp_reg__,__SREG__
- 902 0086 F894      		cli
- 903 0088 DEBF      		out __SP_H__,r29
- 904 008a 0FBE      		out __SREG__,__tmp_reg__
- 905 008c CDBF      		out __SP_L__,r28
- 906 008e CF91      		pop r28
- 907 0090 DF91      		pop r29
- 908 0092 1F91      		pop r17
- 909 0094 0F91      		pop r16
- 910               	.LVL42:
- 911 0096 0895      		ret
- 912               	.LFE146:
- 914               		.section	.text.CameraControl_CameraConnected,"ax",@progbits
- 915               	.global	CameraControl_CameraConnected
- 917               	CameraControl_CameraConnected:
- 918               	.LFB147:
- 919               	.LSM105:
- 920               	.LVL43:
- 921               	/* prologue: function */
- 922               	/* frame size = 0 */
- 923               	/* stack size = 0 */
- 924               	.L__stack_usage = 0
- 925               	.LSM106:
- 926 0000 2091 0000 		lds r18,USB_HostState
- 927 0004 2B30      		cpi r18,lo8(11)
- 928 0006 01F4      		brne .L80
- 929               	.LSM107:
- 930 0008 FC01      		movw r30,r24
- 931 000a 8681      		ldd r24,Z+6
- 932               	.LVL44:
- 933 000c 0895      		ret
- 934               	.LVL45:
- 935               	.L80:
- 936               	.LSM108:
- 937 000e 80E0      		ldi r24,lo8(0)
- 938               	.LVL46:
- 939               	.LSM109:
- 940 0010 0895      		ret
- 941               	.LFE147:
- 943               	.global	g_bQuiteMode
- 944               	.global	g_bQuiteMode
- 945               		.section .bss
- 948               	g_bQuiteMode:
- 949 0000 00        		.skip 1,0
- 950               		.section	.progmem.data,"a",@progbits
- 953               	__c.4567:
- 954 0000 4465 7669 		.string	"Device not connected.\r\n"
- 954      6365 206E 
- 954      6F74 2063 
- 954      6F6E 6E65 
- 954      6374 6564 
- 957               	__c.4559:
- 958 0018 4465 7669 		.string	"Device not connected.\r\n"
- 958      6365 206E 
- 958      6F74 2063 
- 958      6F6E 6E65 
- 958      6374 6564 
- 961               	__c.4553:
- 962 0030 4465 7669 		.string	"Device not connected.\r\n"
- 962      6365 206E 
- 962      6F74 2063 
- 962      6F6E 6E65 
- 962      6374 6564 
- 965               	__c.4546:
- 966 0048 4465 7669 		.string	"Device not connected.\r\n"
- 966      6365 206E 
- 966      6F74 2063 
- 966      6F6E 6E65 
- 966      6374 6564 
- 969               	__c.4531:
- 970 0060 556E 7265 		.string	"Unrecognized error.\r\n"
- 970      636F 676E 
- 970      697A 6564 
- 970      2065 7272 
- 970      6F72 2E0D 
- 973               	__c.4528:
- 974 0076 4572 726F 		.ascii	"Error code for some Still Image "
- 974      7220 636F 
- 974      6465 2066 
- 974      6F72 2073 
- 974      6F6D 6520 
- 975 0096 486F 7374 		.string	"Host functions, indicating a logical (and not hardware) error.\r\n"
- 975      2066 756E 
- 975      6374 696F 
- 975      6E73 2C20 
- 975      696E 6469 
- 978               	__c.4525:
- 979 00d7 496E 6469 		.ascii	"Indicates that the pipe bank became full/empty be"
- 979      6361 7465 
- 979      7320 7468 
- 979      6174 2074 
- 979      6865 2070 
- 980 0108 666F 7265 		.string	"fore the complete contents of the stream could be transferred.\r\n"
- 980      2074 6865 
- 980      2063 6F6D 
- 980      706C 6574 
- 980      6520 636F 
- 983               	__c.4522:
- 984 0149 5468 6520 		.ascii	"The device failed to accept or send the next packet within t"
- 984      6465 7669 
- 984      6365 2066 
- 984      6169 6C65 
- 984      6420 746F 
- 985 0185 6865 2073 		.ascii	"he s"
- 986 0189 6F66 7477 		.string	"oftware timeout period set by the USB_STREAM_TIMEOUT_MS macro.\r\n"
- 986      6172 6520 
- 986      7469 6D65 
- 986      6F75 7420 
- 986      7065 7269 
- 989               	__c.4519:
- 990 01ca 4465 7669 		.string	"Device was disconnected from the host during the transfer.\r\n"
- 990      6365 2077 
- 990      6173 2064 
- 990      6973 636F 
- 990      6E6E 6563 
- 993               	__c.4515:
- 994 0207 5468 6520 		.string	"The device stalled the pipe during the transfer.\r\n"
- 994      6465 7669 
- 994      6365 2073 
- 994      7461 6C6C 
- 994      6564 2074 
- 997               	__c.4512:
- 998 023a 5049 4D41 		.string	"PIMA Error (%d): "
- 998      2045 7272 
- 998      6F72 2028 
- 998      2564 293A 
- 998      2000 
- 1001               	__c.4507:
- 1002 024c 1B5B 3331 		.string	"\033[31mUndefined or Vendor Specific\r\n\033[37m"
- 1002      6D55 6E64 
- 1002      6566 696E 
- 1002      6564 206F 
- 1002      7220 5665 
- 1005               	__c.4504:
- 1006 0275 1B5B 3331 		.string	"\033[31mSpecification of Destination Unsupported\r\n\033[37m"
- 1006      6D53 7065 
- 1006      6369 6669 
- 1006      6361 7469 
- 1006      6F6E 206F 
- 1009               	__c.4501:
- 1010 02aa 1B5B 3331 		.string	"\033[31mTransaction Cancelled\r\n\033[37m"
- 1010      6D54 7261 
- 1010      6E73 6163 
- 1010      7469 6F6E 
- 1010      2043 616E 
- 1013               	__c.4498:
- 1014 02cc 1B5B 3331 		.string	"\033[31mSession Already Open\r\n\033[37m"
- 1014      6D53 6573 
- 1014      7369 6F6E 
- 1014      2041 6C72 
- 1014      6561 6479 
- 1017               	__c.4495:
- 1018 02ed 1B5B 3331 		.string	"\033[31mInvalid Parameter\r\n\033[37m"
- 1018      6D49 6E76 
- 1018      616C 6964 
- 1018      2050 6172 
- 1018      616D 6574 
- 1021               	__c.4492:
- 1022 030b 1B5B 3331 		.string	"\033[31mInvalid DeviceProp Value\r\n\033[37m"
- 1022      6D49 6E76 
- 1022      616C 6964 
- 1022      2044 6576 
- 1022      6963 6550 
- 1025               	__c.4489:
- 1026 0330 1B5B 3331 		.string	"\033[31mInvalid DeviceProp Format\r\n\033[37m"
- 1026      6D49 6E76 
- 1026      616C 6964 
- 1026      2044 6576 
- 1026      6963 6550 
- 1029               	__c.4486:
- 1030 0356 1B5B 3331 		.string	"\033[31mInvalid ParentObject\r\n\033[37m"
- 1030      6D49 6E76 
- 1030      616C 6964 
- 1030      2050 6172 
- 1030      656E 744F 
- 1033               	__c.4483:
- 1034 0377 1B5B 3331 		.string	"\033[31mDevice Busy\r\n\033[37m"
- 1034      6D44 6576 
- 1034      6963 6520 
- 1034      4275 7379 
- 1034      0D0A 1B5B 
- 1037               	__c.4480:
- 1038 038f 1B5B 3331 		.string	"\033[31mCapture Already Terminated\r\n\033[37m"
- 1038      6D43 6170 
- 1038      7475 7265 
- 1038      2041 6C72 
- 1038      6561 6479 
- 1041               	__c.4477:
- 1042 03b6 1B5B 3331 		.string	"\033[31mUnknown Vendor Code\r\n\033[37m"
- 1042      6D55 6E6B 
- 1042      6E6F 776E 
- 1042      2056 656E 
- 1042      646F 7220 
- 1045               	__c.4474:
- 1046 03d6 1B5B 3331 		.string	"\033[31mInvalid Code Format\r\n\033[37m"
- 1046      6D49 6E76 
- 1046      616C 6964 
- 1046      2043 6F64 
- 1046      6520 466F 
- 1049               	__c.4471:
- 1050 03f6 1B5B 3331 		.string	"\033[31mNo Valid ObjectInfo\r\n\033[37m"
- 1050      6D4E 6F20 
- 1050      5661 6C69 
- 1050      6420 4F62 
- 1050      6A65 6374 
- 1053               	__c.4468:
- 1054 0416 1B5B 3331 		.string	"\033[31mSpecification By Format Unsupported\r\n\033[37m"
- 1054      6D53 7065 
- 1054      6369 6669 
- 1054      6361 7469 
- 1054      6F6E 2042 
- 1057               	__c.4465:
- 1058 0446 1B5B 3331 		.string	"\033[31mStore Not Available\r\n\033[37m"
- 1058      6D53 746F 
- 1058      7265 204E 
- 1058      6F74 2041 
- 1058      7661 696C 
- 1061               	__c.4462:
- 1062 0466 1B5B 3331 		.string	"\033[31mPartial Deletion\r\n\033[37m"
- 1062      6D50 6172 
- 1062      7469 616C 
- 1062      2044 656C 
- 1062      6574 696F 
- 1065               	__c.4459:
- 1066 0483 1B5B 3331 		.string	"\033[31mSelfTest Failed\r\n\033[37m"
- 1066      6D53 656C 
- 1066      6654 6573 
- 1066      7420 4661 
- 1066      696C 6564 
- 1069               	__c.4456:
- 1070 049f 1B5B 3331 		.string	"\033[31mNo Thumbnail Present\r\n\033[37m"
- 1070      6D4E 6F20 
- 1070      5468 756D 
- 1070      626E 6169 
- 1070      6C20 5072 
- 1073               	__c.4453:
- 1074 04c0 1B5B 3331 		.string	"\033[31mAccess Denied\r\n\033[37m"
- 1074      6D41 6363 
- 1074      6573 7320 
- 1074      4465 6E69 
- 1074      6564 0D0A 
- 1077               	__c.4450:
- 1078 04da 1B5B 3331 		.string	"\033[31mStore Read-Only\r\n\033[37m"
- 1078      6D53 746F 
- 1078      7265 2052 
- 1078      6561 642D 
- 1078      4F6E 6C79 
- 1081               	__c.4447:
- 1082 04f6 1B5B 3331 		.string	"\033[31mObject WriteProtected\r\n\033[37m"
- 1082      6D4F 626A 
- 1082      6563 7420 
- 1082      5772 6974 
- 1082      6550 726F 
- 1085               	__c.4444:
- 1086 0518 1B5B 3331 		.string	"\033[31mStore Full\r\n\033[37m"
- 1086      6D53 746F 
- 1086      7265 2046 
- 1086      756C 6C0D 
- 1086      0A1B 5B33 
- 1089               	__c.4441:
- 1090 052f 1B5B 3331 		.string	"\033[31mInvalid ObjectFormatCode\r\n\033[37m"
- 1090      6D49 6E76 
- 1090      616C 6964 
- 1090      204F 626A 
- 1090      6563 7446 
- 1093               	__c.4438:
- 1094 0554 1B5B 3331 		.string	"\033[31mDeviceProp Not Supported\r\n\033[37m"
- 1094      6D44 6576 
- 1094      6963 6550 
- 1094      726F 7020 
- 1094      4E6F 7420 
- 1097               	__c.4435:
- 1098 0579 1B5B 3331 		.string	"\033[31mInvalid ObjectHandle\r\n\033[37m"
- 1098      6D49 6E76 
- 1098      616C 6964 
- 1098      204F 626A 
- 1098      6563 7448 
- 1101               	__c.4432:
- 1102 059a 1B5B 3331 		.string	"\033[31mInvalid StorageID\r\n\033[37m"
- 1102      6D49 6E76 
- 1102      616C 6964 
- 1102      2053 746F 
- 1102      7261 6765 
- 1105               	__c.4429:
- 1106 05b8 1B5B 3331 		.string	"\033[31mIncomplete Transfer\r\n\033[37m"
- 1106      6D49 6E63 
- 1106      6F6D 706C 
- 1106      6574 6520 
- 1106      5472 616E 
- 1109               	__c.4426:
- 1110 05d8 1B5B 3331 		.string	"\033[31mParameter Not Supported\r\n\033[37m"
- 1110      6D50 6172 
- 1110      616D 6574 
- 1110      6572 204E 
- 1110      6F74 2053 
- 1113               	__c.4423:
- 1114 05fc 1B5B 3331 		.string	"\033[31mOperation Not Supported\r\n\033[37m"
- 1114      6D4F 7065 
- 1114      7261 7469 
- 1114      6F6E 204E 
- 1114      6F74 2053 
- 1117               	__c.4420:
- 1118 0620 1B5B 3331 		.string	"\033[31mInvalid TransactionID\r\n\033[37m"
- 1118      6D49 6E76 
- 1118      616C 6964 
- 1118      2054 7261 
- 1118      6E73 6163 
- 1121               	__c.4417:
- 1122 0642 1B5B 3331 		.string	"\033[31mSession Not Open\r\n\033[37m"
- 1122      6D53 6573 
- 1122      7369 6F6E 
- 1122      204E 6F74 
- 1122      204F 7065 
- 1125               	__c.4414:
- 1126 065f 1B5B 3331 		.string	"\033[31mGeneral Error\r\n\033[37m"
- 1126      6D47 656E 
- 1126      6572 616C 
- 1126      2045 7272 
- 1126      6F72 0D0A 
- 1129               	__c.4410:
- 1130 0679 1B5B 3336 		.string	"\033[36mOK\r\n\033[37m"
- 1130      6D4F 4B0D 
- 1130      0A1B 5B33 
- 1130      376D 00
- 1133               	__c.4407:
- 1134 0688 1B5B 3331 		.string	"\033[31m\t\t[0x%04x] \033[37m"
- 1134      6D09 095B 
- 1134      3078 2530 
- 1134      3478 5D20 
- 1134      1B5B 3337 
- 1137               	__c.4405:
- 1138 069e 1B5B 3336 		.string	"\033[36m\t\t[0x%04x] \033[37m"
- 1138      6D09 095B 
- 1138      3078 2530 
- 1138      3478 5D20 
- 1138      1B5B 3337 
- 1219               	.Letext0:
+  43 001a 80E0      		ldi r24,lo8(__c.4862)
+  44 001c 90E0      		ldi r25,hi8(__c.4862)
+  45 001e EDB7      		in r30,__SP_L__
+  46 0020 FEB7      		in r31,__SP_H__
+  47 0022 9283      		std Z+2,r25
+  48 0024 8183      		std Z+1,r24
+  49 0026 D483      		std Z+4,r29
+  50 0028 C383      		std Z+3,r28
+  51 002a 0E94 0000 		call printf_P
+  52               	.LSM4:
+  53 002e 0F90      		pop __tmp_reg__
+  54 0030 0F90      		pop __tmp_reg__
+  55 0032 0F90      		pop __tmp_reg__
+  56 0034 0F90      		pop __tmp_reg__
+  57 0036 C150      		subi r28,lo8(-(-8193))
+  58 0038 D042      		sbci r29,hi8(-(-8193))
+  59               	.LVL2:
+  60 003a C032      		cpi r28,32
+  61 003c D105      		cpc r29,__zero_reg__
+  62 003e 00F0      		brlo .L40
+  63               	.LSM5:
+  64 0040 00D0      		rcall .
+  65               	.LVL3:
+  66 0042 80E0      		ldi r24,lo8(__c.4962)
+  67 0044 90E0      		ldi r25,hi8(__c.4962)
+  68 0046 EDB7      		in r30,__SP_L__
+  69 0048 FEB7      		in r31,__SP_H__
+  70 004a 9283      		std Z+2,r25
+  71 004c 8183      		std Z+1,r24
+  72 004e 0E94 0000 		call printf_P
+  73 0052 0F90      		pop __tmp_reg__
+  74 0054 0F90      		pop __tmp_reg__
+  75               	.LVL4:
+  76               	.L1:
+  77               	/* epilogue start */
+  78               	.LSM6:
+  79 0056 DF91      		pop r29
+  80 0058 CF91      		pop r28
+  81 005a 0895      		ret
+  82               	.LVL5:
+  83               	.L40:
+  84               	.LSM7:
+  85 005c C050      		subi r28,lo8(-(gs(.L37)))
+  86 005e D040      		sbci r29,hi8(-(gs(.L37)))
+  87 0060 FE01      		movw r30,r28
+  88 0062 EE0F      		lsl r30
+  89 0064 FF1F      		rol r31
+  90 0066 0590      		lpm __tmp_reg__,Z+
+  91 0068 F491      		lpm r31,Z
+  92 006a E02D      		mov r30,__tmp_reg__
+  93 006c 0994      		ijmp
+  94               		.data
+  95               		.section .progmem.gcc_sw_table, "a", @progbits
+  96               		.p2align 1
+  97               	.L37:
+  98               		.data
+  99               		.section .progmem.gcc_sw_table, "a", @progbits
+ 100               		.p2align 1
+ 101 0000 0000      		.word gs(.L4)
+ 102 0002 0000      		.word gs(.L6)
+ 103 0004 0000      		.word gs(.L7)
+ 104 0006 0000      		.word gs(.L8)
+ 105 0008 0000      		.word gs(.L9)
+ 106 000a 0000      		.word gs(.L10)
+ 107 000c 0000      		.word gs(.L11)
+ 108 000e 0000      		.word gs(.L12)
+ 109 0010 0000      		.word gs(.L13)
+ 110 0012 0000      		.word gs(.L14)
+ 111 0014 0000      		.word gs(.L15)
+ 112 0016 0000      		.word gs(.L16)
+ 113 0018 0000      		.word gs(.L17)
+ 114 001a 0000      		.word gs(.L18)
+ 115 001c 0000      		.word gs(.L19)
+ 116 001e 0000      		.word gs(.L20)
+ 117 0020 0000      		.word gs(.L21)
+ 118 0022 0000      		.word gs(.L22)
+ 119 0024 0000      		.word gs(.L23)
+ 120 0026 0000      		.word gs(.L24)
+ 121 0028 0000      		.word gs(.L25)
+ 122 002a 0000      		.word gs(.L26)
+ 123 002c 0000      		.word gs(.L27)
+ 124 002e 0000      		.word gs(.L28)
+ 125 0030 0000      		.word gs(.L29)
+ 126 0032 0000      		.word gs(.L30)
+ 127 0034 0000      		.word gs(.L31)
+ 128 0036 0000      		.word gs(.L32)
+ 129 0038 0000      		.word gs(.L33)
+ 130 003a 0000      		.word gs(.L34)
+ 131 003c 0000      		.word gs(.L35)
+ 132 003e 0000      		.word gs(.L36)
+ 133               		.section	.text.CameraControl_PTPErrorDescription
+ 134               	.LVL6:
+ 135               	.L39:
+ 136               	.LSM8:
+ 137 006e 00D0      		rcall .
+ 138 0070 00D0      		rcall .
+ 139 0072 80E0      		ldi r24,lo8(__c.4860)
+ 140 0074 90E0      		ldi r25,hi8(__c.4860)
+ 141 0076 EDB7      		in r30,__SP_L__
+ 142 0078 FEB7      		in r31,__SP_H__
+ 143 007a 9283      		std Z+2,r25
+ 144 007c 8183      		std Z+1,r24
+ 145 007e D483      		std Z+4,r29
+ 146 0080 C383      		std Z+3,r28
+ 147 0082 0E94 0000 		call printf_P
+ 148 0086 0F90      		pop __tmp_reg__
+ 149 0088 0F90      		pop __tmp_reg__
+ 150 008a 0F90      		pop __tmp_reg__
+ 151 008c 0F90      		pop __tmp_reg__
+ 152               	.LVL7:
+ 153               	.L4:
+ 154               	.LSM9:
+ 155 008e 00D0      		rcall .
+ 156 0090 80E0      		ldi r24,lo8(__c.4865)
+ 157 0092 90E0      		ldi r25,hi8(__c.4865)
+ 158 0094 EDB7      		in r30,__SP_L__
+ 159 0096 FEB7      		in r31,__SP_H__
+ 160 0098 9283      		std Z+2,r25
+ 161 009a 8183      		std Z+1,r24
+ 162 009c 0E94 0000 		call printf_P
+ 163 00a0 0F90      		pop __tmp_reg__
+ 164 00a2 0F90      		pop __tmp_reg__
+ 165 00a4 00C0      		rjmp .L1
+ 166               	.LVL8:
+ 167               	.L36:
+ 168               	.LSM10:
+ 169 00a6 00D0      		rcall .
+ 170               	.LVL9:
+ 171 00a8 80E0      		ldi r24,lo8(__c.4959)
+ 172 00aa 90E0      		ldi r25,hi8(__c.4959)
+ 173 00ac EDB7      		in r30,__SP_L__
+ 174 00ae FEB7      		in r31,__SP_H__
+ 175 00b0 9283      		std Z+2,r25
+ 176 00b2 8183      		std Z+1,r24
+ 177 00b4 0E94 0000 		call printf_P
+ 178 00b8 0F90      		pop __tmp_reg__
+ 179 00ba 0F90      		pop __tmp_reg__
+ 180 00bc 00C0      		rjmp .L1
+ 181               	.LVL10:
+ 182               	.L8:
+ 183               	.LSM11:
+ 184 00be 00D0      		rcall .
+ 185               	.LVL11:
+ 186 00c0 80E0      		ldi r24,lo8(__c.4875)
+ 187 00c2 90E0      		ldi r25,hi8(__c.4875)
+ 188 00c4 EDB7      		in r30,__SP_L__
+ 189 00c6 FEB7      		in r31,__SP_H__
+ 190 00c8 9283      		std Z+2,r25
+ 191 00ca 8183      		std Z+1,r24
+ 192 00cc 0E94 0000 		call printf_P
+ 193 00d0 0F90      		pop __tmp_reg__
+ 194 00d2 0F90      		pop __tmp_reg__
+ 195 00d4 00C0      		rjmp .L1
+ 196               	.LVL12:
+ 197               	.L9:
+ 198               	.LSM12:
+ 199 00d6 00D0      		rcall .
+ 200               	.LVL13:
+ 201 00d8 80E0      		ldi r24,lo8(__c.4878)
+ 202 00da 90E0      		ldi r25,hi8(__c.4878)
+ 203 00dc EDB7      		in r30,__SP_L__
+ 204 00de FEB7      		in r31,__SP_H__
+ 205 00e0 9283      		std Z+2,r25
+ 206 00e2 8183      		std Z+1,r24
+ 207 00e4 0E94 0000 		call printf_P
+ 208 00e8 0F90      		pop __tmp_reg__
+ 209 00ea 0F90      		pop __tmp_reg__
+ 210 00ec 00C0      		rjmp .L1
+ 211               	.LVL14:
+ 212               	.L6:
+ 213               	.LSM13:
+ 214 00ee 00D0      		rcall .
+ 215               	.LVL15:
+ 216 00f0 80E0      		ldi r24,lo8(__c.4869)
+ 217 00f2 90E0      		ldi r25,hi8(__c.4869)
+ 218 00f4 EDB7      		in r30,__SP_L__
+ 219 00f6 FEB7      		in r31,__SP_H__
+ 220 00f8 9283      		std Z+2,r25
+ 221 00fa 8183      		std Z+1,r24
+ 222 00fc 0E94 0000 		call printf_P
+ 223 0100 0F90      		pop __tmp_reg__
+ 224 0102 0F90      		pop __tmp_reg__
+ 225 0104 00C0      		rjmp .L1
+ 226               	.LVL16:
+ 227               	.L7:
+ 228               	.LSM14:
+ 229 0106 00D0      		rcall .
+ 230               	.LVL17:
+ 231 0108 80E0      		ldi r24,lo8(__c.4872)
+ 232 010a 90E0      		ldi r25,hi8(__c.4872)
+ 233 010c EDB7      		in r30,__SP_L__
+ 234 010e FEB7      		in r31,__SP_H__
+ 235 0110 9283      		std Z+2,r25
+ 236 0112 8183      		std Z+1,r24
+ 237 0114 0E94 0000 		call printf_P
+ 238 0118 0F90      		pop __tmp_reg__
+ 239 011a 0F90      		pop __tmp_reg__
+ 240 011c 00C0      		rjmp .L1
+ 241               	.LVL18:
+ 242               	.L10:
+ 243               	.LSM15:
+ 244 011e 00D0      		rcall .
+ 245               	.LVL19:
+ 246 0120 80E0      		ldi r24,lo8(__c.4881)
+ 247 0122 90E0      		ldi r25,hi8(__c.4881)
+ 248 0124 EDB7      		in r30,__SP_L__
+ 249 0126 FEB7      		in r31,__SP_H__
+ 250 0128 9283      		std Z+2,r25
+ 251 012a 8183      		std Z+1,r24
+ 252 012c 0E94 0000 		call printf_P
+ 253 0130 0F90      		pop __tmp_reg__
+ 254 0132 0F90      		pop __tmp_reg__
+ 255 0134 00C0      		rjmp .L1
+ 256               	.LVL20:
+ 257               	.L11:
+ 258               	.LSM16:
+ 259 0136 00D0      		rcall .
+ 260               	.LVL21:
+ 261 0138 80E0      		ldi r24,lo8(__c.4884)
+ 262 013a 90E0      		ldi r25,hi8(__c.4884)
+ 263 013c EDB7      		in r30,__SP_L__
+ 264 013e FEB7      		in r31,__SP_H__
+ 265 0140 9283      		std Z+2,r25
+ 266 0142 8183      		std Z+1,r24
+ 267 0144 0E94 0000 		call printf_P
+ 268 0148 0F90      		pop __tmp_reg__
+ 269 014a 0F90      		pop __tmp_reg__
+ 270 014c 00C0      		rjmp .L1
+ 271               	.LVL22:
+ 272               	.L12:
+ 273               	.LSM17:
+ 274 014e 00D0      		rcall .
+ 275               	.LVL23:
+ 276 0150 80E0      		ldi r24,lo8(__c.4887)
+ 277 0152 90E0      		ldi r25,hi8(__c.4887)
+ 278 0154 EDB7      		in r30,__SP_L__
+ 279 0156 FEB7      		in r31,__SP_H__
+ 280 0158 9283      		std Z+2,r25
+ 281 015a 8183      		std Z+1,r24
+ 282 015c 0E94 0000 		call printf_P
+ 283 0160 0F90      		pop __tmp_reg__
+ 284 0162 0F90      		pop __tmp_reg__
+ 285 0164 00C0      		rjmp .L1
+ 286               	.LVL24:
+ 287               	.L13:
+ 288               	.LSM18:
+ 289 0166 00D0      		rcall .
+ 290               	.LVL25:
+ 291 0168 80E0      		ldi r24,lo8(__c.4890)
+ 292 016a 90E0      		ldi r25,hi8(__c.4890)
+ 293 016c EDB7      		in r30,__SP_L__
+ 294 016e FEB7      		in r31,__SP_H__
+ 295 0170 9283      		std Z+2,r25
+ 296 0172 8183      		std Z+1,r24
+ 297 0174 0E94 0000 		call printf_P
+ 298 0178 0F90      		pop __tmp_reg__
+ 299 017a 0F90      		pop __tmp_reg__
+ 300 017c 00C0      		rjmp .L1
+ 301               	.LVL26:
+ 302               	.L14:
+ 303               	.LSM19:
+ 304 017e 00D0      		rcall .
+ 305               	.LVL27:
+ 306 0180 80E0      		ldi r24,lo8(__c.4893)
+ 307 0182 90E0      		ldi r25,hi8(__c.4893)
+ 308 0184 EDB7      		in r30,__SP_L__
+ 309 0186 FEB7      		in r31,__SP_H__
+ 310 0188 9283      		std Z+2,r25
+ 311 018a 8183      		std Z+1,r24
+ 312 018c 0E94 0000 		call printf_P
+ 313 0190 0F90      		pop __tmp_reg__
+ 314 0192 0F90      		pop __tmp_reg__
+ 315 0194 00C0      		rjmp .L1
+ 316               	.LVL28:
+ 317               	.L15:
+ 318               	.LSM20:
+ 319 0196 00D0      		rcall .
+ 320               	.LVL29:
+ 321 0198 80E0      		ldi r24,lo8(__c.4896)
+ 322 019a 90E0      		ldi r25,hi8(__c.4896)
+ 323 019c EDB7      		in r30,__SP_L__
+ 324 019e FEB7      		in r31,__SP_H__
+ 325 01a0 9283      		std Z+2,r25
+ 326 01a2 8183      		std Z+1,r24
+ 327 01a4 0E94 0000 		call printf_P
+ 328 01a8 0F90      		pop __tmp_reg__
+ 329 01aa 0F90      		pop __tmp_reg__
+ 330 01ac 00C0      		rjmp .L1
+ 331               	.LVL30:
+ 332               	.L16:
+ 333               	.LSM21:
+ 334 01ae 00D0      		rcall .
+ 335               	.LVL31:
+ 336 01b0 80E0      		ldi r24,lo8(__c.4899)
+ 337 01b2 90E0      		ldi r25,hi8(__c.4899)
+ 338 01b4 EDB7      		in r30,__SP_L__
+ 339 01b6 FEB7      		in r31,__SP_H__
+ 340 01b8 9283      		std Z+2,r25
+ 341 01ba 8183      		std Z+1,r24
+ 342 01bc 0E94 0000 		call printf_P
+ 343 01c0 0F90      		pop __tmp_reg__
+ 344 01c2 0F90      		pop __tmp_reg__
+ 345 01c4 00C0      		rjmp .L1
+ 346               	.LVL32:
+ 347               	.L17:
+ 348               	.LSM22:
+ 349 01c6 00D0      		rcall .
+ 350               	.LVL33:
+ 351 01c8 80E0      		ldi r24,lo8(__c.4902)
+ 352 01ca 90E0      		ldi r25,hi8(__c.4902)
+ 353 01cc EDB7      		in r30,__SP_L__
+ 354 01ce FEB7      		in r31,__SP_H__
+ 355 01d0 9283      		std Z+2,r25
+ 356 01d2 8183      		std Z+1,r24
+ 357 01d4 0E94 0000 		call printf_P
+ 358 01d8 0F90      		pop __tmp_reg__
+ 359 01da 0F90      		pop __tmp_reg__
+ 360 01dc 00C0      		rjmp .L1
+ 361               	.LVL34:
+ 362               	.L18:
+ 363               	.LSM23:
+ 364 01de 00D0      		rcall .
+ 365               	.LVL35:
+ 366 01e0 80E0      		ldi r24,lo8(__c.4905)
+ 367 01e2 90E0      		ldi r25,hi8(__c.4905)
+ 368 01e4 EDB7      		in r30,__SP_L__
+ 369 01e6 FEB7      		in r31,__SP_H__
+ 370 01e8 9283      		std Z+2,r25
+ 371 01ea 8183      		std Z+1,r24
+ 372 01ec 0E94 0000 		call printf_P
+ 373 01f0 0F90      		pop __tmp_reg__
+ 374 01f2 0F90      		pop __tmp_reg__
+ 375 01f4 00C0      		rjmp .L1
+ 376               	.LVL36:
+ 377               	.L19:
+ 378               	.LSM24:
+ 379 01f6 00D0      		rcall .
+ 380               	.LVL37:
+ 381 01f8 80E0      		ldi r24,lo8(__c.4908)
+ 382 01fa 90E0      		ldi r25,hi8(__c.4908)
+ 383 01fc EDB7      		in r30,__SP_L__
+ 384 01fe FEB7      		in r31,__SP_H__
+ 385 0200 9283      		std Z+2,r25
+ 386 0202 8183      		std Z+1,r24
+ 387 0204 0E94 0000 		call printf_P
+ 388 0208 0F90      		pop __tmp_reg__
+ 389 020a 0F90      		pop __tmp_reg__
+ 390 020c 00C0      		rjmp .L1
+ 391               	.LVL38:
+ 392               	.L20:
+ 393               	.LSM25:
+ 394 020e 00D0      		rcall .
+ 395               	.LVL39:
+ 396 0210 80E0      		ldi r24,lo8(__c.4911)
+ 397 0212 90E0      		ldi r25,hi8(__c.4911)
+ 398 0214 EDB7      		in r30,__SP_L__
+ 399 0216 FEB7      		in r31,__SP_H__
+ 400 0218 9283      		std Z+2,r25
+ 401 021a 8183      		std Z+1,r24
+ 402 021c 0E94 0000 		call printf_P
+ 403 0220 0F90      		pop __tmp_reg__
+ 404 0222 0F90      		pop __tmp_reg__
+ 405 0224 00C0      		rjmp .L1
+ 406               	.LVL40:
+ 407               	.L21:
+ 408               	.LSM26:
+ 409 0226 00D0      		rcall .
+ 410               	.LVL41:
+ 411 0228 80E0      		ldi r24,lo8(__c.4914)
+ 412 022a 90E0      		ldi r25,hi8(__c.4914)
+ 413 022c EDB7      		in r30,__SP_L__
+ 414 022e FEB7      		in r31,__SP_H__
+ 415 0230 9283      		std Z+2,r25
+ 416 0232 8183      		std Z+1,r24
+ 417 0234 0E94 0000 		call printf_P
+ 418 0238 0F90      		pop __tmp_reg__
+ 419 023a 0F90      		pop __tmp_reg__
+ 420 023c 00C0      		rjmp .L1
+ 421               	.LVL42:
+ 422               	.L22:
+ 423               	.LSM27:
+ 424 023e 00D0      		rcall .
+ 425               	.LVL43:
+ 426 0240 80E0      		ldi r24,lo8(__c.4917)
+ 427 0242 90E0      		ldi r25,hi8(__c.4917)
+ 428 0244 EDB7      		in r30,__SP_L__
+ 429 0246 FEB7      		in r31,__SP_H__
+ 430 0248 9283      		std Z+2,r25
+ 431 024a 8183      		std Z+1,r24
+ 432 024c 0E94 0000 		call printf_P
+ 433 0250 0F90      		pop __tmp_reg__
+ 434 0252 0F90      		pop __tmp_reg__
+ 435 0254 00C0      		rjmp .L1
+ 436               	.LVL44:
+ 437               	.L23:
+ 438               	.LSM28:
+ 439 0256 00D0      		rcall .
+ 440               	.LVL45:
+ 441 0258 80E0      		ldi r24,lo8(__c.4920)
+ 442 025a 90E0      		ldi r25,hi8(__c.4920)
+ 443 025c EDB7      		in r30,__SP_L__
+ 444 025e FEB7      		in r31,__SP_H__
+ 445 0260 9283      		std Z+2,r25
+ 446 0262 8183      		std Z+1,r24
+ 447 0264 0E94 0000 		call printf_P
+ 448 0268 0F90      		pop __tmp_reg__
+ 449 026a 0F90      		pop __tmp_reg__
+ 450 026c 00C0      		rjmp .L1
+ 451               	.LVL46:
+ 452               	.L24:
+ 453               	.LSM29:
+ 454 026e 00D0      		rcall .
+ 455               	.LVL47:
+ 456 0270 80E0      		ldi r24,lo8(__c.4923)
+ 457 0272 90E0      		ldi r25,hi8(__c.4923)
+ 458 0274 EDB7      		in r30,__SP_L__
+ 459 0276 FEB7      		in r31,__SP_H__
+ 460 0278 9283      		std Z+2,r25
+ 461 027a 8183      		std Z+1,r24
+ 462 027c 0E94 0000 		call printf_P
+ 463 0280 0F90      		pop __tmp_reg__
+ 464 0282 0F90      		pop __tmp_reg__
+ 465 0284 00C0      		rjmp .L1
+ 466               	.LVL48:
+ 467               	.L25:
+ 468               	.LSM30:
+ 469 0286 00D0      		rcall .
+ 470               	.LVL49:
+ 471 0288 80E0      		ldi r24,lo8(__c.4926)
+ 472 028a 90E0      		ldi r25,hi8(__c.4926)
+ 473 028c EDB7      		in r30,__SP_L__
+ 474 028e FEB7      		in r31,__SP_H__
+ 475 0290 9283      		std Z+2,r25
+ 476 0292 8183      		std Z+1,r24
+ 477 0294 0E94 0000 		call printf_P
+ 478 0298 0F90      		pop __tmp_reg__
+ 479 029a 0F90      		pop __tmp_reg__
+ 480 029c 00C0      		rjmp .L1
+ 481               	.LVL50:
+ 482               	.L26:
+ 483               	.LSM31:
+ 484 029e 00D0      		rcall .
+ 485               	.LVL51:
+ 486 02a0 80E0      		ldi r24,lo8(__c.4929)
+ 487 02a2 90E0      		ldi r25,hi8(__c.4929)
+ 488 02a4 EDB7      		in r30,__SP_L__
+ 489 02a6 FEB7      		in r31,__SP_H__
+ 490 02a8 9283      		std Z+2,r25
+ 491 02aa 8183      		std Z+1,r24
+ 492 02ac 0E94 0000 		call printf_P
+ 493 02b0 0F90      		pop __tmp_reg__
+ 494 02b2 0F90      		pop __tmp_reg__
+ 495 02b4 00C0      		rjmp .L1
+ 496               	.LVL52:
+ 497               	.L27:
+ 498               	.LSM32:
+ 499 02b6 00D0      		rcall .
+ 500               	.LVL53:
+ 501 02b8 80E0      		ldi r24,lo8(__c.4932)
+ 502 02ba 90E0      		ldi r25,hi8(__c.4932)
+ 503 02bc EDB7      		in r30,__SP_L__
+ 504 02be FEB7      		in r31,__SP_H__
+ 505 02c0 9283      		std Z+2,r25
+ 506 02c2 8183      		std Z+1,r24
+ 507 02c4 0E94 0000 		call printf_P
+ 508 02c8 0F90      		pop __tmp_reg__
+ 509 02ca 0F90      		pop __tmp_reg__
+ 510 02cc 00C0      		rjmp .L1
+ 511               	.LVL54:
+ 512               	.L28:
+ 513               	.LSM33:
+ 514 02ce 00D0      		rcall .
+ 515               	.LVL55:
+ 516 02d0 80E0      		ldi r24,lo8(__c.4935)
+ 517 02d2 90E0      		ldi r25,hi8(__c.4935)
+ 518 02d4 EDB7      		in r30,__SP_L__
+ 519 02d6 FEB7      		in r31,__SP_H__
+ 520 02d8 9283      		std Z+2,r25
+ 521 02da 8183      		std Z+1,r24
+ 522 02dc 0E94 0000 		call printf_P
+ 523 02e0 0F90      		pop __tmp_reg__
+ 524 02e2 0F90      		pop __tmp_reg__
+ 525 02e4 00C0      		rjmp .L1
+ 526               	.LVL56:
+ 527               	.L29:
+ 528               	.LSM34:
+ 529 02e6 00D0      		rcall .
+ 530               	.LVL57:
+ 531 02e8 80E0      		ldi r24,lo8(__c.4938)
+ 532 02ea 90E0      		ldi r25,hi8(__c.4938)
+ 533 02ec EDB7      		in r30,__SP_L__
+ 534 02ee FEB7      		in r31,__SP_H__
+ 535 02f0 9283      		std Z+2,r25
+ 536 02f2 8183      		std Z+1,r24
+ 537 02f4 0E94 0000 		call printf_P
+ 538 02f8 0F90      		pop __tmp_reg__
+ 539 02fa 0F90      		pop __tmp_reg__
+ 540 02fc 00C0      		rjmp .L1
+ 541               	.LVL58:
+ 542               	.L30:
+ 543               	.LSM35:
+ 544 02fe 00D0      		rcall .
+ 545               	.LVL59:
+ 546 0300 80E0      		ldi r24,lo8(__c.4941)
+ 547 0302 90E0      		ldi r25,hi8(__c.4941)
+ 548 0304 EDB7      		in r30,__SP_L__
+ 549 0306 FEB7      		in r31,__SP_H__
+ 550 0308 9283      		std Z+2,r25
+ 551 030a 8183      		std Z+1,r24
+ 552 030c 0E94 0000 		call printf_P
+ 553 0310 0F90      		pop __tmp_reg__
+ 554 0312 0F90      		pop __tmp_reg__
+ 555 0314 00C0      		rjmp .L1
+ 556               	.LVL60:
+ 557               	.L31:
+ 558               	.LSM36:
+ 559 0316 00D0      		rcall .
+ 560               	.LVL61:
+ 561 0318 80E0      		ldi r24,lo8(__c.4944)
+ 562 031a 90E0      		ldi r25,hi8(__c.4944)
+ 563 031c EDB7      		in r30,__SP_L__
+ 564 031e FEB7      		in r31,__SP_H__
+ 565 0320 9283      		std Z+2,r25
+ 566 0322 8183      		std Z+1,r24
+ 567 0324 0E94 0000 		call printf_P
+ 568 0328 0F90      		pop __tmp_reg__
+ 569 032a 0F90      		pop __tmp_reg__
+ 570 032c 00C0      		rjmp .L1
+ 571               	.LVL62:
+ 572               	.L32:
+ 573               	.LSM37:
+ 574 032e 00D0      		rcall .
+ 575               	.LVL63:
+ 576 0330 80E0      		ldi r24,lo8(__c.4947)
+ 577 0332 90E0      		ldi r25,hi8(__c.4947)
+ 578 0334 EDB7      		in r30,__SP_L__
+ 579 0336 FEB7      		in r31,__SP_H__
+ 580 0338 9283      		std Z+2,r25
+ 581 033a 8183      		std Z+1,r24
+ 582 033c 0E94 0000 		call printf_P
+ 583 0340 0F90      		pop __tmp_reg__
+ 584 0342 0F90      		pop __tmp_reg__
+ 585 0344 00C0      		rjmp .L1
+ 586               	.LVL64:
+ 587               	.L33:
+ 588               	.LSM38:
+ 589 0346 00D0      		rcall .
+ 590               	.LVL65:
+ 591 0348 80E0      		ldi r24,lo8(__c.4950)
+ 592 034a 90E0      		ldi r25,hi8(__c.4950)
+ 593 034c EDB7      		in r30,__SP_L__
+ 594 034e FEB7      		in r31,__SP_H__
+ 595 0350 9283      		std Z+2,r25
+ 596 0352 8183      		std Z+1,r24
+ 597 0354 0E94 0000 		call printf_P
+ 598 0358 0F90      		pop __tmp_reg__
+ 599 035a 0F90      		pop __tmp_reg__
+ 600 035c 00C0      		rjmp .L1
+ 601               	.LVL66:
+ 602               	.L34:
+ 603               	.LSM39:
+ 604 035e 00D0      		rcall .
+ 605               	.LVL67:
+ 606 0360 80E0      		ldi r24,lo8(__c.4953)
+ 607 0362 90E0      		ldi r25,hi8(__c.4953)
+ 608 0364 EDB7      		in r30,__SP_L__
+ 609 0366 FEB7      		in r31,__SP_H__
+ 610 0368 9283      		std Z+2,r25
+ 611 036a 8183      		std Z+1,r24
+ 612 036c 0E94 0000 		call printf_P
+ 613 0370 0F90      		pop __tmp_reg__
+ 614 0372 0F90      		pop __tmp_reg__
+ 615 0374 00C0      		rjmp .L1
+ 616               	.LVL68:
+ 617               	.L35:
+ 618               	.LSM40:
+ 619 0376 00D0      		rcall .
+ 620               	.LVL69:
+ 621 0378 80E0      		ldi r24,lo8(__c.4956)
+ 622 037a 90E0      		ldi r25,hi8(__c.4956)
+ 623 037c EDB7      		in r30,__SP_L__
+ 624 037e FEB7      		in r31,__SP_H__
+ 625 0380 9283      		std Z+2,r25
+ 626 0382 8183      		std Z+1,r24
+ 627 0384 0E94 0000 		call printf_P
+ 628 0388 0F90      		pop __tmp_reg__
+ 629 038a 0F90      		pop __tmp_reg__
+ 630 038c 00C0      		rjmp .L1
+ 631               	.LFE137:
+ 633               		.section	.text.CameraControl_DescribePIPE_RWSTREAMError,"ax",@progbits
+ 634               	.global	CameraControl_DescribePIPE_RWSTREAMError
+ 636               	CameraControl_DescribePIPE_RWSTREAMError:
+ 637               	.LFB138:
+ 638               	.LSM41:
+ 639               	.LVL70:
+ 640 0000 1F93      		push r17
+ 641               	/* prologue: function */
+ 642               	/* frame size = 0 */
+ 643               	/* stack size = 1 */
+ 644               	.L__stack_usage = 1
+ 645 0002 182F      		mov r17,r24
+ 646               	.LSM42:
+ 647 0004 8091 0000 		lds r24,g_bQuiteMode
+ 648               	.LVL71:
+ 649 0008 8823      		tst r24
+ 650 000a 01F0      		breq .L50
+ 651               	.L41:
+ 652               	/* epilogue start */
+ 653               	.LSM43:
+ 654 000c 1F91      		pop r17
+ 655               	.LVL72:
+ 656 000e 0895      		ret
+ 657               	.LVL73:
+ 658               	.L50:
+ 659               	.LSM44:
+ 660 0010 00D0      		rcall .
+ 661 0012 00D0      		rcall .
+ 662 0014 EDB7      		in r30,__SP_L__
+ 663 0016 FEB7      		in r31,__SP_H__
+ 664 0018 3196      		adiw r30,1
+ 665 001a 20E0      		ldi r18,lo8(__c.4967)
+ 666 001c 30E0      		ldi r19,hi8(__c.4967)
+ 667 001e ADB7      		in r26,__SP_L__
+ 668 0020 BEB7      		in r27,__SP_H__
+ 669 0022 1296      		adiw r26,1+1
+ 670 0024 3C93      		st X,r19
+ 671 0026 2E93      		st -X,r18
+ 672 0028 1197      		sbiw r26,1
+ 673 002a 1283      		std Z+2,r17
+ 674 002c 1382      		std Z+3,__zero_reg__
+ 675 002e 0E94 0000 		call printf_P
+ 676               	.LSM45:
+ 677 0032 0F90      		pop __tmp_reg__
+ 678 0034 0F90      		pop __tmp_reg__
+ 679 0036 0F90      		pop __tmp_reg__
+ 680 0038 0F90      		pop __tmp_reg__
+ 681 003a 1330      		cpi r17,lo8(3)
+ 682 003c 01F0      		breq .L46
+ 683 003e 1430      		cpi r17,lo8(4)
+ 684 0040 00F4      		brsh .L49
+ 685 0042 1130      		cpi r17,lo8(1)
+ 686 0044 01F4      		brne .+2
+ 687 0046 00C0      		rjmp .L44
+ 688 0048 1230      		cpi r17,lo8(2)
+ 689 004a 01F0      		breq .L51
+ 690               	.L43:
+ 691               	.LSM46:
+ 692 004c 00D0      		rcall .
+ 693 004e 80E0      		ldi r24,lo8(__c.4986)
+ 694 0050 90E0      		ldi r25,hi8(__c.4986)
+ 695 0052 ADB7      		in r26,__SP_L__
+ 696 0054 BEB7      		in r27,__SP_H__
+ 697 0056 1296      		adiw r26,1+1
+ 698 0058 9C93      		st X,r25
+ 699 005a 8E93      		st -X,r24
+ 700 005c 1197      		sbiw r26,1
+ 701 005e 0E94 0000 		call printf_P
+ 702 0062 0F90      		pop __tmp_reg__
+ 703 0064 0F90      		pop __tmp_reg__
+ 704 0066 00C0      		rjmp .L41
+ 705               	.L49:
+ 706               	.LSM47:
+ 707 0068 1430      		cpi r17,lo8(4)
+ 708 006a 01F0      		breq .L47
+ 709 006c 1038      		cpi r17,lo8(-128)
+ 710 006e 01F4      		brne .L43
+ 711               	.LSM48:
+ 712 0070 00D0      		rcall .
+ 713 0072 80E0      		ldi r24,lo8(__c.4983)
+ 714 0074 90E0      		ldi r25,hi8(__c.4983)
+ 715 0076 EDB7      		in r30,__SP_L__
+ 716 0078 FEB7      		in r31,__SP_H__
+ 717 007a 9283      		std Z+2,r25
+ 718 007c 8183      		std Z+1,r24
+ 719 007e 0E94 0000 		call printf_P
+ 720               	.LSM49:
+ 721 0082 0F90      		pop __tmp_reg__
+ 722 0084 0F90      		pop __tmp_reg__
+ 723 0086 00C0      		rjmp .L41
+ 724               	.L47:
+ 725               	.LSM50:
+ 726 0088 00D0      		rcall .
+ 727 008a 80E0      		ldi r24,lo8(__c.4980)
+ 728 008c 90E0      		ldi r25,hi8(__c.4980)
+ 729 008e ADB7      		in r26,__SP_L__
+ 730 0090 BEB7      		in r27,__SP_H__
+ 731 0092 1296      		adiw r26,1+1
+ 732 0094 9C93      		st X,r25
+ 733 0096 8E93      		st -X,r24
+ 734 0098 1197      		sbiw r26,1
+ 735 009a 0E94 0000 		call printf_P
+ 736               	.LSM51:
+ 737 009e 0F90      		pop __tmp_reg__
+ 738 00a0 0F90      		pop __tmp_reg__
+ 739 00a2 00C0      		rjmp .L41
+ 740               	.L46:
+ 741               	.LSM52:
+ 742 00a4 00D0      		rcall .
+ 743 00a6 80E0      		ldi r24,lo8(__c.4977)
+ 744 00a8 90E0      		ldi r25,hi8(__c.4977)
+ 745 00aa EDB7      		in r30,__SP_L__
+ 746 00ac FEB7      		in r31,__SP_H__
+ 747 00ae 9283      		std Z+2,r25
+ 748 00b0 8183      		std Z+1,r24
+ 749 00b2 0E94 0000 		call printf_P
+ 750               	.LSM53:
+ 751 00b6 0F90      		pop __tmp_reg__
+ 752 00b8 0F90      		pop __tmp_reg__
+ 753 00ba 00C0      		rjmp .L41
+ 754               	.L51:
+ 755               	.LSM54:
+ 756 00bc 00D0      		rcall .
+ 757 00be 80E0      		ldi r24,lo8(__c.4974)
+ 758 00c0 90E0      		ldi r25,hi8(__c.4974)
+ 759 00c2 ADB7      		in r26,__SP_L__
+ 760 00c4 BEB7      		in r27,__SP_H__
+ 761 00c6 1296      		adiw r26,1+1
+ 762 00c8 9C93      		st X,r25
+ 763 00ca 8E93      		st -X,r24
+ 764 00cc 1197      		sbiw r26,1
+ 765 00ce 0E94 0000 		call printf_P
+ 766               	.LSM55:
+ 767 00d2 0F90      		pop __tmp_reg__
+ 768 00d4 0F90      		pop __tmp_reg__
+ 769 00d6 00C0      		rjmp .L41
+ 770               	.L44:
+ 771               	.LSM56:
+ 772 00d8 00D0      		rcall .
+ 773 00da 80E0      		ldi r24,lo8(__c.4970)
+ 774 00dc 90E0      		ldi r25,hi8(__c.4970)
+ 775 00de EDB7      		in r30,__SP_L__
+ 776 00e0 FEB7      		in r31,__SP_H__
+ 777 00e2 9283      		std Z+2,r25
+ 778 00e4 8183      		std Z+1,r24
+ 779 00e6 0E94 0000 		call printf_P
+ 780               	.LSM57:
+ 781 00ea 0F90      		pop __tmp_reg__
+ 782 00ec 0F90      		pop __tmp_reg__
+ 783 00ee 00C0      		rjmp .L41
+ 784               	.LFE138:
+ 786               		.section	.text.UnicodeToASCII,"ax",@progbits
+ 787               	.global	UnicodeToASCII
+ 789               	UnicodeToASCII:
+ 790               	.LFB139:
+ 791               	.LSM58:
+ 792               	.LVL74:
+ 793               	/* prologue: function */
+ 794               	/* frame size = 0 */
+ 795               	/* stack size = 0 */
+ 796               	.L__stack_usage = 0
+ 797               	.LSM59:
+ 798 0000 FC01      		movw r30,r24
+ 799 0002 2081      		ld r18,Z
+ 800               	.LVL75:
+ 801               	.LSM60:
+ 802 0004 2223      		tst r18
+ 803 0006 01F0      		breq .L53
+ 804 0008 DC01      		movw r26,r24
+ 805 000a 2150      		subi r18,lo8(-(-1))
+ 806               	.LSM61:
+ 807 000c 30E0      		ldi r19,lo8(0)
+ 808 000e CB01      		movw r24,r22
+ 809               	.LVL76:
+ 810 0010 0196      		adiw r24,1
+ 811 0012 820F      		add r24,r18
+ 812 0014 931F      		adc r25,r19
+ 813 0016 FB01      		movw r30,r22
+ 814               	.LVL77:
+ 815               	.L54:
+ 816               	.LSM62:
+ 817 0018 1196      		adiw r26,1
+ 818 001a 4C91      		ld r20,X
+ 819 001c 1197      		sbiw r26,1
+ 820 001e 4193      		st Z+,r20
+ 821               	.LVL78:
+ 822 0020 1296      		adiw r26,2
+ 823               	.LSM63:
+ 824 0022 E817      		cp r30,r24
+ 825 0024 F907      		cpc r31,r25
+ 826 0026 01F4      		brne .L54
+ 827               	.LSM64:
+ 828 0028 2F5F      		subi r18,lo8(-(1))
+ 829 002a 3F4F      		sbci r19,hi8(-(1))
+ 830               	.LSM65:
+ 831 002c 620F      		add r22,r18
+ 832 002e 731F      		adc r23,r19
+ 833               	.LVL79:
+ 834               	.L53:
+ 835               	.LSM66:
+ 836 0030 FB01      		movw r30,r22
+ 837 0032 1082      		st Z,__zero_reg__
+ 838               	/* epilogue start */
+ 839               	.LSM67:
+ 840 0034 0895      		ret
+ 841               	.LFE139:
+ 843               		.section	.text.CameraControl_GetResponseAndCheck,"ax",@progbits
+ 844               	.global	CameraControl_GetResponseAndCheck
+ 846               	CameraControl_GetResponseAndCheck:
+ 847               	.LFB140:
+ 848               	.LSM68:
+ 849               	.LVL80:
+ 850 0000 1F93      		push r17
+ 851 0002 CF93      		push r28
+ 852 0004 DF93      		push r29
+ 853               	/* prologue: function */
+ 854               	/* frame size = 0 */
+ 855               	/* stack size = 3 */
+ 856               	.L__stack_usage = 3
+ 857 0006 EB01      		movw r28,r22
+ 858               	.LSM69:
+ 859 0008 FC01      		movw r30,r24
+ 860 000a 2681      		ldd r18,Z+6
+ 861 000c 2223      		tst r18
+ 862 000e 01F4      		brne .L57
+ 863               	.LSM70:
+ 864 0010 8091 0000 		lds r24,g_bQuiteMode
+ 865               	.LVL81:
+ 866 0014 8823      		tst r24
+ 867 0016 01F0      		breq .L64
+ 868               	.LVL82:
+ 869               	.L63:
+ 870               	.LSM71:
+ 871 0018 10E0      		ldi r17,lo8(0)
+ 872               	.L58:
+ 873               	.LSM72:
+ 874 001a 812F      		mov r24,r17
+ 875               	/* epilogue start */
+ 876 001c DF91      		pop r29
+ 877 001e CF91      		pop r28
+ 878               	.LVL83:
+ 879 0020 1F91      		pop r17
+ 880 0022 0895      		ret
+ 881               	.LVL84:
+ 882               	.L64:
+ 883               	.LSM73:
+ 884 0024 00D0      		rcall .
+ 885 0026 80E0      		ldi r24,lo8(__c.5001)
+ 886 0028 90E0      		ldi r25,hi8(__c.5001)
+ 887 002a EDB7      		in r30,__SP_L__
+ 888 002c FEB7      		in r31,__SP_H__
+ 889               	.LVL85:
+ 890 002e 9283      		std Z+2,r25
+ 891 0030 8183      		std Z+1,r24
+ 892 0032 0E94 0000 		call printf_P
+ 893               	.LVL86:
+ 894 0036 0F90      		pop __tmp_reg__
+ 895 0038 0F90      		pop __tmp_reg__
+ 896 003a 10E0      		ldi r17,lo8(0)
+ 897               	.LSM74:
+ 898 003c 812F      		mov r24,r17
+ 899               	/* epilogue start */
+ 900 003e DF91      		pop r29
+ 901 0040 CF91      		pop r28
+ 902               	.LVL87:
+ 903 0042 1F91      		pop r17
+ 904 0044 0895      		ret
+ 905               	.LVL88:
+ 906               	.L57:
+ 907               	.LSM75:
+ 908 0046 0E94 0000 		call SI_Host_ReceiveBlockHeader
+ 909               	.LVL89:
+ 910 004a 182F      		mov r17,r24
+ 911               	.LVL90:
+ 912 004c 8823      		tst r24
+ 913 004e 01F4      		brne .L65
+ 914               	.LVL91:
+ 915               	.L59:
+ 916               	.LSM76:
+ 917 0050 8C81      		ldd r24,Y+4
+ 918 0052 9D81      		ldd r25,Y+5
+ 919 0054 8330      		cpi r24,3
+ 920 0056 9105      		cpc r25,__zero_reg__
+ 921 0058 01F0      		breq .L60
+ 922 005a 8E81      		ldd r24,Y+6
+ 923 005c 9F81      		ldd r25,Y+7
+ 924               	.L61:
+ 925               	.LSM77:
+ 926 005e 0E94 0000 		call CameraControl_PTPErrorDescription
+ 927               	.LSM78:
+ 928 0062 10E8      		ldi r17,lo8(-128)
+ 929               	.LVL92:
+ 930               	.LSM79:
+ 931 0064 812F      		mov r24,r17
+ 932               	/* epilogue start */
+ 933 0066 DF91      		pop r29
+ 934 0068 CF91      		pop r28
+ 935               	.LVL93:
+ 936 006a 1F91      		pop r17
+ 937 006c 0895      		ret
+ 938               	.LVL94:
+ 939               	.L60:
+ 940               	.LSM80:
+ 941 006e 8E81      		ldd r24,Y+6
+ 942 0070 9F81      		ldd r25,Y+7
+ 943 0072 F0E2      		ldi r31,hi8(8193)
+ 944 0074 8130      		cpi r24,lo8(8193)
+ 945 0076 9F07      		cpc r25,r31
+ 946 0078 01F4      		brne .L61
+ 947 007a 00C0      		rjmp .L63
+ 948               	.L65:
+ 949               	.LSM81:
+ 950 007c 0E94 0000 		call CameraControl_DescribePIPE_RWSTREAMError
+ 951               	.LSM82:
+ 952 0080 1038      		cpi r17,lo8(-128)
+ 953 0082 01F4      		brne .L58
+ 954 0084 00C0      		rjmp .L59
+ 955               	.LFE140:
+ 957               		.section	.text.CameraControl_InitiateTransaction,"ax",@progbits
+ 958               	.global	CameraControl_InitiateTransaction
+ 960               	CameraControl_InitiateTransaction:
+ 961               	.LFB141:
+ 962               	.LSM83:
+ 963               	.LVL95:
+ 964 0000 EF92      		push r14
+ 965 0002 FF92      		push r15
+ 966 0004 0F93      		push r16
+ 967 0006 1F93      		push r17
+ 968 0008 DF93      		push r29
+ 969 000a CF93      		push r28
+ 970 000c 0F92      		push __tmp_reg__
+ 971 000e CDB7      		in r28,__SP_L__
+ 972 0010 DEB7      		in r29,__SP_H__
+ 973               	/* prologue: function */
+ 974               	/* frame size = 1 */
+ 975               	/* stack size = 7 */
+ 976               	.L__stack_usage = 7
+ 977 0012 7C01      		movw r14,r24
+ 978 0014 8B01      		movw r16,r22
+ 979               	.LSM84:
+ 980 0016 FC01      		movw r30,r24
+ 981 0018 8681      		ldd r24,Z+6
+ 982               	.LVL96:
+ 983 001a 8823      		tst r24
+ 984 001c 01F0      		breq .L72
+ 985               	.LVL97:
+ 986               	.LSM85:
+ 987 001e C701      		movw r24,r14
+ 988 0020 0E94 0000 		call SI_Host_SendBlockHeader
+ 989 0024 282F      		mov r18,r24
+ 990               	.LVL98:
+ 991 0026 8823      		tst r24
+ 992 0028 01F0      		breq .L73
+ 993               	.LVL99:
+ 994               	.L68:
+ 995               	.LSM86:
+ 996 002a 822F      		mov r24,r18
+ 997               	/* epilogue start */
+ 998 002c 0F90      		pop __tmp_reg__
+ 999 002e CF91      		pop r28
+ 1000 0030 DF91      		pop r29
+ 1001 0032 1F91      		pop r17
+ 1002 0034 0F91      		pop r16
+ 1003 0036 FF90      		pop r15
+ 1004 0038 EF90      		pop r14
+ 1005               	.LVL100:
+ 1006 003a 0895      		ret
+ 1007               	.LVL101:
+ 1008               	.L72:
+ 1009               	.LSM87:
+ 1010 003c 8091 0000 		lds r24,g_bQuiteMode
+ 1011 0040 8823      		tst r24
+ 1012 0042 01F0      		breq .L74
+ 1013               	.LSM88:
+ 1014 0044 20E0      		ldi r18,lo8(0)
+ 1015 0046 00C0      		rjmp .L68
+ 1016               	.L74:
+ 1017               	.LSM89:
+ 1018 0048 00D0      		rcall .
+ 1019 004a 80E0      		ldi r24,lo8(__c.5008)
+ 1020 004c 90E0      		ldi r25,hi8(__c.5008)
+ 1021 004e EDB7      		in r30,__SP_L__
+ 1022 0050 FEB7      		in r31,__SP_H__
+ 1023 0052 9283      		std Z+2,r25
+ 1024 0054 8183      		std Z+1,r24
+ 1025 0056 0E94 0000 		call printf_P
+ 1026 005a 0F90      		pop __tmp_reg__
+ 1027 005c 0F90      		pop __tmp_reg__
+ 1028 005e 20E0      		ldi r18,lo8(0)
+ 1029 0060 00C0      		rjmp .L68
+ 1030               	.LVL102:
+ 1031               	.L73:
+ 1032               	.LSM90:
+ 1033 0062 C701      		movw r24,r14
+ 1034 0064 B801      		movw r22,r16
+ 1035 0066 2983      		std Y+1,r18
+ 1036 0068 0E94 0000 		call SI_Host_ReceiveBlockHeader
+ 1037               	.LVL103:
+ 1038 006c 082F      		mov r16,r24
+ 1039               	.LVL104:
+ 1040 006e 2981      		ldd r18,Y+1
+ 1041 0070 8823      		tst r24
+ 1042 0072 01F0      		breq .L68
+ 1043               	.LSM91:
+ 1044 0074 0E94 0000 		call CameraControl_DescribePIPE_RWSTREAMError
+ 1045               	.LVL105:
+ 1046               	.LSM92:
+ 1047 0078 2981      		ldd r18,Y+1
+ 1048 007a 0038      		cpi r16,lo8(-128)
+ 1049 007c 01F0      		breq .L68
+ 1050 007e 202F      		mov r18,r16
+ 1051 0080 00C0      		rjmp .L68
+ 1052               	.LFE141:
+ 1054               		.section	.text.CameraControl_OpenSession,"ax",@progbits
+ 1055               	.global	CameraControl_OpenSession
+ 1057               	CameraControl_OpenSession:
+ 1058               	.LFB142:
+ 1059               	.LSM93:
+ 1060               	.LVL106:
+ 1061 0000 0F93      		push r16
+ 1062 0002 1F93      		push r17
+ 1063 0004 DF93      		push r29
+ 1064 0006 CF93      		push r28
+ 1065 0008 CDB7      		in r28,__SP_L__
+ 1066 000a DEB7      		in r29,__SP_H__
+ 1067 000c 6897      		sbiw r28,24
+ 1068 000e 0FB6      		in __tmp_reg__,__SREG__
+ 1069 0010 F894      		cli
+ 1070 0012 DEBF      		out __SP_H__,r29
+ 1071 0014 0FBE      		out __SREG__,__tmp_reg__
+ 1072 0016 CDBF      		out __SP_L__,r28
+ 1073               	/* prologue: function */
+ 1074               	/* frame size = 24 */
+ 1075               	/* stack size = 28 */
+ 1076               	.L__stack_usage = 28
+ 1077 0018 8C01      		movw r16,r24
+ 1078               	.LSM94:
+ 1079 001a FC01      		movw r30,r24
+ 1080 001c 8681      		ldd r24,Z+6
+ 1081               	.LVL107:
+ 1082 001e 8823      		tst r24
+ 1083 0020 01F4      		brne .L76
+ 1084               	.LSM95:
+ 1085 0022 8091 0000 		lds r24,g_bQuiteMode
+ 1086 0026 8823      		tst r24
+ 1087 0028 01F0      		breq .L79
+ 1088               	.LSM96:
+ 1089 002a 80E0      		ldi r24,lo8(0)
+ 1090               	.L77:
+ 1091               	/* epilogue start */
+ 1092               	.LSM97:
+ 1093 002c 6896      		adiw r28,24
+ 1094 002e 0FB6      		in __tmp_reg__,__SREG__
+ 1095 0030 F894      		cli
+ 1096 0032 DEBF      		out __SP_H__,r29
+ 1097 0034 0FBE      		out __SREG__,__tmp_reg__
+ 1098 0036 CDBF      		out __SP_L__,r28
+ 1099 0038 CF91      		pop r28
+ 1100 003a DF91      		pop r29
+ 1101 003c 1F91      		pop r17
+ 1102 003e 0F91      		pop r16
+ 1103               	.LVL108:
+ 1104 0040 0895      		ret
+ 1105               	.LVL109:
+ 1106               	.L76:
+ 1107               	.LSM98:
+ 1108 0042 F801      		movw r30,r16
+ 1109 0044 1786      		std Z+15,__zero_reg__
+ 1110 0046 108A      		std Z+16,__zero_reg__
+ 1111 0048 118A      		std Z+17,__zero_reg__
+ 1112 004a 128A      		std Z+18,__zero_reg__
+ 1113               	.LSM99:
+ 1114 004c 1686      		std Z+14,__zero_reg__
+ 1115               	.LSM100:
+ 1116 004e BE01      		movw r22,r28
+ 1117 0050 6F5F      		subi r22,lo8(-(1))
+ 1118 0052 7F4F      		sbci r23,hi8(-(1))
+ 1119 0054 88E1      		ldi r24,lo8(24)
+ 1120 0056 FB01      		movw r30,r22
+ 1121 0058 1192      		st Z+,__zero_reg__
+ 1122 005a 8A95      	        dec r24
+ 1123 005c 01F4      		brne .-6
+ 1124 005e 80E1      		ldi r24,lo8(16)
+ 1125 0060 90E0      		ldi r25,hi8(16)
+ 1126 0062 A0E0      		ldi r26,hlo8(16)
+ 1127 0064 B0E0      		ldi r27,hhi8(16)
+ 1128 0066 8983      		std Y+1,r24
+ 1129 0068 9A83      		std Y+2,r25
+ 1130 006a AB83      		std Y+3,r26
+ 1131 006c BC83      		std Y+4,r27
+ 1132 006e 81E0      		ldi r24,lo8(1)
+ 1133 0070 90E0      		ldi r25,hi8(1)
+ 1134 0072 9E83      		std Y+6,r25
+ 1135 0074 8D83      		std Y+5,r24
+ 1136 0076 82E0      		ldi r24,lo8(4098)
+ 1137 0078 90E1      		ldi r25,hi8(4098)
+ 1138 007a 9887      		std Y+8,r25
+ 1139 007c 8F83      		std Y+7,r24
+ 1140 007e 81E0      		ldi r24,lo8(1)
+ 1141 0080 90E0      		ldi r25,hi8(1)
+ 1142 0082 A0E0      		ldi r26,hlo8(1)
+ 1143 0084 B0E0      		ldi r27,hhi8(1)
+ 1144 0086 8D87      		std Y+13,r24
+ 1145 0088 9E87      		std Y+14,r25
+ 1146 008a AF87      		std Y+15,r26
+ 1147 008c B88B      		std Y+16,r27
+ 1148               	.LSM101:
+ 1149 008e C801      		movw r24,r16
+ 1150 0090 0E94 0000 		call CameraControl_InitiateTransaction
+ 1151               	.LVL110:
+ 1152               	.LSM102:
+ 1153 0094 8823      		tst r24
+ 1154 0096 01F4      		brne .L77
+ 1155               	.LSM103:
+ 1156 0098 91E0      		ldi r25,lo8(1)
+ 1157 009a F801      		movw r30,r16
+ 1158 009c 9687      		std Z+14,r25
+ 1159 009e 00C0      		rjmp .L77
+ 1160               	.LVL111:
+ 1161               	.L79:
+ 1162               	.LSM104:
+ 1163 00a0 00D0      		rcall .
+ 1164 00a2 80E0      		ldi r24,lo8(__c.5014)
+ 1165 00a4 90E0      		ldi r25,hi8(__c.5014)
+ 1166 00a6 EDB7      		in r30,__SP_L__
+ 1167 00a8 FEB7      		in r31,__SP_H__
+ 1168 00aa 9283      		std Z+2,r25
+ 1169 00ac 8183      		std Z+1,r24
+ 1170 00ae 0E94 0000 		call printf_P
+ 1171 00b2 0F90      		pop __tmp_reg__
+ 1172 00b4 0F90      		pop __tmp_reg__
+ 1173 00b6 80E0      		ldi r24,lo8(0)
+ 1174 00b8 00C0      		rjmp .L77
+ 1175               	.LFE142:
+ 1177               		.section	.text.CameraControl_CloseSession,"ax",@progbits
+ 1178               	.global	CameraControl_CloseSession
+ 1180               	CameraControl_CloseSession:
+ 1181               	.LFB143:
+ 1182               	.LSM105:
+ 1183               	.LVL112:
+ 1184 0000 0F93      		push r16
+ 1185 0002 1F93      		push r17
+ 1186 0004 DF93      		push r29
+ 1187 0006 CF93      		push r28
+ 1188 0008 CDB7      		in r28,__SP_L__
+ 1189 000a DEB7      		in r29,__SP_H__
+ 1190 000c 6897      		sbiw r28,24
+ 1191 000e 0FB6      		in __tmp_reg__,__SREG__
+ 1192 0010 F894      		cli
+ 1193 0012 DEBF      		out __SP_H__,r29
+ 1194 0014 0FBE      		out __SREG__,__tmp_reg__
+ 1195 0016 CDBF      		out __SP_L__,r28
+ 1196               	/* prologue: function */
+ 1197               	/* frame size = 24 */
+ 1198               	/* stack size = 28 */
+ 1199               	.L__stack_usage = 28
+ 1200 0018 8C01      		movw r16,r24
+ 1201               	.LSM106:
+ 1202 001a FC01      		movw r30,r24
+ 1203 001c 8681      		ldd r24,Z+6
+ 1204               	.LVL113:
+ 1205 001e 8823      		tst r24
+ 1206 0020 01F4      		brne .L81
+ 1207               	.LSM107:
+ 1208 0022 8091 0000 		lds r24,g_bQuiteMode
+ 1209 0026 8823      		tst r24
+ 1210 0028 01F0      		breq .L84
+ 1211               	.LSM108:
+ 1212 002a 80E0      		ldi r24,lo8(0)
+ 1213               	.L82:
+ 1214               	/* epilogue start */
+ 1215               	.LSM109:
+ 1216 002c 6896      		adiw r28,24
+ 1217 002e 0FB6      		in __tmp_reg__,__SREG__
+ 1218 0030 F894      		cli
+ 1219 0032 DEBF      		out __SP_H__,r29
+ 1220 0034 0FBE      		out __SREG__,__tmp_reg__
+ 1221 0036 CDBF      		out __SP_L__,r28
+ 1222 0038 CF91      		pop r28
+ 1223 003a DF91      		pop r29
+ 1224 003c 1F91      		pop r17
+ 1225 003e 0F91      		pop r16
+ 1226               	.LVL114:
+ 1227 0040 0895      		ret
+ 1228               	.LVL115:
+ 1229               	.L81:
+ 1230               	.LSM110:
+ 1231 0042 BE01      		movw r22,r28
+ 1232 0044 6F5F      		subi r22,lo8(-(1))
+ 1233 0046 7F4F      		sbci r23,hi8(-(1))
+ 1234 0048 88E1      		ldi r24,lo8(24)
+ 1235 004a FB01      		movw r30,r22
+ 1236 004c 1192      		st Z+,__zero_reg__
+ 1237 004e 8A95      	        dec r24
+ 1238 0050 01F4      		brne .-6
+ 1239 0052 8CE0      		ldi r24,lo8(12)
+ 1240 0054 90E0      		ldi r25,hi8(12)
+ 1241 0056 A0E0      		ldi r26,hlo8(12)
+ 1242 0058 B0E0      		ldi r27,hhi8(12)
+ 1243 005a 8983      		std Y+1,r24
+ 1244 005c 9A83      		std Y+2,r25
+ 1245 005e AB83      		std Y+3,r26
+ 1246 0060 BC83      		std Y+4,r27
+ 1247 0062 81E0      		ldi r24,lo8(1)
+ 1248 0064 90E0      		ldi r25,hi8(1)
+ 1249 0066 9E83      		std Y+6,r25
+ 1250 0068 8D83      		std Y+5,r24
+ 1251 006a 83E0      		ldi r24,lo8(4099)
+ 1252 006c 90E1      		ldi r25,hi8(4099)
+ 1253 006e 9887      		std Y+8,r25
+ 1254 0070 8F83      		std Y+7,r24
+ 1255               	.LSM111:
+ 1256 0072 C801      		movw r24,r16
+ 1257 0074 0E94 0000 		call CameraControl_InitiateTransaction
+ 1258               	.LVL116:
+ 1259               	.LSM112:
+ 1260 0078 8823      		tst r24
+ 1261 007a 01F4      		brne .L82
+ 1262               	.LSM113:
+ 1263 007c F801      		movw r30,r16
+ 1264 007e 1686      		std Z+14,__zero_reg__
+ 1265 0080 00C0      		rjmp .L82
+ 1266               	.LVL117:
+ 1267               	.L84:
+ 1268               	.LSM114:
+ 1269 0082 00D0      		rcall .
+ 1270 0084 80E0      		ldi r24,lo8(__c.5022)
+ 1271 0086 90E0      		ldi r25,hi8(__c.5022)
+ 1272 0088 EDB7      		in r30,__SP_L__
+ 1273 008a FEB7      		in r31,__SP_H__
+ 1274 008c 9283      		std Z+2,r25
+ 1275 008e 8183      		std Z+1,r24
+ 1276 0090 0E94 0000 		call printf_P
+ 1277 0094 0F90      		pop __tmp_reg__
+ 1278 0096 0F90      		pop __tmp_reg__
+ 1279 0098 80E0      		ldi r24,lo8(0)
+ 1280 009a 00C0      		rjmp .L82
+ 1281               	.LFE143:
+ 1283               		.section	.text.CameraControl_CameraConnected,"ax",@progbits
+ 1284               	.global	CameraControl_CameraConnected
+ 1286               	CameraControl_CameraConnected:
+ 1287               	.LFB144:
+ 1288               	.LSM115:
+ 1289               	.LVL118:
+ 1290               	/* prologue: function */
+ 1291               	/* frame size = 0 */
+ 1292               	/* stack size = 0 */
+ 1293               	.L__stack_usage = 0
+ 1294               	.LSM116:
+ 1295 0000 8091 0000 		lds r24,g_bCameraConnected
+ 1296               	.LVL119:
+ 1297               	/* epilogue start */
+ 1298               	.LSM117:
+ 1299 0004 0895      		ret
+ 1300               	.LFE144:
+ 1302               		.section	.text.CameraControl_GeneralStream_Bin,"ax",@progbits
+ 1303               	.global	CameraControl_GeneralStream_Bin
+ 1305               	CameraControl_GeneralStream_Bin:
+ 1306               	.LFB145:
+ 1307               	.LSM118:
+ 1308               	.LVL120:
+ 1309 0000 4F92      		push r4
+ 1310 0002 5F92      		push r5
+ 1311 0004 6F92      		push r6
+ 1312 0006 7F92      		push r7
+ 1313 0008 8F92      		push r8
+ 1314 000a 9F92      		push r9
+ 1315 000c AF92      		push r10
+ 1316 000e BF92      		push r11
+ 1317 0010 CF92      		push r12
+ 1318 0012 DF92      		push r13
+ 1319 0014 EF92      		push r14
+ 1320 0016 FF92      		push r15
+ 1321 0018 0F93      		push r16
+ 1322 001a 1F93      		push r17
+ 1323 001c DF93      		push r29
+ 1324 001e CF93      		push r28
+ 1325 0020 CDB7      		in r28,__SP_L__
+ 1326 0022 DEB7      		in r29,__SP_H__
+ 1327 0024 ED97      		sbiw r28,61
+ 1328 0026 0FB6      		in __tmp_reg__,__SREG__
+ 1329 0028 F894      		cli
+ 1330 002a DEBF      		out __SP_H__,r29
+ 1331 002c 0FBE      		out __SREG__,__tmp_reg__
+ 1332 002e CDBF      		out __SP_L__,r28
+ 1333               	/* prologue: function */
+ 1334               	/* frame size = 61 */
+ 1335               	/* stack size = 77 */
+ 1336               	.L__stack_usage = 77
+ 1337 0030 3C01      		movw r6,r24
+ 1338 0032 6196      		adiw r28,80-63
+ 1339 0034 9FAC      		ldd r9,Y+63
+ 1340 0036 6197      		sbiw r28,80-63
+ 1341               	.LVL121:
+ 1342               	.LSM119:
+ 1343 0038 FC01      		movw r30,r24
+ 1344 003a 9681      		ldd r25,Z+6
+ 1345 003c 9923      		tst r25
+ 1346 003e 01F4      		brne .L87
+ 1347               	.LVL122:
+ 1348               	.LSM120:
+ 1349 0040 8091 0000 		lds r24,g_bQuiteMode
+ 1350 0044 8823      		tst r24
+ 1351 0046 01F4      		brne .+2
+ 1352 0048 00C0      		rjmp .L97
+ 1353               	.LVL123:
+ 1354               	.L88:
+ 1355               	.LSM121:
+ 1356 004a 80E0      		ldi r24,lo8(0)
+ 1357               	/* epilogue start */
+ 1358 004c ED96      		adiw r28,61
+ 1359 004e 0FB6      		in __tmp_reg__,__SREG__
+ 1360 0050 F894      		cli
+ 1361 0052 DEBF      		out __SP_H__,r29
+ 1362 0054 0FBE      		out __SREG__,__tmp_reg__
+ 1363 0056 CDBF      		out __SP_L__,r28
+ 1364 0058 CF91      		pop r28
+ 1365 005a DF91      		pop r29
+ 1366 005c 1F91      		pop r17
+ 1367 005e 0F91      		pop r16
+ 1368 0060 FF90      		pop r15
+ 1369 0062 EF90      		pop r14
+ 1370 0064 DF90      		pop r13
+ 1371 0066 CF90      		pop r12
+ 1372 0068 BF90      		pop r11
+ 1373 006a AF90      		pop r10
+ 1374 006c 9F90      		pop r9
+ 1375 006e 8F90      		pop r8
+ 1376 0070 7F90      		pop r7
+ 1377 0072 6F90      		pop r6
+ 1378               	.LVL124:
+ 1379 0074 5F90      		pop r5
+ 1380 0076 4F90      		pop r4
+ 1381 0078 0895      		ret
+ 1382               	.LVL125:
+ 1383               	.L87:
+ 1384               	.LSM122:
+ 1385 007a F301      		movw r30,r6
+ 1386 007c 1786      		std Z+15,__zero_reg__
+ 1387 007e 108A      		std Z+16,__zero_reg__
+ 1388 0080 118A      		std Z+17,__zero_reg__
+ 1389 0082 128A      		std Z+18,__zero_reg__
+ 1390               	.LSM123:
+ 1391 0084 882D      		mov r24,r8
+ 1392 0086 90E0      		ldi r25,lo8(0)
+ 1393 0088 0396      		adiw r24,3
+ 1394 008a 880F      		lsl r24
+ 1395 008c 991F      		rol r25
+ 1396 008e 880F      		lsl r24
+ 1397 0090 991F      		rol r25
+ 1398               	.LSM124:
+ 1399 0092 A0E0      		ldi r26,lo8(0)
+ 1400 0094 B0E0      		ldi r27,hi8(0)
+ 1401 0096 8E83      		std Y+6,r24
+ 1402 0098 9F83      		std Y+7,r25
+ 1403 009a A887      		std Y+8,r26
+ 1404 009c B987      		std Y+9,r27
+ 1405 009e 81E0      		ldi r24,lo8(1)
+ 1406 00a0 90E0      		ldi r25,hi8(1)
+ 1407 00a2 9B87      		std Y+11,r25
+ 1408 00a4 8A87      		std Y+10,r24
+ 1409 00a6 7D87      		std Y+13,r23
+ 1410 00a8 6C87      		std Y+12,r22
+ 1411 00aa 1E86      		std Y+14,__zero_reg__
+ 1412 00ac 1F86      		std Y+15,__zero_reg__
+ 1413 00ae 188A      		std Y+16,__zero_reg__
+ 1414 00b0 198A      		std Y+17,__zero_reg__
+ 1415 00b2 2A8B      		std Y+18,r18
+ 1416 00b4 3B8B      		std Y+19,r19
+ 1417 00b6 4C8B      		std Y+20,r20
+ 1418 00b8 5D8B      		std Y+21,r21
+ 1419 00ba EE8A      		std Y+22,r14
+ 1420 00bc FF8A      		std Y+23,r15
+ 1421 00be 088F      		std Y+24,r16
+ 1422 00c0 198F      		std Y+25,r17
+ 1423 00c2 AA8E      		std Y+26,r10
+ 1424 00c4 BB8E      		std Y+27,r11
+ 1425 00c6 CC8E      		std Y+28,r12
+ 1426 00c8 DD8E      		std Y+29,r13
+ 1427               	.LSM125:
+ 1428 00ca 26E0      		ldi r18,lo8(6)
+ 1429 00cc 422E      		mov r4,r18
+ 1430 00ce 512C      		mov r5,__zero_reg__
+ 1431               	.LVL126:
+ 1432 00d0 4C0E      		add r4,r28
+ 1433 00d2 5D1E      		adc r5,r29
+ 1434 00d4 C301      		movw r24,r6
+ 1435 00d6 B201      		movw r22,r4
+ 1436               	.LVL127:
+ 1437 00d8 0E94 0000 		call CameraControl_InitiateTransaction
+ 1438               	.LVL128:
+ 1439               	.LSM126:
+ 1440 00dc 0E81      		ldd r16,Y+6
+ 1441 00de 1F81      		ldd r17,Y+7
+ 1442 00e0 0C50      		subi r16,lo8(-(-12))
+ 1443 00e2 1040      		sbci r17,hi8(-(-12))
+ 1444               	.LVL129:
+ 1445               	.LSM127:
+ 1446 00e4 9920      		tst r9
+ 1447 00e6 01F0      		breq .+2
+ 1448 00e8 00C0      		rjmp .L98
+ 1449               	.L89:
+ 1450               	.LSM128:
+ 1451 00ea 0115      		cp r16,__zero_reg__
+ 1452 00ec 1105      		cpc r17,__zero_reg__
+ 1453 00ee 01F0      		breq .L90
+ 1454               	.LSM129:
+ 1455 00f0 5801      		movw r10,r16
+ 1456               	.LVL130:
+ 1457 00f2 9EE1      		ldi r25,lo8(30)
+ 1458 00f4 892E      		mov r8,r25
+ 1459 00f6 912C      		mov r9,__zero_reg__
+ 1460               	.LVL131:
+ 1461 00f8 8C0E      		add r8,r28
+ 1462 00fa 9D1E      		adc r9,r29
+ 1463               	.LVL132:
+ 1464               	.L94:
+ 1465               	.LBB6:
+ 1466               	.LSM130:
+ 1467 00fc 6501      		movw r12,r10
+ 1468 00fe F1E2      		ldi r31,lo8(33)
+ 1469 0100 AF16      		cp r10,r31
+ 1470 0102 B104      		cpc r11,__zero_reg__
+ 1471 0104 00F0      		brlo .L91
+ 1472 0106 80E2      		ldi r24,lo8(32)
+ 1473 0108 C82E      		mov r12,r24
+ 1474 010a D12C      		mov r13,__zero_reg__
+ 1475               	.L91:
+ 1476               	.LVL133:
+ 1477               	.LSM131:
+ 1478 010c C301      		movw r24,r6
+ 1479 010e B401      		movw r22,r8
+ 1480 0110 A601      		movw r20,r12
+ 1481 0112 0E94 0000 		call SI_Host_ReadData
+ 1482               	.LVL134:
+ 1483               	.LSM132:
+ 1484 0116 C114      		cp r12,__zero_reg__
+ 1485 0118 D104      		cpc r13,__zero_reg__
+ 1486 011a 01F0      		breq .L92
+ 1487 011c 7401      		movw r14,r8
+ 1488 011e 00E0      		ldi r16,lo8(0)
+ 1489 0120 10E0      		ldi r17,hi8(0)
+ 1490               	.LVL135:
+ 1491               	.L93:
+ 1492               	.LSM133:
+ 1493 0122 6091 0000 		lds r22,__iob+2
+ 1494 0126 7091 0000 		lds r23,__iob+2+1
+ 1495 012a F701      		movw r30,r14
+ 1496 012c 8191      		ld r24,Z+
+ 1497 012e 7F01      		movw r14,r30
+ 1498 0130 0E94 0000 		call uart_putc
+ 1499               	.LSM134:
+ 1500 0134 0F5F      		subi r16,lo8(-(1))
+ 1501 0136 1F4F      		sbci r17,hi8(-(1))
+ 1502               	.LVL136:
+ 1503 0138 0C15      		cp r16,r12
+ 1504 013a 1D05      		cpc r17,r13
+ 1505 013c 00F0      		brlo .L93
+ 1506               	.LVL137:
+ 1507               	.L92:
+ 1508               	.LSM135:
+ 1509 013e AC18      		sub r10,r12
+ 1510 0140 BD08      		sbc r11,r13
+ 1511               	.LVL138:
+ 1512               	.LBE6:
+ 1513               	.LSM136:
+ 1514 0142 01F4      		brne .L94
+ 1515               	.LVL139:
+ 1516               	.L90:
+ 1517               	.LBB7:
+ 1518               	.LBB8:
+ 1519               	.LSM137:
+ 1520 0144 8091 A600 		lds r24,166
+ 1521 0148 8E77      		andi r24,lo8(126)
+ 1522 014a 8093 A600 		sts 166,r24
+ 1523               	.LBE8:
+ 1524               	.LBE7:
+ 1525               	.LSM138:
+ 1526 014e C301      		movw r24,r6
+ 1527 0150 B201      		movw r22,r4
+ 1528 0152 0E94 0000 		call CameraControl_GetResponseAndCheck
+ 1529               	.LSM139:
+ 1530 0156 00C0      		rjmp .L88
+ 1531               	.LVL140:
+ 1532               	.L97:
+ 1533               	.LSM140:
+ 1534 0158 00D0      		rcall .
+ 1535 015a 80E0      		ldi r24,lo8(__c.5045)
+ 1536 015c 90E0      		ldi r25,hi8(__c.5045)
+ 1537 015e EDB7      		in r30,__SP_L__
+ 1538 0160 FEB7      		in r31,__SP_H__
+ 1539 0162 9283      		std Z+2,r25
+ 1540 0164 8183      		std Z+1,r24
+ 1541 0166 0E94 0000 		call printf_P
+ 1542               	.LVL141:
+ 1543 016a 0F90      		pop __tmp_reg__
+ 1544 016c 0F90      		pop __tmp_reg__
+ 1545 016e 00C0      		rjmp .L88
+ 1546               	.LVL142:
+ 1547               	.L98:
+ 1548               	.LSM141:
+ 1549 0170 1B83      		std Y+3,r17
+ 1550 0172 0A83      		std Y+2,r16
+ 1551               	.LSM142:
+ 1552 0174 6396      		adiw r28,81-62
+ 1553 0176 8EAD      		ldd r24,Y+62
+ 1554 0178 9FAD      		ldd r25,Y+63
+ 1555 017a 6397      		sbiw r28,81-62
+ 1556 017c 9D83      		std Y+5,r25
+ 1557 017e 8C83      		std Y+4,r24
+ 1558               	.LSM143:
+ 1559 0180 9982      		std Y+1,r9
+ 1560               	.LSM144:
+ 1561 0182 CE01      		movw r24,r28
+ 1562 0184 0196      		adiw r24,1
+ 1563 0186 0E94 0000 		call TP_SendHeader
+ 1564 018a 00C0      		rjmp .L89
+ 1565               	.LFE145:
+ 1567               		.section	.progmem.data,"a",@progbits
+ 1570               	__c.5045:
+ 1571 0000 4465 7669 		.string	"Device not connected.\r\n"
+ 1571      6365 206E 
+ 1571      6F74 2063 
+ 1571      6F6E 6E65 
+ 1571      6374 6564 
+ 1574               	__c.5022:
+ 1575 0018 4465 7669 		.string	"Device not connected.\r\n"
+ 1575      6365 206E 
+ 1575      6F74 2063 
+ 1575      6F6E 6E65 
+ 1575      6374 6564 
+ 1578               	__c.5014:
+ 1579 0030 4465 7669 		.string	"Device not connected.\r\n"
+ 1579      6365 206E 
+ 1579      6F74 2063 
+ 1579      6F6E 6E65 
+ 1579      6374 6564 
+ 1582               	__c.5008:
+ 1583 0048 4465 7669 		.string	"Device not connected.\r\n"
+ 1583      6365 206E 
+ 1583      6F74 2063 
+ 1583      6F6E 6E65 
+ 1583      6374 6564 
+ 1586               	__c.5001:
+ 1587 0060 4465 7669 		.string	"Device not connected.\r\n"
+ 1587      6365 206E 
+ 1587      6F74 2063 
+ 1587      6F6E 6E65 
+ 1587      6374 6564 
+ 1590               	__c.4986:
+ 1591 0078 556E 7265 		.string	"Unrecognized error.\r\n"
+ 1591      636F 676E 
+ 1591      697A 6564 
+ 1591      2065 7272 
+ 1591      6F72 2E0D 
+ 1594               	__c.4983:
+ 1595 008e 4572 726F 		.ascii	"Error code for some Still Image "
+ 1595      7220 636F 
+ 1595      6465 2066 
+ 1595      6F72 2073 
+ 1595      6F6D 6520 
+ 1596 00ae 486F 7374 		.string	"Host functions, indicating a logical (and not hardware) error.\r\n"
+ 1596      2066 756E 
+ 1596      6374 696F 
+ 1596      6E73 2C20 
+ 1596      696E 6469 
+ 1599               	__c.4980:
+ 1600 00ef 496E 6469 		.ascii	"Indicates that the pipe bank became full/empty be"
+ 1600      6361 7465 
+ 1600      7320 7468 
+ 1600      6174 2074 
+ 1600      6865 2070 
+ 1601 0120 666F 7265 		.string	"fore the complete contents of the stream could be transferred.\r\n"
+ 1601      2074 6865 
+ 1601      2063 6F6D 
+ 1601      706C 6574 
+ 1601      6520 636F 
+ 1604               	__c.4977:
+ 1605 0161 5468 6520 		.ascii	"The device failed to accept or send the next packet within t"
+ 1605      6465 7669 
+ 1605      6365 2066 
+ 1605      6169 6C65 
+ 1605      6420 746F 
+ 1606 019d 6865 2073 		.ascii	"he s"
+ 1607 01a1 6F66 7477 		.string	"oftware timeout period set by the USB_STREAM_TIMEOUT_MS macro.\r\n"
+ 1607      6172 6520 
+ 1607      7469 6D65 
+ 1607      6F75 7420 
+ 1607      7065 7269 
+ 1610               	__c.4974:
+ 1611 01e2 4465 7669 		.string	"Device was disconnected from the host during the transfer.\r\n"
+ 1611      6365 2077 
+ 1611      6173 2064 
+ 1611      6973 636F 
+ 1611      6E6E 6563 
+ 1614               	__c.4970:
+ 1615 021f 5468 6520 		.string	"The device stalled the pipe during the transfer.\r\n"
+ 1615      6465 7669 
+ 1615      6365 2073 
+ 1615      7461 6C6C 
+ 1615      6564 2074 
+ 1618               	__c.4967:
+ 1619 0252 5049 4D41 		.string	"PIMA Error (%d): "
+ 1619      2045 7272 
+ 1619      6F72 2028 
+ 1619      2564 293A 
+ 1619      2000 
+ 1622               	__c.4962:
+ 1623 0264 1B5B 3331 		.string	"\033[31mUndefined or Vendor Specific\r\n\033[37m"
+ 1623      6D55 6E64 
+ 1623      6566 696E 
+ 1623      6564 206F 
+ 1623      7220 5665 
+ 1626               	__c.4959:
+ 1627 028d 1B5B 3331 		.string	"\033[31mSpecification of Destination Unsupported\r\n\033[37m"
+ 1627      6D53 7065 
+ 1627      6369 6669 
+ 1627      6361 7469 
+ 1627      6F6E 206F 
+ 1630               	__c.4956:
+ 1631 02c2 1B5B 3331 		.string	"\033[31mTransaction Cancelled\r\n\033[37m"
+ 1631      6D54 7261 
+ 1631      6E73 6163 
+ 1631      7469 6F6E 
+ 1631      2043 616E 
+ 1634               	__c.4953:
+ 1635 02e4 1B5B 3331 		.string	"\033[31mSession Already Open\r\n\033[37m"
+ 1635      6D53 6573 
+ 1635      7369 6F6E 
+ 1635      2041 6C72 
+ 1635      6561 6479 
+ 1638               	__c.4950:
+ 1639 0305 1B5B 3331 		.string	"\033[31mInvalid Parameter\r\n\033[37m"
+ 1639      6D49 6E76 
+ 1639      616C 6964 
+ 1639      2050 6172 
+ 1639      616D 6574 
+ 1642               	__c.4947:
+ 1643 0323 1B5B 3331 		.string	"\033[31mInvalid DeviceProp Value\r\n\033[37m"
+ 1643      6D49 6E76 
+ 1643      616C 6964 
+ 1643      2044 6576 
+ 1643      6963 6550 
+ 1646               	__c.4944:
+ 1647 0348 1B5B 3331 		.string	"\033[31mInvalid DeviceProp Format\r\n\033[37m"
+ 1647      6D49 6E76 
+ 1647      616C 6964 
+ 1647      2044 6576 
+ 1647      6963 6550 
+ 1650               	__c.4941:
+ 1651 036e 1B5B 3331 		.string	"\033[31mInvalid ParentObject\r\n\033[37m"
+ 1651      6D49 6E76 
+ 1651      616C 6964 
+ 1651      2050 6172 
+ 1651      656E 744F 
+ 1654               	__c.4938:
+ 1655 038f 1B5B 3331 		.string	"\033[31mDevice Busy\r\n\033[37m"
+ 1655      6D44 6576 
+ 1655      6963 6520 
+ 1655      4275 7379 
+ 1655      0D0A 1B5B 
+ 1658               	__c.4935:
+ 1659 03a7 1B5B 3331 		.string	"\033[31mCapture Already Terminated\r\n\033[37m"
+ 1659      6D43 6170 
+ 1659      7475 7265 
+ 1659      2041 6C72 
+ 1659      6561 6479 
+ 1662               	__c.4932:
+ 1663 03ce 1B5B 3331 		.string	"\033[31mUnknown Vendor Code\r\n\033[37m"
+ 1663      6D55 6E6B 
+ 1663      6E6F 776E 
+ 1663      2056 656E 
+ 1663      646F 7220 
+ 1666               	__c.4929:
+ 1667 03ee 1B5B 3331 		.string	"\033[31mInvalid Code Format\r\n\033[37m"
+ 1667      6D49 6E76 
+ 1667      616C 6964 
+ 1667      2043 6F64 
+ 1667      6520 466F 
+ 1670               	__c.4926:
+ 1671 040e 1B5B 3331 		.string	"\033[31mNo Valid ObjectInfo\r\n\033[37m"
+ 1671      6D4E 6F20 
+ 1671      5661 6C69 
+ 1671      6420 4F62 
+ 1671      6A65 6374 
+ 1674               	__c.4923:
+ 1675 042e 1B5B 3331 		.string	"\033[31mSpecification By Format Unsupported\r\n\033[37m"
+ 1675      6D53 7065 
+ 1675      6369 6669 
+ 1675      6361 7469 
+ 1675      6F6E 2042 
+ 1678               	__c.4920:
+ 1679 045e 1B5B 3331 		.string	"\033[31mStore Not Available\r\n\033[37m"
+ 1679      6D53 746F 
+ 1679      7265 204E 
+ 1679      6F74 2041 
+ 1679      7661 696C 
+ 1682               	__c.4917:
+ 1683 047e 1B5B 3331 		.string	"\033[31mPartial Deletion\r\n\033[37m"
+ 1683      6D50 6172 
+ 1683      7469 616C 
+ 1683      2044 656C 
+ 1683      6574 696F 
+ 1686               	__c.4914:
+ 1687 049b 1B5B 3331 		.string	"\033[31mSelfTest Failed\r\n\033[37m"
+ 1687      6D53 656C 
+ 1687      6654 6573 
+ 1687      7420 4661 
+ 1687      696C 6564 
+ 1690               	__c.4911:
+ 1691 04b7 1B5B 3331 		.string	"\033[31mNo Thumbnail Present\r\n\033[37m"
+ 1691      6D4E 6F20 
+ 1691      5468 756D 
+ 1691      626E 6169 
+ 1691      6C20 5072 
+ 1694               	__c.4908:
+ 1695 04d8 1B5B 3331 		.string	"\033[31mAccess Denied\r\n\033[37m"
+ 1695      6D41 6363 
+ 1695      6573 7320 
+ 1695      4465 6E69 
+ 1695      6564 0D0A 
+ 1698               	__c.4905:
+ 1699 04f2 1B5B 3331 		.string	"\033[31mStore Read-Only\r\n\033[37m"
+ 1699      6D53 746F 
+ 1699      7265 2052 
+ 1699      6561 642D 
+ 1699      4F6E 6C79 
+ 1702               	__c.4902:
+ 1703 050e 1B5B 3331 		.string	"\033[31mObject WriteProtected\r\n\033[37m"
+ 1703      6D4F 626A 
+ 1703      6563 7420 
+ 1703      5772 6974 
+ 1703      6550 726F 
+ 1706               	__c.4899:
+ 1707 0530 1B5B 3331 		.string	"\033[31mStore Full\r\n\033[37m"
+ 1707      6D53 746F 
+ 1707      7265 2046 
+ 1707      756C 6C0D 
+ 1707      0A1B 5B33 
+ 1710               	__c.4896:
+ 1711 0547 1B5B 3331 		.string	"\033[31mInvalid ObjectFormatCode\r\n\033[37m"
+ 1711      6D49 6E76 
+ 1711      616C 6964 
+ 1711      204F 626A 
+ 1711      6563 7446 
+ 1714               	__c.4893:
+ 1715 056c 1B5B 3331 		.string	"\033[31mDeviceProp Not Supported\r\n\033[37m"
+ 1715      6D44 6576 
+ 1715      6963 6550 
+ 1715      726F 7020 
+ 1715      4E6F 7420 
+ 1718               	__c.4890:
+ 1719 0591 1B5B 3331 		.string	"\033[31mInvalid ObjectHandle\r\n\033[37m"
+ 1719      6D49 6E76 
+ 1719      616C 6964 
+ 1719      204F 626A 
+ 1719      6563 7448 
+ 1722               	__c.4887:
+ 1723 05b2 1B5B 3331 		.string	"\033[31mInvalid StorageID\r\n\033[37m"
+ 1723      6D49 6E76 
+ 1723      616C 6964 
+ 1723      2053 746F 
+ 1723      7261 6765 
+ 1726               	__c.4884:
+ 1727 05d0 1B5B 3331 		.string	"\033[31mIncomplete Transfer\r\n\033[37m"
+ 1727      6D49 6E63 
+ 1727      6F6D 706C 
+ 1727      6574 6520 
+ 1727      5472 616E 
+ 1730               	__c.4881:
+ 1731 05f0 1B5B 3331 		.string	"\033[31mParameter Not Supported\r\n\033[37m"
+ 1731      6D50 6172 
+ 1731      616D 6574 
+ 1731      6572 204E 
+ 1731      6F74 2053 
+ 1734               	__c.4878:
+ 1735 0614 1B5B 3331 		.string	"\033[31mOperation Not Supported\r\n\033[37m"
+ 1735      6D4F 7065 
+ 1735      7261 7469 
+ 1735      6F6E 204E 
+ 1735      6F74 2053 
+ 1738               	__c.4875:
+ 1739 0638 1B5B 3331 		.string	"\033[31mInvalid TransactionID\r\n\033[37m"
+ 1739      6D49 6E76 
+ 1739      616C 6964 
+ 1739      2054 7261 
+ 1739      6E73 6163 
+ 1742               	__c.4872:
+ 1743 065a 1B5B 3331 		.string	"\033[31mSession Not Open\r\n\033[37m"
+ 1743      6D53 6573 
+ 1743      7369 6F6E 
+ 1743      204E 6F74 
+ 1743      204F 7065 
+ 1746               	__c.4869:
+ 1747 0677 1B5B 3331 		.string	"\033[31mGeneral Error\r\n\033[37m"
+ 1747      6D47 656E 
+ 1747      6572 616C 
+ 1747      2045 7272 
+ 1747      6F72 0D0A 
+ 1750               	__c.4865:
+ 1751 0691 1B5B 3336 		.string	"\033[36mOK\r\n\033[37m"
+ 1751      6D4F 4B0D 
+ 1751      0A1B 5B33 
+ 1751      376D 00
+ 1754               	__c.4862:
+ 1755 06a0 1B5B 3331 		.string	"\033[31m\t\t[0x%04x] \033[37m"
+ 1755      6D09 095B 
+ 1755      3078 2530 
+ 1755      3478 5D20 
+ 1755      1B5B 3337 
+ 1758               	__c.4860:
+ 1759 06b6 1B5B 3336 		.string	"\033[36m\t\t[0x%04x] \033[37m"
+ 1759      6D09 095B 
+ 1759      3078 2530 
+ 1759      3478 5D20 
+ 1759      1B5B 3337 
+ 1848               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 CameraControl_General.c
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:2      *ABS*:0000003f __SREG__
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:3      *ABS*:0000003e __SP_H__
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:4      *ABS*:0000003d __SP_L__
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:5      *ABS*:00000034 __CCP__
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:19     .text.CameraControl_PTPErrorDescription:00000000 CameraControl_PTPErrorDescription
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:948    .bss:00000000 g_bQuiteMode
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1137   .progmem.data:0000069e __c.4405
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1133   .progmem.data:00000688 __c.4407
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1129   .progmem.data:00000679 __c.4410
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1125   .progmem.data:0000065f __c.4414
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1121   .progmem.data:00000642 __c.4417
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1117   .progmem.data:00000620 __c.4420
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1113   .progmem.data:000005fc __c.4423
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1109   .progmem.data:000005d8 __c.4426
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1105   .progmem.data:000005b8 __c.4429
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1101   .progmem.data:0000059a __c.4432
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1097   .progmem.data:00000579 __c.4435
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1093   .progmem.data:00000554 __c.4438
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1089   .progmem.data:0000052f __c.4441
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1085   .progmem.data:00000518 __c.4444
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1081   .progmem.data:000004f6 __c.4447
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1077   .progmem.data:000004da __c.4450
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1073   .progmem.data:000004c0 __c.4453
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1069   .progmem.data:0000049f __c.4456
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1065   .progmem.data:00000483 __c.4459
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1061   .progmem.data:00000466 __c.4462
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1057   .progmem.data:00000446 __c.4465
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1053   .progmem.data:00000416 __c.4468
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1049   .progmem.data:000003f6 __c.4471
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1045   .progmem.data:000003d6 __c.4474
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1041   .progmem.data:000003b6 __c.4477
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1037   .progmem.data:0000038f __c.4480
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1033   .progmem.data:00000377 __c.4483
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1029   .progmem.data:00000356 __c.4486
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1025   .progmem.data:00000330 __c.4489
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1021   .progmem.data:0000030b __c.4492
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1017   .progmem.data:000002ed __c.4495
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1013   .progmem.data:000002cc __c.4498
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1009   .progmem.data:000002aa __c.4501
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1005   .progmem.data:00000275 __c.4504
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:1001   .progmem.data:0000024c __c.4507
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:348    .text.CameraControl_DescribePIPE_RWSTREAMError:00000000 CameraControl_DescribePIPE_RWSTREAMError
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:997    .progmem.data:0000023a __c.4512
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:993    .progmem.data:00000207 __c.4515
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:989    .progmem.data:000001ca __c.4519
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:983    .progmem.data:00000149 __c.4522
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:978    .progmem.data:000000d7 __c.4525
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:973    .progmem.data:00000076 __c.4528
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:969    .progmem.data:00000060 __c.4531
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:463    .text.UnicodeToASCII:00000000 UnicodeToASCII
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:508    .text.CameraControl_GetResponseAndCheck:00000000 CameraControl_GetResponseAndCheck
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:965    .progmem.data:00000048 __c.4546
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:599    .text.CameraControl_InitiateTransaction:00000000 CameraControl_InitiateTransaction
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:961    .progmem.data:00000030 __c.4553
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:696    .text.CameraControl_OpenSession:00000000 CameraControl_OpenSession
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:957    .progmem.data:00000018 __c.4559
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:815    .text.CameraControl_CloseSession:00000000 CameraControl_CloseSession
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:953    .progmem.data:00000000 __c.4567
-C:\Users\david\AppData\Local\Temp\ccy7hueh.s:917    .text.CameraControl_CameraConnected:00000000 CameraControl_CameraConnected
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:2      *ABS*:0000003f __SREG__
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:3      *ABS*:0000003e __SP_H__
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:4      *ABS*:0000003d __SP_L__
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:5      *ABS*:00000034 __CCP__
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:19     .text.CameraControl_PTPErrorDescription:00000000 CameraControl_PTPErrorDescription
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1754   .progmem.data:000006a0 __c.4862
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1622   .progmem.data:00000264 __c.4962
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1758   .progmem.data:000006b6 __c.4860
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1750   .progmem.data:00000691 __c.4865
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1626   .progmem.data:0000028d __c.4959
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1738   .progmem.data:00000638 __c.4875
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1734   .progmem.data:00000614 __c.4878
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1746   .progmem.data:00000677 __c.4869
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1742   .progmem.data:0000065a __c.4872
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1730   .progmem.data:000005f0 __c.4881
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1726   .progmem.data:000005d0 __c.4884
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1722   .progmem.data:000005b2 __c.4887
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1718   .progmem.data:00000591 __c.4890
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1714   .progmem.data:0000056c __c.4893
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1710   .progmem.data:00000547 __c.4896
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1706   .progmem.data:00000530 __c.4899
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1702   .progmem.data:0000050e __c.4902
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1698   .progmem.data:000004f2 __c.4905
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1694   .progmem.data:000004d8 __c.4908
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1690   .progmem.data:000004b7 __c.4911
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1686   .progmem.data:0000049b __c.4914
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1682   .progmem.data:0000047e __c.4917
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1678   .progmem.data:0000045e __c.4920
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1674   .progmem.data:0000042e __c.4923
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1670   .progmem.data:0000040e __c.4926
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1666   .progmem.data:000003ee __c.4929
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1662   .progmem.data:000003ce __c.4932
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1658   .progmem.data:000003a7 __c.4935
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1654   .progmem.data:0000038f __c.4938
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1650   .progmem.data:0000036e __c.4941
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1646   .progmem.data:00000348 __c.4944
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1642   .progmem.data:00000323 __c.4947
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1638   .progmem.data:00000305 __c.4950
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1634   .progmem.data:000002e4 __c.4953
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1630   .progmem.data:000002c2 __c.4956
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:636    .text.CameraControl_DescribePIPE_RWSTREAMError:00000000 CameraControl_DescribePIPE_RWSTREAMError
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1618   .progmem.data:00000252 __c.4967
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1590   .progmem.data:00000078 __c.4986
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1594   .progmem.data:0000008e __c.4983
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1599   .progmem.data:000000ef __c.4980
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1604   .progmem.data:00000161 __c.4977
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1610   .progmem.data:000001e2 __c.4974
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1614   .progmem.data:0000021f __c.4970
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:789    .text.UnicodeToASCII:00000000 UnicodeToASCII
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:846    .text.CameraControl_GetResponseAndCheck:00000000 CameraControl_GetResponseAndCheck
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1586   .progmem.data:00000060 __c.5001
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:960    .text.CameraControl_InitiateTransaction:00000000 CameraControl_InitiateTransaction
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1582   .progmem.data:00000048 __c.5008
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1057   .text.CameraControl_OpenSession:00000000 CameraControl_OpenSession
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1578   .progmem.data:00000030 __c.5014
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1180   .text.CameraControl_CloseSession:00000000 CameraControl_CloseSession
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1574   .progmem.data:00000018 __c.5022
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1286   .text.CameraControl_CameraConnected:00000000 CameraControl_CameraConnected
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1305   .text.CameraControl_GeneralStream_Bin:00000000 CameraControl_GeneralStream_Bin
+C:\Users\david\AppData\Local\Temp\ccsHRuvb.s:1570   .progmem.data:00000000 __c.5045
 
 UNDEFINED SYMBOLS
+g_bQuiteMode
 printf_P
-USB_HostState
 SI_Host_ReceiveBlockHeader
 SI_Host_SendBlockHeader
+g_bCameraConnected
+SI_Host_ReadData
+__iob
+uart_putc
+TP_SendHeader
 __do_copy_data
-__do_clear_bss
